@@ -66,6 +66,11 @@ print("Type list_keys ", type(list_keys))
 
 league_id = league_info[list_keys[0]]
 
+print("Make search for: ", league_id)
+list_season = get_list_results(league_id, table= 'season', column = 'season_name')
+print(list_season)
+
+league_id = 'jdhvogpiqkledmte95214'
 list_season = get_list_results(league_id, table= 'season', column = 'season_name')
 
 print(list_season)
