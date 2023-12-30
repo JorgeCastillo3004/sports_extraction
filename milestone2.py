@@ -573,7 +573,7 @@ def main_m2(driver, flag_news = False):
 						 			 'start_date':datetime.now(), 'tournament_year':2023}
 						
 						if database_enable:
-							if ligue in list(dict_leagues_ready.keys()):
+							if ligue.replace('_',' ') in list(dict_leagues_ready.keys()):
 								print("League previously saved: ")
 								league_id = dict_leagues_ready[league_info['league_name']]								
 							else:
