@@ -134,7 +134,7 @@ def find_ligues_torneos(driver):
 				gender = "_woman"
 			# dict_liguies['_'.join(ligue.text.split())+gender] = ligue.get_attribute('href')
 			league_url = league.get_attribute('href')
-			dict_liguies['_'.join(league_url.split('/')[-3:-1])+gender] = league_url
+			dict_liguies[('_'.join(league_url.split('/')[-3:-1])+gender).upper()] = league_url
 	return dict_liguies
 
 def get_result(row):
@@ -577,11 +577,11 @@ def main_m2(driver, flag_news = False):
 					
 					if database_enable:
 						if ligue in list(dict_leagues_ready.keys()):
-							print("League previously saved: ")
+							print(" League previously saved: ")
 							league_id = dict_leagues_ready[league_info['league_name']]
 							league_info['league_id'] = league_id
 						else:
-							print("New league to save in db: ")
+							print(" New league to save in db: ")
 							save_ligue_info(league_info)
 							save_tournament(dict_tournament) # for delete
 							league_id = league_info['league_id']
