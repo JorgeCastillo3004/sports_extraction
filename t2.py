@@ -74,7 +74,3 @@ league_id = 'jdhvogpiqkledmte95214'
 list_season = get_list_results(league_id, table= 'season', column = 'season_name')
 
 print(list_season)
-
-
-for league_name in list_leagues:
-	print(league_name)
