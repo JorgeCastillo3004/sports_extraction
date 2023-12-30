@@ -38,7 +38,6 @@ def get_team_id(league_id, season_id, team_name):
 
 def get_list_results(league_id, table= 'season', column = 'season_name'):
 	query = "SELECT {} FROM {}	WHERE league_id ='{}';".format(column, table, league_id)
-
 	cur = con.cursor()
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]
@@ -46,11 +45,9 @@ def get_list_results(league_id, table= 'season', column = 'season_name'):
 
 def get_dict_results(table= 'league', column = 'league_name, league_id'):
 	query = "SELECT {} FROM {};".format(column, table)
-
 	cur = con.cursor()
 	cur.execute(query)	
 	dict_results = {row[0]: row[1] for row in cur.fetchall()}
-	# [results_dict[row[0]] = row[1] for row in cur.fetchall()]
 	return dict_results
 
 con = getdb()
