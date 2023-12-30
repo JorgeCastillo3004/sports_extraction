@@ -51,7 +51,7 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 	cur.execute(query)	
 	dict_results = {row[0]: row[1] for row in cur.fetchall()}
 	# [results_dict[row[0]] = row[1] for row in cur.fetchall()]
-	return results_dict
+	return dict_results
 
 con = getdb()
 
