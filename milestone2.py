@@ -554,12 +554,12 @@ def main_m2(driver, flag_news = False):
 			if database_enable:
 				sport_dict = create_sport_dict(sport, sport_info['mode'])
 				save_sport_database(sport_dict)
-
 			print("Init: ", sport, dict_sports[sport])
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
 			dict_ligues_tornaments = find_ligues_torneos(driver)
 			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_name, league_id')
+			print("Previous results: ", len(dict_leagues_ready))
 			for ligue, ligue_url in dict_ligues_tornaments.items():
 					print("#"*15, "############ Ligue: ", ligue_url)
 					wait_update_page(driver, ligue_url, "container__heading")
@@ -587,6 +587,7 @@ def main_m2(driver, flag_news = False):
 						dict_section_links = get_sections_links(driver)
 
 						url_news = driver.current_url
+			stop_validate()
 
 def stop_validate():
 	user_input = input("Type y to continue s to stop: ")
