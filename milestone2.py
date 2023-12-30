@@ -119,21 +119,23 @@ def get_teams_data(driver, sport_id, league_id, season_id, team_info):
 def find_ligues_torneos(driver):
 	wait = WebDriverWait(driver, 5)
 	xpath_expression = '//div[@id="my-leagues-list"]'
-	ligues_info = wait.until(EC.visibility_of_element_located((By.XPATH, xpath_expression)))
+	leagues_info = wait.until(EC.visibility_of_element_located((By.XPATH, xpath_expression)))
 	dict_liguies = {}
-	if not "To select your leagues " in ligues_info.text:
+	if not "To select your leagues " in leagues_info.text:
 		# ligues = wait.until(EC.element_to_be_clickable((By.XPATH, '//div[@id="my-leagues-list"]/div/div/a')))        
-		ligues = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@id="my-leagues-list"]/div/div/a')))
+		leagues = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@id="my-leagues-list"]/div/div/a')))
 		print(len(ligues))        
 		# ligues = driver.find_elements(By.XPATH, '//div[@id="my-leagues-list"]/div/div/a')
 		# print(len(ligues))
 		gender = ''
-		for ligue in ligues:
-			if '#man' in ligue.get_attribute('outerHTML'):
+		for league in leagues:
+			if '#man' in league.get_attribute('outerHTML'):
 				gender = "_man"
-			if '#woman' in ligue.get_attribute('outerHTML'):
+			if '#woman' in league.get_attribute('outerHTML'):
 				gender = "_woman"
-			dict_liguies['_'.join(ligue.text.split())+gender] = ligue.get_attribute('href')			
+			# dict_liguies['_'.join(ligue.text.split())+gender] = ligue.get_attribute('href')
+			league_url = league.get_attribute('href')
+			dict_liguies['_'.join(league_url.split('/')[-3:-1])+gender] = league_url
 	return dict_liguies
 
 def get_result(row):
@@ -406,7 +408,7 @@ def get_teams_info(driver):
 	return dict_teams_availables
 
 def get_complete_match_info(driver, sport, league_id, season_id, section = 'results'):
-    
+	
 	base_dir = 'check_points/{}/'.format(section)
 	list_folders = os.listdir(base_dir)
 
@@ -558,6 +560,7 @@ def main_m2(driver, flag_news = False):
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
 			dict_ligues_tornaments = find_ligues_torneos(driver)
+			print("League with pin: ", len(dict_ligues_tornaments))
 			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_name, league_id')
 			print("Previous results: ", len(dict_leagues_ready))
 			print(list(dict_leagues_ready.keys()))
@@ -569,11 +572,11 @@ def main_m2(driver, flag_news = False):
 				if pin_activate:						
 					league_info = get_ligues_data(driver)
 					dict_tournament = {'tournament_id':random_id(), 'team_country':league_info['league_country'],\
-					 			'desc_i18n':'','end_date':datetime.now(),'logo':'', 'name_i18n':'', 'season':league_info['season_id'],\
-					 			 'start_date':datetime.now(), 'tournament_year':2023}
+								'desc_i18n':'','end_date':datetime.now(),'logo':'', 'name_i18n':'', 'season':league_info['season_id'],\
+								 'start_date':datetime.now(), 'tournament_year':2023}
 					
 					if database_enable:
-						if ligue.replace('_',' ') in list(dict_leagues_ready.keys()):
+						if ligue in list(dict_leagues_ready.keys()):
 							print("League previously saved: ")
 							league_id = dict_leagues_ready[league_info['league_name']]
 							league_info['league_id'] = league_id

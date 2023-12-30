@@ -3,6 +3,7 @@ create table league
     league_id        varchar(40) not null
         primary key,
     league_country   varchar(80),
+    sport   varchar(80),
     league_logo      varchar(70),
     league_name      varchar(35),
     league_name_i18n varchar(255)
