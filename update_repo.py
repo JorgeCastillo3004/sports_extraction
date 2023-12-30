@@ -14,7 +14,7 @@ def update_git_repository(repository_path, branch_name, list_files ='.'):
 
 		# Pull the latest changes from the remote repository
 		subprocess.run(['git', 'pull', 'origin', branch_name], check=True)
-
+		print("First pull ")
 		# Optionally, commit and push your local changes
 		subprocess.run(['git', 'add', list_files], check=True)
 		subprocess.run(['git', 'commit', '-m', 'Automated commit'], check=True)
