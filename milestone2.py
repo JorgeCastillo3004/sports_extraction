@@ -577,11 +577,11 @@ def main_m2(driver, flag_news = False):
 					
 					if database_enable:
 						if ligue in list(dict_leagues_ready.keys()):
-							print(" "*len(ligue)," READY")							
+							print(" "*(30-len(ligue))," READY")							
 							league_id = dict_leagues_ready[ligue]
 							league_info['league_id'] = league_id
 						else:
-							print(" "*len(ligue), " NEW LEAGUE")
+							print(" "*(30-len(ligue)), " NEW LEAGUE")
 							save_ligue_info(league_info)
 							save_tournament(dict_tournament) # for delete
 							league_id = league_info['league_id']
