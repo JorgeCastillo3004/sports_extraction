@@ -98,18 +98,16 @@ def get_team_id(league_id, season_id, team_name):
 	results = cur.fetchone()
 	return results[0]
 
+# list_leagues = get_list_leagues(table= 'league', column = 'league_name')
 
-list_leagues = get_list_leagues(table= 'league', column = 'league_name')
+# for league_name in list_leagues:
+# 	print(league_name)
 
-for league_name in list_leagues:
-	print(league_name)
 # league_id, season_id, team_name ='rajhojpckdwqlzop90727', 'odbywghgtznsunmp08026', 'Boca Juniors'
 # result = get_team_id(league_id, season_id, team_name)
 # print("First test get team id")
 # print(result)
-
-get_list_leagues(table= 'league', column = 'league_name')
-
+# get_list_leagues(table= 'league', column = 'league_name')
 
 if option  == 1:
 	print("Select all from news")

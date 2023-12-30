@@ -560,6 +560,7 @@ def main_m2(driver, flag_news = False):
 			dict_ligues_tornaments = find_ligues_torneos(driver)
 			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_name, league_id')
 			print("Previous results: ", len(dict_leagues_ready))
+			print(list(dict_leagues_ready.keys()))
 			for ligue, ligue_url in dict_ligues_tornaments.items():
 					print("#"*15, "############ Ligue: ", ligue_url)
 					wait_update_page(driver, ligue_url, "container__heading")
@@ -573,13 +574,17 @@ def main_m2(driver, flag_news = False):
 						
 						if database_enable:
 							if ligue in list(dict_leagues_ready.keys()):
-								league_id = dict_leagues_ready[league_info['league_name']]
+								print("League previously saved: ")
+								league_id = dict_leagues_ready[league_info['league_name']]								
 							else:
+								print("New league to save in db: ")
 								save_ligue_info(league_info)
 								save_tournament(dict_tournament) # for delete
 								league_id = league_info['league_id']
 
+							print("league_id: ", league_id)
 							list_seasons = get_list_results(league_id , table= 'season', column = 'season_name')
+							print("List of previous season ", list_seasons)
 							if not(league_info['season_name'] in list_seasons):
 								save_season_database(league_info)
 							
