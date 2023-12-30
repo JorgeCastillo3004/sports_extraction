@@ -54,7 +54,7 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 
 con = getdb()
 
-dict_leagues = get_dict_results(table= 'league', column = 'league_name')
+dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
 
 league_id = dict_leagues[dict_leagues.keys()[0]]
 
