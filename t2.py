@@ -49,22 +49,18 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 
 	cur = con.cursor()
 	cur.execute(query)	
-	results_dict = [{row[0]: row[1]} for row in cur.fetchall()]
+	dict_results = {row[0]: row[1] for row in cur.fetchall()}
+	# [results_dict[row[0]] = row[1] for row in cur.fetchall()]
 	return results_dict
 
 con = getdb()
 
 dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
 
-league_info = dict_leagues[0]
-
-print("league_info", league_info, type(league_info))
-print("league_info.keys()[0]", league_info.keys(), type(league_info.keys()))
-
-list_keys = list(league_info.keys())
-print("Type list_keys ", type(list_keys))
-
-league_id = league_info[list_keys[0]]
+first_key = list(dict_leagues.keys())[0]
+print("First key: ", first_key)
+league_id = dict_leagues[first_key]
+print(league_id)
 
 print("Make search for: ", league_id)
 list_season = get_list_results(league_id, table= 'season', column = 'season_name')

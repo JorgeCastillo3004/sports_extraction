@@ -99,7 +99,8 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 
 	cur = con.cursor()
 	cur.execute(query)	
-	results_dict = [{row[0]: row[1]} for row in cur.fetchall()]
+	dict_results = {row[0]: row[1] for row in cur.fetchall()}
+	# [results_dict[row[0]] = row[1] for row in cur.fetchall()]
 	return results_dict
 
 
