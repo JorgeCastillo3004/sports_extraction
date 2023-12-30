@@ -54,8 +54,6 @@ def create_sports_selected_in_db():
 			sport_dict['sport_mode'] = enable_mode['mode']
 			save_sport_database(sport_dict)
 
-
-
 def save_player_info(dict_team):
 	query = "INSERT INTO player VALUES(%(player_id)s, %(player_country)s, %(player_dob)s,\
 	 %(player_name)s, %(player_photo)s, %(player_position)s)"
@@ -78,6 +76,15 @@ print("Connections stablished")
 # 'player_name': 'Franco Armani', 'player_photo': 'tlbddnlkwthtwhhh.jpg', 'player_position': 'Goalkeeper'}
 # save_player_info(dict_player)
 
+def get_list_leagues(table= 'league', column = 'league_name'):
+	query = "SELECT {} FROM {};".format(column, table)
+
+	cur = con.cursor()
+	cur.execute(query)
+	results = cur.fetchall()
+	return results
+
+
 
 def get_team_id(league_id, season_id, team_name):
 	query = """
@@ -91,11 +98,17 @@ def get_team_id(league_id, season_id, team_name):
 	results = cur.fetchone()
 	return results[0]
 
-league_id, season_id, team_name ='rajhojpckdwqlzop90727', 'odbywghgtznsunmp08026', 'Boca Juniors'
-result = get_team_id(league_id, season_id, team_name)
-print("First test get team id")
-print(result)
 
+list_leagues = get_list_leagues(table= 'league', column = 'league_name')
+
+for league_name in list_leagues:
+	print(league_name)
+# league_id, season_id, team_name ='rajhojpckdwqlzop90727', 'odbywghgtznsunmp08026', 'Boca Juniors'
+# result = get_team_id(league_id, season_id, team_name)
+# print("First test get team id")
+# print(result)
+
+get_list_leagues(table= 'league', column = 'league_name')
 
 
 if option  == 1:

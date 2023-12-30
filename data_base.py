@@ -19,8 +19,6 @@ def save_news_database(dict_news):
 	con.commit()
 
 def save_ligue_info(dict_ligue_tornament):
-	for field, value in dict_ligue_tornament.items():
-		print(field, value, end ='-')
 
 	query = "INSERT INTO league VALUES(%(league_id)s, %(league_country)s, %(league_logo)s, %(league_name)s, %(league_name_i18n)s)"     	 
 	cur = con.cursor()																			 
