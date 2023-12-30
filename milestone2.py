@@ -560,7 +560,7 @@ def main_m2(driver, flag_news = False):
 			
 			dict_ligues_tornaments = find_ligues_torneos(driver)
 			print("League with pin: ", len(dict_ligues_tornaments))
-			dict_leagues_ready = get_dict_results(table= 'league', column = 'country_name, league_name, league_id')
+			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')
 			print("Previous results: ", len(dict_leagues_ready))
 			print(list(dict_leagues_ready.keys()))
 
