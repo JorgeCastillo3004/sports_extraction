@@ -1,5 +1,13 @@
 import psycopg2
 
+def getdb():
+	return psycopg2.connect(
+			host="localhost",
+			user="wohhu",
+			password="caracas123",
+	dbname='sports_db',
+	)
+
 con = getdb()
 
 query = "DELETE FROM team;"
