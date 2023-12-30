@@ -59,7 +59,7 @@ dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_i
 league_info = dict_leagues[0]
 
 print("league_info", league_info, type(league_info))
-print("league_info.keys()[0]", league_info.keys()[0])
+print("league_info.keys()[0]", league_info.keys(), type(league_info.keys()))
 league_id = league_info[league_info.keys()[0]]
 list_season = get_list_results(league_id, table= 'season', column = 'season_name')
 
