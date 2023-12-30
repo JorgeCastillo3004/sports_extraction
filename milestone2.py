@@ -572,7 +572,7 @@ def main_m2(driver, flag_news = False):
 						 			 'start_date':datetime.now(), 'tournament_year':2023}
 						
 						if database_enable:
-							if not(ligue in leagues_ready,keys())
+							if not(ligue in list(leagues_ready.keys()))
 								save_ligue_info(league_info)
 								save_tournament(dict_tournament) # for delete
 							list_seasons = get_list_results(league_id, table= 'season', column = 'season_name')
