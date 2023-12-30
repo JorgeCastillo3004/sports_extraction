@@ -559,7 +559,7 @@ def main_m2(driver, flag_news = False):
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
 			dict_ligues_tornaments = find_ligues_torneos(driver)
-			leagues_ready = get_dict_results(table= 'league', column = 'league_name')
+			leagues_ready = get_dict_results(table= 'league', column = 'league_name, league_id')
 			for ligue, ligue_url in dict_ligues_tornaments.items():
 					print("#"*15, "############ Ligue: ", ligue_url)
 					wait_update_page(driver, ligue_url, "container__heading")
