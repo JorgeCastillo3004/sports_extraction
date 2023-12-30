@@ -44,7 +44,7 @@ def get_list_leagues(table= 'league', column = 'league_name'):
 	results = cur.fetchall()
 	return results
 
-
+con = getdb()
 
 list_leagues = get_list_leagues(table= 'league', column = 'league_name')
 
