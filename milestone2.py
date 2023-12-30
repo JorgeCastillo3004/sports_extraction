@@ -562,7 +562,7 @@ def main_m2(driver, flag_news = False):
 			print("Previous results: ", len(dict_leagues_ready))
 			print(list(dict_leagues_ready.keys()))
 			for ligue, ligue_url in dict_ligues_tornaments.items():
-					print("#"*15, "############ Ligue: ", ligue_url)
+					print("#"*15, "############ Ligue: ", ligue, ligue_url)
 					wait_update_page(driver, ligue_url, "container__heading")
 
 					pin_activate = check_pin(driver)
