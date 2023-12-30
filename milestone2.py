@@ -123,8 +123,7 @@ def find_ligues_torneos(driver):
 	dict_liguies = {}
 	if not "To select your leagues " in leagues_info.text:
 		# ligues = wait.until(EC.element_to_be_clickable((By.XPATH, '//div[@id="my-leagues-list"]/div/div/a')))        
-		leagues = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@id="my-leagues-list"]/div/div/a')))
-		print(len(ligues))        
+		leagues = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@id="my-leagues-list"]/div/div/a')))		
 		# ligues = driver.find_elements(By.XPATH, '//div[@id="my-leagues-list"]/div/div/a')
 		# print(len(ligues))
 		gender = ''
@@ -564,6 +563,7 @@ def main_m2(driver, flag_news = False):
 			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_name, league_id')
 			print("Previous results: ", len(dict_leagues_ready))
 			print(list(dict_leagues_ready.keys()))
+			
 			for ligue, ligue_url in dict_ligues_tornaments.items():
 				print(ligue, end = '')
 				wait_update_page(driver, ligue_url, "container__heading")
