@@ -40,8 +40,8 @@ def get_list_leagues(table= 'league', column = 'league_name'):
 	query = "SELECT {} FROM {};".format(column, table)
 
 	cur = con.cursor()
-	cur.execute(query)
-	results = cur.fetchall()
+	cur.execute(query)	
+	results = [row[0] for row in cur.fetchall()]
 	return results
 
 con = getdb()
