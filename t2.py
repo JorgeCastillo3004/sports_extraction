@@ -56,8 +56,8 @@ con = getdb()
 
 dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
 
-league_id = dict_leagues[dict_leagues.keys()[0]]
-
+league_info = dict_leagues[0]
+league_id = league_info[league_info.keys()]
 list_season = get_list_results(league_id, table= 'season', column = 'season_name')
 
 print(list_season)
