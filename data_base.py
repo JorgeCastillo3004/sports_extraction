@@ -97,7 +97,7 @@ def get_dict_results(table= 'league', column = 'league_country, league_name, lea
 	query = "SELECT {} FROM {};".format(column, table)
 	cur = con.cursor()
 	cur.execute(query)	
-	dict_results = {row[0].upper()+'_'+row[1].upper().replace(' ', '-'): row[2] for row in cur.fetchall()}
+	dict_results = {row[0].replace(' ', '-').upper()+'_'+row[1].upper().replace(' ', '-'): row[2] for row in cur.fetchall()}
 	return dict_results
 
 
