@@ -548,8 +548,7 @@ def navigate_through_teams(driver, sport_id, league_id, tournament_id, season_id
 def main_m2(driver, flag_news = False):
 	dict_sports = load_json('check_points/sports_url_m2.json')
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')
-	
-	dict_with_issues = {}
+
 	for sport, sport_info in conf_enable_sport.items():
 		if sport_info['enable']:
 			if database_enable:
@@ -559,68 +558,29 @@ def main_m2(driver, flag_news = False):
 			print("Init: ", sport, dict_sports[sport])
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
-			dict_ligues_tornaments = find_ligues_torneos(driver)			
-
-			for ligue_tournament, ligue_tournament_url in dict_ligues_tornaments.items():
-					
-					step = 'ligue_tournament'						
-					print(" "*15, "############ Ligue: ", ligue_tournament_url)
-					wait_update_page(driver, ligue_tournament_url, "container__heading")
-					step = 'Ligues extraction'
+			dict_ligues_tornaments = find_ligues_torneos(driver)
+			leagues_ready = get_dict_results(table= 'league', column = 'league_name')
+			for ligue, ligue_url in dict_ligues_tornaments.items():
+					print("#"*15, "############ Ligue: ", ligue_url)
+					wait_update_page(driver, ligue_url, "container__heading")
 
 					pin_activate = check_pin(driver)
-					if pin_activate:
-						print("Extract ligue info: ")
-						league_tornamen_info = get_ligues_data(driver)
-						dict_tournament = {'tournament_id':random_id(), 'team_country':league_tornamen_info['league_country'],\
-						 			'desc_i18n':'','end_date':datetime.now(),'logo':'', 'name_i18n':'', 'season':league_tornamen_info['season_id'],\
+					if pin_activate:						
+						league_info = get_ligues_data(driver)
+						dict_tournament = {'tournament_id':random_id(), 'team_country':league_info['league_country'],\
+						 			'desc_i18n':'','end_date':datetime.now(),'logo':'', 'name_i18n':'', 'season':league_info['season_id'],\
 						 			 'start_date':datetime.now(), 'tournament_year':2023}
 						
 						if database_enable:
-							save_ligue_info(league_tornamen_info)
-							save_season_database(league_tornamen_info)
-							save_tournament(dict_tournament)
-						print(league_tornamen_info)
-						league_id = league_tornamen_info['league_id']
-						tournament_id = dict_tournament['tournament_id']
-						season_id = league_tornamen_info['season_id']
-						
-						print("League id: ", league_tornamen_info['league_id'])
-						
+							if not(ligue in leagues_ready,keys())
+								save_ligue_info(league_info)
+								save_tournament(dict_tournament) # for delete
+							list_seasons = get_list_results(league_id, table= 'season', column = 'season_name')
+							if not(league_info['season_name'] in list_seasons):
+								save_season_database(league_info)
+							
 						# Build dict links standings, fixtures, results
 						dict_section_links = get_sections_links(driver)
-
-						get_player_team_info = False
-						if get_player_team_info:
-							if sport != 'TENNIS':
-								wait_update_page(driver, dict_section_links['standings'], "container__heading")
-								dict_teams_availables = get_teams_info(driver)							
-								league_name = league_tornamen_info['league_name'].replace(' ', '_')
-								save_check_point('check_points/standings/{}.json'.format(league_name), dict_teams_availables)
-								navigate_through_teams(driver, sport, league_id, tournament_id, season_id, section = 'standings')
-						
-						# tournament_id = 'aftjcxzeoeftlswi03330'
-						# # Loop over teams link and complete information available.#####
-						# ###############################################################
-
-
-						# ###############################################################
-
-						# wait_update_page(driver, dict_section_links['fixtures'], "container__heading")
-						# navigate_through_rounds(driver, section_name = 'fixtures')
-						# get_complete_match_info(driver, sport, league_id, season_id, section='fixtures')
-
-						# wait_update_page(driver, dict_section_links['results'], "container__heading")
-						# navigate_through_rounds(driver, section_name = 'results')
-
-						# get_complete_match_info(driver, sport, league_id, season_id, section='results')
-
-						print("#"*30, '\n'*2)						
-						
-						if flag_news:
-							process_current_news_link(driver, driver.current_url)								
-							wait_update_page(current_url)
-						######## Block to check section results and fixtures.
 
 						url_news = driver.current_url
 

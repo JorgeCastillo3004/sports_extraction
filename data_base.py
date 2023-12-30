@@ -71,13 +71,6 @@ def get_team_id(league_id, season_id, team_name):
 	results = cur.fetchone()
 	return results[0]
 
-# def save_team_info(dict_team):
-# 	print("dict_team: ", dict_team)
-# 	query = "INSERT INTO league_team VALUES(%(instance_id)s, %(team_meta)s, %(team_position)s, %(league_id)s, %(season_id)s, %(team_id)s)"
-# 	cur = con.cursor()
-# 	cur.execute(query, dict_team)
-# 	con.commit()
-
 def create_sport_dict(sport, sport_mode):
 	sport_dict = {'sport_id' : sport, 'is_active' : True, 'desc_i18n' : '', 'logo' : '',\
 	'sport_mode' : sport_mode, 'name_i18n' : '', 'point_name': ''}
@@ -92,6 +85,23 @@ def save_sport_database(sport_dict):
 		con.commit()
 	except:
 		con.rollback()
+
+def get_list_results(league_id, table= 'season', column = 'season_name'):
+	query = "SELECT {} FROM {}	WHERE league_id ='{}';".format(column, table, league_id)
+
+	cur = con.cursor()
+	cur.execute(query)	
+	results = [row[0] for row in cur.fetchall()]
+	return results
+
+def get_dict_results(table= 'league', column = 'league_name, league_id'):
+	query = "SELECT {} FROM {};".format(column, table)
+
+	cur = con.cursor()
+	cur.execute(query)	
+	results_dict = [{row[0]: row[1]} for row in cur.fetchall()]
+	return results_dict
+
 
 if database_enable:
 	con = getdb()

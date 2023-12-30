@@ -36,17 +36,32 @@ def get_team_id(league_id, season_id, team_name):
 	results = cur.fetchone()
 	return results[0]
 
-def get_list_leagues(table= 'league', column = 'league_name'):
-	query = "SELECT {} FROM {};".format(column, table)
+def get_list_results(league_id, table= 'season', column = 'season_name'):
+	query = "SELECT {} FROM {}	WHERE league_id ='{}';".format(column, table, league_id)
 
 	cur = con.cursor()
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]
 	return results
 
+def get_dict_results(table= 'league', column = 'league_name, league_id'):
+	query = "SELECT {} FROM {};".format(column, table)
+
+	cur = con.cursor()
+	cur.execute(query)	
+	results_dict = [{row[0]: row[1]} for row in cur.fetchall()]
+	return results_dict
+
 con = getdb()
 
-list_leagues = get_list_leagues(table= 'league', column = 'league_name')
+dict_leagues = get_dict_results(table= 'league', column = 'league_name')
+
+league_id = dict_leagues[dict_leagues.keys()[0]]
+
+list_season = get_list_results(league_id, table= 'season', column = 'season_name')
+
+print(list_season)
+
 
 for league_name in list_leagues:
 	print(league_name)
