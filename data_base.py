@@ -1,5 +1,6 @@
 import psycopg2
 from common_functions import load_json
+from unidecode import unidecode
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
 
@@ -96,8 +97,10 @@ def get_list_results(league_id, table= 'season', column = 'season_name'):
 def get_dict_results(table= 'league', column = 'league_country, league_name, league_id'):
 	query = "SELECT {} FROM {};".format(column, table)
 	cur = con.cursor()
-	cur.execute(query)	
-	dict_results = {unidecode(row[0].replace(' ', '-').upper())+'_'+unidecode(row[1].upper().replace(' ', '-')): row[2] for row in cur.fetchall()}
+	cur.execute(query)
+	country = unidecode('-'.join(row[0].replace('&', '').split())).upper()
+	league = unidecode('-'.join(row[1].split())).upper()
+	dict_results = {country + '_' + league : row[2] for row in cur.fetchall()}
 	return dict_results
 
 
