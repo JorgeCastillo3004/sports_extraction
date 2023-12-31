@@ -64,7 +64,7 @@
         "mode": "INDIVIDUAL"
     },
     "CRICKET": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "CYCLING": {
@@ -76,7 +76,7 @@
         "mode": "BY_TEAM"
     },
     "FIELD_HOCKEY": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "FLOORBALL": {
