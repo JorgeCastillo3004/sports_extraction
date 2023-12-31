@@ -565,7 +565,7 @@ def main_m2(driver, flag_news = False):
 			print(list(dict_leagues_ready.keys()))
 			count_league = 0
 			for ligue, ligue_url in dict_ligues_tornaments.items():
-				print(ligue, count_league, "/" ,len(dict_ligues_tornaments), end = '')
+				print(ligue, " "*(30-len(ligue)), count_league, "/" ,len(dict_ligues_tornaments), end = '')
 				wait_update_page(driver, ligue_url, "container__heading")
 				count_league += 1
 				pin_activate = check_pin(driver)
