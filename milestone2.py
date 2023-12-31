@@ -565,7 +565,7 @@ def main_m2(driver, flag_news = False):
 			print(list(dict_leagues_ready.keys()))
 			count_league = 0
 			for ligue, ligue_url in dict_ligues_tornaments.items():
-				print(ligue, " "*(30-len(ligue)), count_league, "/" ,len(dict_ligues_tornaments), end = '')
+				print(ligue, " "*(50-len(ligue)), count_league, "/" ,len(dict_ligues_tornaments), end = '')
 				wait_update_page(driver, ligue_url, "container__heading")
 				count_league += 1
 				pin_activate = check_pin(driver)
@@ -577,11 +577,11 @@ def main_m2(driver, flag_news = False):
 					
 					if database_enable:
 						if ligue in list(dict_leagues_ready.keys()):
-							print(" "*(60-len(ligue))," READY")							
+							print(" "*30," READY")							
 							league_id = dict_leagues_ready[ligue]
 							league_info['league_id'] = league_id
 						else:
-							print(" "*(60-len(ligue)), " NEW LEAGUE")
+							print(" "*30, " NEW LEAGUE")
 							save_ligue_info(league_info)
 							save_tournament(dict_tournament) # for delete
 							league_id = league_info['league_id']

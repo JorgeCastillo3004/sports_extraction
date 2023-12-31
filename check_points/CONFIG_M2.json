@@ -48,7 +48,7 @@
         "mode": "BY_TEAM"
     },
     "BASEBALL": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "BEACH_SOCCER": {
@@ -60,7 +60,7 @@
         "mode": "BY_TEAM"
     },
     "BOXING": {
-        "enable": false,
+        "enable": true,
         "mode": "INDIVIDUAL"
     },
     "CRICKET": {
