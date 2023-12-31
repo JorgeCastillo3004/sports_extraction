@@ -563,11 +563,11 @@ def main_m2(driver, flag_news = False):
 			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')
 			print("Previous results: ", len(dict_leagues_ready))
 			print(list(dict_leagues_ready.keys()))
-
+			count_league = 0
 			for ligue, ligue_url in dict_ligues_tornaments.items():
-				print(ligue, end = '')
+				print(ligue, count_league, "/" ,len(dict_ligues_tornaments), end = '')
 				wait_update_page(driver, ligue_url, "container__heading")
-
+				count_league += 1
 				pin_activate = check_pin(driver)
 				if pin_activate:						
 					league_info = get_ligues_data(driver)
