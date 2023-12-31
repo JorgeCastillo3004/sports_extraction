@@ -98,9 +98,8 @@ def get_dict_results(table= 'league', column = 'league_country, league_name, lea
 	query = "SELECT {} FROM {};".format(column, table)
 	cur = con.cursor()
 	cur.execute(query)
-	country = unidecode('-'.join(row[0].replace('&', '').split())).upper()
-	league = unidecode('-'.join(row[1].split())).upper()
-	dict_results = {country + '_' + league : row[2] for row in cur.fetchall()}
+	dict_results = {unidecode('-'.join(row[0].replace('&', '').split())).upper() + '_'\
+	 				+ unidecode('-'.join(row[1].split())).upper() : row[2] for row in cur.fetchall()}
 	return dict_results
 
 
