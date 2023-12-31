@@ -589,7 +589,7 @@ def main_m2(driver, flag_news = False):
 						list_seasons = get_list_results(league_id , table= 'season', column = 'season_name')						
 						if not(league_info['season_name'] in list_seasons):
 							save_season_database(league_info)
-			stop_validate()
+			# stop_validate()
 
 def stop_validate():
 	user_input = input("Type y to continue s to stop: ")
