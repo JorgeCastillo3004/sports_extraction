@@ -42,7 +42,7 @@ def save_tournament(dict_tournament):
 
 def save_team_info(dict_team):
 	query = "INSERT INTO team VALUES(%(team_id)s, %(team_country)s, %(team_desc)s,\
-	 %(team_logo)s, %(team_name)s, %(sport_id)s, %(tournament_id)s)"
+	 %(team_logo)s, %(team_name)s, %(sport_id)s)"
 	cur = con.cursor()																			 
 	cur.execute(query, dict_team)														 
 	con.commit()
