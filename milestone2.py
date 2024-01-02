@@ -306,8 +306,8 @@ def main_m2(driver, flag_news = False):
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
 			dict_leagues_tornaments = find_ligues_torneos(driver)			
-			# dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')# From database
-			dict_leagues_ready = {}
+			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')# From database
+			# dict_leagues_ready = {}
 			league_check_point = {}
 			count_league = 1
 			for league_name_url, league_url in dict_leagues_tornaments.items():
@@ -330,8 +330,8 @@ def main_m2(driver, flag_news = False):
 						# save_tournament(dict_tournament) # UNCOMENT
 						league_id = league_info['league_id']
 
-						# list_seasons = get_list_results(league_id , table= 'season', column = 'season_name')						
-						list_seasons = []
+						list_seasons = get_list_results(league_id , table= 'season', column = 'season_name')						
+						# list_seasons = []
 						if not(league_info['season_name'] in list_seasons):
 							print("-")
 							save_season_database(league_info) # UNCOMENT
