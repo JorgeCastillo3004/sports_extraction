@@ -170,3 +170,17 @@ def main_m3(driver):
 				print("Len of dict teams: ", len(dict_country_league_season))
 				if len(dict_teams_availables) != 0:
 					save_check_point(json_name, dict_country_league_season)
+
+
+CONFIG = load_json('check_points/CONFIG.json')
+database_enable = CONFIG['DATA_BASE']
+if database_enable:
+	con = getdb()
+
+if __name__ == "__main__":  	
+	driver = launch_navigator('https://www.flashscore.com', database_enable)
+	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+	initial_settings_m2(driver)
+	main_m3(driver)
+	if database_enable:
+		con.close()
