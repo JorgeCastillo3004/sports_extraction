@@ -326,7 +326,7 @@ def main_m2(driver, flag_news = False):
 						league_info['league_id'] = league_id
 					else:
 						print(" "*30, " NEW LEAGUE")
-						# save_league_info(league_info) # UNCOMENT
+						save_league_info(league_info) # UNCOMENT
 						# save_tournament(dict_tournament) # UNCOMENT
 						league_id = league_info['league_id']
 
@@ -334,7 +334,7 @@ def main_m2(driver, flag_news = False):
 						list_seasons = []
 						if not(league_info['season_name'] in list_seasons):
 							print("-")
-							# save_season_database(league_info) # UNCOMENT
+							save_season_database(league_info) # UNCOMENT
 					league_check_point[league_name_url] = {'league_name':league_info['league_name'] , 'url':league_url,\
 															 'league_id':league_id, 'season_id':league_info['season_id']}
 					dict_sections_links = get_sections_links(driver)

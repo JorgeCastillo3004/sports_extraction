@@ -117,10 +117,7 @@ create table team
     team_name     varchar(128),
     sport_id      varchar(40)  not null
         constraint fkk1sdogt0khby5wtn58a2j1rdn
-            references sport,
-    tournament_id varchar(255) not null
-        constraint fk39hxvcx14loom5pn13ydo1knk
-            references -+-
+            references sport
 );
 
 alter table team
@@ -161,10 +158,8 @@ create table match
             references league_team,
     stadium_id    varchar(255)
         constraint fkojlcqppbrrr1l8kd4b8ta35sp
-            references stadium,
-    tournament_id varchar(255)
-        constraint fkrvnu8o1ti7uc5w04oyhhbfc0x
-            references tournament
+            references stadium
+
 );
 
 alter table match
