@@ -81,7 +81,7 @@ create table stadium
     stadium_id varchar(255) not null
         primary key,
     capacity   integer,
-    country    varchar(3),
+    country    varchar(40),
     desc_i18n  varchar(1024),
     name       varchar(255),
     photo      varchar(255)

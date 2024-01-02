@@ -77,7 +77,7 @@ def check_pin(driver):
 	else:
 		return False
 
-def get_ligues_data(driver):
+def get_league_data(driver):
 	block_ligue_team = driver.find_element(By.CLASS_NAME, 'container__heading')
 	sport = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/a[1]').text
 	league_country = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/a[2]').text
@@ -137,26 +137,6 @@ def find_ligues_torneos(driver):
 			dict_liguies[('_'.join(league_url.split('/')[-3:-1])+gender).upper()] = league_url
 	return dict_liguies
 
-def get_result(row):
-	date = row.find_element(By.CLASS_NAME, 'event__time').text
-	try:
-		home_participant = row.find_element(By.CLASS_NAME, 'event__participant.event__participant--home.fontExtraBold').text
-	except:
-		home_participant = row.find_element(By.CLASS_NAME, 'event__participant.event__participant--home').text
-	try:    
-		away_participant = row.find_element(By.CLASS_NAME, 'event__participant.event__participant--away.fontExtraBold').text
-	except:
-		away_participant = row.find_element(By.CLASS_NAME, 'event__participant.event__participant--away').text
-
-	home_result = row.find_element(By.CLASS_NAME, 'event__score.event__score--home').text
-	away_result = row.find_element(By.CLASS_NAME, 'event__score.event__score--away').text
-	html_block = row.get_attribute('outerHTML')
-	link_id = re.findall(r'id="[a-z]_\d_(.+?)\"', html_block)[0]
-	url_details = "https://www.flashscore.com/match/{}/#/match-summary/match-summary".format(link_id)
-	result_dict = {'date':date, 'home_participant':home_participant,'away_participant':away_participant,\
-				   'home_result':home_result,  'away_result':away_result, 'link_details':url_details}	
-	return result_dict
-
 def get_result_basketball(row):
 	date = row.find_element(By.CLASS_NAME, 'event__time').text
 	try:
@@ -180,18 +160,6 @@ def get_result_basketball(row):
 				   'home_result':home_result,  'away_result':away_result, 'link_details':url_details}
 	print(result_dict, '\n')
 	return result_dict
-
-def get_unique_key(id_section_new, list_keys):
-	id_section_new = id_section_new.replace(' ','_').replace('/','*-*')
-	# Sections with the same name.
-	if id_section_new in list_keys:
-		id_section_base = id_section_new
-		count_sub_rounds = 1
-		id_section_new = id_section_base +'_' +str(count_sub_rounds)
-		while id_section_new in list_keys:
-			count_sub_rounds += 1
-			id_section_new = id_section_base +'_' +str(count_sub_rounds)
-	return id_section_new
 
 def extract_info_results__(driver):
 #     xpath_expression = '//div[@class="sportName {}"]/div'.format(sport)
@@ -240,203 +208,6 @@ def extract_info_results__(driver):
 		print("#"*40, '\n')
 		
 	return dict_rounds
-
-def extract_info_results(driver, start_index, results_block, section_name):
-	global count_sub_section, event_number, current_section_name, current_id_section, dict_rounds, new_section_name
-	for processed_index, row in enumerate(results_block[start_index:]):	
-		print(processed_index, end ='-')
-		try:
-			HTML = row.get_attribute('outerHTML')
-			class_name_section = re.findall(r'icon--flag.event__title fl_\d+', HTML)[0].replace(' ', '.')
-			new_section_name = row.find_element(By.CLASS_NAME, class_name_section).text
-			new_section_name = new_section_name.replace(' ', '_').replace('\n', '_').replace('/','*-*')
-			os.mkdir("check_points/{}/{}".format(section_name, new_section_name))			
-		except:
-			try:
-				result = get_result(row)
-				dict_rounds[current_id_section][event_number] = result
-				event_number += 1				
-			except:
-				# Get Rounds block
-				try:
-					# Only get section name or ROUND name
-					id_section_new = row.find_element(By.CLASS_NAME, 'event__title--name').text.replace(' ','_').replace('/','*-*')
-					#id_section = row.find_element(By.CLASS_NAME, 'event__round event__round--static').text.replace(' ','_')
-				except:
-					# Else get all available text					
-					id_section_new = get_unique_key(row.text, dict_rounds.keys())					
-				if count_sub_section != 0:
-					# save current dict
-					# stop_validate()
-					file_name = 'check_points/{}/{}/round_{}.json'.format(section_name, current_section_name, current_id_section)					
-					save_check_point(file_name, dict_rounds[current_id_section])
-					webdriver.ActionChains(driver).send_keys(Keys.PAGE_DOWN).perform()
-				
-				current_id_section = id_section_new
-				current_section_name = new_section_name
-				dict_rounds[id_section_new] = {}
-				count_sub_section += 1
-				event_number = 0
-	return start_index + processed_index
-
-def click_show_more_rounds(driver, current_results, section_name):
-	wait = WebDriverWait(driver, 10)
-	webdriver.ActionChains(driver).send_keys(Keys.END).perform()
-	webdriver.ActionChains(driver).send_keys(Keys.PAGE_UP).perform()
-	webdriver.ActionChains(driver).send_keys(Keys.PAGE_UP).perform()
-	time.sleep(1.5)
-	print("Action click more rounds: ---")
-	show_more_list = driver.find_elements(By.CLASS_NAME, 'event__more.event__more--static')
-	old_len = len(current_results)
-	xpath_expression = '//div[@class="leagues--static event--leagues {}"]/div/div'.format(section_name)
-	if len(show_more_list) != 0:
-		show_more = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'event__more.event__more--static')))
-		time.sleep(0.3)
-		show_more.click()
-		# Wait until upload page
-		new_len = old_len 
-		while new_len == old_len:
-			time.sleep(0.3)			
-			new_len = len(driver.find_elements(By.XPATH, xpath_expression))
-		# wait.until(EC.staleness_of(current_results[1]))
-		return True
-	else:
-		return False
-
-def navigate_through_rounds(driver, section_name = 'results'):
-	global count_sub_section, event_number, dict_rounds
-	last_procesed_index = 0	
-	xpath_expression = '//div[@class="leagues--static event--leagues {}"]/div/div'.format(section_name)
-	print(xpath_expression)
-	current_results = driver.find_elements(By.XPATH, xpath_expression)
-
-	print("Total current results: ", len(current_results))
-	count_sub_section = 0
-	event_number = 0
-	dict_rounds = {}
-	
-	while last_procesed_index < len(current_results):
-		print("last_procesed_index: ", last_procesed_index)
-
-		last_procesed_index = extract_info_results(driver, last_procesed_index, current_results, section_name)
-		# more_rounds_loaded = click_show_more_rounds(driver, current_results, section_name) # UNCOMENT ## URGENT DELETE
-		more_rounds_loaded = False ### URGENT DELETE
-		print("Len list results not updated: ", len(current_results))
-		if more_rounds_loaded:
-			# Update of list of current results
-			current_results = driver.find_elements(By.XPATH, xpath_expression)
-		print("Len list results updated: ", len(current_results))
-		last_procesed_index += 1
-
-def get_match_info(driver, event_info):
-	# Extract details about matchs
-	match_info_elements = driver.find_elements(By.XPATH, '//div[@class="matchInfoData"]/div')
-	for element in match_info_elements:        
-		field_name = element.find_element(By.CLASS_NAME, 'matchInfoItem__name').text
-		field_value = element.find_element(By.CLASS_NAME, 'matchInfoItem__value').text
-		event_info[field_name] = field_value
-	return event_info
-
-def get_statistics_game(driver):
-	wait = WebDriverWait(driver, 10)
-	button_stats = driver.find_element(By.XPATH, '//button[contains(.,"Stats")]')
-	button_stats.click()	
-	# statistics = driver.find_elements(By.XPATH, '//div[@data-testid="wcl-statistics"]')
-	statistics = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@data-testid="wcl-statistics"]')))
-	statistics_info = {}
-	for indicator in statistics:
-		stat_name = indicator.find_element(By.CLASS_NAME, '_category_rbkfg_5').text
-		stat_home = indicator.find_element(By.CLASS_NAME, '_value_1efsh_5._homeValue_1efsh_10').text
-		stat_away = indicator.find_element(By.CLASS_NAME, '_value_1efsh_5._awayValue_1efsh_14').text
-		statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
-
-	return statistics_info
-
-def wait_load_details(driver, url_details):
-	wait = WebDriverWait(driver, 10)
-	block_info = driver.find_elements(By.XPATH,'//div[@class="matchInfoData"]')
-	driver.get(url_details)
-	if len(block_info) == 0:
-		element = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="matchInfoData"]')))
-	else:
-		wait.until(EC.staleness_of(block_info[0]))
-
-def get_sections_links(driver):
-	list_links = driver.find_elements(By.XPATH, '//div[@class="tabs__group"]/a')
-
-	dict_links = {}
-	for link in list_links[1:]:    
-		url_termination = link.get_attribute('href')
-		dict_links[url_termination.split('/')[-2]] = url_termination
-	return dict_links
-
-def buil_dict_map_values(driver):
-	cell_names = driver.find_elements(By.XPATH,'//div[@class="ui-table__header"]/div')
-	dict_map_cell = {}
-	for index, cell_name in enumerate(cell_names[2:]):
-		cell_name = cell_name.get_attribute('title').replace(' ', '_')    
-		dict_map_cell[index] = cell_name
-	return dict_map_cell    
-
-def get_teams_info(driver):
-	wait = WebDriverWait(driver, 10)	
-	# teams_availables = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'ui-table__row')))
-	xpath_expression = '//*[@id="tournament-table-tabs-and-content"]/div/div/div/div/div/div/span'
-	all_cells = wait.until(EC.presence_of_all_elements_located((By.XPATH, xpath_expression)))
-	print("Total cells: ", len(all_cells))
-	dict_map_cell = buil_dict_map_values(driver)
-	teams_availables = driver.find_elements(By.CLASS_NAME, 'ui-table__row')	
-	# time.sleep(5)
-	dict_teams_availables = {}
-
-	for team in teams_availables:    
-		team_name = team.find_element(By.XPATH, './/div[@class="tableCellParticipant"]').text
-		team_position = team.find_element(By.XPATH, './/div[@class="tableCellRank"]').text
-		team_position = int(re.search(r'\d+',team_position).group(0))
-		games_hist = team.find_element(By.XPATH, './/div[@class="table__cell table__cell--form"]').text.split('\n')
-		
-		team_url = team.find_element(By.XPATH, './/a[@class="tableCellParticipant__image"]')
-		team_statistic = team.find_elements(By.XPATH, './/span')    
-		dict_statistic = {}
-		print("Team: ", team_name)
-		for index, cell_value in enumerate(team_statistic):
-			dict_statistic[dict_map_cell[index]] = cell_value.text
-		
-		dict_teams_availables[team_name] = {'team_url': team_url.get_attribute('href'), 'statistics':dict_statistic,\
-										   'position':team_position, 'last_results': games_hist}
-	return dict_teams_availables
-
-def get_complete_match_info(driver, sport, league_id, season_id, section = 'results'):
-	
-	base_dir = 'check_points/{}/'.format(section)
-	list_folders = os.listdir(base_dir)
-
-	for folder in list_folders:
-		folder_path = os.path.join(base_dir, folder)
-		print(folder_path)
-		list_files = os.listdir(folder_path)
-		print(list_files,'\n')
-		for file in list_files:
-			file_path = os.path.join(folder_path, file)
-			print(file_path)   
-			round_info = load_json(file_path)        
-			for event_index, event_info in round_info.items():
-
-				url_details = event_info['link_details']
-				wait_load_details(driver, url_details)
-				event_info = get_match_info(driver, event_info)
-				
-				event_info['statistic_info'] = get_statistics_game(driver)
-
-				print(event_info, '\n')
-				print("Save in data base match info")
-				if database_enable:
-					print("save in db")
-				stop_validate()
-
-		print("folder_path to delete: ", folder_path)
-		shutil.rmtree(folder_path)
-		stop_validate()
 
 #####################################################################
 #					SQUAD INFO EXTRACTION 							#
@@ -512,91 +283,66 @@ def navigate_through_players(driver, dict_squad):
 			break ### URGENT DELETE #######
 		break ### URGENT DELETE #######
 
-def navigate_through_teams(driver, sport_id, league_id, tournament_id, season_id, section = 'standings'):
-	base_dir = 'check_points/{}/'.format(section)
-	list_files = os.listdir(base_dir)
-	
-	for file_name in list_files:
-		file_name = os.path.join(base_dir, file_name)
-		dict_teams = load_check_point(file_name)
-		count = 0
-		for team_name, team_info in dict_teams.items():
+def get_sections_links(driver):
+	list_links = driver.find_elements(By.XPATH, '//div[@class="tabs__group"]/a')
 
-			print("Save team statistics in database")
-			
-			wait_update_page(driver, team_info['team_url'], 'heading')
-
-			dict_team = get_teams_data(driver, sport_id, league_id, season_id, team_info)			
-			dict_team['tournament_id'] = tournament_id
-			print("Save in database teams info")
-			if database_enable:				
-				save_team_info(dict_team)
-				dict_team['player_meta'] = ''
-				save_league_team_entity(dict_team)
-
-			squad_button = driver.find_element(By.CLASS_NAME, 'tabs__tab.squad')
-			squad_url = squad_button.get_attribute('href')
-			wait_update_page(driver, squad_url, 'heading')
-			dict_squad = get_squad_dict(driver)
-			navigate_through_players(driver, dict_squad)
-			count += 1
-			if count == 3:
-				break ### URGENT DELETE #######
-		# Remove processed file
-		os.remove(file_name)
+	dict_links = {}
+	for link in list_links[1:]:    
+		url_termination = link.get_attribute('href')
+		dict_links[url_termination.split('/')[-2]] = url_termination
+	return dict_links
 #####################################################################
 
 def main_m2(driver, flag_news = False):
 	dict_sports = load_json('check_points/sports_url_m2.json')
-	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')
-
+	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
+	json_check_point = {}
 	for sport, sport_info in conf_enable_sport.items():
-		if sport_info['enable']:
+		if sport_info['enable']:			
 			if database_enable:
 				sport_dict = create_sport_dict(sport, sport_info['mode'])
 				save_sport_database(sport_dict)
 			print("Init: ", sport, dict_sports[sport])
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
-			dict_ligues_tornaments = find_ligues_torneos(driver)
-			print("League with pin: ", len(dict_ligues_tornaments))
-			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')
-			print("Previous results: ", len(dict_leagues_ready))
-			print(list(dict_leagues_ready.keys()))
+			dict_leagues_tornaments = find_ligues_torneos(driver)			
+			# dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')# From database
+			dict_leagues_ready = {}
+			league_check_point = {}
 			count_league = 1
-			for ligue, ligue_url in dict_ligues_tornaments.items():
-				print(ligue, " "*(50-len(ligue)), count_league, "/" ,len(dict_ligues_tornaments), end = '')
-				wait_update_page(driver, ligue_url, "container__heading")
+			for league_name_url, league_url in dict_leagues_tornaments.items():
+				print(league_name_url, " "*(50-len(league_name_url)), count_league, "/" ,len(dict_leagues_tornaments), end = '')
+				wait_update_page(driver, league_url, "container__heading")
 				count_league += 1
 				pin_activate = check_pin(driver)
 				if pin_activate:						
-					league_info = get_ligues_data(driver)
+					league_info = get_league_data(driver)
 					dict_tournament = {'tournament_id':random_id(), 'team_country':league_info['league_country'],\
 								'desc_i18n':'','end_date':datetime.now(),'logo':'', 'name_i18n':'', 'season':league_info['season_id'],\
 								 'start_date':datetime.now(), 'tournament_year':2023}
-					
-					if database_enable:
-						if ligue in list(dict_leagues_ready.keys()):
-							print(" "*30," READY")							
-							league_id = dict_leagues_ready[ligue]
-							league_info['league_id'] = league_id
-						else:
-							print(" "*30, " NEW LEAGUE")
-							save_ligue_info(league_info)
-							save_tournament(dict_tournament) # for delete
-							league_id = league_info['league_id']
+					if league_name_url in list(dict_leagues_ready.keys()):
+						print(" "*30," READY")							
+						league_id = dict_leagues_ready[league_name_url]
+						league_info['league_id'] = league_id
+					else:
+						print(" "*30, " NEW LEAGUE")
+						# save_league_info(league_info) # UNCOMENT
+						# save_tournament(dict_tournament) # UNCOMENT
+						league_id = league_info['league_id']
 
-						list_seasons = get_list_results(league_id , table= 'season', column = 'season_name')						
+						# list_seasons = get_list_results(league_id , table= 'season', column = 'season_name')						
+						list_seasons = []
 						if not(league_info['season_name'] in list_seasons):
-							save_season_database(league_info)
+							print("-")
+							# save_season_database(league_info) # UNCOMENT
+					league_check_point[league_name_url] = {'league_name':league_info['league_name'] , 'url':league_url,\
+															 'league_id':league_id, 'season_id':league_info['season_id']}
+					dict_sections_links = get_sections_links(driver)
+					for section, url_section in dict_sections_links.items():
+						league_check_point[league_name_url][section] = url_section
+			json_check_point[sport] = league_check_point
 			# stop_validate()
-
-def stop_validate():
-	user_input = input("Type y to continue s to stop: ")
-	if user_input == 'y':
-		user_confirmation = True
-	if user_input == 's':
-		print(stop)
+	save_check_point('check_points/leagues_info.json', json_check_point)
 
 def initial_settings_m2(driver):
 

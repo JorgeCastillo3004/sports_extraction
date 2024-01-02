@@ -32,6 +32,8 @@ def int_folders():
 		os.mkdir("check_points/fixtures/")
 	if not os.path.exists('check_points/standings/'):
 		os.mkdir("check_points/standings/")
+	if not os.path.exists('check_points/leagues_season/'):
+		os.mkdir("check_points/leagues_season/")	
 	if not os.path.exists('images'):
 		os.mkdir("images")
 	if not os.path.exists('images/logos'):
@@ -226,5 +228,12 @@ def random_id():
 	rand_id = rand_id + str(random.choice([0, 9]))
 	digits = ''.join([str(random.randint(0, 9)) for i in range(4)])
 	return rand_id+digits
+
+def stop_validate():
+	user_input = input("Type y to continue s to stop: ")
+	if user_input == 'y':
+		user_confirmation = True
+	if user_input == 's':
+		print(stop)
 
 int_folders()

@@ -1,0 +1,79 @@
+{
+    "Liverpool": {
+        "team_id": "iroealvdowelnmdz95428",
+        "stadium_id": "qeaeqaapqynbrdxs95230"
+    },
+    "Aston Villa": {
+        "team_id": "quhzvfirzthalmnp94666",
+        "stadium_id": "pofuvhrdxoqdpwtd99228"
+    },
+    "Manchester City": {
+        "team_id": "kihhzjutqsaxvjdj98690",
+        "stadium_id": "ldntbfenmigsgbdo99870"
+    },
+    "Arsenal": {
+        "team_id": "rpyctcavauivglpu00812",
+        "stadium_id": "rmccvnvyyurjkted99753"
+    },
+    "Tottenham": {
+        "team_id": "yecthtetzunrmmep07768",
+        "stadium_id": "vnvqhbskklaadkom93564"
+    },
+    "West Ham": {
+        "team_id": "zwcsihcckpsnaevr97779",
+        "stadium_id": "jwyahrlzwfnfgqhb07726"
+    },
+    "Brighton": {
+        "team_id": "rdvglzpshtlozeoq92747",
+        "stadium_id": "euwdblnzhhcbjuuc98853"
+    },
+    "Manchester Utd": {
+        "team_id": "dvbfzilvojqmmdvz92553",
+        "stadium_id": "ttsxqfvrtfszwtiv08958"
+    },
+    "Newcastle": {
+        "team_id": "rryrvwmrikyyouai91122",
+        "stadium_id": "hetqbpnsclogehwb06072"
+    },
+    "Chelsea": {
+        "team_id": "swpbmdfawxwaqrcs95767"
+    },
+    "Wolves": {
+        "team_id": "mchehpfmsigpyecd04940",
+        "stadium_id": "lruokisgsyidmtwl90278"
+    },
+    "Bournemouth": {
+        "team_id": "agonsntclolktdjs98406"
+    },
+    "Fulham": {
+        "team_id": "ehfkukrcpohifyrt98850",
+        "stadium_id": "ugysxvdkpyoetfki06224"
+    },
+    "Crystal Palace": {
+        "team_id": "nxqxbfffzlozsdxa93540",
+        "stadium_id": "tlsxazjpwuunwmxk01699"
+    },
+    "Nottingham": {
+        "team_id": "bbpgixltqwffjuqb00477",
+        "stadium_id": "haubdvmxqeilrgwa91939"
+    },
+    "Brentford": {
+        "team_id": "gzbbtnarwcqwangw96347"
+    },
+    "Everton": {
+        "team_id": "izyaaotwbopjlpmh91405",
+        "stadium_id": "tfvuwugjjzaqbddb04407"
+    },
+    "Luton": {
+        "team_id": "cvsfoenkdbdxewxc92385",
+        "stadium_id": "tzbodchulnjagwfz02874"
+    },
+    "Burnley": {
+        "team_id": "hcrxnyzgouydmtxw96084",
+        "stadium_id": "bhhzpsknveztpcqp01368"
+    },
+    "Sheffield Utd": {
+        "team_id": "prwhncpsdzjpcido95952",
+        "stadium_id": "punfgvmycztqovab90235"
+    }
+}

@@ -19,7 +19,7 @@ def save_news_database(dict_news):
 	cur.execute(query, dict_news)
 	con.commit()
 
-def save_ligue_info(dict_ligue_tornament):
+def save_league_info(dict_ligue_tornament):
 
 	query = "INSERT INTO league VALUES(%(league_id)s, %(league_country)s, %(league_logo)s, %(league_name)s, %(league_name_i18n)s)"     	 
 	cur = con.cursor()																			 
@@ -101,6 +101,51 @@ def get_dict_results(table= 'league', column = 'league_country, league_name, lea
 	dict_results = {unidecode('-'.join(row[0].replace('&', '').split())).upper() + '_'\
 	 				+ unidecode('-'.join(row[1].split())).upper() : row[2] for row in cur.fetchall()}
 	return dict_results
+
+def get_dict_teams(sport_id = 'FOOTBALL'):
+	query = """
+	SELECT league.league_country, team.team_name, team.team_id\
+	FROM team \
+	JOIN league_team ON team.team_id = league_team.team_id\
+	JOIN league league_team.league_id = league.league_id\
+	JOIN stadium league_team.league_id = league.league_id\
+	WHERE team.id_sport = '{}'""".format(sport_id)
+
+	cur = con.cursor()
+	cur.execute(query)
+
+	dict_results = {unidecode('-'.join(row[0].replace('&', '').split() ) ).upper():\
+					{'team_name': unidecode('-'.join(row[1].split() ) ).upper(),\
+	 				 'team_id': row[2]} for row in cur.fetchall()}
+	return dict_results
+
+def save_math_info(dict_match):
+	query = "INSERT INTO match VALUES(%(match_id)s, %(match_country)s, %(end_time)s,\
+	 %(match_date)s, %(name)s, %(place)s, %(start_time)s, %(league_id)s, %(stadium_id)s)"
+	cur = con.cursor()
+	cur.execute(query, dict_match)
+	con.commit()
+
+def save_details_math_info(dict_match):
+	query = "INSERT INTO match_detail VALUES(%(match_detail_id)s, %(home)s, %(visitor)s,\
+	 %(match_id)s, %(team_id)s)"
+	cur = con.cursor()
+	cur.execute(query, dict_match)
+	con.commit()
+
+def save_score_info(dict_match):
+	query = "INSERT INTO score_entity VALUES(%(score_id)s, %(points)s, %(match_detail_id)s,\
+	 %(match_id)s, %(team_id)s)"
+	cur = con.cursor()
+	cur.execute(query, dict_match)
+	con.commit()
+
+def save_stadium(dict_match):
+	query = "INSERT INTO stadium VALUES(%(stadium_id)s, %(capacity)s, %(country)s,\
+	 %(desc_i18n)s, %(name)s, %(photo)s)"
+	cur = con.cursor()
+	cur.execute(query, dict_match)
+	con.commit()
 
 
 if database_enable:

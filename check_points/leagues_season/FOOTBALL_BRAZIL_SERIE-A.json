@@ -1,0 +1,79 @@
+{
+    "Palmeiras": {
+        "team_id": "nqlfgetflqwubvtu96966",
+        "stadium_id": "occnglspiyylcuvi05412"
+    },
+    "Gremio": {
+        "team_id": "jpjaipyoiascymmw98939",
+        "stadium_id": "ydqrhkhixzszqlda04918"
+    },
+    "Atletico-MG": {
+        "team_id": "ishfpgiqrhxkshne97982",
+        "stadium_id": "xnxgrppgordfacgp05049"
+    },
+    "Flamengo RJ": {
+        "team_id": "brbfjzfsqubwqzlj04614",
+        "stadium_id": "ejggskyrjkruylox95952"
+    },
+    "Botafogo RJ": {
+        "team_id": "nuvriqcwnilapjtn06780"
+    },
+    "Bragantino": {
+        "team_id": "ipibtmbasdjpxcus08125",
+        "stadium_id": "nnbgxwyyvlqfoaaa90645"
+    },
+    "Fluminense": {
+        "team_id": "zbldnlecbjcbaszu04262",
+        "stadium_id": "dtdwxiqymzlrxvjp98117"
+    },
+    "Athletico-PR": {
+        "team_id": "klmygdgilowyafmc92243",
+        "stadium_id": "aplgycsigbeokzqz02223"
+    },
+    "Internacional": {
+        "team_id": "vqvechrduhalmqkg00883",
+        "stadium_id": "ibvpnqfzpoqhzknh90190"
+    },
+    "Fortaleza": {
+        "team_id": "zgxitoxtkvhmqshp06131",
+        "stadium_id": "whlhvvdohpizxwct98119"
+    },
+    "Sao Paulo": {
+        "team_id": "poldnazfgkidpvym05707"
+    },
+    "Cuiaba": {
+        "team_id": "qgqzchyvtqpwnlui08879",
+        "stadium_id": "ofhaxjjhrvpwdcph06579"
+    },
+    "Corinthians": {
+        "team_id": "nyoynrgedywhvchw07035",
+        "stadium_id": "zcantcwguwfmavfu97168"
+    },
+    "Cruzeiro": {
+        "team_id": "kbyynylhsxkbhkij90620",
+        "stadium_id": "uxzqlpezdrlssyqv02975"
+    },
+    "Vasco": {
+        "team_id": "ccflqolcofirally03410",
+        "stadium_id": "uadnzhtxrggmybyq91962"
+    },
+    "Bahia": {
+        "team_id": "exknkseblpkfohdm99381",
+        "stadium_id": "hdbjxnpfbecrqxdu05967"
+    },
+    "Santos": {
+        "team_id": "vmemgwxspkeepide07486",
+        "stadium_id": "hwlmbcwtkuogmzbx07244"
+    },
+    "Goias": {
+        "team_id": "sybsltemnwssupzy07433",
+        "stadium_id": "pectquiapxapcqwq04260"
+    },
+    "Coritiba": {
+        "team_id": "tzzsqpkzzncxojgm02500",
+        "stadium_id": "smcvewgvhsnpcgon08103"
+    },
+    "America MG": {
+        "team_id": "icvuslbvpqnxftzs05966"
+    }
+}
