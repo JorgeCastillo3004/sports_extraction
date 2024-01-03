@@ -270,7 +270,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					else:
 						name_stadium = ''
 
-					dict_stadium = {'stadium_id':random_id(),'country':event_info['match_country'],\
+					dict_stadium = {'stadium_id':event_info['stadium_id'],'country':event_info['match_country'],\
 								 'capacity':capacity,'desc_i18n':'', 'name':name_stadium, 'photo':''}
 								 # ATTENDANCE
 					dict_country_league_season[event_info['home']]['stadium_id'] = event_info['stadium_id']
