@@ -75,6 +75,19 @@ print("############################## INSER NEW LEAGUE #########################
 dict_ligue_tornament = {'league_id':league_id,'league_country':'VENEZUELA','league_logo':'LOLGO.PNG','league_name':'GEORGE LEAGUE','league_name_i18n':''}
 save_league_info(dict_ligue_tornament)
 
+print("############################## CHECK NEW INSERTION ###########################")
+query = "SELECT league_id FROM league_team WHERE league_team.league_id ='{}';".format(league_id)
+print("query: ", query)
+# query = "SELECT DISTINCT league_id FROM league_team;"
+print(query)
+cur = con.cursor()
+cur.execute(query)
+results  = cur.fetchall()
+
+print("######## SAVED LEAGUE ID ######## ")
+for index, league_id_saved in enumerate(results):
+	print(index, league_id_saved)
+
 print("############################## INSER NEW LEAGUE TEAM ###########################")
 dict_team = {'instance_id':random_id(),'team_meta':'','team_position':50,'league_id':league_id,'season_id':'agykqoqfkrukioqx95060','team_id':'xrahjdnsztllyyja92518'}
 save_league_team_entity(dict_team)
