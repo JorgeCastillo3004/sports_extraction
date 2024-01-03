@@ -46,7 +46,7 @@ for result in results:
 cleaned_text = '15.12. 14:45'#re.findall(r'\d+\.\d+\.\s+\d+\:\d+', date)[0]
 
 dt_object = datetime.strptime(cleaned_text, '%d.%m. %H:%M')
-dt_object = dt_object.replace(year=year_)
+dt_object = dt_object.replace(year=2023)
 # Extract date and time
 date = dt_object.date()
 time = dt_object.time()
