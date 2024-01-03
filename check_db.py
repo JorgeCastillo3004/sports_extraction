@@ -69,7 +69,7 @@ results  = cur.fetchall()
 print("######## UNIQUE STADIUM IDs ######## ")
 for stadium_id in results:
 	print(stadium_id)
-league_id = '146'+league_id[0]
+league_id = '147'+league_id[0]
 print("############################## INSER NEW LEAGUE ###########################")
 dict_ligue_tornament = {'league_id':league_id,'league_country':'VENEZUELA','league_logo':'LOLGO.PNG','league_name':'GEORGE LEAGUE','league_name_i18n':''}
 save_league_info(dict_ligue_tornament)
@@ -79,7 +79,7 @@ dict_team = {'instance_id':random_id(),'team_meta':'','team_position':50,'league
 save_league_team_entity(dict_team)
 
 match_info = {"match_id":random_id(), "match_country":'VENEZUELA',"end_time":time,"match_date":date,\
-			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":league_id[0], "stadium_id":stadium_id[0]}
+			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":league_id, "stadium_id":stadium_id[0]}
 print(match_info, '\n')
 print("match_info['league_id'], match_info['season_id']")
 print(match_info['league_id'], match_info['stadium_id'])
