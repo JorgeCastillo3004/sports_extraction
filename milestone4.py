@@ -200,12 +200,17 @@ def get_statistics_game(driver):
 	# statistics = driver.find_elements(By.XPATH, '//div[@data-testid="wcl-statistics"]')
 	statistics = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@data-testid="wcl-statistics"]')))
 	statistics_info = {}
-	for indicator in statistics:
-		stat_name = indicator.find_element(By.CLASS_NAME, '_category_rbkfg_5').text
-		stat_home = indicator.find_element(By.CLASS_NAME, '_value_1efsh_5._homeValue_1efsh_10').text
-		stat_away = indicator.find_element(By.CLASS_NAME, '_value_1efsh_5._awayValue_1efsh_14').text
-		statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
+	for indicator in statistics:		
+		stat_name = indicator.find_element(By.XPATH, './/div[@data-testid="wcl-statistics-category"]').text #data-testid="wcl-simpleText1		
+		statistic_values = indicator.find_elements(By.XPATH, './/div[@data-testid="wcl-statistics-value"]')		
 
+		for value in statistic_values:			
+			if 'homeValue' in value.get_attribute('outerHTML'):
+				stat_home = value.text
+			if 'awayValue' in value.get_attribute('outerHTML'):
+				stat_away = value.text
+
+		statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
 	return statistics_info
 
 def get_complete_match_info(driver, country_league, sport_id, league_id, season_id, dict_country_league_season, \
