@@ -31,26 +31,28 @@ def getdb():
 
 con = getdb()
 
-query = "SELECT * FROM league_team WHERE league_id = 'qnbwpoczwqqaetye99354';"
+# query = "SELECT {} FROM {} WHERE {}.league_id ='{}';".format(column, table, table_search, value)
+query = "SELECT DISTINCT league_id FROM league_team';"
 print(query)
 cur = con.cursor()
 cur.execute(query)
-results = cur.fetchall()
-print("Total results: ", len(results))
-for result in results:
-	print(result)
+results  = cur.fetchall()
 
+print("######## UNIQUE LEAGUE IDs ######## ")
+for league_id in results:
+	print(league_id)
 
+query = "SELECT DISTINCT stadium_id FROM stadium';"
+print(query)
+cur = con.cursor()
+cur.execute(query)
+results  = cur.fetchall()
 
-# league_team , league_id = 'league_team' , 'league_id'
-# value = 'qnbwpoczwqqaetye99354'
-# query = "SELECT {} FROM {} WHERE {}.league_id ='{}';".format(column, table, table_search, value)
-# print(query)
-# cur = con.cursor()
-# cur.execute(query)
+print("######## UNIQUE STADIUM IDs ######## ")
+for stadium_id in results:
+	print(stadium_id)
 
-
-# league_id = cur.fetchone()[0]
+# league_id = cur.fetchall()
 # print("league_id: ", league_id)
 # print("Total results: ", len(results))
 # for result in results:
@@ -67,19 +69,14 @@ print(date)
 print(time)
 
 match_info = {"match_id":random_id(), "match_country":'VENEZUELA',"end_time":time,"match_date":date,\
-			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":"qnbwpoczwqqaetye99354", "stadium_id":'mshhyqazpmavxwck02760'}
+			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":league_id, "stadium_id":stadium_id}
 
+def save_math_info(dict_match):
+	query = "INSERT INTO match VALUES(%(match_id)s, %(match_country)s, %(end_time)s,\
+	 %(match_date)s, %(name)s, %(place)s, %(start_time)s, %(league_id)s, %(stadium_id)s)"
+	cur = con.cursor()
+	cur.execute(query, dict_match)
+	con.commit()
 save_math_info(match_info)
 
-
-print("######### STADIUM RESULTS ############3")
-query = "SELECT {} FROM stadium WHERE stadium.stadium_id ='{}';".format(column, stadium)
-cur = con.cursor()
-cur.execute(query)
-
-results = cur.fetchall()
-
-print("Total results: ", len(results))
-for result in results:
-	print(result)
-
+print("Register saved in match table")
