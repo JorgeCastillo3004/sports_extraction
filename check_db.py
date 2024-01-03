@@ -11,14 +11,15 @@ parser.add_argument('--table', type=str, default='league_team')
 parser.add_argument('--column', type=str, default='league_id')
 parser.add_argument('--stadium', type=str, default='lavyynrspzzzlphf08860')
 parser.add_argument('--league_id', type=str, default='qnbwpoczwqqaetye99354')
+parser.add_argument('--table_search', type=str, default='qnbwpoczwqqaetye99354')
+
 args = parser.parse_args()
 value = args.value
 table = args.table
 column = args.column
 stadium = args.stadium
 league_id = args.league_id
-
-
+table_search = args.table_search
 
 def getdb():
 	return psycopg2.connect(
@@ -30,13 +31,23 @@ def getdb():
 
 con = getdb()
 
+query = "SELECT * FROM league_team WHERE league_id = 'qnbwpoczwqqaetye99354';"
+print(query)
+cur = con.cursor()
+cur.execute(query)
+results = cur.fetchall()
+print("Total results: ", len(results))
+for result in results:
+	print(result)
+
+
 
 # league_team , league_id = 'league_team' , 'league_id'
 # value = 'qnbwpoczwqqaetye99354'
-# query = "SELECT {} FROM {} WHERE league_team.league_id ='{}';".format(column , table, value)
-# print(query)
-# cur = con.cursor()
-# cur.execute(query)
+query = "SELECT {} FROM {} WHERE {}.league_id ='{}';".format(column, table, table_search, value)
+print(query)
+cur = con.cursor()
+cur.execute(query)
 
 
 # league_id = cur.fetchone()[0]
