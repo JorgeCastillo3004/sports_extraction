@@ -327,3 +327,16 @@ def main_m4(driver):
 				get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],country_league_urls['season_id'],\
 							 dict_country_league_season, dict_country_league_check_point, dict_leagues_ready, section='results')
 				# sport_dict[country_league] = []
+
+CONFIG = load_json('check_points/CONFIG.json')
+database_enable = CONFIG['DATA_BASE']
+if database_enable:
+	con = getdb()
+
+if __name__ == "__main__":  	
+	driver = launch_navigator('https://www.flashscore.com', database_enable)
+	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
+	main_m4(driver)
+	if database_enable:
+		con.close()
+	driver.quit()
