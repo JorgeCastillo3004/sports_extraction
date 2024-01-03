@@ -24,8 +24,8 @@ con = getdb()
 
 
 league_team , league_id = 'league_team' , 'league_id'
-
-query = "SELECT {} FROM {} WHERE league_team.legue_id ='{}';".format(column , table, value)
+value = 'zyltsnwfmwakyjuj07169'
+query = "SELECT {} FROM {} WHERE league_team.league_id ='{}';".format(column , table, value)
 print("delete table league_team")
 cur = con.cursor()
 cur.execute(query)
