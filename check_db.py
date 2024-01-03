@@ -62,10 +62,10 @@ for stadium_id in results:
 	print(stadium_id)
 
 match_info = {"match_id":random_id(), "match_country":'VENEZUELA',"end_time":time,"match_date":date,\
-			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":league_id, "stadium_id":stadium_id}
+			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":league_id[0], "stadium_id":stadium_id[0]}
 print(match_info, '\n')
 print("match_info['league_id'], match_info['season_id']")
-print(match_info['league_id'], match_info['season_id'])
+print(match_info['league_id'], match_info['stadium_id'])
 
 def save_math_info(dict_match):
 	print("dict_match INSIDE: ",dict_match)
