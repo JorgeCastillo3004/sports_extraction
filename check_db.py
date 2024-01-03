@@ -76,7 +76,7 @@ dict_ligue_tornament = {'league_id':league_id,'league_country':'VENEZUELA','leag
 save_league_info(dict_ligue_tornament)
 
 print("############################## INSER NEW LEAGUE TEAM ###########################")
-dict_team = {'instance_id':random_id(),'team_meta':'','team_position':50,'league_id':league_id,'season_id':'agykqoqfkrukioqx95060','team_id':'77xrahjdnsztllyyja92518'}
+dict_team = {'instance_id':random_id(),'team_meta':'','team_position':50,'league_id':league_id,'season_id':'agykqoqfkrukioqx95060','team_id':'xrahjdnsztllyyja92518'}
 save_league_team_entity(dict_team)
 
 match_info = {"match_id":random_id(), "match_country":'VENEZUELA',"end_time":time,"match_date":date,\
