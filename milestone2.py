@@ -330,7 +330,7 @@ def main_m2(driver, flag_news = False):
 						# save_tournament(dict_tournament) # UNCOMENT
 						league_id = league_info['league_id']
 
-					prin("League_id: ", league_id)
+					print("League_id: ", league_id)
 
 					list_seasons = get_list_results(league_id , table= 'season', column = 'season_name')
 					print("list_seasons: ", list_seasons)
