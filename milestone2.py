@@ -343,9 +343,9 @@ def main_m2(driver, flag_news = False):
 					dict_sections_links = get_sections_links(driver)
 					for section, url_section in dict_sections_links.items():
 						league_check_point[league_name_url][section] = url_section
-				json_check_point[sport] = league_check_point
-				# stop_validate()
+				json_check_point[sport] = league_check_point				
 				save_check_point('check_points/leagues_info.json', json_check_point)
+				stop_validate()
 
 def initial_settings_m2(driver):
 

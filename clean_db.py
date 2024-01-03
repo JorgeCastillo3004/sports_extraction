@@ -31,7 +31,7 @@ con.commit()
 
 
 print("Delete all from team ")
-query = "DELETE FROM tea,;"
+query = "DELETE FROM team;"
 cur = con.cursor()
 cur.execute(query)
 con.commit()
