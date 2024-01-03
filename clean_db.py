@@ -34,6 +34,8 @@ cur = con.cursor()
 cur.execute(query)
 con.commit()
 
+
+
 print("Delete all from league_team ")
 query = "DELETE FROM league_team;"
 cur = con.cursor()
