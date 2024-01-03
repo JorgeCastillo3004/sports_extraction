@@ -41,6 +41,14 @@ print(date)
 print(time)
 
 # query = "SELECT {} FROM {} WHERE {}.league_id ='{}';".format(column, table, table_search, value)
+query = "SELECT league_id,team_position, team_id  FROM league_team;"
+print(query)
+cur = con.cursor()
+cur.execute(query)
+results  = cur.fetchall()
+print("########## LEAGUE TABLE COMPLETE ##################")
+
+# query = "SELECT {} FROM {} WHERE {}.league_id ='{}';".format(column, table, table_search, value)
 query = "SELECT DISTINCT league_id FROM league_team;"
 print(query)
 cur = con.cursor()
