@@ -271,7 +271,9 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					dict_country_league_season[event_info['home']]['stadium_id'] = event_info['stadium_id']
 					json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 					save_check_point(json_name, dict_country_league_season)					
+					print(dict_stadium)
 					if database_enable:
+						print("############ Save stadium info ###################")
 						save_stadium(dict_stadium)
 
 				match_detail_id = random_id()

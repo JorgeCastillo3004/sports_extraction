@@ -40,7 +40,6 @@ for result in results:
 
 print("######### STADIUM RESULTS ############3")
 query = "SELECT {} FROM stadium WHERE stadium.stadium_id ='{}';".format(column, stadium)
-print("delete table league_team")
 cur = con.cursor()
 cur.execute(query)
 
