@@ -348,7 +348,7 @@ def main_m2(driver, flag_news = False):
 						league_check_point[league_name_url][section] = url_section
 				json_check_point[sport] = league_check_point				
 				save_check_point('check_points/leagues_info.json', json_check_point)
-				stop_validate()
+				# stop_validate()
 
 def initial_settings_m2(driver):
 
