@@ -282,6 +282,9 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				score_id = random_id()
 				dict_visitor = {'match_detail_id':match_detail_id, 'home':False, 'visitor':True, 'match_id':event_info['match_id'],\
 							'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}				
+
+				print("Event info:")
+				print(event_info)
 				if database_enable:
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
