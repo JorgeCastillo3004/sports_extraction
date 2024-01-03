@@ -256,9 +256,9 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					event_info['stadium_id'] = random_id()
 
 					if 'CAPACITY' in list(event_info.keys()):
-						capacity = event_info['CAPACITY']
+						capacity = int(''.join(event_info['CAPACITY'].split()))
 					else:
-						capacity = ''
+						capacity = 0
 
 					if 'VENUE' in list(event_info.keys()):
 						name_stadium = event_info['VENUE']
