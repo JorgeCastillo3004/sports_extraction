@@ -317,8 +317,8 @@ def initial_settings_m1(driver):
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
 
-if __name__ == "__main__":	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	initial_settings_m1(driver)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
-	main_extract_news(driver)
+# if __name__ == "__main__":	
+# 	driver = launch_navigator('https://www.flashscore.com', database_enable)
+# 	initial_settings_m1(driver)
+# 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
+# 	main_extract_news(driver)

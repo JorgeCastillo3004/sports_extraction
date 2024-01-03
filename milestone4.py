@@ -343,10 +343,10 @@ database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
-if __name__ == "__main__":  	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
-	main_m4(driver)
-	if database_enable:
-		con.close()
-	driver.quit()
+# if __name__ == "__main__":  	
+# 	driver = launch_navigator('https://www.flashscore.com', database_enable)
+# 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
+# 	main_m4(driver)
+# 	if database_enable:
+# 		con.close()
+# 	driver.quit()

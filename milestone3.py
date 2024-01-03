@@ -163,28 +163,28 @@ def main_m3(driver):
 															 country_league_urls['season_id'], team_info_url)
 						print(" "*30, "New INSERT ")
 						print(dict_team.keys())
-						print(dict_team,  '\n'*2)
 						if database_enable:
 							save_team_info(dict_team)
 							save_league_team_entity(dict_team)
 							
 						team_id = dict_team['team_id']
-					dict_country_league_season[team_name] = {'team_id':team_id}
+					dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}					
 				# Save file sport_country_league_season.jso
 				print("Len of dict teams: ", len(dict_country_league_season))
 				if len(dict_teams_availables) != 0:
+					print(dict_country_league_season[team_name])					
 					save_check_point(json_name, dict_country_league_season)
-
+					
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
-if __name__ == "__main__":  	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
-	main_m3(driver)
-	if database_enable:
-		con.close()
-	driver.quit()
+# if __name__ == "__main__":  	
+# 	driver = launch_navigator('https://www.flashscore.com', database_enable)
+# 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
+# 	main_m3(driver)
+# 	if database_enable:
+# 		con.close()
+# 	driver.quit()

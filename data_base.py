@@ -60,6 +60,13 @@ def save_player_info(dict_team):
 	cur.execute(query, dict_team)
 	con.commit()
 
+def save_team_players_entity(player_dict):
+	query = "INSERT INTO team_players_entity VALUES(%(player_meta)s, %(season_id)s, %(team_id)s,\
+	 %(player_id)s)"
+	cur = con.cursor()
+	cur.execute(query, player_dict)
+	con.commit()
+
 def get_team_id(league_id, season_id, team_name):
 	query = """
 	SELECT t2.team_id \
