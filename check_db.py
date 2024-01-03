@@ -70,7 +70,7 @@ print("######## UNIQUE STADIUM IDs ######## ")
 for stadium_id in results:
 	print(stadium_id)
 
-league_id = 'fk524ycxnj02ukjb4gghuqh1rod' #random_id()
+league_id = random_id()
 print("############################## INSERT NEW LEAGUE ###########################")
 print("league_id: ", league_id)
 dict_ligue_tornament = {'league_id':league_id,'league_country':'VENEZUELA','league_logo':'LOLGO.PNG','league_name':'GEORGE LEAGUE','league_name_i18n':''}
