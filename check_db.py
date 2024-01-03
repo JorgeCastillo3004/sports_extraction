@@ -44,10 +44,10 @@ for result in results:
 
 # league_team , league_id = 'league_team' , 'league_id'
 # value = 'qnbwpoczwqqaetye99354'
-query = "SELECT {} FROM {} WHERE {}.league_id ='{}';".format(column, table, table_search, value)
-print(query)
-cur = con.cursor()
-cur.execute(query)
+# query = "SELECT {} FROM {} WHERE {}.league_id ='{}';".format(column, table, table_search, value)
+# print(query)
+# cur = con.cursor()
+# cur.execute(query)
 
 
 # league_id = cur.fetchone()[0]
@@ -67,7 +67,7 @@ print(date)
 print(time)
 
 match_info = {"match_id":random_id(), "match_country":'VENEZUELA',"end_time":time,"match_date":date,\
-			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":league_id, "stadium_id":'mshhyqazpmavxwck02760'}
+			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":"qnbwpoczwqqaetye99354", "stadium_id":'mshhyqazpmavxwck02760'}
 
 save_math_info(match_info)
 
