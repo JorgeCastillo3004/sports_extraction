@@ -328,7 +328,7 @@ def main_m4(driver):
 				dict_country_league_season = load_check_point(file_country_league_season)
 				wait_update_page(driver, country_league_urls['results'], "container__heading")
 				print("Navigate navigate_through_rounds")
-				navigate_through_rounds(driver, country_league, section_name = 'results')
+				# navigate_through_rounds(driver, country_league, section_name = 'results')
 				get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],country_league_urls['season_id'],\
 							 dict_country_league_season, dict_country_league_check_point, dict_leagues_ready, section='results')
 				# sport_dict[country_league] = []
