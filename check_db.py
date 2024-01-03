@@ -71,9 +71,15 @@ for stadium_id in results:
 	print(stadium_id)
 
 league_id = random_id()
-print("############################## INSER NEW LEAGUE ###########################")
+print("############################## INSERT NEW LEAGUE ###########################")
+print("league_id: ", league_id)
 dict_ligue_tornament = {'league_id':league_id,'league_country':'VENEZUELA','league_logo':'LOLGO.PNG','league_name':'GEORGE LEAGUE','league_name_i18n':''}
-save_league_info(dict_ligue_tornament)
+save_league_info(dict_ligue_tornament) # league
+print("NEW LEAGUE SAVED ", '\n')
+
+print("############################## INSERT NEW LEAGUE_TEAM ###########################")
+dict_team = {'instance_id':random_id(),'team_meta':'','team_position':50,'league_id':league_id,'season_id':'agykqoqfkrukioqx95060','team_id':'xrahjdnsztllyyja92518'}
+save_league_team_entity(dict_team) # league_team
 
 print("############################## CHECK NEW INSERTION ###########################")
 query = "SELECT league_id FROM league_team WHERE league_team.league_id ='{}';".format(league_id)
@@ -88,12 +94,12 @@ print("######## SAVED LEAGUE ID ######## ")
 for index, league_id_saved in enumerate(results):
 	print(index, league_id_saved)
 
-print("############################## INSER NEW LEAGUE TEAM ###########################")
-dict_team = {'instance_id':random_id(),'team_meta':'','team_position':50,'league_id':league_id,'season_id':'agykqoqfkrukioqx95060','team_id':'xrahjdnsztllyyja92518'}
-save_league_team_entity(dict_team)
+print("#"*50, '\n')
 
+print("############################ INSERT NEW MATCH ################################")
 match_info = {"match_id":random_id(), "match_country":'VENEZUELA',"end_time":time,"match_date":date,\
 			"name":"RIO JANEIRO","place":"RINCONADA","start_time":time,"league_id":league_id, "stadium_id":stadium_id[0]}
+
 print(match_info, '\n')
 print("match_info['league_id'], match_info['season_id']")
 print(match_info['league_id'], match_info['stadium_id'])
