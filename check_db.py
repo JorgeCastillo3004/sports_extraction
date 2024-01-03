@@ -70,7 +70,7 @@ print("######## UNIQUE STADIUM IDs ######## ")
 for stadium_id in results:
 	print(stadium_id)
 
-league_id = random_id()
+league_id = 'fk524ycxnj02ukjb4gghuqh1rod' #random_id()
 print("############################## INSERT NEW LEAGUE ###########################")
 print("league_id: ", league_id)
 dict_ligue_tornament = {'league_id':league_id,'league_country':'VENEZUELA','league_logo':'LOLGO.PNG','league_name':'GEORGE LEAGUE','league_name_i18n':''}
@@ -82,7 +82,7 @@ dict_team = {'instance_id':random_id(),'team_meta':'','team_position':50,'league
 save_league_team_entity(dict_team) # league_team
 
 print("############################## CHECK NEW INSERTION ###########################")
-query = "SELECT league_id FROM league_team WHERE league_team.league_id ='{}';".format(league_id)
+query = "SELECT * FROM league_team WHERE league_team.league_id ='{}';".format(league_id)
 print("query: ", query)
 # query = "SELECT DISTINCT league_id FROM league_team;"
 print(query)
