@@ -21,7 +21,7 @@ def save_news_database(dict_news):
 
 def save_league_info(dict_ligue_tornament):
 
-	query = "INSERT INTO league VALUES(%(league_id)s, %(league_country)s, %(league_logo)s, %(league_name)s, %(league_name_i18n)s)"     	 
+	query = "INSERT INTO league VALUES(%(league_id)s, %(league_country)s, %(league_logo)s, %(league_name)s, %(league_name_i18n)s)"
 	cur = con.cursor()																			 
 	cur.execute(query, dict_ligue_tornament)														 
 	con.commit()																					 
@@ -134,8 +134,7 @@ def save_details_math_info(dict_match):
 	con.commit()
 
 def save_score_info(dict_match):
-	query = "INSERT INTO score_entity VALUES(%(score_id)s, %(points)s, %(match_detail_id)s,\
-	 %(match_id)s, %(team_id)s)"
+	query = "INSERT INTO score_entity VALUES(%(score_id)s, %(points)s, %(match_detail_id)s)"
 	cur = con.cursor()
 	cur.execute(query, dict_match)
 	con.commit()
@@ -146,7 +145,6 @@ def save_stadium(dict_match):
 	cur = con.cursor()
 	cur.execute(query, dict_match)
 	con.commit()
-
 
 if database_enable:
 	con = getdb()
