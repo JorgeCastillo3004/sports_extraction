@@ -379,3 +379,4 @@ if __name__ == "__main__":
 	main_m2(driver, flag_news = False)
 	if database_enable:
 		con.close()
+	driver.quit()

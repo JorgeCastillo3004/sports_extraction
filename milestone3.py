@@ -137,6 +137,8 @@ def main_m3(driver):
 		for country_league, country_league_urls in sport_dict.items():
 			json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 			dict_teams_db = {}
+			print("#"*30, "DATA FROM DICT ", "#"*30)
+			print(country_league_urls)
 			if not os.path.isfile(json_name) and 'standings' in list(country_league_urls.keys()):
 				wait_update_page(driver, country_league_urls['standings'], "container__heading")
 				# click_main_section(driver)
@@ -159,7 +161,9 @@ def main_m3(driver):
 						wait_update_page(driver, team_info_url['team_url'], 'heading')
 						dict_team = get_teams_info_part2(driver, sport_id, country_league_urls['league_id'],\
 															 country_league_urls['season_id'], team_info_url)
-						print("New INSERT ", dict_team['team_name'], end=' ')
+						print(" "*30, "New INSERT ")
+						print(dict_team.keys())
+						print(dict_team,  '\n'*2)
 						if database_enable:
 							save_team_info(dict_team)
 							save_league_team_entity(dict_team)
@@ -183,3 +187,4 @@ if __name__ == "__main__":
 	main_m3(driver)
 	if database_enable:
 		con.close()
+	driver.quit()
