@@ -32,7 +32,7 @@ def getdb():
 con = getdb()
 
 # query = "SELECT {} FROM {} WHERE {}.league_id ='{}';".format(column, table, table_search, value)
-query = "SELECT DISTINCT league_id FROM league_team';"
+query = "SELECT DISTINCT league_id FROM league_team;"
 print(query)
 cur = con.cursor()
 cur.execute(query)
@@ -42,7 +42,7 @@ print("######## UNIQUE LEAGUE IDs ######## ")
 for league_id in results:
 	print(league_id)
 
-query = "SELECT DISTINCT stadium_id FROM stadium';"
+query = "SELECT DISTINCT stadium_id FROM stadium;"
 print(query)
 cur = con.cursor()
 cur.execute(query)
