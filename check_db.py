@@ -69,7 +69,7 @@ results  = cur.fetchall()
 print("######## UNIQUE STADIUM IDs ######## ")
 for stadium_id in results:
 	print(stadium_id)
-
+league_id = '145'+league_id
 print("############################## INSER NEW LEAGUE ###########################")
 dict_ligue_tornament = {'league_id':league_id,'league_country':'VENEZUELA','league_logo':'LOLGO.PNG','league_name':'GEORGE LEAGUE','league_name_i18n':''}
 save_league_info(dict_ligue_tornament)
