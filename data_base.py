@@ -31,14 +31,14 @@ def save_season_database(season_dict):
 									 %(season_start)s, %(league_id)s)"
 	cur = con.cursor()
 	cur.execute(query, season_dict)
-	con.commit
+	con.commit()
 
 def save_tournament(dict_tournament):
 	query = "INSERT INTO tournament VALUES(%(tournament_id)s, %(team_country)s, %(desc_i18n)s,\
 									 %(end_date)s, %(logo)s, %(name_i18n)s, %(season)s, %(start_date)s, %(tournament_year)s)"
 	cur = con.cursor()
 	cur.execute(query, dict_tournament)
-	con.commit
+	con.commit()
 
 def save_team_info(dict_team):
 	query = "INSERT INTO team VALUES(%(team_id)s, %(team_country)s, %(team_desc)s,\
