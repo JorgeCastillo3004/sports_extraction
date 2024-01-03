@@ -317,9 +317,9 @@ def main_m2(driver, flag_news = False):
 				pin_activate = check_pin(driver)
 				if pin_activate:						
 					league_info = get_league_data(driver)
-					dict_tournament = {'tournament_id':random_id(), 'team_country':league_info['league_country'],\
-								'desc_i18n':'','end_date':datetime.now(),'logo':'', 'name_i18n':'', 'season':league_info['season_id'],\
-								 'start_date':datetime.now(), 'tournament_year':2023}
+					# dict_tournament = {'tournament_id':random_id(), 'team_country':league_info['league_country'],\
+					# 			'desc_i18n':'','end_date':datetime.now(),'logo':'', 'name_i18n':'', 'season':league_info['season_id'],\
+					# 			 'start_date':datetime.now(), 'tournament_year':2023}
 					if league_name_url in list(dict_leagues_ready.keys()):
 						print(" "*30," READY")							
 						league_id = dict_leagues_ready[league_name_url]
@@ -337,6 +337,9 @@ def main_m2(driver, flag_news = False):
 							save_season_database(league_info) # UNCOMENT
 					league_check_point[league_name_url] = {'league_name':league_info['league_name'] , 'url':league_url,\
 															 'league_id':league_id, 'season_id':league_info['season_id']}
+					stop_validate()
+					print("league info to save in file json: ")
+					print(league_check_point[league_name_url])
 					dict_sections_links = get_sections_links(driver)
 					for section, url_section in dict_sections_links.items():
 						league_check_point[league_name_url][section] = url_section
