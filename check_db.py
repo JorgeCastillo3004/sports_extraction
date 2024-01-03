@@ -10,11 +10,13 @@ parser.add_argument('--value', type=str, default='zyltsnwfmwakyjuj07169')
 parser.add_argument('--table', type=str, default='league_team')
 parser.add_argument('--column', type=str, default='league_id')
 parser.add_argument('--stadium', type=str, default='lavyynrspzzzlphf08860')
+parser.add_argument('--league_id', type=str, default='qnbwpoczwqqaetye99354')
 args = parser.parse_args()
 value = args.value
 table = args.table
 column = args.column
 stadium = args.stadium
+league_id = args.league_id
 
 
 
@@ -29,16 +31,16 @@ def getdb():
 con = getdb()
 
 
-league_team , league_id = 'league_team' , 'league_id'
-value = 'qnbwpoczwqqaetye99354'
-query = "SELECT {} FROM {} WHERE league_team.league_id ='{}';".format(column , table, value)
-print(query)
-cur = con.cursor()
-cur.execute(query)
+# league_team , league_id = 'league_team' , 'league_id'
+# value = 'qnbwpoczwqqaetye99354'
+# query = "SELECT {} FROM {} WHERE league_team.league_id ='{}';".format(column , table, value)
+# print(query)
+# cur = con.cursor()
+# cur.execute(query)
 
 
-league_id = cur.fetchone()[0]
-print("league_id: ", league_id)
+# league_id = cur.fetchone()[0]
+# print("league_id: ", league_id)
 # print("Total results: ", len(results))
 # for result in results:
 # 	print(result)
