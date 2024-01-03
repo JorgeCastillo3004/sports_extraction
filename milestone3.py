@@ -49,7 +49,7 @@ def get_teams_info_part1(driver):
 		all_cells = wait.until(EC.presence_of_all_elements_located((By.XPATH, xpath_expression)))	
 		dict_map_cell = buil_dict_map_values(driver)
 	except:
-		stop_validate()
+		print("--")
 	teams_availables = driver.find_elements(By.CLASS_NAME, 'ui-table__row')	
 	# time.sleep(5)
 	dict_teams_availables = {}
