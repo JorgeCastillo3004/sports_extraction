@@ -42,7 +42,11 @@ cur = con.cursor()
 cur.execute(query)
 con.commit()
 
-
+print("Delete all from team_players_entity")
+query = "DELETE FROM team_players_entity;"
+cur = con.cursor()
+cur.execute(query)
+con.commit()
 
 print("Delete all from season ")
 query = "DELETE FROM season;"
