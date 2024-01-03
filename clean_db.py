@@ -30,6 +30,12 @@ cur.execute(query)
 con.commit()
 
 
+print("Delete all from team ")
+query = "DELETE FROM tea,;"
+cur = con.cursor()
+cur.execute(query)
+con.commit()
+
 print("Delete all from sport ")
 query = "DELETE FROM sport;"
 cur = con.cursor()
