@@ -322,11 +322,13 @@ def build_check_point(sport_id, country_league):
 	save_check_point('check_points/check_point_m4.json', check_point)
 
 def get_check_point(check_point, sport_id, country_league):
-	if 'sport_id' in list(check_point.keys()) and 'country_league' in list(check_point.keys()):
+	if len(check_point)!= 0:
 		if check_point['sport_id'] == sport_id and check_point['country_league'] == country_league:
 			return True
+		else:
+			return False
 	else:
-		return False
+		return True
 
 def main_m4(driver):	
 	sports_dict = load_check_point('check_points/leagues_info.json')
