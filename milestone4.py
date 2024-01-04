@@ -479,11 +479,11 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 				match_detail_id = random_id()
 				score_id = random_id()
 				dict_home = {'match_detail_id':match_detail_id, 'home':True, 'visitor':False, 'match_id':event_info['match_id'],\
-							'team_id':team_id_home, 'points':event_info['home_result'], 'score_id':score_id}
+							'team_id':team_id_home['team_id'], 'points':event_info['home_result'], 'score_id':score_id}
 				match_detail_id = random_id()
 				score_id = random_id()
 				dict_visitor = {'match_detail_id':match_detail_id, 'home':False, 'visitor':True, 'match_id':event_info['match_id'],\
-							'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}				
+							'team_id':team_id_visitor['team_id'], 'points':event_info['visitor_result'], 'score_id':score_id}
 
 				print("Event info:")
 				print(event_info)
