@@ -328,7 +328,7 @@ def create_leagues(driver, flag_news = False):
 						print(" "*30, " NEW LEAGUE")
 						if database_enable:
 							save_league_info(league_info) # UNCOMENT
-							save_tournament(dict_tournament) # UNCOMENT
+							# save_tournament(dict_tournament) # UNCOMENT
 						league_id = league_info['league_id']
 
 					print(" "*30, "League_id: ", league_id)
