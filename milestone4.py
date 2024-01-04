@@ -9,6 +9,7 @@ import shutil
 
 from common_functions import *
 from data_base import *
+from milestone6 import *
 
 def get_time_date_format(date, section ='results'):
 	if section == 'results':
@@ -16,10 +17,14 @@ def get_time_date_format(date, section ='results'):
 	else:
 		year_ = datetime.now().year
 
-	cleaned_text = re.findall(r'\d+\.\d+\.\s+\d+\:\d+', date)[0]
+	try:
+		cleaned_text = re.findall(r'\d+\.\d+\.\d+\s+\d+\:\d+', date)[0]
+		dt_object = datetime.strptime(cleaned_text, '%d.%m.%Y %H:%M')
+	except:
+		cleaned_text = re.findall(r'\d+\.\d+\.\s+\d+\:\d+', date)[0]
+		dt_object = datetime.strptime(cleaned_text, '%d.%m. %H:%M')
+		dt_object = dt_object.replace(year=year_)
 	
-	dt_object = datetime.strptime(cleaned_text, '%d.%m. %H:%M')
-	dt_object = dt_object.replace(year=year_)
 	# Extract date and time
 	date = dt_object.date()
 	time = dt_object.time()
@@ -213,8 +218,97 @@ def get_statistics_game(driver):
 		statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
 	return statistics_info
 
-def get_complete_match_info(driver, country_league, sport_id, league_id, season_id, dict_country_league_season, \
-										dict_country_league_check_point, dict_leagues_ready, section = 'results'):
+
+def get_links_participants(driver):
+	# main_m2(driver)
+	home_links, away_links = [], []
+	block_participants = driver.find_element(By.CLASS_NAME,'duelParticipant')
+	block_participants.text
+	# //*[contains(@class, 'home')]
+
+	home_participant = block_participants.find_element(By.XPATH, './/div[contains(@class, "home")]')	
+	participant_links = home_participant.find_elements(By.XPATH, './/a[@class="participant__participantLink"]')
+
+	for link in participant_links:	    
+		home_links.append(link.get_attribute('href'))
+
+	away_participant = block_participants.find_element(By.XPATH, './/div[contains(@class, "away")]')	
+	participant_links = away_participant.find_elements(By.XPATH, './/a[@class="participant__participantLink"]')
+
+	for link in participant_links:
+		away_links.append(link.get_attribute('href'))
+
+	return home_links, away_links
+
+def save_participants_info(driver, player_links, sport_id, league_id, season_id, dict_players_ready):
+	
+	if len(player_links)==1:
+		wait_update_page(driver, player_links[0], 'container__heading')
+		player_dict = get_player_data_tennis(driver)	    
+		player_dict['season_id'] = season_id	    
+		player_dict['team_id'] = player_dict['player_id']
+		player_dict['team_country'] = player_dict['player_country']
+		player_dict['team_desc'] = ''
+		player_dict['team_logo'] = player_dict['player_photo']
+		player_dict['team_name'] = player_dict['player_name']
+		player_dict['sport_id'] = sport_id
+		player_dict['instance_id'] = random_id()
+		player_dict['player_meta'] = ''
+		player_dict['team_meta'] = ''
+		player_dict['team_position'] = 0
+		player_dict['league_id'] = league_id
+		print("Save player info in database")
+
+		team_name = player_dict['player_name']
+		if not team_name in list((dict_players_ready.keys() ) ):			
+			dict_players_ready[team_name] = {'team_id':player_dict['team_id']}
+			if database_enable:
+				save_player_info(player_dict) # player
+				save_team_players_entity(player_dict) # team_players_entity
+				save_team_info(player_dict)
+				save_league_team_entity(player_dict)
+				
+
+	if len(player_links)!=1:
+		team_name = []
+		for player_link in player_links:
+
+			wait_update_page(driver, player_link, 'container__heading')
+			player_dict = get_player_data_tennis(driver)	    
+			player_dict['season_id'] = season_id			
+			player_dict['team_country'] = player_dict['player_country']
+			player_dict['team_desc'] = ''
+			player_dict['team_logo'] = player_dict['player_photo']			
+			player_dict['sport_id'] = sport_id
+			player_dict['instance_id'] = random_id()
+			player_dict['player_meta'] = ''
+			player_dict['team_meta'] = ''
+			player_dict['team_position'] = 0
+			player_dict['league_id'] = league_id
+			print("Save player info in database")
+			
+			team_name.append(player_dict['player_name'])
+			name_ = player_dict['player_name']
+			if not name_ in list((dict_players_ready.keys() ) ):
+				dict_players_ready[name_] = {'team_id':player_dict['team_id']}
+				if database_enable:
+					save_player_info(player_dict) # player
+					save_team_players_entity(player_dict) # team_players_entity					
+					
+
+		team_name = '-' .join(team_name)
+		player_dict['team_id'] = random_id()
+		dict_players_ready[team_name] = {'team_id':player_dict['team_id']}
+		if not team_name in list((dict_players_ready.keys() ) ):
+			save_team_info(player_dict)			
+			save_league_team_entity(player_dict)
+			
+	return dict_players_ready, team_name
+#             save_check_point('check_points/players_ready.json', dict_players_ready)
+
+def get_complete_match_info(driver, country_league, sport_id, league_id, season_id,
+							 dict_country_league_season, dict_country_league_check_point, \
+							 dict_leagues_ready, section = 'results'):
 	
 	league_folder = 'check_points/{}/{}/'.format(section, country_league)
 	if os.path.exists(league_folder):
@@ -253,8 +347,9 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					print("###"*80,"TEAM DON'T FOUND IN LIST OF FILES #########")
 					break
 
+				############# STADIUM OR PLACE SECTION #########################
 				try:
-					event_info['stadium_id'] = dict_country_league_season[event_info['visitor']]['stadium_id']
+					event_info['stadium_id'] = dict_country_league_season[event_info['home']]['stadium_id']
 					print(" "*30, "STADIUM READY")
 				except:
 					print(" "*30, "STADIUM CREATED")
@@ -280,7 +375,108 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					if database_enable:
 						print("############ Save stadium info ###################")
 						save_stadium(dict_stadium)
+				#################################################################
+				match_detail_id = random_id()
+				score_id = random_id()
+				dict_home = {'match_detail_id':match_detail_id, 'home':True, 'visitor':False, 'match_id':event_info['match_id'],\
+							'team_id':team_id_home, 'points':event_info['home_result'], 'score_id':score_id}
+				match_detail_id = random_id()
+				score_id = random_id()
+				dict_visitor = {'match_detail_id':match_detail_id, 'home':False, 'visitor':True, 'match_id':event_info['match_id'],\
+							'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}				
 
+				print("Event info:")
+				print(event_info)
+				if database_enable:
+					save_math_info(event_info)
+					save_details_math_info(dict_home)
+					save_details_math_info(dict_visitor)
+					save_score_info(dict_home)
+					save_score_info(dict_visitor)
+					print("s... db ", end='')
+			list_rounds_ready.append(round_file.split('/')[-1])
+			dict_leagues_ready[country_league] = list_rounds_ready
+			dict_country_league_check_point[sport_id] = dict_leagues_ready
+			save_check_point('check_points/country_leagues_results_ready.json', dict_country_league_check_point)
+	if os.path.exists(league_folder):
+		print("folder_path to delete: ", league_folder)
+		shutil.rmtree(league_folder)
+
+def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, season_id,
+							 dict_country_league_season, dict_country_league_check_point, \
+							 dict_leagues_ready, section = 'results'):
+	
+	league_folder = 'check_points/{}/{}/'.format(section, country_league)
+	if os.path.exists(league_folder):
+		round_files = os.listdir(league_folder)
+	else:
+		round_files = []
+
+	print(round_files, '\n')
+	# load round ready:
+	try:
+		list_rounds_ready = dict_leagues_ready[country_league]
+	except:
+		list_rounds_ready = []
+	
+	for round_file in round_files:
+		if not round_file.split('/')[-1] in list_rounds_ready:
+			file_path = os.path.join(league_folder, round_file)
+			print(file_path)
+			round_info = load_json(file_path)        
+			for event_index, event_info in round_info.items():
+
+				url_details = event_info['link_details']
+				wait_load_details(driver, url_details)
+				event_info = get_match_info(driver, event_info)
+				
+				event_info['statistic_info'] = get_statistics_game(driver)
+				event_info['league_id'] = league_id			
+
+				print("event_info['match_date']", event_info['match_date'])
+
+				print(event_info)
+				event_info['match_date'] = driver.find_element(By.CLASS_NAME, 'duelParticipant__startTime').text
+				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
+				event_info['end_time'] = event_info['start_time']
+				# print("event_info: ", event_info)
+				home_links, away_links = get_links_participants(driver)				
+				dict_country_league_season, home_participant = save_participants_info(driver, home_links, sport_id, league_id, season_id, dict_country_league_season)
+				dict_country_league_season, away_participant = save_participants_info(driver, away_links, sport_id, league_id, season_id, dict_country_league_season)
+
+				print("Salida del dict: ")
+				print(dict_country_league_season)
+				print("home_participant", home_participant)
+				print("away_participant", away_participant)
+				team_id_home = dict_country_league_season[home_participant]
+				team_id_visitor = dict_country_league_season[away_participant]
+				############# STADIUM OR PLACE SECTION #########################
+				try:
+					event_info['stadium_id'] = dict_country_league_season[home_participant]['stadium_id']
+					print(" "*30, "STADIUM READY")
+				except:
+					print(" "*30, "STADIUM CREATED")
+					event_info['stadium_id'] = random_id()					
+					if 'CAPACITY' in list(event_info.keys()):
+						capacity = int(''.join(event_info['CAPACITY'].split()))
+					else:
+						capacity = 0
+
+					if 'VENUE' in list(event_info.keys()):
+						name_stadium = event_info['VENUE']
+					else:
+						name_stadium = ''					
+					dict_stadium = {'stadium_id':event_info['stadium_id'],'country':event_info['match_country'],\
+								 'capacity':capacity,'desc_i18n':'', 'name':name_stadium, 'photo':''}
+								 # ATTENDANCE					
+					dict_country_league_season[home_participant]['stadium_id'] = event_info['stadium_id']					
+					json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
+					save_check_point(json_name, dict_country_league_season)										
+					print(dict_stadium)
+					if database_enable:
+						print("############ Save stadium info ###################")
+						save_stadium(dict_stadium)
+				#################################################################
 				match_detail_id = random_id()
 				score_id = random_id()
 				dict_home = {'match_detail_id':match_detail_id, 'home':True, 'visitor':False, 'match_id':event_info['match_id'],\
@@ -331,9 +527,10 @@ def get_check_point(check_point, sport_id, country_league):
 	else:
 		return True
 
-def main_m4(driver):	
+def results_extraction(driver):	
 	sports_dict = load_check_point('check_points/leagues_info.json')
 	check_point = load_check_point('check_points/check_point_m4.json')
+	print("check_point: ", check_point)
 	# dict_teams_db = {}
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
 	for sport_id, sport_dict in sports_dict.items():
@@ -345,14 +542,32 @@ def main_m4(driver):
 			print(file_country_league_season)			
 			
 			check_point_flag = get_check_point(check_point, sport_id, country_league)
-			if os.path.isfile(file_country_league_season) and check_point_flag:
+			print("check_point_flag: ", check_point_flag)
+
+			if sport_id in ['TENNIS', 'GOLF']:
+				individual_sport = True
+				flag_to_continue = True
+			else:
+				individual_sport = False
+				flag_to_continue = os.path.isfile(file_country_league_season)
+			
+			dict_country_league_season = load_check_point(file_country_league_season)
+
+			if flag_to_continue and check_point_flag:
 				print("Start extraction...")				
-				dict_country_league_season = load_check_point(file_country_league_season)
+				
 				wait_update_page(driver, country_league_urls['results'], "container__heading")
 				print("Navigate navigate_through_rounds")
-				navigate_through_rounds(driver, country_league, section_name = 'results')
-				get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],country_league_urls['season_id'],\
-							 dict_country_league_season, dict_country_league_check_point, dict_leagues_ready, section='results')				
+				# navigate_through_rounds(driver, country_league, section_name = 'results')
+
+				if not individual_sport:
+					get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
+								country_league_urls['season_id'],dict_country_league_season,\
+								 dict_country_league_check_point, dict_leagues_ready, section='results')
+				else:
+					get_complete_match_info_tennis(driver, country_league, sport_id, country_league_urls['league_id'],
+							country_league_urls['season_id'],dict_country_league_season,\
+							 dict_country_league_check_point, dict_leagues_ready, section='results')
 				build_check_point(sport_id, country_league)
 				# sport_dict[country_league] = []
 
@@ -361,10 +576,10 @@ database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
-if __name__ == "__main__":  	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
-	main_m4(driver)
-	if database_enable:
-		con.close()
-	driver.quit()
+# if __name__ == "__main__":  	
+# 	driver = launch_navigator('https://www.flashscore.com', database_enable)
+# 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
+# 	main_m4(driver)
+# 	if database_enable:
+# 		con.close()
+# 	driver.quit()

@@ -293,12 +293,12 @@ def get_sections_links(driver):
 	return dict_links
 #####################################################################
 
-def main_m2(driver, flag_news = False):
+def create_leagues(driver, flag_news = False):
 	dict_sports = load_json('check_points/sports_url_m2.json')
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
 	json_check_point = {}
 	for sport, sport_info in conf_enable_sport.items():
-		if sport_info['enable']:			
+		if sport_info['enable']:
 			if database_enable:
 				sport_dict = create_sport_dict(sport, sport_info['mode'])
 				save_sport_database(sport_dict)
@@ -306,8 +306,8 @@ def main_m2(driver, flag_news = False):
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
 			dict_leagues_tornaments = find_ligues_torneos(driver)			
-			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')# From database
-			# dict_leagues_ready = {}
+			# dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')# From database
+			dict_leagues_ready = {}
 			league_check_point = {}
 			count_league = 1
 			for league_name_url, league_url in dict_leagues_tornaments.items():
@@ -326,18 +326,21 @@ def main_m2(driver, flag_news = False):
 						league_info['league_id'] = league_id
 					else:
 						print(" "*30, " NEW LEAGUE")
-						save_league_info(league_info) # UNCOMENT
-						# save_tournament(dict_tournament) # UNCOMENT
+						if database_enable:
+							save_league_info(league_info) # UNCOMENT
+							save_tournament(dict_tournament) # UNCOMENT
 						league_id = league_info['league_id']
 
 					print(" "*30, "League_id: ", league_id)
 
-					list_seasons = get_list_results(league_id , table= 'season', column = 'season_name')
+					# list_seasons = get_list_results(league_id , table= 'season', column = 'season_name') # UNCOMENT
+					list_seasons = [] # UNCOMENT
 					print("list_seasons: ", list_seasons)
-					# list_seasons = []
+					
 					if not(league_info['season_name'] in list_seasons):
 						print(" "*30, "SAVE NEW SEASON", league_info['season_id'])
-						save_season_database(league_info) # UNCOMENT
+						if database_enable:
+							save_season_database(league_info) # UNCOMENT
 					league_check_point[league_name_url] = {'league_name':league_info['league_name'] , 'url':league_url,\
 															 'league_id':league_id, 'season_id':league_info['season_id']}
 
@@ -372,11 +375,11 @@ database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
-if __name__ == "__main__":  	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
-	initial_settings_m2(driver)
-	main_m2(driver, flag_news = False)
-	if database_enable:
-		con.close()
-	driver.quit()
+# if __name__ == "__main__":  	
+# 	driver = launch_navigator('https://www.flashscore.com', database_enable)
+# 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+# 	initial_settings_m2(driver)
+# 	main_m2(driver, flag_news = False)
+# 	if database_enable:
+# 		con.close()
+# 	driver.quit()
