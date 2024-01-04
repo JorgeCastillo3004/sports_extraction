@@ -34,9 +34,9 @@ if database_enable:
 
 def main(driver):
 	main_extract_news_enable = False
-	create_leagues_flag = False
+	create_leagues_flag = True
 	teams_creation_flag = True
-	results_extraction_flag = False
+	results_extraction_flag = True
 	fixture_extraction_flag = False
 	players_flag = False
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
