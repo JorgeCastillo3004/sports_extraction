@@ -333,7 +333,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
 				
-				event_info['statistic_info'] = str(get_statistics_game(driver))
+				event_info['statistic_info'] = get_statistics_game(driver)
 				event_info['league_id'] = league_id			
 
 				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
@@ -429,7 +429,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
 				
-				event_info['statistic_info'] = str(get_statistics_game(driver))
+				event_info['statistic_info'] = get_statistics_game(driver)
 				event_info['league_id'] = league_id			
 
 				print("event_info['match_date']", event_info['match_date'])
@@ -487,6 +487,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 
 				print("Event info:")
 				print(event_info)
+				print("dict_home: ", dict_home)
 				if database_enable:
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
