@@ -1,62 +1,79 @@
 {
     "Real Madrid": {
-        "team_id": "rukbmvthfuealnas96564"
+        "team_id": "rukbmvthfuealnas96564",
+        "stadium_id": "mnodxxuycxnebhfg92955"
     },
     "Girona": {
         "team_id": "zjnzxraznjrvbkay03938"
     },
     "Atl. Madrid": {
-        "team_id": "ghletidledikylsf98086"
+        "team_id": "ghletidledikylsf98086",
+        "stadium_id": "svomtxprblxgueno04595"
     },
     "Barcelona": {
-        "team_id": "jnxwilcatiwxjzsi03320"
+        "team_id": "jnxwilcatiwxjzsi03320",
+        "stadium_id": "nifpylzyedeiolmx98913"
     },
     "Ath Bilbao": {
-        "team_id": "pxybqfzerzimolwc96142"
+        "team_id": "pxybqfzerzimolwc96142",
+        "stadium_id": "cywikdfdvuxabcgn04547"
     },
     "Real Sociedad": {
-        "team_id": "mrxrvfqthhseeass05600"
+        "team_id": "mrxrvfqthhseeass05600",
+        "stadium_id": "xlfnttdaaspjglog08592"
     },
     "Betis": {
-        "team_id": "eukmoeixcvorlsfh05041"
+        "team_id": "eukmoeixcvorlsfh05041",
+        "stadium_id": "dmtqhgftxeokorlx94780"
     },
     "Getafe": {
-        "team_id": "vzspdafxrtdxtdxc95005"
+        "team_id": "vzspdafxrtdxtdxc95005",
+        "stadium_id": "oncllmerduiybvyl04800"
     },
     "Valencia": {
-        "team_id": "iatdwcpbhaqkvxim96601"
+        "team_id": "iatdwcpbhaqkvxim96601",
+        "stadium_id": "rhqslaxqwlmwqriv94830"
     },
     "Las Palmas": {
-        "team_id": "tjhrekbqzsakphko96884"
+        "team_id": "tjhrekbqzsakphko96884",
+        "stadium_id": "joszzpfxyamqohmf02022"
     },
     "Rayo Vallecano": {
-        "team_id": "txtxkoxgptnwvyfu02735"
+        "team_id": "txtxkoxgptnwvyfu02735",
+        "stadium_id": "ujlqptzgkmmjesvg07572"
     },
     "Osasuna": {
-        "team_id": "tcpbzklzepbaojot95202"
+        "team_id": "tcpbzklzepbaojot95202",
+        "stadium_id": "owilckakeynyfxtq92033"
     },
     "Villarreal": {
-        "team_id": "ikmggisohbwycypc95035"
+        "team_id": "ikmggisohbwycypc95035",
+        "stadium_id": "mtfcjtpnswvrtmuu94032"
     },
     "Mallorca": {
-        "team_id": "iqxinhfxzddynmwr95226"
+        "team_id": "iqxinhfxzddynmwr95226",
+        "stadium_id": "mkqxdzavgvusswub98909"
     },
     "Alaves": {
-        "team_id": "xipaokvyasowjhow02034"
+        "team_id": "xipaokvyasowjhow02034",
+        "stadium_id": "lpyaaeyfxzldmmuq03488"
     },
     "Sevilla": {
-        "team_id": "atnylvoyezqkrbtm98606"
+        "team_id": "atnylvoyezqkrbtm98606",
+        "stadium_id": "sqyjdwwnklrrmlex04364"
     },
     "Cadiz CF": {
         "team_id": "tslcsxrkqbvacdol07421"
     },
     "Celta Vigo": {
-        "team_id": "nzadjljlgpovfkdo95433"
+        "team_id": "nzadjljlgpovfkdo95433",
+        "stadium_id": "emwpwzrmygttjxqi00070"
     },
     "Granada CF": {
         "team_id": "juasrvnlugubqpii02904"
     },
     "Almeria": {
-        "team_id": "bmpcaekfdwnwrsxd08942"
+        "team_id": "bmpcaekfdwnwrsxd08942",
+        "stadium_id": "mclzhhwnlhlgaccw97316"
     }
 }

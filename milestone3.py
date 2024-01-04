@@ -161,8 +161,7 @@ def main_m3(driver):
 						wait_update_page(driver, team_info_url['team_url'], 'heading')
 						dict_team = get_teams_info_part2(driver, sport_id, country_league_urls['league_id'],\
 															 country_league_urls['season_id'], team_info_url)
-						print(" "*30, "New INSERT ")
-						print(dict_team.keys())
+						print(" "*30, "New INSERT ")						
 						if database_enable:
 							save_team_info(dict_team)
 							save_league_team_entity(dict_team)

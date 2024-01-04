@@ -317,25 +317,41 @@ def pending_to_process(dict_country_league_check_point, sport_id, country_league
 	else:
 		return True, {}
 
+def build_check_point(sport_id, country_league):
+	check_point = {'sport_id':sport_id, 'country_league':country_league}
+	save_check_point('check_points/check_point_m4.json', check_point)
+
+def get_check_point(check_point, sport_id, country_league):
+	if 'sport_id' in list(check_point.keys()) and 'country_league' in list(check_point.keys()):
+		if check_point['sport_id'] == sport_id and check_point['country_league'] == country_league:
+			return True
+	else:
+		return False
+
 def main_m4(driver):	
 	sports_dict = load_check_point('check_points/leagues_info.json')
+	check_point = load_check_point('check_points/check_point_m4.json')
 	# dict_teams_db = {}
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
 	for sport_id, sport_dict in sports_dict.items():
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
+		check_point[sport_id] = {}
 		for country_league, country_league_urls in sport_dict.items():
 			league_pending, dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
 			file_country_league_season = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 			print(file_country_league_season)
+			check_point[sport_id] = 
 			
-			if os.path.isfile(file_country_league_season):
+			check_point_flag = get_check_point(check_point, sport_id, country_league)
+			if os.path.isfile(file_country_league_season) and check_point_flag:
 				print("Start extraction...")				
 				dict_country_league_season = load_check_point(file_country_league_season)
 				wait_update_page(driver, country_league_urls['results'], "container__heading")
 				print("Navigate navigate_through_rounds")
 				navigate_through_rounds(driver, country_league, section_name = 'results')
 				get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],country_league_urls['season_id'],\
-							 dict_country_league_season, dict_country_league_check_point, dict_leagues_ready, section='results')
+							 dict_country_league_season, dict_country_league_check_point, dict_leagues_ready, section='results')				
+				build_check_point(sport_id, country_league)
 				# sport_dict[country_league] = []
 
 CONFIG = load_json('check_points/CONFIG.json')

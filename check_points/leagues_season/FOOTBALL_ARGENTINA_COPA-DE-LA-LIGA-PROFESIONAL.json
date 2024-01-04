@@ -9,11 +9,13 @@
     },
     "Banfield": {
         "team_id": "florjcwtvahmyyfy07000",
-        "team_url": "https://www.flashscore.com/team/banfield/GIb40wNM/"
+        "team_url": "https://www.flashscore.com/team/banfield/GIb40wNM/",
+        "stadium_id": "vlnstjdtbeqqlodg95176"
     },
     "Gimnasia L.P.": {
         "team_id": "jlvhapgfwklkpztv08212",
-        "team_url": "https://www.flashscore.com/team/gimnasia-l-p/jiDN9Zaj/"
+        "team_url": "https://www.flashscore.com/team/gimnasia-l-p/jiDN9Zaj/",
+        "stadium_id": "ewcccucimwmdziuy05630"
     },
     "Velez Sarsfield": {
         "team_id": "tqxxluouxlglhezd08209",
@@ -21,27 +23,33 @@
     },
     "Independiente": {
         "team_id": "hkhshuvdufyfqvsn90703",
-        "team_url": "https://www.flashscore.com/team/independiente/UVatI5Y2/"
+        "team_url": "https://www.flashscore.com/team/independiente/UVatI5Y2/",
+        "stadium_id": "lpiicgulvbqitsen01684"
     },
     "Huracan": {
         "team_id": "xryebouujrobeqpg03090",
-        "team_url": "https://www.flashscore.com/team/huracan/xd3lGq3F/"
+        "team_url": "https://www.flashscore.com/team/huracan/xd3lGq3F/",
+        "stadium_id": "ifleqjwmzbvvrksm95403"
     },
     "River Plate": {
         "team_id": "cafpvbuivivmjmcz03566",
-        "team_url": "https://www.flashscore.com/team/river-plate/EVqSBe2f/"
+        "team_url": "https://www.flashscore.com/team/river-plate/EVqSBe2f/",
+        "stadium_id": "swocizpdqoumanja00347"
     },
     "Talleres Cordoba": {
         "team_id": "ziarftnratutfdss96270",
-        "team_url": "https://www.flashscore.com/team/talleres-cordoba/bkDdeAvA/"
+        "team_url": "https://www.flashscore.com/team/talleres-cordoba/bkDdeAvA/",
+        "stadium_id": "vwxyyvsrfiyjomrx99593"
     },
     "Atl. Tucuman": {
         "team_id": "tcmwgcsmedkrcdfs95974",
-        "team_url": "https://www.flashscore.com/team/atl-tucuman/KpqpxWko/"
+        "team_url": "https://www.flashscore.com/team/atl-tucuman/KpqpxWko/",
+        "stadium_id": "kqfvvbwwuolrapji97686"
     },
     "Ind. Rivadavia": {
         "team_id": "jrmdgivcjbsreiep02736",
-        "team_url": "https://www.flashscore.com/team/ind-rivadavia/Eg51aDC4/"
+        "team_url": "https://www.flashscore.com/team/ind-rivadavia/Eg51aDC4/",
+        "stadium_id": "yjrqrakkrfhjjuau91586"
     },
     "Instituto": {
         "team_id": "myudxgjxdcwnzvat06570",
@@ -49,19 +57,23 @@
     },
     "Barracas Central": {
         "team_id": "nwhiotzqbwntnljh03773",
-        "team_url": "https://www.flashscore.com/team/barracas-central/hW08cP6J/"
+        "team_url": "https://www.flashscore.com/team/barracas-central/hW08cP6J/",
+        "stadium_id": "rnazrybyhgmcbwgu02871"
     },
     "Dep. Riestra": {
         "team_id": "wlcgqipimtaqvbjg08698",
-        "team_url": "https://www.flashscore.com/team/deportivo-riestra/2iZ4q0z6/"
+        "team_url": "https://www.flashscore.com/team/deportivo-riestra/2iZ4q0z6/",
+        "stadium_id": "wpbkkhwbrfrxnzuu04400"
     },
     "Newells Old Boys": {
         "team_id": "lwspswmlppwfujnq00333",
-        "team_url": "https://www.flashscore.com/team/newells-old-boys/6gMiRHVj/"
+        "team_url": "https://www.flashscore.com/team/newells-old-boys/6gMiRHVj/",
+        "stadium_id": "kuspovqvblavfndk95343"
     },
     "Tigre": {
         "team_id": "yyhscepzgegwdpft91961",
-        "team_url": "https://www.flashscore.com/team/tigre/nkwO1uw4/"
+        "team_url": "https://www.flashscore.com/team/tigre/nkwO1uw4/",
+        "stadium_id": "jqbrhiomslcbzfuw90151"
     },
     "Lanus": {
         "team_id": "izaxkcvulckwscwe97605",
@@ -69,19 +81,23 @@
     },
     "San Lorenzo": {
         "team_id": "jsfshwwvlazltvbe02043",
-        "team_url": "https://www.flashscore.com/team/san-lorenzo/ju1xJoJd/"
+        "team_url": "https://www.flashscore.com/team/san-lorenzo/ju1xJoJd/",
+        "stadium_id": "pwxwikpaavwuioho05788"
     },
     "Racing Club": {
         "team_id": "msbycjoymzscprmm06237",
-        "team_url": "https://www.flashscore.com/team/racing-club/OhapHPm9/"
+        "team_url": "https://www.flashscore.com/team/racing-club/OhapHPm9/",
+        "stadium_id": "vqkhzuhqtdgihekp01351"
     },
     "Estudiantes L.P.": {
         "team_id": "wrnlgxaefmdyxvor91378",
-        "team_url": "https://www.flashscore.com/team/estudiantes-l-p/p2SkCHXs/"
+        "team_url": "https://www.flashscore.com/team/estudiantes-l-p/p2SkCHXs/",
+        "stadium_id": "ejxorhcjjusdzpsn90095"
     },
     "Boca Juniors": {
         "team_id": "inmlfrzgyznoevsc01092",
-        "team_url": "https://www.flashscore.com/team/boca-juniors/hMrWAFH0/"
+        "team_url": "https://www.flashscore.com/team/boca-juniors/hMrWAFH0/",
+        "stadium_id": "jzbsdkqdxqwcbpep99412"
     },
     "Belgrano": {
         "team_id": "vcnwvyaaezrdzcsd08460",
@@ -93,19 +109,23 @@
     },
     "Godoy Cruz": {
         "team_id": "vmonodzbqjlgldvk99668",
-        "team_url": "https://www.flashscore.com/team/godoy-cruz/tUAxIm6l/"
+        "team_url": "https://www.flashscore.com/team/godoy-cruz/tUAxIm6l/",
+        "stadium_id": "vtlivvpsknytrjqx05665"
     },
     "Defensa y Justicia": {
         "team_id": "cxdbzqtybivyztiz05133",
-        "team_url": "https://www.flashscore.com/team/defensa-y-justicia/Gdfv0Zsh/"
+        "team_url": "https://www.flashscore.com/team/defensa-y-justicia/Gdfv0Zsh/",
+        "stadium_id": "bpbwgrqfvpldxulo94690"
     },
     "Platense": {
         "team_id": "gqostmcyiijxfqrn05628",
-        "team_url": "https://www.flashscore.com/team/platense/80MMdBdN/"
+        "team_url": "https://www.flashscore.com/team/platense/80MMdBdN/",
+        "stadium_id": "yocvrrejvlgteuaf92889"
     },
     "Sarmiento Junin": {
         "team_id": "dhjuulfepkssfwpy04489",
-        "team_url": "https://www.flashscore.com/team/sarmiento-junin/KQ6kGfyc/"
+        "team_url": "https://www.flashscore.com/team/sarmiento-junin/KQ6kGfyc/",
+        "stadium_id": "zqbbtqzpxzxyjrew09877"
     },
     "Central Cordoba": {
         "team_id": "ihxlvgibvlsjgfka08606",

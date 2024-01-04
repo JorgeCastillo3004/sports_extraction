@@ -1,0 +1,46 @@
+{
+    "FOOTBALL": {
+        "ARGENTINA_LIGA-PROFESIONAL": [
+            "ROUND_8.json",
+            "ROUND_3.json",
+            "ROUND_5.json",
+            "ROUND_2.json",
+            "ROUND_6.json",
+            "ROUND_1.json",
+            "ROUND_7.json",
+            "Liga_Profesional.json",
+            "ROUND_4.json"
+        ],
+        "ARGENTINA_COPA-DE-LA-LIGA-PROFESIONAL": [
+            "ROUND_8.json",
+            "ROUND_3.json",
+            "ROUND_5.json",
+            "ROUND_2.json",
+            "ROUND_6.json",
+            "ROUND_1.json",
+            "ROUND_7.json",
+            "ROUND_4.json"
+        ],
+        "BELGIUM_JUPILER-PRO-LEAGUE": [
+            "ROUND_27.json",
+            "ROUND_21.json",
+            "ROUND_29.json",
+            "ROUND_22.json",
+            "ROUND_24.json",
+            "ROUND_23.json",
+            "ROUND_25.json",
+            "ROUND_26.json",
+            "ROUND_28.json"
+        ],
+        "SPAIN_LALIGA": [
+            "ROUND_27.json",
+            "04.01._16:30\nLas_Palmas\nBarcelona.json",
+            "ROUND_21.json",
+            "ROUND_29.json",
+            "ROUND_19.json",
+            "ROUND_20.json",
+            "ROUND_22.json",
+            "ROUND_24.json"
+        ]
+    }
+}
