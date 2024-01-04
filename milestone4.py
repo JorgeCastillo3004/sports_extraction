@@ -322,6 +322,7 @@ def build_check_point(sport_id, country_league):
 	save_check_point('check_points/check_point_m4.json', check_point)
 
 def get_check_point(check_point, sport_id, country_league):
+	print(check_point)
 	if len(check_point)!= 0:
 		if check_point['sport_id'] == sport_id and check_point['country_league'] == country_league:
 			return True
