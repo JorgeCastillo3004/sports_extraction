@@ -292,16 +292,15 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 			if not name_ in list((dict_players_ready.keys() ) ):
 				dict_players_ready[name_] = {'team_id':player_dict['team_id']}
 				if database_enable:
-					save_player_info(player_dict) # player
-					save_team_players_entity(player_dict) # team_players_entity					
-					
+					save_player_info(player_dict) # player					
 
 		team_name = '-' .join(team_name)
 		player_dict['team_id'] = random_id()
 		dict_players_ready[team_name] = {'team_id':player_dict['team_id']}
 		if not team_name in list((dict_players_ready.keys() ) ):
-			save_team_info(player_dict)			
-			save_league_team_entity(player_dict)
+			save_team_info(player_dict)					# team
+			save_league_team_entity(player_dict) 		# league_team
+			save_team_players_entity(player_dict) 		# team_players_entity
 			
 	return dict_players_ready, team_name
 #             save_check_point('check_points/players_ready.json', dict_players_ready)
@@ -334,7 +333,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
 				
-				event_info['statistic_info'] = get_statistics_game(driver)
+				event_info['statistic_info'] = str(get_statistics_game(driver))
 				event_info['league_id'] = league_id			
 
 				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
@@ -430,7 +429,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
 				
-				event_info['statistic_info'] = get_statistics_game(driver)
+				event_info['statistic_info'] = str(get_statistics_game(driver))
 				event_info['league_id'] = league_id			
 
 				print("event_info['match_date']", event_info['match_date'])
