@@ -337,8 +337,7 @@ def main_m4(driver):
 	# dict_teams_db = {}
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
 	for sport_id, sport_dict in sports_dict.items():
-		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
-		check_point[sport_id] = {}
+		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result		
 		for country_league, country_league_urls in sport_dict.items():
 			league_pending, dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
 			file_country_league_season = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
