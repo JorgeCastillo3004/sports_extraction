@@ -541,7 +541,8 @@ def results_extraction(driver):
 			
 			print(file_country_league_season)			
 			
-			check_point_flag = get_check_point(check_point, sport_id, country_league)
+			# check_point_flag = get_check_point(check_point, sport_id, country_league)
+			check_point_flag = True
 			print("check_point_flag: ", check_point_flag)
 
 			if sport_id in ['TENNIS', 'GOLF']:
@@ -558,7 +559,7 @@ def results_extraction(driver):
 				
 				wait_update_page(driver, country_league_urls['results'], "container__heading")
 				print("Navigate navigate_through_rounds")
-				# navigate_through_rounds(driver, country_league, section_name = 'results')
+				navigate_through_rounds(driver, country_league, section_name = 'results')
 
 				if not individual_sport:
 					get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
