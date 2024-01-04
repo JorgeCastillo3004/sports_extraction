@@ -339,8 +339,8 @@ def main_m4(driver):
 		for country_league, country_league_urls in sport_dict.items():
 			league_pending, dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
 			file_country_league_season = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
-			print(file_country_league_season)
-			check_point[sport_id] = 
+			
+			print(file_country_league_season)			
 			
 			check_point_flag = get_check_point(check_point, sport_id, country_league)
 			if os.path.isfile(file_country_league_season) and check_point_flag:
