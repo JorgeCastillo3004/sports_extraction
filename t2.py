@@ -66,9 +66,7 @@ def get_dict_league_teams(sport_id = 'TENNIS'):
 	# dict_results = {unidecode('-'.join(row[0].split() ) ).upper():\
 	# 				{'team_name': unidecode('-'.join(row[1].split() ) ).upper(),\
 	#  				 'team_id': row[2]} for row in cur.fetchall()}
-	dict_results = {row[0]:\
-					{'team_name': row[1],\
-	 				 'team_id': row[2]} for row in cur.fetchall()}
+	dict_results = {row[0]:	{'team_name': row[1],'team_id': row[2]} for row in cur.fetchall()}
 	return dict_results, results
 
 con = getdb()
@@ -80,7 +78,7 @@ print("dict_sport: ", list(dict_sport.keys()))
 for sport, dict_teams in dict_sport.items():
 	print("sport: ", sport)
 	print("keys: ", list(dict_teams.keys()))
-	
+
 print(results)
 print("#"*50)
 
