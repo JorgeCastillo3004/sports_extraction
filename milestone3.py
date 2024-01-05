@@ -138,7 +138,7 @@ def teams_creation(driver):
 						print("Curren league id: ", country_league_urls['league_id'])
 						dict_team = get_teams_info_part2(driver, sport_id, country_league_urls['league_id'],\
 													 country_league_urls['season_id'], team_info_url)
-						print("Team info league id: ", dict_team['league_id'])
+						print("Team id: ", dict_team['league_id'])
 						try:
 							team_country = dict_team['team_country']
 							team_name = dict_team['team_name']

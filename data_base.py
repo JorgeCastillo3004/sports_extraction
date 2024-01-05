@@ -105,6 +105,8 @@ def get_list_results(league_id, season_name):
 
 def get_list_id_teams(sport_id, team_country, team_name):
 	query = "SELECT team_id FROM team WHERE sport_id ='{}' and team_country = '{}' and team_name = '{}';".format(sport_id, team_country, team_name)
+	print("query insi check team duplicates")
+	print(query)
 	cur = con.cursor()
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]
