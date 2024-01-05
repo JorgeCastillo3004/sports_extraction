@@ -116,6 +116,7 @@ def teams_creation(driver):
 	for sport_id, sport_dict in sports_dict.items():
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
 		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
+		print(dict_teams_db)
 		print(dict_teams_db.keys())
 		print("#"*50)
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
@@ -141,8 +142,8 @@ def teams_creation(driver):
 						try:
 							team_country = dict_team['team_country']
 							team_name = dict_team['team_name']
-							print("team_country: ", team_country)
-							print("team_name: ", team_name)
+							print("team_country:", team_country, "#")
+							print("team_name:", team_name, "#")
 							dict_country = dict_teams_db[sport_id][team_country]
 							print("dict_country: 1", dict_country)
 							print(dict_country.keys())
