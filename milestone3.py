@@ -160,10 +160,10 @@ def teams_creation(driver):
 							team_id = dict_team['team_id']
 						dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}					
 				# Save file sport_country_league_season.jso
-				print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(country_league), "#"*30)
-				print("Len of dict teams: ", len(dict_country_league_season))
-				if len(dict_teams_availables) != 0:					
-					(json_name, dict_country_league_season)
+					print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(country_league), "#"*30)
+					print("Len of dict teams: ", len(dict_country_league_season))
+					if len(dict_teams_availables) != 0:					
+						(json_name, dict_country_league_season)
 					
 
 CONFIG = load_json('check_points/CONFIG.json')
