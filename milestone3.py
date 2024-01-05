@@ -143,9 +143,9 @@ def teams_creation(driver):
 							team_name = dict_team['team_name']
 							print("team_country: ", team_country)
 							print("team_name: ", team_name)
-							dict_team_db = dict_teams_db[sport_id][team_country]
-							print("dict_team_db: 1", dict_team_db)
-							print(dict_team_db.keys())
+							dict_country = dict_teams_db[sport_id][team_country]
+							print("dict_country: 1", dict_country)
+							print(dict_country.keys())
 							dict_team_db = dict_teams_db[sport_id][team_country][team_name]
 							print("dict_team_db: 2", dict_team_db)
 							print("dict_team_db: ", dict_team_db)
