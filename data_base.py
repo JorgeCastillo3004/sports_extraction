@@ -94,11 +94,13 @@ def save_sport_database(sport_dict):
 	except:
 		con.rollback()
 
-def get_list_results(league_id, table= 'season', column = 'season_name'):
-	query = "SELECT {} FROM {}	WHERE league_id ='{}';".format(column, table, league_id)
+def get_list_results(league_id, season_name):
+	query = "SELECT season_name, season_id FROM season	WHERE league_id ='{}' and season_name = '{}';".format(league_id, season_name)
 	cur = con.cursor()
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]
+	for row in cur.fetchall():
+		print(row)
 	return results
 
 def get_dict_results(table= 'league', column = 'league_country, league_name, league_id'):

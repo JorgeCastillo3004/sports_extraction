@@ -333,12 +333,12 @@ def create_leagues(driver, flag_news = False):
 						league_id = league_info['league_id']
 
 					print(" "*30, "League_id: ", league_id)
-
-					list_seasons = get_list_results(league_id , table= 'season', column = 'season_name') # UNCOMENT
+					season_name = league_info['season_name']					
+					list_seasons = get_list_results(league_id, season_name)
 					# list_seasons = [] # UNCOMENT
 					print("list_seasons: ", list_seasons)
 					
-					if not(league_info['season_name'] in list_seasons):
+					if len(list_seasons) != 0:
 						print(" "*30, "SAVE NEW SEASON", league_info['season_id'])
 						if database_enable:
 							save_season_database(league_info) # UNCOMENT

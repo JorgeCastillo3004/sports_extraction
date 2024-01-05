@@ -4,7 +4,7 @@
         "mode": "BY_TEAM"
     },
     "TENNIS": {
-        "enable": true,
+        "enable":false,
         "mode": "BOTH"
     },
     "BASKETBALL": {
