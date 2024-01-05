@@ -80,7 +80,8 @@ print("dict_sport: ", list(dict_sport.keys()))
 for sport, dict_teams in dict_sport.items():
 	print("sport: ", sport)
 	print("keys: ", list(dict_teams.keys()))
-
+	
+print(results)
 print("#"*50)
 
 dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
