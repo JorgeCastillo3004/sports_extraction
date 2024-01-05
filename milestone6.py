@@ -41,9 +41,10 @@ def get_all_player_info_tennis(driver):
 	lines = player_block.find_elements(By.XPATH, './/div[contains(@class, "heading__info")]')  # [contains(text(), "Age")]/span'
 	dict_info = {}
 	for line in lines:
-		print(line.text)
-		tag, field= line.text.split(":")
-		dict_info[tag] = field
+		print("Curren_lien: ",line.text, "#")
+		if len(line.text)!=0:
+			tag, field = line.text.split(":")
+			dict_info[tag] = field
 	dict_info
 	return dict_info
 
