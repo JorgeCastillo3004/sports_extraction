@@ -103,6 +103,13 @@ def get_list_results(league_id, season_name):
 		print(row)
 	return results
 
+def get_list_id_teams(sport_id, team_country, team_name):
+	query = "SELECT team_id FROM team WHERE sport_id ='{}' and team_country = '{}' and team_name = '{}';".format(sport_id, team_country, team_name)
+	cur = con.cursor()
+	cur.execute(query)	
+	results = [row[0] for row in cur.fetchall()]
+	return results
+
 def get_dict_results(table= 'league', column = 'league_country, league_name, league_id'):
 	query = "SELECT {} FROM {};".format(column, table)
 	cur = con.cursor()

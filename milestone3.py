@@ -146,7 +146,11 @@ def teams_creation(driver):
 																 country_league_urls['season_id'], team_info_url)
 							print(" "*30, "New INSERT ")						
 							if database_enable:
-								save_team_info(dict_team)
+								team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])
+								if len(team_id_db) == 0:
+									save_team_info(dict_team)
+								else:
+									dict_team['league_id'] = team_id_db[0]
 								save_league_team_entity(dict_team)
 								
 							team_id = dict_team['team_id']
