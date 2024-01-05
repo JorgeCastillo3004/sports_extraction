@@ -126,7 +126,7 @@ def teams_creation(driver):
 					wait_update_page(driver, country_league_urls['standings'], "container__heading")
 					# click_main_section(driver)
 					
-					dict_teams_availables = get_teams_info_part1(driver)					
+					dict_teams_availables = get_teams_info_part1(driver)
 					dict_country_league_season = {}
 					for team_name, team_info_url in dict_teams_availables.items():
 						#league.league_country, league.league_name, team.team_name
