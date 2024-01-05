@@ -96,37 +96,39 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 		if not row[3] in list(dict_results[row[0]][row[1]][row[2]].keys() ):
 			dict_results[row[0]][row[1]][row[2]][row[3]] = {'team_id':row[4]}
 
-	return dict_results
+	return dict_results, results
 
 con = getdb()
 sport = 'BASKETBALL'
-dict_sport = get_dict_league_ready(sport_id = sport)
+dict_sport, results = get_dict_league_ready(sport_id = sport)
 
 print(dict_sport)
 print("dict_sport: ", list(dict_sport.keys()))
 
 for country in list(dict_sport.keys()):
-	print(dict_sport[country])
+	print(list(dict_sport[country].keys()))
 
+	print("#"*80, '\n'*3)
 
+	# print(stop)
 
 print(results)
-print("#"*50)
+# print("#"*50)
 
-dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
+# dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
 
-print("dict_leagues: ", dict_leagues)
+# print("dict_leagues: ", dict_leagues)
 
-first_key = list(dict_leagues.keys())[0]
-print("First key: ", first_key)
-league_id = dict_leagues[first_key]
-print(league_id)
+# first_key = list(dict_leagues.keys())[0]
+# print("First key: ", first_key)
+# league_id = dict_leagues[first_key]
+# print(league_id)
 
-print("Make search for: ", league_id)
-list_season = get_list_results(league_id, table= 'season', column = 'season_name')
-print(list_season)
+# print("Make search for: ", league_id)
+# list_season = get_list_results(league_id, table= 'season', column = 'season_name')
+# print(list_season)
 
-league_id = 'jdhvogpiqkledmte95214'
-list_season = get_list_results(league_id, table= 'season', column = 'season_name')
+# league_id = 'jdhvogpiqkledmte95214'
+# list_season = get_list_results(league_id, table= 'season', column = 'season_name')
 
-print(list_season)
+# print(list_season)
