@@ -48,7 +48,7 @@ def main(driver):
 	if create_leagues_flag:
 		create_leagues(driver)
 
-	if teams_creation_flag and not(sport in ['TENNIS', 'GOLF']):
+	if teams_creation_flag:
 		teams_creation(driver)
 
 	if results_extraction_flag:
