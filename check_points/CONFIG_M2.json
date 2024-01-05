@@ -28,11 +28,11 @@
         "mode": "BOTH"
     },
     "GOLF": {
-        "enable": true,
+        "enable": false,
         "mode": "BOTH"
     },
     "AM._FOOTBALL": {
-        "enable": true,
+        "enable": false,
         "mode": "BY_TEAM"
     },
     "AUSSIE_RULES": {
@@ -40,7 +40,7 @@
         "mode": "BY_TEAM"
     },
     "BADMINTON": {
-        "enable": true,
+        "enable": false,
         "mode": "BY_TEAM"
     },
     "BANDY": {
@@ -48,7 +48,7 @@
         "mode": "BY_TEAM"
     },
     "BASEBALL": {
-        "enable": true,
+        "enable": false,
         "mode": "BY_TEAM"
     },
     "BEACH_SOCCER": {
@@ -60,11 +60,11 @@
         "mode": "BY_TEAM"
     },
     "BOXING": {
-        "enable": true,
+        "enable": false,
         "mode": "INDIVIDUAL"
     },
     "CRICKET": {
-        "enable": true,
+        "enable": false,
         "mode": "BY_TEAM"
     },
     "CYCLING": {
@@ -76,7 +76,7 @@
         "mode": "BY_TEAM"
     },
     "FIELD_HOCKEY": {
-        "enable": true,
+        "enable": false,
         "mode": "BY_TEAM"
     },
     "FLOORBALL": {
