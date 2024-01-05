@@ -52,11 +52,12 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 
 def get_dict_teams(sport_id = 'FOOTBALL'):
 	query = """
-	SELECT league.league_country, team.team_name, team.team_id\
-	FROM team \
-	JOIN league_team ON team.team_id = league_team.team_id\
-	JOIN league league_team.league_id = league.league_id	
-	WHERE team.id_sport = '{}'""".format(sport_id)
+		SELECT league.league_country, team.team_name, team.team_id
+		FROM team
+		JOIN league_team ON team.team_id = league_team.team_id
+		JOIN league ON league_team.league_id = league.league_id
+		WHERE team.id_sport = '{}'
+		""".format(sport_id)
 
 	cur = con.cursor()
 	cur.execute(query)
