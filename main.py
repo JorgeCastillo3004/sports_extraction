@@ -34,7 +34,7 @@ if database_enable:
 
 def main(driver):
 	main_extract_news_enable = False  	# 1
-	create_leagues_flag = True 		    # 2
+	create_leagues_flag = False 		    # 2
 	teams_creation_flag = False 		# 3
 	results_extraction_flag = True		# 4
 	fixture_extraction_flag = False 	# 5
