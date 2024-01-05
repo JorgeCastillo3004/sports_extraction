@@ -56,7 +56,7 @@ def get_dict_teams(sport_id = 'FOOTBALL'):
 		FROM team
 		JOIN league_team ON team.team_id = league_team.team_id
 		JOIN league ON league_team.league_id = league.league_id
-		WHERE team.id_sport = '{}'
+		WHERE team.sport_id = '{}'
 		""".format(sport_id)
 
 	cur = con.cursor()
