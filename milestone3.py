@@ -12,13 +12,13 @@ from data_base import *
 
 
 def buil_dict_map_values(driver):
-    block = driver.find_element(By.CLASS_NAME, 'ui-table__header')
-    cell_names = block.find_elements(By.XPATH,'.//div')
-    dict_map_cell = {}
-    for index, cell_name in enumerate(cell_names[2:]):
-        cell_name = cell_name.get_attribute('title').replace(' ', '_')    
-        dict_map_cell[index] = cell_name
-    return dict_map_cell 
+	block = driver.find_element(By.CLASS_NAME, 'ui-table__header')
+	cell_names = block.find_elements(By.XPATH,'.//div')
+	dict_map_cell = {}
+	for index, cell_name in enumerate(cell_names[2:]):
+		cell_name = cell_name.get_attribute('title').replace(' ', '_')    
+		dict_map_cell[index] = cell_name
+	return dict_map_cell 
 
 def get_teams_info_part1(driver):
 	wait = WebDriverWait(driver, 10)
@@ -115,11 +115,12 @@ def teams_creation(driver):
 
 	for sport_id, sport_dict in sports_dict.items():
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
+		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
 
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
 			for country_league, country_league_urls in sport_dict.items():
 				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
-				dict_teams_db = {}
+				
 				print("#"*30, "DATA FROM DICT ", "#"*30)
 				print(country_league_urls)
 				if not os.path.isfile(json_name) and 'standings' in list(country_league_urls.keys()):
@@ -131,20 +132,20 @@ def teams_creation(driver):
 					dict_country_league_season = {}
 					for team_name, team_info_url in dict_teams_availables.items():
 						#league.league_country, league.league_name, team.team_name
+						wait_update_page(driver, team_info_url['team_url'], 'heading')
+						dict_team = get_teams_info_part2(driver, sport_id, country_league_urls['league_id'],\
+													 country_league_urls['season_id'], team_info_url)
 						try:
-							list_teams_saved = dict_teams_db[country_league.split('_')[0]].keys()
+							team_country = dict_team['team_country']
+							team_name = dict_team['team_name']
+							dict_team_db = dict_teams_db[sport_id][team_country][team_name]
 						except:
-							list_teams_saved = []
+							dict_team_db = {}
 
-						if team_name.upper() in list_teams_saved:
+						if len(dict_team_db) != 0:
 							print("READY")
-							team_id = dict_teams_db[country_league.split('_')[0]]['team_id']					
+							team_id = dict_teams_db[sport_id][team_country][team_name]['team_id']							
 						else:
-							# sport_id, league_id, season_id
-							wait_update_page(driver, team_info_url['team_url'], 'heading')
-							dict_team = get_teams_info_part2(driver, sport_id, country_league_urls['league_id'],\
-																 country_league_urls['season_id'], team_info_url)
-							print(" "*30, "New INSERT ")						
 							if database_enable:
 								team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])
 								if len(team_id_db) == 0:
