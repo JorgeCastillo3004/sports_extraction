@@ -426,6 +426,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 			for event_index, event_info in round_info.items():
 
 				url_details = event_info['link_details']
+				print("Current URL: ", url_details)
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
 				

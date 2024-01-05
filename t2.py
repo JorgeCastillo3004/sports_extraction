@@ -50,7 +50,31 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 	dict_results = {row[0]: row[1] for row in cur.fetchall()}
 	return dict_results
 
+def get_dict_teams(sport_id = 'FOOTBALL'):
+	query = """
+	SELECT league.league_country, team.team_name, team.team_id\
+	FROM team \
+	JOIN league_team ON team.team_id = league_team.team_id\
+	JOIN league league_team.league_id = league.league_id	
+	WHERE team.id_sport = '{}'""".format(sport_id)
+
+	cur = con.cursor()
+	cur.execute(query)
+
+	dict_results = {unidecode('-'.join(row[0].replace('&', '').split() ) ).upper():\
+					{'team_name': unidecode('-'.join(row[1].split() ) ).upper(),\
+	 				 'team_id': row[2]} for row in cur.fetchall()}
+	return dict_results
+
 con = getdb()
+
+dict_sport = get_dict_teams(sport_id = 'FOOTBALL')
+
+
+print("dict_sport: ", list(dict_sport.keys()))
+print("dict_sport: ", list(dict_sport['FOOTBALL'].keys()))
+
+print("#"*50)
 
 dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
 

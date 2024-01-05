@@ -306,8 +306,8 @@ def create_leagues(driver, flag_news = False):
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
 			dict_leagues_tornaments = find_ligues_torneos(driver)			
-			# dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')# From database
-			dict_leagues_ready = {}
+			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')# From database
+			# dict_leagues_ready = {}
 			league_check_point = {}
 			count_league = 1
 			for league_name_url, league_url in dict_leagues_tornaments.items():
@@ -315,11 +315,8 @@ def create_leagues(driver, flag_news = False):
 				wait_update_page(driver, league_url, "container__heading")
 				count_league += 1
 				pin_activate = check_pin(driver)
-				if pin_activate:						
+				if pin_activate:
 					league_info = get_league_data(driver)
-					# dict_tournament = {'tournament_id':random_id(), 'team_country':league_info['league_country'],\
-					# 			'desc_i18n':'','end_date':datetime.now(),'logo':'', 'name_i18n':'', 'season':league_info['season_id'],\
-					# 			 'start_date':datetime.now(), 'tournament_year':2023}
 					if league_name_url in list(dict_leagues_ready.keys()):
 						print(" "*30," READY")							
 						league_id = dict_leagues_ready[league_name_url]
@@ -333,8 +330,8 @@ def create_leagues(driver, flag_news = False):
 
 					print(" "*30, "League_id: ", league_id)
 
-					# list_seasons = get_list_results(league_id , table= 'season', column = 'season_name') # UNCOMENT
-					list_seasons = [] # UNCOMENT
+					list_seasons = get_list_results(league_id , table= 'season', column = 'season_name') # UNCOMENT
+					# list_seasons = [] # UNCOMENT
 					print("list_seasons: ", list_seasons)
 					
 					if not(league_info['season_name'] in list_seasons):

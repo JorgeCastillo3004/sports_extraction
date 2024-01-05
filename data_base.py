@@ -114,8 +114,7 @@ def get_dict_teams(sport_id = 'FOOTBALL'):
 	SELECT league.league_country, team.team_name, team.team_id\
 	FROM team \
 	JOIN league_team ON team.team_id = league_team.team_id\
-	JOIN league league_team.league_id = league.league_id\
-	JOIN stadium league_team.league_id = league.league_id\
+	JOIN league league_team.league_id = league.league_id	
 	WHERE team.id_sport = '{}'""".format(sport_id)
 
 	cur = con.cursor()
