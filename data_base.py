@@ -112,7 +112,7 @@ def get_list_id_teams(sport_id, team_country, team_name):
 
 def get_dict_league_ready(sport_id = 'TENNIS'):
 	query = """
-		SELECT team.sport_id, team.team_country, league.league_country, team.team_name, team.team_id
+		SELECT team.sport_id, team.team_country, team.team_name, team.team_id
 		FROM team
 		JOIN league_team ON team.team_id = league_team.team_id
 		JOIN league ON league_team.league_id = league.league_id
@@ -125,7 +125,7 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 	dict_results = {}
 	# for row in results:
 	# 	dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
-	for row in cur.fetchall():    
+	for row in results:
 		if not row[0] in list(dict_results.keys()):
 			dict_results[row[0]] = {}
 

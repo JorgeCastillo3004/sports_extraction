@@ -70,7 +70,7 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 
 def get_dict_league_ready(sport_id = 'TENNIS'):
 	query = """
-		SELECT team.sport_id, team.team_country, league.league_name, team.team_name, team.team_id
+		SELECT team.sport_id, team.team_country, team.team_name, team.team_id
 		FROM team
 		JOIN league_team ON team.team_id = league_team.team_id
 		JOIN league ON league_team.league_id = league.league_id
