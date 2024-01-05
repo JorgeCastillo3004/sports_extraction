@@ -1,6 +1,6 @@
 {
     "FOOTBALL": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "TENNIS": {
@@ -8,11 +8,11 @@
         "mode": "BOTH"
     },
     "BASKETBALL": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "HOCKEY": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "DARTS": {
@@ -28,11 +28,11 @@
         "mode": "BOTH"
     },
     "GOLF": {
-        "enable": false,
+        "enable": true,
         "mode": "BOTH"
     },
     "AM._FOOTBALL": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "AUSSIE_RULES": {
@@ -48,7 +48,7 @@
         "mode": "BY_TEAM"
     },
     "BASEBALL": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "BEACH_SOCCER": {
