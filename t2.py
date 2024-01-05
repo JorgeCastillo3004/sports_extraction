@@ -74,7 +74,7 @@ dict_sport, results = get_dict_teams(sport_id = sport)
 
 
 print("dict_sport: ", list(dict_sport.keys()))
-for sport, dict_teams in dict_spot.items():
+for sport, dict_teams in dict_sport.items():
 	print("sport: ", sport)
 	print("keys: ", list(dict_teams.keys()))
 
