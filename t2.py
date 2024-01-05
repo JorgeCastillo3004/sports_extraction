@@ -101,13 +101,11 @@ con = getdb()
 sport = 'BASKETBALL'
 dict_sport = get_dict_league_ready(sport_id = sport)
 
-
+print(dict_sport)
 print("dict_sport: ", list(dict_sport.keys()))
-for sport, dict_teams in dict_sport.items():
-	print("sport: ", sport)
-	print("keys: ", list(dict_teams.keys()))
-	for team_name in list(dict_teams.keys()):
-		print("keys: ", list(dict_teams[team_name].keys()))
+
+for country in list(dict_sport.keys()):
+	print(dict_sport[country])
 
 
 
