@@ -11,8 +11,45 @@ from common_functions import *
 from data_base import *
 
 #####################################################################
+#					TENNIS PLAYER INFO EXTRACTION 					#
+#####################################################################
+def get_player_data_tennis(driver):
+    dict_player_full_info = get_all_player_info_tennis(driver)    
+
+    profile_block = driver.find_element(By.CLASS_NAME, 'container__heading')
+    player_country = profile_block.find_element(By.XPATH, './/span[@class="breadcrumb__text"]').text
+    if 'age' in dict_player_full_info.keys():
+        date_str = dict_player_full_info['age'].split()[1].replace('(','').replace(')','')
+        player_dob = datetime.strptime(date_str, "%d.%m.%Y")
+    else:
+        player_dob = datetime.strptime('01.01.1900', "%d.%m.%Y") 
+
+    player_name = profile_block.find_element(By.XPATH, './/div[@class="heading__name"]').text
+
+    image_url = profile_block.find_element(By.XPATH, './/img').get_attribute('src')
+    image_path = random_name(folder = 'images/players/')
+    save_image(driver, image_url, image_path)
+    player_photo = image_path.replace('images/players/','')
+    
+    player_id = random_id()
+    player_dict = {'player_id':player_id, 'player_country':player_country, 'player_dob':player_dob, 'player_name':player_name,\
+     'player_photo':player_photo, 'player_position':''}
+    return player_dict
+
+def get_all_player_info_tennis(driver):
+    player_block = driver.find_element(By.XPATH, '//div[@class="heading__info"]')
+    lines = player_block.find_elements(By.XPATH, './/div[contains(@class, "heading__info")]')  # [contains(text(), "Age")]/span'
+    dict_info = {}
+    for line in lines:
+        tag, field= line.text.split(":")
+        dict_info[tag] = field
+    dict_info
+    return dict_info
+
+#####################################################################
 #					SQUAD INFO EXTRACTION 							#
 #####################################################################
+
 def get_all_player_info(driver):
 	player_block = driver.find_element(By.CLASS_NAME, 'playerHeader__wrapper')
 	lines = player_block.find_elements(By.XPATH, './/span')
@@ -93,7 +130,7 @@ def navigate_through_players(driver, sport_id, country_league, team_name, season
 					save_check_point('check_points/players_ready.json', dict_players_ready)
 		# 	break
 		# break
-if section  =='results':
+
 def get_check_point(dict_players_ready, sport_id, country_league, team_name):
 	if sport_id in list(dict_players_ready.keys()):
 		if country_league in list(dict_players_ready[sport_id].keys()):
@@ -138,10 +175,10 @@ database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
-if __name__ == "__main__":  	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
-	main_m6(driver)
-	if database_enable:
-		con.close()
-	driver.quit()
+# if __name__ == "__main__":  	
+# 	driver = launch_navigator('https://www.flashscore.com', database_enable)
+# 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
+# 	main_m6(driver)
+# 	if database_enable:
+# 		con.close()
+# 	driver.quit()

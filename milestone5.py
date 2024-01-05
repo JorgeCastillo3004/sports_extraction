@@ -320,7 +320,7 @@ def pending_to_process(dict_country_league_check_point, sport_id, country_league
 	else:
 		return True, {}
 
-def main_m5(driver):	
+def fixture_extraction(driver):	
 	sports_dict = load_check_point('check_points/leagues_info.json')
 	# dict_teams_db = {}
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
@@ -346,10 +346,10 @@ database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
-if __name__ == "__main__":  	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
-	main_m5(driver)
-	if database_enable:
-		con.close()
-	driver.quit()
+# if __name__ == "__main__":  	
+# 	driver = launch_navigator('https://www.flashscore.com', database_enable)
+# 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
+# 	main_m5(driver)
+# 	if database_enable:
+# 		con.close()
+# 	driver.quit()

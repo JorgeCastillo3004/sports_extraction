@@ -33,12 +33,22 @@ if database_enable:
 	con = getdb()
 
 def main(driver):
+<<<<<<< HEAD
 	main_extract_news_enable = False
 	create_leagues_flag = False
 	teams_creation_flag = True
 	results_extraction_flag = False
 	fixture_extraction_flag = False
 	players_flag = False
+=======
+	main_extract_news_enable = False  	# 1
+	create_leagues_flag = False 		# 2
+	teams_creation_flag = False 		# 3
+	results_extraction_flag = True		# 4
+	fixture_extraction_flag = False 	# 5
+	players_flag = False 				# 6
+	
+>>>>>>> origin/main
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
 	dict_sports = load_json('check_points/sports_url_m2.json')
 

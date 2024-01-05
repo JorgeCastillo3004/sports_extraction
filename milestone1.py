@@ -161,7 +161,9 @@ def click_show_more_news(driver, max_older_news):
 	xpath_expression = '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a'
 	container_news = driver.find_elements(By.XPATH, xpath_expression)
 	current_len = len(container_news)
-	news_date = container_news[-1].find_element(By.CLASS_NAME, '_newsMeta_gh8ui_5').text
+	# news_date = container_news[-1].find_element(By.CLASS_NAME, '_newsMeta_gh8ui_5').text
+	news_date = container_news[-1].find_element(By.XPATH, '//div[@data-testid="wcl-newsMetaGroup"]').text
+	
 	date_utc = process_date(news_date)
 
 
@@ -181,7 +183,9 @@ def click_show_more_news(driver, max_older_news):
 		if len(showmore)== 0:
 			click_more = False
 		container_news = driver.find_elements(By.XPATH, xpath_expression)
-		news_date = container_news[-1].find_element(By.CLASS_NAME, '_newsMeta_gh8ui_5').text
+		# news_date = container_news[-1].find_element(By.CLASS_NAME, '_newsMeta_gh8ui_5').text
+		news_date = container_news[-1].find_element(By.XPATH, '//div[@data-testid="wcl-newsMetaGroup"]').text
+		print(news_date)
 		date_utc = process_date(news_date)
 		# container_news = driver.find_elements(By.XPATH, '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a')
 		print("Total news found: ", len(container_news))
@@ -273,9 +277,12 @@ def main_extract_news(driver):
 	else:
 		dict_check_point['index'] = dict_check_point['index'] + 1
 		continue_sport = False
+	print(conf_enable_news)
 
 	for sport, news_url in dict_url_news.items():
-		if conf_enable_news['SPORTS'][sport]['enable']:
+		print(sport)		
+		print(conf_enable_news['SPORTS'][sport])
+		if conf_enable_news['SPORTS'][sport]:
 			print("Current sport: ", sport, "#")
 			# if dict_check_point['sport'] == sport:
 			# 	print("Process sport activated: ")
