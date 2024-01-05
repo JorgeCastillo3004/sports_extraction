@@ -1,6 +1,7 @@
 import psycopg2
 from datetime import date, timedelta
 from datetime import datetime
+from unidecode import unidecode
 # import argparse
 
 from common_functions import load_json
