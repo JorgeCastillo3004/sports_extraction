@@ -133,10 +133,10 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 			dict_results[row[0]][row[1]] = {}
 
 		if not row[2] in list(dict_results[row[0]][row[1]].keys() ):
-			dict_results[row[0]][row[1]][row[2]] = {}
+			dict_results[row[0]][row[1]][row[2]] = {'team_id':row[4]}
 
-		if not row[3] in list(dict_results[row[0]][row[1]][row[2]].keys() ):
-			dict_results[row[0]][row[1]][row[2]][row[3]] = {'team_id':row[4]}
+		# if not row[3] in list(dict_results[row[0]][row[1]][row[2]].keys() ):
+		# 	dict_results[row[0]][row[1]][row[2]][row[3]] = {'team_id':row[4]}
 
 	return dict_results
 
