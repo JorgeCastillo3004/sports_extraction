@@ -39,30 +39,26 @@ def main(driver):
 	results_extraction_flag = False		# 4
 	fixture_extraction_flag = False 	# 5
 	players_flag = False 				# 6	
-
-	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
+	
 	dict_sports = load_json('check_points/sports_url_m2.json')
+	
+	if main_extract_news_enable:
+		main_extract_news()
 
-	for sport, sport_info in conf_enable_sport.items():
-			if sport_info['enable']:
+	if create_leagues_flag:
+		create_leagues(driver)
 
-				if main_extract_news_enable:
-					main_extract_news()
+	if teams_creation_flag and not(sport in ['TENNIS', 'GOLF']):
+		teams_creation(driver)
 
-				if create_leagues_flag:
-					create_leagues(driver)
+	if results_extraction_flag:
+		results_extraction(driver)
 
-				if teams_creation_flag and not(sport in ['TENNIS', 'GOLF']):
-					teams_creation(driver)
+	if fixture_extraction_flag:
+		fixture_extraction(driver)
 
-				if results_extraction_flag:
-					results_extraction(driver)
-
-				if fixture_extraction_flag:
-					fixture_extraction(driver)
-
-				if players_flag and not(sport in ['TENNIS', 'GOLF']):
-					players(driver)
+	if players_flag and not(sport in ['TENNIS', 'GOLF']):
+		players(driver)
 
 
 
