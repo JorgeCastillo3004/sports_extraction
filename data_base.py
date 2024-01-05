@@ -110,6 +110,24 @@ def get_list_id_teams(sport_id, team_country, team_name):
 	results = [row[0] for row in cur.fetchall()]
 	return results
 
+def get_dict_league_ready(sport_id = 'TENNIS'):
+	query = """
+		SELECT team.sport_id, team.team_country, league.league_country, team.team_name, team.team_id
+		FROM team
+		JOIN league_team ON team.team_id = league_team.team_id
+		JOIN league ON league_team.league_id = league.league_id
+		WHERE team.sport_id = '{}'""".format(sport_id)
+	# 
+	# -- WHERE team.sport_id = '{}'
+	cur = con.cursor()
+	cur.execute(query)
+	results = cur.fetchall()
+	dict_results = {}
+	for row in results:
+		dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
+
+	return dict_results
+
 def get_dict_results(table= 'league', column = 'league_country, league_name, league_id'):
 	query = "SELECT {} FROM {};".format(column, table)
 	cur = con.cursor()
