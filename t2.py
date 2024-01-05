@@ -96,7 +96,7 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 		# if not row[3] in list(dict_results[row[0]][row[1]][row[2]].keys() ):
 		# 	dict_results[row[0]][row[1]][row[2]][row[3]] = {'team_id':row[4]}
 
-	return dict_results
+	return dict_results, results
 con = getdb()
 sport = 'BASKETBALL'
 dict_sport, results = get_dict_league_ready(sport_id = sport)
