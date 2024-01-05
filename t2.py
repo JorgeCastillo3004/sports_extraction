@@ -81,6 +81,8 @@ print("#"*50)
 
 dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
 
+print("dict_leagues: ", dict_leagues)
+
 first_key = list(dict_leagues.keys())[0]
 print("First key: ", first_key)
 league_id = dict_leagues[first_key]
