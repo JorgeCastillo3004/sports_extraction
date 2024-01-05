@@ -312,7 +312,7 @@ def create_leagues(driver, flag_news = False):
 			print("#"*50)
 			# dict_leagues_ready = {}
 			league_check_point = {}
-			count_league = 1
+			count_league = 1			
 			for league_name_url, league_url in dict_leagues_tornaments.items():
 				print("***", league_name_url,"***", " "*(50-len(league_name_url)), count_league, "/" ,len(dict_leagues_tornaments), end = '')
 				wait_update_page(driver, league_url, "container__heading")
@@ -320,7 +320,8 @@ def create_leagues(driver, flag_news = False):
 				pin_activate = check_pin(driver)
 				if pin_activate:
 					league_info = get_league_data(driver)
-					if league_name_url in list(dict_leagues_ready.keys()):
+					key_check = league_info['league_country'] +'_'+ league_info['league_name']
+					if key_check in list(dict_leagues_ready.keys()):
 						print(" "*30," READY")							
 						league_id = dict_leagues_ready[league_name_url]
 						league_info['league_id'] = league_id
