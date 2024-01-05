@@ -106,6 +106,10 @@ print("dict_sport: ", list(dict_sport.keys()))
 for sport, dict_teams in dict_sport.items():
 	print("sport: ", sport)
 	print("keys: ", list(dict_teams.keys()))
+	for team_name in list(dict_teams.keys()):
+		print("keys: ", list(dict_teams[sport][team_name].keys()))
+
+
 
 print(results)
 print("#"*50)
