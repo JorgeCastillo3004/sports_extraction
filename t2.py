@@ -51,22 +51,6 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 	dict_results = {row[0]: row[1] for row in cur.fetchall()}
 	return dict_results
 
-def get_dict_league_ready(sport_id = 'TENNIS'):
-	query = """
-		SELECT team.sport_id, team.team_country, league.league_country, team.team_name, team.team_id
-		FROM team
-		JOIN league_team ON team.team_id = league_team.team_id
-		JOIN league ON league_team.league_id = league.league_id
-		WHERE team.sport_id = '{}'""".format(sport_id)
-	# 
-	# -- WHERE team.sport_id = '{}'
-	cur = con.cursor()
-	cur.execute(query)
-	results = cur.fetchall()
-	dict_results = {}
-	for row in results:
-		dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
-	return dict_results
 # def get_dict_league_ready(sport_id = 'TENNIS'):
 # 	query = """
 # 		SELECT team.sport_id, team.team_country, league.league_country, team.team_name, team.team_id
@@ -80,22 +64,39 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 # 	cur.execute(query)
 # 	results = cur.fetchall()
 # 	dict_results = {}
-# 	# for row in results:
-# 	# 	dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
 # 	for row in results:
-# 		if not row[0] in list(dict_results.keys()):
-# 			dict_results[row[0]] = {}
-
-# 		if not row[1] in list(dict_results[row[0]].keys() ):
-# 			dict_results[row[0]][row[1]] = {}
-
-# 		if not row[2] in list(dict_results[row[0]][row[1]].keys() ):
-# 			dict_results[row[0]][row[1]][row[2]] = {}
-
-# 		if not row[3] in list(dict_results[row[0]][row[1]][row[2]].keys() ):
-# 			dict_results[row[0]][row[1]][row[2]][row[3]] = {'team_id':row[4]}
-
+# 		dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
 # 	return dict_results
+
+def get_dict_league_ready(sport_id = 'TENNIS'):
+	query = """
+		SELECT team.sport_id, team.team_country, league.league_country, team.team_name, team.team_id
+		FROM team
+		JOIN league_team ON team.team_id = league_team.team_id
+		JOIN league ON league_team.league_id = league.league_id
+		WHERE team.sport_id = '{}'""".format(sport_id)
+	# 
+	# -- WHERE team.sport_id = '{}'
+	cur = con.cursor()
+	cur.execute(query)
+	results = cur.fetchall()
+	dict_results = {}
+	# for row in results:
+	# 	dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
+	for row in results:
+		if not row[0] in list(dict_results.keys()):
+			dict_results[row[0]] = {}
+
+		if not row[1] in list(dict_results[row[0]].keys() ):
+			dict_results[row[0]][row[1]] = {}
+
+		if not row[2] in list(dict_results[row[0]][row[1]].keys() ):
+			dict_results[row[0]][row[1]][row[2]] = {}
+
+		if not row[3] in list(dict_results[row[0]][row[1]][row[2]].keys() ):
+			dict_results[row[0]][row[1]][row[2]][row[3]] = {'team_id':row[4]}
+
+	return dict_results
 
 con = getdb()
 sport = 'BASKETBALL'
