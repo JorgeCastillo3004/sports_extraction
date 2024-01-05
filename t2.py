@@ -63,10 +63,13 @@ def get_dict_league_teams(sport_id = 'TENNIS'):
 	cur = con.cursor()
 	cur.execute(query)
 	results = cur.fetchall()
+	dict_results = {}
+	for row in cur.fetchall()
+		dict_results[row[0]] = {'team_name':row[1], 'team_id':row[2]}
 	# dict_results = {unidecode('-'.join(row[0].split() ) ).upper():\
 	# 				{'team_name': unidecode('-'.join(row[1].split() ) ).upper(),\
 	#  				 'team_id': row[2]} for row in cur.fetchall()}
-	dict_results = {row[0]:	{'team_name': row[1],'team_id': row[2]} for row in cur.fetchall()}
+	# dict_results = {row[0]:	{'team_name': row[1],'team_id': row[2]} }
 	return dict_results, results
 
 con = getdb()
