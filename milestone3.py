@@ -119,6 +119,7 @@ def teams_creation(driver):
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
 			for country_league, country_league_urls in sport_dict.items():
 				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
+				print(json_name)
 				
 				print("#"*30, "START PROCESS LEAGUE {}".format(country_league), "#"*30)
 				print(country_league_urls)
@@ -160,9 +161,11 @@ def teams_creation(driver):
 							team_id = dict_team['team_id']
 						dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}					
 				# Save file sport_country_league_season.jso
+					print("dict_teams_availables", len(dict_teams_availables))
 					print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(country_league), "#"*30)
 					print("Len of dict teams: ", len(dict_country_league_season))
-					if len(dict_teams_availables) != 0:					
+					if len(dict_teams_availables) != 0:
+						print("File saved: ")
 						(json_name, dict_country_league_season)
 					
 
