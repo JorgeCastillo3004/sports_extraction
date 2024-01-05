@@ -50,7 +50,7 @@ def get_dict_results(table= 'league', column = 'league_name, league_id'):
 	dict_results = {row[0]: row[1] for row in cur.fetchall()}
 	return dict_results
 
-def get_dict_teams(sport_id = 'FOOTBALL'):
+def get_dict_teams(sport_id = 'TENNIS'):
 	query = """
 		SELECT league.league_country, team.team_name, team.team_id
 		FROM team
@@ -69,7 +69,7 @@ def get_dict_teams(sport_id = 'FOOTBALL'):
 
 con = getdb()
 
-dict_sport = get_dict_teams(sport_id = 'FOOTBALL')
+dict_sport = get_dict_teams(sport_id = 'TENNIS')
 
 
 print("dict_sport: ", list(dict_sport.keys()))
