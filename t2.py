@@ -62,16 +62,18 @@ def get_dict_league_teams(sport_id = 'TENNIS'):
 	# -- WHERE team.sport_id = '{}'
 	cur = con.cursor()
 	cur.execute(query)
-	results = cur.fetchall()
+	results = cur.fetchall()	
 	dict_results = {}
-	for row in results:
-		# dict_results[row[0]] = {'team_name':row[1], 'team_id':row[2]}
-		dict_results[row[0]]row[1] = {'team_id':row[2]}
-		
-	# dict_results = {unidecode('-'.join(row[0].split() ) ).upper():\
-	# 				{'team_name': unidecode('-'.join(row[1].split() ) ).upper(),\
-	#  				 'team_id': row[2]} for row in cur.fetchall()}
-	# dict_results = {row[0]:	{'team_name': row[1],'team_id': row[2]} }
+	for row in list_results:    
+	    if not row[0] in list(dict_results.keys()):
+	        dict_results[row[0]] = {}
+	        
+	    if not row[1] in list(dict_results[row[0]].keys() ):
+	        dict_results[row[1]] = {}
+	    
+	    if not row[2] in list(dict_results[row[0]].keys() ):
+	        dict_results[row[1]][row[2]] = {'team_id':row[3]}	
+
 	return dict_results, results
 
 con = getdb()
