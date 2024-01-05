@@ -123,8 +123,20 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 	cur.execute(query)
 	results = cur.fetchall()
 	dict_results = {}
-	for row in results:
-		dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
+	# for row in results:
+	# 	dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
+	for row in cur.fetchall():    
+		if not row[0] in list(dict_results.keys()):
+			dict_results[row[0]] = {}
+
+		if not row[1] in list(dict_results[row[0]].keys() ):
+			dict_results[row[0]][row[1]] = {}
+
+		if not row[2] in list(dict_results[row[0]][row[1]].keys() ):
+			dict_results[row[0]][row[1]][row[2]] = {}
+
+		if not row[3] in list(dict_results[row[0]][row[1]][row[2]].keys() ):
+			dict_results[row[0]][row[1]][row[2]][row[3]] = {'team_id':row[4]}
 
 	return dict_results
 
@@ -150,7 +162,7 @@ def get_dict_teams(sport_id = 'FOOTBALL'):
 
 	dict_results = {unidecode('-'.join(row[0].replace('&', '').split() ) ).upper():\
 					{'team_name': unidecode('-'.join(row[1].split() ) ).upper(),\
-	 				 'team_id': row[2]} for row in cur.fetchall()}
+					 'team_id': row[2]} for row in cur.fetchall()}
 	return dict_results
 
 def save_math_info(dict_match):
