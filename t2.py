@@ -62,9 +62,9 @@ def get_dict_league_teams(sport_id = 'TENNIS'):
 	# -- WHERE team.sport_id = '{}'
 	cur = con.cursor()
 	cur.execute(query)
-	results = cur.fetchall()	
+	results = cur.fetchall()
 	dict_results = {}
-	for row in list_results:    
+	for row in cur.fetchall():
 	    if not row[0] in list(dict_results.keys()):
 	        dict_results[row[0]] = {}
 	        
