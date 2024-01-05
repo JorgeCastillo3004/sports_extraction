@@ -42,7 +42,7 @@ def get_all_player_info_tennis(driver):
 	dict_info = {}
 	for line in lines:
 		print("Curren_line: ",line.text, "#")
-		if len(line.text) != 0 and ":" in line:
+		if len(line.text) != 0 and ":" in line.text:
 			tag, field = line.text.split(":")
 			dict_info[tag] = field
 	dict_info
