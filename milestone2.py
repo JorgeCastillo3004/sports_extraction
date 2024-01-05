@@ -307,6 +307,9 @@ def create_leagues(driver, flag_news = False):
 			
 			dict_leagues_tornaments = find_ligues_torneos(driver)			
 			dict_leagues_ready = get_dict_results(table= 'league', column = 'league_country, league_name, league_id')# From database
+			print("#"*50)
+			print(dict_leagues_ready)
+			print("#"*50)
 			# dict_leagues_ready = {}
 			league_check_point = {}
 			count_league = 1
