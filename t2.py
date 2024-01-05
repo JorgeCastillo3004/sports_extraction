@@ -62,19 +62,21 @@ def get_dict_teams(sport_id = 'TENNIS'):
 
 	cur = con.cursor()
 	cur.execute(query)
-
-	dict_results = {unidecode('-'.join(row[0].replace('&', '').split() ) ).upper():\
+	results = cur.fetchall()
+	dict_results = {unidecode('-'.join(row[0].split() ) ).upper():\
 					{'team_name': unidecode('-'.join(row[1].split() ) ).upper(),\
 	 				 'team_id': row[2]} for row in cur.fetchall()}
-	return dict_results
+	return dict_results, results
 
 con = getdb()
 sport = 'TENNIS'
-dict_sport = get_dict_teams(sport_id = sport)
+dict_sport, results = get_dict_teams(sport_id = sport)
 
 
 print("dict_sport: ", list(dict_sport.keys()))
-print("dict_sport: ", list(dict_sport[sport].keys()))
+for sport, dict_teams in dict_spot.items():
+	print("sport: ", sport)
+	print("keys: ", list(dict_teams.keys()))
 
 print("#"*50)
 
