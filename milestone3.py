@@ -116,7 +116,7 @@ def teams_creation(driver):
 	for sport_id, sport_dict in sports_dict.items():
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
 		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
-		print(dict_teams_db)
+		print(dict_teams_db.keys())
 		print("#"*50)
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
 			for country_league, country_league_urls in sport_dict.items():
@@ -140,6 +140,8 @@ def teams_creation(driver):
 						try:
 							team_country = dict_team['team_country']
 							team_name = dict_team['team_name']
+							print("team_country: ", team_country)
+							print("team_name: ", team_name)
 							dict_team_db = dict_teams_db[sport_id][team_country][team_name]
 							print("dict_team_db: ", dict_team_db)
 						except:
@@ -151,11 +153,12 @@ def teams_creation(driver):
 						else:
 							if database_enable:
 								team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])
+								print("Check teams duplicate: ", team_id_db)
 								if len(team_id_db) == 0:
 									save_team_info(dict_team)
 								else:
 									dict_team['league_id'] = team_id_db[0]
-								save_league_team_entity(dict_team)
+									save_league_team_entity(dict_team)
 								
 							team_id = dict_team['team_id']
 						dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}					
