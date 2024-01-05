@@ -65,7 +65,7 @@ def get_dict_league_teams(sport_id = 'TENNIS'):
 	results = cur.fetchall()
 	dict_results = {}
 	for row in results:
-		dict_duplicates.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
+		dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
 
 	return dict_results, results
 
