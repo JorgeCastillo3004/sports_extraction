@@ -115,22 +115,18 @@ def teams_creation(driver):
 
 	for sport_id, sport_dict in sports_dict.items():
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
-		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
-		print(dict_teams_db)
-		print(dict_teams_db.keys())
-		print("#"*50)
+		dict_teams_db = get_dict_league_ready(sport_id = sport_id)		
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
 			for country_league, country_league_urls in sport_dict.items():
 				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 				
-				print("#"*30, "DATA FROM DICT ", "#"*30)
+				print("#"*30, "START PROCESS LEAGUE {}".format(country_league), "#"*30)
 				print(country_league_urls)
 				if not os.path.isfile(json_name) and 'standings' in list(country_league_urls.keys()):
 					wait_update_page(driver, country_league_urls['standings'], "container__heading")
 					# click_main_section(driver)
 					
-					dict_teams_availables = get_teams_info_part1(driver)
-					print("Len dict teams_availables: ", len(dict_teams_availables))
+					dict_teams_availables = get_teams_info_part1(driver)					
 					dict_country_league_season = {}
 					for team_name, team_info_url in dict_teams_availables.items():
 						#league.league_country, league.league_name, team.team_name
@@ -141,25 +137,18 @@ def teams_creation(driver):
 						print("Team id: ", dict_team['league_id'])
 						try:
 							team_country = dict_team['team_country']
-							team_name = dict_team['team_name']
-							print("team_country:", team_country, "#")
-							print("team_name:", team_name, "#")
-							dict_country = dict_teams_db[sport_id][team_country]
-							print("dict_country: 1", dict_country)
-							print(dict_country.keys())
-							dict_team_db = dict_teams_db[sport_id][team_country][team_name]
-							print("dict_team_db: 2", dict_team_db)
-							print("dict_team_db: ", dict_team_db)
+							team_name = dict_team['team_name']							
+							dict_country = dict_teams_db[sport_id][team_country]							
+							dict_team_db = dict_teams_db[sport_id][team_country][team_name]							
 						except:
 							dict_team_db = {}
 
 						if len(dict_team_db) != 0:
-							print("READY")
+							print("TEAM HAS BEEN SAVED PREVIOUSLY")
 							team_id = dict_teams_db[sport_id][team_country][team_name]['team_id']							
 						else:
 							if database_enable:
-								team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])
-								print("Check teams duplicate: ", team_id_db)
+								team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])								
 								if len(team_id_db) == 0:
 									save_team_info(dict_team)
 									save_league_team_entity(dict_team)
@@ -170,11 +159,11 @@ def teams_creation(driver):
 								
 							team_id = dict_team['team_id']
 						dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}					
-					# Save file sport_country_league_season.jso
-					print("Len of dict teams: ", len(dict_country_league_season))
-					if len(dict_teams_availables) != 0:
-						print(dict_country_league_season[team_name])					
-						save_check_point(json_name, dict_country_league_season)
+				# Save file sport_country_league_season.jso
+				print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(country_league), "#"*30)
+				print("Len of dict teams: ", len(dict_country_league_season))
+				if len(dict_teams_availables) != 0:					
+					(json_name, dict_country_league_season)
 					
 
 CONFIG = load_json('check_points/CONFIG.json')
