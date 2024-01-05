@@ -162,10 +162,11 @@ def teams_creation(driver):
 								print("Check teams duplicate: ", team_id_db)
 								if len(team_id_db) == 0:
 									save_team_info(dict_team)
-								else:
-									dict_team['league_id'] = team_id_db[0]
-									dict_team['league_id'] = country_league_urls['league_id']
 									save_league_team_entity(dict_team)
+								# else:
+								# 	dict_team['team_id'] = team_id_db[0]
+								# 	dict_team['league_id'] = country_league_urls['league_id']
+								# 	save_league_team_entity(dict_team)
 								
 							team_id = dict_team['team_id']
 						dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}					
