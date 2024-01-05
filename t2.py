@@ -69,12 +69,12 @@ def get_dict_teams(sport_id = 'TENNIS'):
 	return dict_results
 
 con = getdb()
-
-dict_sport = get_dict_teams(sport_id = 'TENNIS')
+sport = 'TENNIS'
+dict_sport = get_dict_teams(sport_id = sport)
 
 
 print("dict_sport: ", list(dict_sport.keys()))
-print("dict_sport: ", list(dict_sport['FOOTBALL'].keys()))
+print("dict_sport: ", list(dict_sport[sport].keys()))
 
 print("#"*50)
 
