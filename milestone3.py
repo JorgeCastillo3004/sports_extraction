@@ -166,7 +166,7 @@ def teams_creation(driver):
 					print("Len of dict teams: ", len(dict_country_league_season))
 					if len(dict_teams_availables) != 0:
 						print("File saved: ")
-						(json_name, dict_country_league_season)
+						save_check_point(json_name, dict_country_league_season)
 					
 
 CONFIG = load_json('check_points/CONFIG.json')
