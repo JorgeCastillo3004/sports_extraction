@@ -107,7 +107,7 @@ def get_dict_results(table= 'league', column = 'league_country, league_name, lea
 	cur.execute(query)
 	# dict_results = {unidecode('-'.join(row[0].replace('&', '').split())).upper() + '_'\
 	#  				+ unidecode('-'.join(row[1].split())).upper() : row[2] for row in cur.fetchall()}
-	dict_results = {row[0] + '_'+  : row[2] for row in cur.fetchall()}
+	dict_results = {row[0] + '_'+ row[1] : row[2] for row in cur.fetchall()}
 	return dict_results
 
 def get_dict_teams(sport_id = 'FOOTBALL'):
