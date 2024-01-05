@@ -116,7 +116,8 @@ def teams_creation(driver):
 	for sport_id, sport_dict in sports_dict.items():
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
 		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
-
+		print(dict_teams_db)
+		print("#"*50)
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
 			for country_league, country_league_urls in sport_dict.items():
 				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
@@ -133,12 +134,14 @@ def teams_creation(driver):
 					for team_name, team_info_url in dict_teams_availables.items():
 						#league.league_country, league.league_name, team.team_name
 						wait_update_page(driver, team_info_url['team_url'], 'heading')
+						print("Curren league id: ", country_league_urls['league_id'])
 						dict_team = get_teams_info_part2(driver, sport_id, country_league_urls['league_id'],\
 													 country_league_urls['season_id'], team_info_url)
 						try:
 							team_country = dict_team['team_country']
 							team_name = dict_team['team_name']
 							dict_team_db = dict_teams_db[sport_id][team_country][team_name]
+							print("dict_team_db: ", dict_team_db)
 						except:
 							dict_team_db = {}
 
