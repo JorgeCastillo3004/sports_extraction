@@ -287,8 +287,8 @@ def main_extract_news(driver):
 			# if dict_check_point['sport'] == sport:
 			# 	print("Process sport activated: ")
 			# 	continue_sport = True
-			# if sport == "FOOTBALL":
-			# 	conf_enable_news['MAX_OLDER_DATE_ALLOWED'] = 8
+			if sport == "FOOTBALL":
+				conf_enable_news['MAX_OLDER_DATE_ALLOWED'] = 15
 			if continue_sport:
 				# dict_check_point['sport'] = sport
 				print(sport, news_url)
