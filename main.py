@@ -57,7 +57,7 @@ def main(driver):
 	if fixture_extraction_flag:
 		fixture_extraction(driver)
 
-	if players_flag and not(sport in ['TENNIS', 'GOLF']):
+	if players_flag:
 		players(driver)
 
 
