@@ -53,7 +53,7 @@ def save_league_team_entity(dict_team):
 	cur.execute(query, dict_team)
 	con.commit()
 
-def save_player_info(dict_team):0
+def save_player_info(dict_team):
 	query = "INSERT INTO player VALUES(%(player_id)s, %(player_country)s, %(player_dob)s,\
 	 %(player_name)s, %(player_photo)s, %(player_position)s)"
 	cur = con.cursor()
