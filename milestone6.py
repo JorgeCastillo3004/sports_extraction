@@ -130,6 +130,7 @@ def navigate_through_players(driver, sport_id, country_league, team_name, season
 			print("Save player info in database")
 			# name_ = player_dict['player_country'] + '_' + player_dict['player_name']
 			players_ready = check_player_duplicates(player_dict['player_country'], player_dict['player_name'])
+			print("players_ready ", players_ready)
 			if len(players_ready) == 0:
 				players_ready.append(name_)
 				if database_enable:
