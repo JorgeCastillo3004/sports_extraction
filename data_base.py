@@ -53,12 +53,18 @@ def save_league_team_entity(dict_team):
 	cur.execute(query, dict_team)
 	con.commit()
 
-def save_player_info(dict_team):	
+def save_player_info(dict_team):0
 	query = "INSERT INTO player VALUES(%(player_id)s, %(player_country)s, %(player_dob)s,\
 	 %(player_name)s, %(player_photo)s, %(player_position)s)"
 	cur = con.cursor()
 	cur.execute(query, dict_team)
 	con.commit()
+
+def check_player_duplicates(dict_team):
+	query = "SELECT player_id FROM player WHERE player_country ='{}' and player_name = '{}';".format(player_country, player_name)
+	cur = con.cursor()
+	cur.execute(query)	
+	return cur.fetchone()
 
 def save_team_players_entity(player_dict):
 	query = "INSERT INTO team_players_entity VALUES(%(player_meta)s, %(season_id)s, %(team_id)s,\
