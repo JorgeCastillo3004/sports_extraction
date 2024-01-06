@@ -226,7 +226,7 @@ def random_name(folder = 'news_images', termination = '.jpg'):
 	return os.path.join(folder,file_name + termination)
 
 def random_id():
-	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(16))
+	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(8))
 	rand_id = rand_id + str(random.choice([0, 9]))
 	digits = ''.join([str(random.randint(0, 9)) for i in range(4)])
 	return rand_id+digits

@@ -53,20 +53,12 @@ def save_league_team_entity(dict_team):
 	cur.execute(query, dict_team)
 	con.commit()
 
-def save_player_info(dict_team):
+def save_player_info(dict_team):	
 	query = "INSERT INTO player VALUES(%(player_id)s, %(player_country)s, %(player_dob)s,\
 	 %(player_name)s, %(player_photo)s, %(player_position)s)"
 	cur = con.cursor()
 	cur.execute(query, dict_team)
 	con.commit()
-
-def check_player_duplicates(player_country, player_name, player_dob):
-	query = "SELECT player_id FROM player WHERE player_country ='{}' and player_name = '{}' and player_dob = '{}';".format(player_country, player_name, player_dob)
-	print(query)
-	cur = con.cursor()
-	cur.execute(query)
-	results = [row[0] for row in cur.fetchall()]
-	return results
 
 def save_team_players_entity(player_dict):
 	query = "INSERT INTO team_players_entity VALUES(%(player_meta)s, %(season_id)s, %(team_id)s,\
@@ -112,41 +104,11 @@ def get_list_results(league_id, season_name):
 	return results
 
 def get_list_id_teams(sport_id, team_country, team_name):
-	query = "SELECT team_id FROM team WHERE sport_id ='{}' and team_country = '{}' and team_name = '{}';".format(sport_id, team_country, team_name)	
+	query = "SELECT team_id FROM team WHERE sport_id ='{}' and team_country = '{}' and team_name = '{}';".format(sport_id, team_country, team_name)
 	cur = con.cursor()
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]
 	return results
-
-def get_dict_league_ready(sport_id = 'TENNIS'):
-	query = """
-		SELECT team.sport_id, team.team_country, team.team_name, team.team_id
-		FROM team
-		JOIN league_team ON team.team_id = league_team.team_id
-		JOIN league ON league_team.league_id = league.league_id
-		WHERE team.sport_id = '{}'""".format(sport_id)
-	# 
-	# -- WHERE team.sport_id = '{}'
-	cur = con.cursor()
-	cur.execute(query)
-	results = cur.fetchall()
-	dict_results = {}
-	# for row in results:
-	# 	dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
-	for row in results:
-		if not row[0] in list(dict_results.keys()):
-			dict_results[row[0]] = {}
-
-		if not row[1] in list(dict_results[row[0]].keys() ):
-			dict_results[row[0]][row[1]] = {}
-
-		if not row[2] in list(dict_results[row[0]][row[1]].keys() ):
-			dict_results[row[0]][row[1]][row[2]] = {'team_id':row[3]}
-
-		# if not row[3] in list(dict_results[row[0]][row[1]][row[2]].keys() ):
-		# 	dict_results[row[0]][row[1]][row[2]][row[3]] = {'team_id':row[4]}
-
-	return dict_results
 
 def get_dict_results(table= 'league', column = 'league_country, league_name, league_id'):
 	query = "SELECT {} FROM {};".format(column, table)
@@ -170,8 +132,27 @@ def get_dict_teams(sport_id = 'FOOTBALL'):
 
 	dict_results = {unidecode('-'.join(row[0].replace('&', '').split() ) ).upper():\
 					{'team_name': unidecode('-'.join(row[1].split() ) ).upper(),\
-					 'team_id': row[2]} for row in cur.fetchall()}
+	 				 'team_id': row[2]} for row in cur.fetchall()}
 	return dict_results
+
+def get_dict_league_ready(sport_id = 'TENNIS'):
+	query = """
+		SELECT team.sport_id, team.team_country, league.league_country, team.team_name, team.team_id
+		FROM team
+		JOIN league_team ON team.team_id = league_team.team_id
+		JOIN league ON league_team.league_id = league.league_id
+		WHERE team.sport_id = '{}'""".format(sport_id)
+	# 
+	# -- WHERE team.sport_id = '{}'
+	cur = con.cursor()
+	cur.execute(query)
+	results = cur.fetchall()
+	dict_results = {}
+	for row in results:
+		dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
+
+	return dict_results
+	
 
 def save_math_info(dict_match):
 	query = "INSERT INTO match VALUES(%(match_id)s, %(match_country)s, %(end_time)s,\
