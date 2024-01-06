@@ -149,7 +149,7 @@ def get_check_point(dict_players_ready, sport_id, country_league, team_name):
 		dict_players_ready[sport_id][country_league][team_name] = []
 	return dict_players_ready
 
-def main_m6(driver):
+def players(driver):
 	sports_dict = load_check_point('check_points/leagues_info.json')
 	dict_players_ready = load_check_point('check_points/players_ready.json')
 	for sport_id, sport_dict in sports_dict.items():	
