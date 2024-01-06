@@ -1,7 +1,7 @@
 
-	{"section1": "weekly|2|15:30:00",
-	    "section2": "daily|3|10:30:30",
-	    "section3": "monthly|1|09:00:15",
-	    "section4": "minutes|3|09:00:15",
-	    "section5": "seconds|15|09:00:15"}
+	{"section1": "weekly|dia_semana|15:30:00",
+	    "section2": "daily|10:30:30",
+	    "section3": "monthly|dia_del_mes_1-31|09:00:15",
+	    "section4": "time|3, o fraccion", "# correr cada 3 minutos"
+	    // "section5": "seconds|15|09:00:15"}
 
