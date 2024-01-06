@@ -63,8 +63,9 @@ def save_player_info(dict_team):
 def check_player_duplicates(player_country, player_name):
 	query = "SELECT player_id FROM player WHERE player_country ='{}' and player_name = '{}';".format(player_country, player_name)
 	cur = con.cursor()
-	cur.execute(query)	
-	return cur.fetchone()
+	cur.execute(query)
+	results = [row[0] for row in cur.fetchall()]
+	return results
 
 def save_team_players_entity(player_dict):
 	query = "INSERT INTO team_players_entity VALUES(%(player_meta)s, %(season_id)s, %(team_id)s,\
