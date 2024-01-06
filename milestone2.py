@@ -342,8 +342,6 @@ def create_leagues(driver, flag_news = False):
 						print(" "*30, "SAVE NEW SEASON", league_info['season_id'])
 						if database_enable:
 							save_season_database(league_info) # UNCOMENT
-					if league_info['league_name'] == "Super Lig":
-						stop_validate()
 					league_check_point[country_league] = {'league_name':league_info['league_name'] , 'url':league_url,\
 															 'league_id':league_id, 'season_id':league_info['season_id']}
 

@@ -294,16 +294,11 @@ def main_extract_news(driver):
 				print(sport, news_url)
 				wait_update_page(driver, news_url, "section__mainTitle")
 
-				new_test = False
+				click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
+				list_upate_news = get_list_recent_news(driver, sport, conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
 
-				if new_test:
-					check_process_news(driver, sport, conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
-				else:
-					click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
-					list_upate_news = get_list_recent_news(driver, sport, conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
-
-					extract_news_info(driver, list_upate_news, dict_check_point)
-					# dict_check_point['index'] = 0
+				extract_news_info(driver, list_upate_news, dict_check_point)
+				# dict_check_point['index'] = 0
 
 def initial_settings_m1(driver):
 	# GET SPORTS AND SPORTS LINKS

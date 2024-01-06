@@ -330,6 +330,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 			for event_index, event_info in round_info.items():
 
 				url_details = event_info['link_details']
+				print("Even url: ", url_details)
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
 				
