@@ -165,7 +165,10 @@ def players(driver):
 					wait_update_page(driver, team_info['team_url'], "container__heading")
 					print(" START PLAYER EXTRACTION")
 					print(team_info['team_url'])
-					squad_button = driver.find_element(By.CLASS_NAME, 'tabs__tab.squad')
+					try:
+						squad_button = driver.find_element(By.CLASS_NAME, 'tabs__tab.squad')
+					except:
+						squad_button = driver.find_element(By.XPATH, '//a[@title="Squad"]')
 					squad_url = squad_button.get_attribute('href')
 					wait_update_page(driver, squad_url, 'heading')
 					dict_squad = get_squad_dict(driver, sport_id = 'soccer')
