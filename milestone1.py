@@ -30,7 +30,7 @@ def get_list_recent_news(driver, sport, max_older_news):
 	list_upate_news = []
 	for i, block in enumerate(container_news):
 		news_link = block.get_attribute('href')
-		news_date = block.find_element(By.CLASS_NAME, '_newsMeta_gh8ui_5').text
+		news_date = block.find_element(By.XPATH, './/span[@data-testid="wcl-newsMetaInfo-date"]').text
 		date_utc = process_date(news_date)
 		title = block.find_element(By.XPATH, './/div[@role="heading"]').text
 		image = wait.until(EC.element_to_be_clickable((By.XPATH, './/figure/picture/img')))
@@ -299,7 +299,7 @@ def main_extract_news(driver):
 				if new_test:
 					check_process_news(driver, sport, conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
 				else:
-					click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
+					# click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
 					list_upate_news = get_list_recent_news(driver, sport, conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
 
 					extract_news_info(driver, list_upate_news, dict_check_point)
