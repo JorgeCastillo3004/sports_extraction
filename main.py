@@ -43,7 +43,7 @@ def main(driver):
 	dict_sports = load_json('check_points/sports_url_m2.json')
 	
 	if main_extract_news_enable:
-		main_extract_news()
+		main_extract_news(driver)
 
 	if create_leagues_flag:
 		create_leagues(driver)
