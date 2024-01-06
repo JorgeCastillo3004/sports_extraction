@@ -60,7 +60,7 @@ def save_player_info(dict_team):0
 	cur.execute(query, dict_team)
 	con.commit()
 
-def check_player_duplicates(dict_team):
+def check_player_duplicates(player_country, player_name):
 	query = "SELECT player_id FROM player WHERE player_country ='{}' and player_name = '{}';".format(player_country, player_name)
 	cur = con.cursor()
 	cur.execute(query)	
