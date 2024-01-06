@@ -97,7 +97,9 @@ def get_player_data(driver):
 
 def get_squad_dict(driver, sport_id = 'soccer'):
 	# Function to get positions and url for each player
-	lineups_blocks = driver.find_element(By.XPATH, '//div[@class="lineup lineup--{}"]'.format(sport_id))
+	class_name = '//div[@class="lineup lineup--{}"]'.format(sport_id)
+	print("class_name: ", class_name)
+	lineups_blocks = driver.find_element(By.XPATH, )
 	sections = lineups_blocks.find_elements(By.CLASS_NAME, 'lineup__rows')
 
 	dict_squad = {}
