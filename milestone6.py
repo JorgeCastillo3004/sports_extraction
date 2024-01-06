@@ -164,6 +164,7 @@ def players(driver):
 				for team_name, team_info in dict_country_league_season.items():
 					wait_update_page(driver, team_info['team_url'], "container__heading")
 					print(" START PLAYER EXTRACTION")
+					print(team_info['team_url'])
 					squad_button = driver.find_element(By.CLASS_NAME, 'tabs__tab.squad')
 					squad_url = squad_button.get_attribute('href')
 					wait_update_page(driver, squad_url, 'heading')
