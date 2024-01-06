@@ -97,7 +97,7 @@ def get_player_data(driver):
 
 def get_squad_dict(driver, sport_id = 'soccer'):
 	# Function to get positions and url for each player
-	lineups_blocks = driver.find_element(By.XPATH, '//div[@class="lineup lineup--{}"]'.sport_id)
+	lineups_blocks = driver.find_element(By.XPATH, '//div[@class="lineup lineup--{}"]'.format(sport_id))
 	sections = lineups_blocks.find_elements(By.CLASS_NAME, 'lineup__rows')
 
 	dict_squad = {}
@@ -171,7 +171,7 @@ def players(driver):
 						squad_button = driver.find_element(By.XPATH, '//a[@title="Squad"]')
 					squad_url = squad_button.get_attribute('href')
 					wait_update_page(driver, squad_url, 'heading')
-					dict_squad = get_squad_dict(driver, sport_id = 'soccer')
+					dict_squad = get_squad_dict(driver, sport_id = sport_id)
 					dict_players_ready = get_check_point(dict_players_ready, sport_id, country_league, team_name)
 					navigate_through_players(driver, sport_id, country_league, team_name, country_league_urls['season_id'],\
 										 team_info['team_id'], dict_squad, dict_players_ready)
