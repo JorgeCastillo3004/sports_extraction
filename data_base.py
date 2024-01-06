@@ -59,9 +59,9 @@ def save_player_info(dict_team):
 	cur = con.cursor()
 	cur.execute(query, dict_team)
 	con.commit()
-
+	
 def check_player_duplicates(player_country, player_name):
-	query = "SELECT player_id FROM player WHERE player_country ='{}' and player_name = '{}';".format(player_country, player_name)
+	query = "SELECT player_id FROM player WHERE player_country ='{}' and player_name = '{}';".format(player_country, player_name.replace("'", "\'"))
 	cur = con.cursor()
 	cur.execute(query)
 	results = [row[0] for row in cur.fetchall()]
