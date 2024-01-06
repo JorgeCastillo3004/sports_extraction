@@ -132,12 +132,12 @@ def navigate_through_players(driver, sport_id, country_league, team_name, season
 			players_ready = check_player_duplicates(player_dict['player_country'], player_dict['player_name'])
 			print("players_ready ", players_ready)
 			if len(players_ready) == 0:
-				players_ready.append(name_)
+				# players_ready.append(name_)
 				if database_enable:
 					save_player_info(player_dict) # player
 					save_team_players_entity(player_dict) # team_players_entity
-					dict_players_ready[sport_id][country_league][team_name] = players_ready
-					save_check_point('check_points/players_ready.json', dict_players_ready)
+					# dict_players_ready[sport_id][country_league][team_name] = players_ready
+					# save_check_point('check_points/players_ready.json', dict_players_ready)
 		# 	break
 		# break
 
