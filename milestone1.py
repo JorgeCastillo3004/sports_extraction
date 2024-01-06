@@ -299,7 +299,7 @@ def main_extract_news(driver):
 				if new_test:
 					check_process_news(driver, sport, conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
 				else:
-					# click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
+					click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
 					list_upate_news = get_list_recent_news(driver, sport, conf_enable_news['MAX_OLDER_DATE_ALLOWED'])
 
 					extract_news_info(driver, list_upate_news, dict_check_point)
