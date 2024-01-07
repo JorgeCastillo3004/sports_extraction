@@ -19,8 +19,7 @@ def save_news_database(dict_news):
 	cur.execute(query, dict_news)
 	con.commit()
 
-def save_league_info(dict_ligue_tornament):
-
+def save_league_info(dict_ligue_tornament):	
 	query = "INSERT INTO league VALUES(%(league_id)s, %(league_country)s, %(league_logo)s, %(league_name)s, %(league_name_i18n)s, %(sport_id)s)"
 	cur = con.cursor()																			 
 	cur.execute(query, dict_ligue_tornament)														 
@@ -89,7 +88,7 @@ def save_sport_database(sport_dict):
 	except:
 		con.rollback()
 
-def get_list_results(league_id, season_name):
+def get_seasons(league_id, season_name):
 	query = "SELECT season_name, season_id FROM season	WHERE league_id ='{}' and season_name = '{}';".format(league_id, season_name)
 	cur = con.cursor()
 	cur.execute(query)	
