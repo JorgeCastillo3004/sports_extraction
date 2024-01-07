@@ -277,7 +277,7 @@ def main_extract_news(driver):
 					print("list_upate_news: ", list_upate_news)
 					save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)
 					last_index += 1
-					# container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
+					container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
 					last_news_saved[sport] = last_news_saved_sport
 				save_check_point('check_points/last_saved_news.json', last_news_saved)	
 				#################### SECTION PROCESS NEWS #########################
