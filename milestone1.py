@@ -269,20 +269,20 @@ def main_extract_news(driver):
 				last_index = 0 
 				click_more_count = 0
 				################ LIST OF CONTAINERS NEWS #################
-				xpath_expression = '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a'
-				container_news = driver.find_elements(By.XPATH, xpath_expression)
-				while last_index < len(container_news):
-					start_index = last_index
+				# xpath_expression = '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a'
+				# container_news = driver.find_elements(By.XPATH, xpath_expression)
+				# while last_index < len(container_news):
+				# 	start_index = last_index
 
-					list_upate_news, last_index, last_news_saved_sport = get_list_recent_news(driver,conf_enable_news['MAX_OLDER_DATE_ALLOWED'],\
-												 last_index, last_news_saved_sport)
-					print("list_upate_news: ", list_upate_news)
-					if len(list_upate_news)!=0:
-						save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)					
-						container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
-						last_news_saved[sport] = last_news_saved_sport					
-					last_index += 1
-				save_check_point('check_points/last_saved_news.json', last_news_saved)	
+				# 	list_upate_news, last_index, last_news_saved_sport = get_list_recent_news(driver,conf_enable_news['MAX_OLDER_DATE_ALLOWED'],\
+				# 								 last_index, last_news_saved_sport)
+				# 	print("list_upate_news: ", list_upate_news)
+				# 	if len(list_upate_news)!=0:
+				# 		save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)					
+				# 		container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
+				# 		last_news_saved[sport] = last_news_saved_sport					
+				# 	last_index += 1
+				# save_check_point('check_points/last_saved_news.json', last_news_saved)	
 				#################### SECTION PROCESS NEWS #########################
 				extract_news_info(driver, dict_check_point)
 
