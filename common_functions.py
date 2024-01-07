@@ -231,6 +231,10 @@ def random_id():
 	digits = ''.join([str(random.randint(0, 9)) for i in range(4)])
 	return rand_id+digits
 
+def random_id_short():
+	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(8))	
+	return rand_id
+
 def stop_validate():
 	user_input = input("Type y to continue s to stop: ")
 	if user_input == 'y':

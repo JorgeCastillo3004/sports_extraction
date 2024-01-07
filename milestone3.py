@@ -112,8 +112,10 @@ def navigate_through_teams(driver, sport_id, league_id, tournament_id, season_id
 def teams_creation(driver):
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
 	sports_dict = load_check_point('check_points/leagues_info.json')
+	# dict_sport_id = load_json('check_points/sports_id.json')
 
 	for sport_id, sport_dict in sports_dict.items():
+		# sport_id = dict_sport_id[sport_id]
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
 		dict_teams_db = get_dict_league_ready(sport_id = sport_id)		
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):

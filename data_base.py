@@ -21,7 +21,7 @@ def save_news_database(dict_news):
 
 def save_league_info(dict_ligue_tornament):
 
-	query = "INSERT INTO league VALUES(%(league_id)s, %(league_country)s, %(league_logo)s, %(league_name)s, %(league_name_i18n)s)"
+	query = "INSERT INTO league VALUES(%(league_id)s, %(league_country)s, %(league_logo)s, %(league_name)s, %(league_name_i18n)s, %(sport_id)s)"
 	cur = con.cursor()																			 
 	cur.execute(query, dict_ligue_tornament)														 
 	con.commit()																					 
@@ -78,11 +78,6 @@ def get_team_id(league_id, season_id, team_name):
 	cur.execute(query)
 	results = cur.fetchone()
 	return results[0]
-
-def create_sport_dict(sport, sport_mode):
-	sport_dict = {'sport_id' : sport, 'is_active' : True, 'desc_i18n' : '', 'logo' : '',\
-	'sport_mode' : sport_mode, 'name_i18n' : '', 'point_name': ''}
-	return sport_dict
 
 def save_sport_database(sport_dict):
 	try:
@@ -152,7 +147,7 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 		dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
 
 	return dict_results
-	
+
 
 def save_math_info(dict_match):
 	query = "INSERT INTO match VALUES(%(match_id)s, %(match_country)s, %(end_time)s,\

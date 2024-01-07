@@ -532,10 +532,12 @@ def get_check_point(check_point, sport_id, country_league):
 def results_extraction(driver):	
 	sports_dict = load_check_point('check_points/leagues_info.json')
 	check_point = load_check_point('check_points/check_point_m4.json')
+	# dict_sport_id = load_json('check_points/sports_id.json')	
 	print("check_point: ", check_point)
 	# dict_teams_db = {}
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
 	for sport_id, sport_dict in sports_dict.items():
+		# sport_id = dict_sport_id[sport_id]
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result		
 		for country_league, country_league_urls in sport_dict.items():
 			league_pending, dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)

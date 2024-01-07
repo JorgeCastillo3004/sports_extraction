@@ -163,6 +163,8 @@ def get_check_point(dict_players_ready, sport_id, country_league, team_name):
 
 def players(driver):
 	sports_dict = load_check_point('check_points/leagues_info.json')
+	dict_sport_id = load_check_point('check_points/sports_id.json')
+	inverted_dict = {value: key for key, value in dict_sport_id.items()}
 	dict_players_ready = load_check_point('check_points/players_ready.json')
 	for sport_id, sport_dict in sports_dict.items():	
 		for country_league, country_league_urls in sport_dict.items():			
@@ -183,7 +185,8 @@ def players(driver):
 						squad_button = driver.find_element(By.XPATH, '//a[@title="Squad"]')
 					squad_url = squad_button.get_attribute('href')
 					wait_update_page(driver, squad_url, 'heading')
-					dict_squad = get_squad_dict(driver, sport_id = sport_id)
+					sport_name = inverted_dict[sport_id]
+					dict_squad = get_squad_dict(driver, sport_id = sport_name)
 					dict_players_ready = get_check_point(dict_players_ready, sport_id, country_league, team_name)
 					navigate_through_players(driver, sport_id, country_league, team_name, country_league_urls['season_id'],\
 										 team_info['team_id'], dict_squad, dict_players_ready)

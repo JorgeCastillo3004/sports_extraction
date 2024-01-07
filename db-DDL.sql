@@ -6,7 +6,8 @@ create table league
     sport   varchar(80),
     league_logo      varchar(70),
     league_name      varchar(35),
-    league_name_i18n varchar(255)
+    league_name_i18n varchar(255),
+    sport_id   varchar(40)
 );
 
 alter table league
