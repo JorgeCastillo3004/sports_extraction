@@ -324,32 +324,31 @@ def create_leagues(driver, flag_news = False):
 			###################################################################
 			#				SECTION GET CURRENT LEAGUES						  #
 			###################################################################
-			print("SPORT NAME: ", sport_name, "SPORT URL: ",dict_sports[sport_name])
+			print("SPORT NAME: ", sport_name)
 			wait_update_page(driver, dict_sports[sport_name], "container__heading")			
 			dict_leagues_tornaments = find_ligues_torneos(driver)			
 			dict_league_info = {} # DICT TO SAVE ALL LEAGUES INFORMATION.
 			count_league = 1			
 			for league_name_url, league_url in dict_leagues_tornaments.items():
-				print("***", league_name_url,"***", " "*(50-len(league_name_url)), count_league, "/" ,len(dict_leagues_tornaments), end = '')
+				print("***", league_name_url,"***", " "*(50-len(league_name_url)), count_league, "/" ,len(dict_leagues_tornaments))
 				wait_update_page(driver, league_url, "container__heading")
 				count_league += 1
 				pin_activate = check_pin(driver) # CHECK PIN ACTIVE.
 				if pin_activate:
 					league_info = get_league_data(driver, league_name_url, sport_id)
 					sport_leag_countr_name = sport_id +"_"+ league_info['league_country'] +'_'+ league_info['league_name']
-					print("sport_leag_countr_name: ", sport_leag_countr_name)
+					print(sport_leag_countr_name, end = '')
 					###################################################################
 					#			SECTION CHECK LEAGUE SAVED PREVIUSLY				  #
 					###################################################################
 					if sport_leag_countr_name in list(dict_leagues_ready.keys()):
-						print(" "*30," READY")							
+						print(" "*(60-len(sport_leag_countr_name))," READY")							
 						league_id = dict_leagues_ready[sport_leag_countr_name]
 						# league_info['league_id'] = league_id						
 					else:
-						print(" "*30, " NEW LEAGUE")
+						print(" "*(60-len(sport_leag_countr_name)), " NEW LEAGUE")
 						league_id = league_info['league_id']
-						if database_enable:
-							print("dict_ligue_tornament.keys(): ", league_info.keys())
+						if database_enable:							
 							save_league_info(league_info) # UNCOMENT
 
 					print(" "*30, "League_id: ", league_id)
