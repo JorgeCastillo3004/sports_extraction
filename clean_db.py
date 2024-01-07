@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from datetime import datetime
 import argparse
 from common_functions import load_json
-
+import os
 
 def getdb():
 	return psycopg2.connect(
