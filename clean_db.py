@@ -16,6 +16,10 @@ def getdb():
 con = getdb()
 if os.path.isfile("check_points/last_saved_news.json"):
 	os.remove("check_points/last_saved_news.json")
+
+if os.path.isfile("check_points/leagues_info.json"):
+	os.remove("check_points/leagues_info.json")
+
 files = os.listdir('check_points/leagues_season/')
 
 # Iterate over each file and remove it
@@ -24,6 +28,18 @@ for file_name in files:
     if os.path.isfile(file_path):  # Check if it's a file and not a directory
         os.remove(file_path)
         print(f"Removed {file_path}")
+
+files = os.listdir('check_points/news/')
+
+# Iterate over each file and remove it
+for file_name in files:
+    file_path = os.path.join('check_points/news/', file_name)
+    if os.path.isfile(file_path):  # Check if it's a file and not a directory
+        os.remove(file_path)
+        print(f"Removed {file_path}")
+
+
+
 
 print("Delete all from score_entity ")
 query = "DELETE FROM score_entity;"
