@@ -54,9 +54,7 @@ def get_teams_info_part1(driver):
 
 def get_teams_info_part2(driver, sport_id, league_id, season_id, team_info):
 	block_ligue_team = driver.find_element(By.CLASS_NAME, 'container__heading')
-
-
-	sport = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/a[1]').text
+	# sport = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/a[1]').text
 	team_country = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/a[2]').text
 	team_name = block_ligue_team.find_element(By.CLASS_NAME,'heading__title').text
 
@@ -112,33 +110,62 @@ def navigate_through_teams(driver, sport_id, league_id, tournament_id, season_id
 def teams_creation(driver):
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
 	sports_dict = load_check_point('check_points/leagues_info.json')
+	dict_sport_id = get_dict_sport_id()
 	# dict_sport_id = load_json('check_points/sports_id.json')
 
-	for sport_id, sport_dict in sports_dict.items():
+	for sport_name, sport_dict in sports_dict.items():
 		# sport_id = dict_sport_id[sport_id]
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
-		# dict_teams_db = get_dict_league_ready(sport_id = sport_id)		
-		dict_teams_db = {}
+
+		#####################################################################
+		#		GET DICT WITH LEAGUES SAVED IN DATA_BASE 				  	#
+		#		'{ sport_id: 												#
+		#					team_country: 									#
+		#						league_country 								#
+		#								team_name: team_id}   				#
+		#																  	#
+		#				get_dict_league_ready 								#
+		#####################################################################
+		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
+		# dict_teams_db = {}
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
-			for country_league, country_league_urls in sport_dict.items():
-				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
+			for sport_id_league, legue_info in sport_dict.items():
+
+				# BUIL FILE NAME USED TO SAVE TEAM INFO
+				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, sport_id_league)
 				print(json_name)
 				
-				print("#"*30, "START PROCESS LEAGUE {}".format(country_league), "#"*30)
-				print(country_league_urls)
-				if not os.path.isfile(json_name) and 'standings' in list(country_league_urls.keys()):
-					wait_update_page(driver, country_league_urls['standings'], "container__heading")
-					# click_main_section(driver)
+				print("#"*30, "START PROCESS LEAGUE {}".format(sport_id_league), "#"*30)
+				print(legue_info)
+				
+				# CHECK IF THE FILE EXISTS; IF IT DOESN'T, IT MEANS IT HASN'T BEEN PROCESSED.
+				if not os.path.isfile(json_name) and 'standings' in list(legue_info.keys()):					
 					
+					# LOAD LEAGUE STANDING SECTION AND WAIT UNTIL LOAD
+					wait_update_page(driver, legue_info['standings'], "container__heading")					
+					
+					# GET TEAMINFO PART1: team url, statistics, team position, last results
 					dict_teams_availables = get_teams_info_part1(driver)
 					dict_country_league_season = {}
 					for team_name, team_info_url in dict_teams_availables.items():
-						#league.league_country, league.league_name, team.team_name
+
+						
+						###################################################################
+						#				LOAD TEAM URL 		 							  #
+						###################################################################
 						wait_update_page(driver, team_info_url['team_url'], 'heading')
-						print("Curren league id: ", country_league_urls['league_id'])
-						dict_team = get_teams_info_part2(driver, sport_id, country_league_urls['league_id'],\
-													 country_league_urls['season_id'], team_info_url)
+						print("Curren league id: ", legue_info['league_id'])
+						 
+						##########################################################################
+						# GET TEAM INFO PART2: team_name, team_country, complete other fields.   #
+						##########################################################################
+						dict_team = get_teams_info_part2(driver, sport_id, legue_info['league_id'],\
+													 legue_info['season_id'], team_info_url)
 						print("Team id: ", dict_team['league_id'])
+						
+						##########################################################################
+						#      CHECK IF TEAM IS CONTAINED IN DATA BASE USING dict_team_db   	 #
+						##########################################################################
 						try:
 							team_country = dict_team['team_country']
 							team_name = dict_team['team_name']							
@@ -155,17 +182,17 @@ def teams_creation(driver):
 								team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])								
 								if len(team_id_db) == 0:
 									save_team_info(dict_team)
-									save_league_team_entity(dict_team)
-								# else:
-								# 	dict_team['team_id'] = team_id_db[0]
-								# 	dict_team['league_id'] = country_league_urls['league_id']
-								# 	save_league_team_entity(dict_team)
-								
+									save_league_team_entity(dict_team)								
 							team_id = dict_team['team_id']
-						dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}					
-				# Save file sport_country_league_season.jso
+						#####################################################################################
+						#      SAVE TEAM INFO IN DICT dict_country_league_season (one file by each league)  #
+						#####################################################################################
+
+						dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}
+
+					# Save file sport_country_league_season.jso
 					print("dict_teams_availables", len(dict_teams_availables))
-					print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(country_league), "#"*30)
+					print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(sport_id_league), "#"*30)
 					print("Len of dict teams: ", len(dict_country_league_season))
 					if len(dict_teams_availables) != 0:
 						print("File saved: ")
