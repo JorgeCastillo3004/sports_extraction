@@ -226,7 +226,7 @@ def extract_news_info(driver, dict_check_point):
 					# save_check_point('check_points/max_size.json', max_size)
 			dict_check_point['index'] = index
 			pending_extract = False
-		# os.remove(file_path)
+		os.remove(file_path)
 
 def main_extract_news(driver):
 	dict_check_point = {} #check_previous_execution(file_path = 'check_points/check_point_m1_news.json')
@@ -285,6 +285,7 @@ def main_extract_news(driver):
 				# save_check_point('check_points/last_saved_news.json', last_news_saved)	
 				#################### SECTION PROCESS NEWS #########################
 				extract_news_info(driver, dict_check_point)
+		stop_validate()
 
 def initial_settings_m1(driver):
 	# GET SPORTS AND SPORTS LINKS

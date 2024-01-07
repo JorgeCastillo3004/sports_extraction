@@ -17,7 +17,7 @@ create table news
 (
     news_id      varchar(40) not null
         primary key,
-    news_content varchar(16392),
+    news_content varchar(30000),
     image        varchar(255),
     published    timestamp(6),
     news_summary varchar(8196),
