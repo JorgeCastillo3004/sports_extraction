@@ -225,7 +225,7 @@ def random_name(folder = 'news_images', termination = '.jpg'):
 	file_name = ''.join(random.choice(string.ascii_lowercase) for i in range(16))
 	return os.path.join(folder,file_name + termination)
 
-def random_name_logos(folder = 'news_images', league_team, termination = '.jpg'):
+def random_name_logos(league_team, folder = 'news_images', termination = '.jpg'):
 	file_name = ''.join(random.choice(string.ascii_lowercase) for i in range(16))
 	return os.path.join(folder,league_team+file_name + termination)
 

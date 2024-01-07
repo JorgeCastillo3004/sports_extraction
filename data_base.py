@@ -105,13 +105,13 @@ def get_list_id_teams(sport_id, team_country, team_name):
 	results = [row[0] for row in cur.fetchall()]
 	return results
 
-def get_dict_results(table= 'league', column = 'league_country, league_name, league_id'):
+def get_dict_results(table= 'league', column = 'sport_id, league_country, league_name, league_id'):
 	query = "SELECT {} FROM {};".format(column, table)
 	cur = con.cursor()
 	cur.execute(query)
 	# dict_results = {unidecode('-'.join(row[0].replace('&', '').split())).upper() + '_'\
 	#  				+ unidecode('-'.join(row[1].split())).upper() : row[2] for row in cur.fetchall()}
-	dict_results = {row[0] + '_'+ row[1] : row[2] for row in cur.fetchall()}
+	dict_results = {row[0] + '_'+ row[1] + '_' + row[2]: row[3] for row in cur.fetchall()}
 	return dict_results
 
 def get_dict_teams(sport_id = 'FOOTBALL'):
