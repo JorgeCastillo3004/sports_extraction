@@ -206,22 +206,23 @@ def extract_news_info(driver, dict_check_point):
 			dict_news = get_news_info_v2(driver, current_dict)
 			dict_news['published'] = process_date(dict_news['published'])
 			if database_enable:				
-				try:
-					save_news_database(dict_news)
-				except:
-					max_size = load_check_point('check_points/max_size.json')
-					if len(max_size)!= 0:
-						compare = True
-					else:
-						compare = False
+				# try:
+				print("Insert news in db")
+				save_news_database(dict_news)
+				# except:
+				# 	max_size = load_check_point('check_points/max_size.json')
+				# 	if len(max_size)!= 0:
+				# 		compare = True
+				# 	else:
+				# 		compare = False
 						
-					for key, field in dict_news.items():
-						if key != 'published':
-							if compare:
-								if max_size[key] < len(field):
-									max_size[key] = len(field)
-							else:								
-								max_size[key] = len(field)
+				# 	for key, field in dict_news.items():
+				# 		if key != 'published':
+				# 			if compare:
+				# 				if max_size[key] < len(field):
+				# 					max_size[key] = len(field)
+				# 			else:								
+				# 				max_size[key] = len(field)
 					save_check_point('check_points/max_size.json', max_size)
 			dict_check_point['index'] = index
 			pending_extract = False
