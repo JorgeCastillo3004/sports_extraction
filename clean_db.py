@@ -14,8 +14,8 @@ def getdb():
 	)
 
 con = getdb()
-
-os.remove("check_points/last_saved_news.json")
+os.path.isfile("check_points/last_saved_news.json"):
+	os.remove("check_points/last_saved_news.json")
 files = os.listdir('check_points/leagues_season/')
 
 # Iterate over each file and remove it
