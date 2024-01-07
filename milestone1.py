@@ -223,7 +223,7 @@ def extract_news_info(driver, dict_check_point):
 				# 					max_size[key] = len(field)
 				# 			else:								
 				# 				max_size[key] = len(field)
-					save_check_point('check_points/max_size.json', max_size)
+					# save_check_point('check_points/max_size.json', max_size)
 			dict_check_point['index'] = index
 			pending_extract = False
 		os.remove(file_path)
