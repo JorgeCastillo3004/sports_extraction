@@ -226,17 +226,21 @@ def random_name(folder = 'news_images', termination = '.jpg'):
 	return os.path.join(folder,file_name + termination)
 
 def random_name_logos(league_team, folder = 'news_images', termination = '.jpg'):
-	file_name = ''.join(random.choice(string.ascii_lowercase) for i in range(16))
-	return os.path.join(folder,league_team+file_name + termination)
+	file_name = ''.join(random.choice(string.ascii_lowercase) for i in range(4))
+	digits = ''.join([str(random.randint(0, 9)) for i in range(1)])
+	file_name = '_' + file_name + digits
+	league_team = '_'.join(league_team.lower().split())
+	return os.path.join(folder,(league_team) + file_name + termination)
 
 def random_id():
-	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(8))
+	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(4))
 	rand_id = rand_id + str(random.choice([0, 9]))
 	digits = ''.join([str(random.randint(0, 9)) for i in range(4)])
 	return rand_id+digits
 
 def random_id_short():
-	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(8))	
+	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(3))	
+	digits = ''.join([str(random.randint(0, 9)) for i in range(3)])
 	return rand_id+digits
 
 def stop_validate():

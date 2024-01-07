@@ -5,17 +5,11 @@ import argparse
 from common_functions import load_json
 import os
 
-def getdb():
-	return psycopg2.connect(
-			host="localhost",
-			user="wohhu",
-			password="caracas123",
-	dbname='sports_db',
-	)
-
-con = getdb()
 if os.path.isfile("check_points/last_saved_news.json"):
 	os.remove("check_points/last_saved_news.json")
+
+if os.path.isfile("check_points/sports_id.json"):
+	os.remove("check_points/sports_id.json")
 
 if os.path.isfile("check_points/leagues_info.json"):
 	os.remove("check_points/leagues_info.json")
@@ -39,6 +33,15 @@ for file_name in files:
         print(f"Removed {file_path}")
 
 
+def getdb():
+	return psycopg2.connect(
+			host="localhost",
+			user="wohhu",
+			password="caracas123",
+	dbname='sports_db',
+	)
+
+con = getdb()
 
 
 print("Delete all from score_entity ")

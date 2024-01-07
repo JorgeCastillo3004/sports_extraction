@@ -305,17 +305,21 @@ def create_leagues(driver, flag_news = False):
 	json_check_point = {}
 	for sport, sport_info in conf_enable_sport.items():
 		if sport_info['enable']:
-			if database_enable:
-				sport_id = random_id_short
+			if not sport in dict_sport_id.keys():				
+				sport_id = random_id_short()
 				dict_sport_id[sport] = sport_id
+				print("dict_sport_id: ", dict_sport_id)
 				save_check_point('check_points/sports_id.json', dict_sport_id)
-				sport_dict = create_sport_dict(sport_id, sport_info['mode'])				
-				save_sport_database(sport_dict)
+				if database_enable:					
+					sport_dict = create_sport_dict(sport_id, sport_info['mode'])				
+					save_sport_database(sport_dict)
+			sport_id = dict_sport_id[sport]
 			print("Init: ", sport, dict_sports[sport])
 			wait_update_page(driver, dict_sports[sport], "container__heading")
 			
 			dict_leagues_tornaments = find_ligues_torneos(driver)			
-			dict_leagues_ready = get_dict_results(table= 'league', column = 'sport_id, league_country, league_name, league_id')# From database
+			# dict_leagues_ready = get_dict_results(table= 'league', column = 'sport_id, league_country, league_name, league_id')# From database
+			dict_leagues_ready = {}
 			print("#"*50)
 			print(dict_leagues_ready)
 			print("#"*50)
@@ -328,7 +332,7 @@ def create_leagues(driver, flag_news = False):
 				count_league += 1
 				pin_activate = check_pin(driver)
 				if pin_activate:
-					league_info = get_league_data(driver)
+					league_info = get_league_data(driver, league_name_url)
 					country_league = sport_id +"_"+ league_info['league_country'] +'_'+ league_info['league_name']
 					if country_league in list(dict_leagues_ready.keys()):
 						print(" "*30," READY")							
@@ -344,8 +348,8 @@ def create_leagues(driver, flag_news = False):
 
 					print(" "*30, "League_id: ", league_id)
 					season_name = league_info['season_name']					
-					list_seasons = get_list_results(league_id, season_name)
-					# list_seasons = [] # UNCOMENT
+					# list_seasons = get_list_results(league_id, season_name)
+					list_seasons = [] # UNCOMENT
 					print("list_seasons: ", list_seasons)
 					
 					if len(list_seasons) == 0:

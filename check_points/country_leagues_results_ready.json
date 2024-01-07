@@ -42,5 +42,25 @@
             "ROUND_22.json",
             "ROUND_24.json"
         ]
+    },
+    "TENNIS": {
+        "skia5514_ATP - SINGLES_ATP Barcelona": [
+            "1*-*16-FINALS_2.json",
+            "1*-*8-FINALS.json",
+            "1*-*32-FINALS.json",
+            "1*-*16-FINALS_1.json",
+            "Barcelona_(Spain),_clay.json",
+            "QUARTER-FINALS.json",
+            "1*-*16-FINALS.json",
+            "Barcelona_(Spain)_-_Qualification,_clay.json",
+            "1*-*32-FINALS_1.json",
+            "SEMI-FINALS.json",
+            "FINAL_1.json",
+            "FINAL.json",
+            "1*-*32-FINALS_2.json"
+        ],
+        "skia5514_ATP - SINGLES_ATP French Open": [
+            "1*-*8-FINALS.json"
+        ]
     }
 }

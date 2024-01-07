@@ -191,31 +191,43 @@ def get_match_info(driver, event_info):
 
 def wait_load_details(driver, url_details):
 	wait = WebDriverWait(driver, 10)
-	block_info = driver.find_elements(By.XPATH,'//div[@class="matchInfoData"]')
+	block_info_before = driver.find_elements(By.XPATH,'//div[@class="matchInfoData"]')
 	driver.get(url_details)
-	if len(block_info) == 0:
-		element = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="matchInfoData"]')))
+	try:
+		wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="matchInfoData"]')))
+	except:
+		block_info_after = driver.find_elements(By.XPATH,'//div[@class="matchInfoData"]')
+
+	if len(block_info_before) == 0:
+		try:
+			element = wait.until(EC.visibility_of_element_located((By.XPATH, '//div[@class="matchInfoData"]')))
+			return True
+		except:
+			return False
 	else:
-		wait.until(EC.staleness_of(block_info[0]))
+		wait.until(EC.staleness_of(block_info_before[0]))
+		return True
 
 def get_statistics_game(driver):
 	wait = WebDriverWait(driver, 10)
-	button_stats = driver.find_element(By.XPATH, '//button[contains(.,"Stats")]')
-	button_stats.click()	
-	# statistics = driver.find_elements(By.XPATH, '//div[@data-testid="wcl-statistics"]')
-	statistics = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@data-testid="wcl-statistics"]')))
+	button_stats = driver.find_elements(By.XPATH, '//button[contains(.,"Stats")]')
 	statistics_info = {}
-	for indicator in statistics:		
-		stat_name = indicator.find_element(By.XPATH, './/div[@data-testid="wcl-statistics-category"]').text #data-testid="wcl-simpleText1		
-		statistic_values = indicator.find_elements(By.XPATH, './/div[@data-testid="wcl-statistics-value"]')		
+	if len(button_stats)!=0:		
+		button_stats[0].click()	
+		# statistics = driver.find_elements(By.XPATH, '//div[@data-testid="wcl-statistics"]')
+		statistics = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@data-testid="wcl-statistics"]')))
+		
+		for indicator in statistics:		
+			stat_name = indicator.find_element(By.XPATH, './/div[@data-testid="wcl-statistics-category"]').text #data-testid="wcl-simpleText1		
+			statistic_values = indicator.find_elements(By.XPATH, './/div[@data-testid="wcl-statistics-value"]')		
 
-		for value in statistic_values:			
-			if 'homeValue' in value.get_attribute('outerHTML'):
-				stat_home = value.text
-			if 'awayValue' in value.get_attribute('outerHTML'):
-				stat_away = value.text
+			for value in statistic_values:			
+				if 'homeValue' in value.get_attribute('outerHTML'):
+					stat_home = value.text
+				if 'awayValue' in value.get_attribute('outerHTML'):
+					stat_away = value.text
 
-		statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
+			statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
 	return statistics_info
 
 def get_links_participants(driver):
@@ -332,6 +344,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				print("Even url: ", url_details)
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
+				print("event_info part 1: ", event_info)
 				
 				event_info['statistic_info'] = get_statistics_game(driver)
 				event_info['league_id'] = league_id			
@@ -370,7 +383,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					dict_country_league_season[event_info['home']]['stadium_id'] = event_info['stadium_id']
 					json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 					save_check_point(json_name, dict_country_league_season)					
-					print(dict_stadium)
+					# print(dict_stadium)
 					if database_enable:
 						print("############ Save stadium info ###################")
 						save_stadium(dict_stadium)
@@ -384,7 +397,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				dict_visitor = {'match_detail_id':match_detail_id, 'home':False, 'visitor':True, 'match_id':event_info['match_id'],\
 							'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}				
 
-				print("Event info:")
+				# print("Event info:")
 				print(event_info)
 				if database_enable:
 					save_math_info(event_info)
@@ -393,6 +406,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					save_score_info(dict_home)
 					save_score_info(dict_visitor)
 					print("s... db ", end='')
+			print("#"*80, '\n'*2)
 			list_rounds_ready.append(round_file.split('/')[-1])
 			dict_leagues_ready[country_league] = list_rounds_ready
 			dict_country_league_check_point[sport_id] = dict_leagues_ready
@@ -429,13 +443,13 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 				print("Current URL: ", url_details)
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
+				print("event_info tennis: ", event_info)
 				
 				event_info['statistic_info'] = get_statistics_game(driver)
 				event_info['league_id'] = league_id			
 
 				print("event_info['match_date']", event_info['match_date'])
-
-				print(event_info)
+				
 				event_info['match_date'] = driver.find_element(By.CLASS_NAME, 'duelParticipant__startTime').text
 				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
 				event_info['end_time'] = event_info['start_time']
@@ -477,6 +491,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 						print("############ Save stadium info ###################")
 						save_stadium(dict_stadium)
 				#################################################################
+				print("#"*80, '\n'*2)
 				match_detail_id = random_id()
 				score_id = random_id()
 				dict_home = {'match_detail_id':match_detail_id, 'home':True, 'visitor':False, 'match_id':event_info['match_id'],\
@@ -528,7 +543,7 @@ def get_check_point(check_point, sport_id, country_league):
 	else:
 		return True
 
-def results_extraction(driver):	
+def results_fixtures_extraction(driver, name_section = 'results'):	
 	sports_dict = load_check_point('check_points/leagues_info.json')
 	check_point = load_check_point('check_points/check_point_m4.json')
 	# dict_sport_id = load_json('check_points/sports_id.json')	
@@ -560,18 +575,18 @@ def results_extraction(driver):
 			if flag_to_continue and check_point_flag:
 				print("Start extraction...")				
 				
-				wait_update_page(driver, country_league_urls['results'], "container__heading")
+				wait_update_page(driver, country_league_urls[name_section], "container__heading")
 				print("Navigate navigate_through_rounds")
-				navigate_through_rounds(driver, country_league, section_name = 'results')
+				navigate_through_rounds(driver, country_league, section_name = name_section)
 
 				if not individual_sport:
 					get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
 								country_league_urls['season_id'],dict_country_league_season,\
-								 dict_country_league_check_point, dict_leagues_ready, section='results')
+								 dict_country_league_check_point, dict_leagues_ready, section=name_section)
 				else:
 					get_complete_match_info_tennis(driver, country_league, sport_id, country_league_urls['league_id'],
 							country_league_urls['season_id'],dict_country_league_season,\
-							 dict_country_league_check_point, dict_leagues_ready, section='results')
+							 dict_country_league_check_point, dict_leagues_ready, section=name_section)
 				build_check_point(sport_id, country_league)
 				# sport_dict[country_league] = []
 

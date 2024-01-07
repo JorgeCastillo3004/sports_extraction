@@ -320,7 +320,7 @@ def pending_to_process(dict_country_league_check_point, sport_id, country_league
 	else:
 		return True, {}
 
-def fixture_extraction(driver):	
+def results_fixtures_extraction(driver, name_section = 'results'):	
 	sports_dict = load_check_point('check_points/leagues_info.json')
 	# dict_teams_db = {}
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
@@ -335,8 +335,8 @@ def fixture_extraction(driver):
 				print("Start extraction...")				
 				dict_country_league_season = load_check_point(file_country_league_season)				
 				print("Navigate navigate_through_rounds")
-				wait_update_page(driver, country_league_urls['fixtures'], "container__heading")
-				navigate_through_rounds(driver, country_league, section_name = 'fixtures')
+				wait_update_page(driver, country_league_urls[name_section], "container__heading")
+				navigate_through_rounds(driver, country_league, section_name = name_section)
 				get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],country_league_urls['season_id'],\
 							 dict_country_league_season, dict_country_league_check_point, dict_leagues_ready, section='fixtures')
 				# sport_dict[country_league] = []

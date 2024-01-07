@@ -65,7 +65,7 @@ def get_teams_info_part2(driver, sport_id, league_id, season_id, team_info):
 	except:
 		stadium = ''
 	image_url = block_ligue_team.find_element(By.XPATH, './/div[@class= "heading"]/img').get_attribute('src')
-	image_path = random_name(folder = 'images/logos/')
+	image_path = random_name_logos(team_name, folder = 'images/logos/')
 	save_image(driver, image_url, image_path)
 	logo_path = image_path.replace('images/logos/','')
 	team_id = random_id()
@@ -117,7 +117,8 @@ def teams_creation(driver):
 	for sport_id, sport_dict in sports_dict.items():
 		# sport_id = dict_sport_id[sport_id]
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
-		dict_teams_db = get_dict_league_ready(sport_id = sport_id)		
+		# dict_teams_db = get_dict_league_ready(sport_id = sport_id)		
+		dict_teams_db = {}
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
 			for country_league, country_league_urls in sport_dict.items():
 				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
