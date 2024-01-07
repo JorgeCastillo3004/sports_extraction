@@ -200,22 +200,23 @@ def wait_load_details(driver, url_details):
 
 def get_statistics_game(driver):
 	wait = WebDriverWait(driver, 10)
-	button_stats = driver.find_element(By.XPATH, '//button[contains(.,"Stats")]')
-	button_stats.click()	
-	# statistics = driver.find_elements(By.XPATH, '//div[@data-testid="wcl-statistics"]')
-	statistics = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@data-testid="wcl-statistics"]')))
+	xpath_expression = '//button[contains(.,"Stats")]'
+	buton_stats = driver.find_elements(By.XPATH, xpath_expression)
 	statistics_info = {}
-	for indicator in statistics:		
-		stat_name = indicator.find_element(By.XPATH, './/div[@data-testid="wcl-statistics-category"]').text #data-testid="wcl-simpleText1		
-		statistic_values = indicator.find_elements(By.XPATH, './/div[@data-testid="wcl-statistics-value"]')		
-
-		for value in statistic_values:			
-			if 'homeValue' in value.get_attribute('outerHTML'):
-				stat_home = value.text
-			if 'awayValue' in value.get_attribute('outerHTML'):
-				stat_away = value.text
-
-		statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
+	if len(buton_stats) != 0:
+		button_stats = driver.find_element(By.XPATH, xpath_expression)
+		button_stats.click()	
+		# statistics = driver.find_elements(By.XPATH, '//div[@data-testid="wcl-statistics"]')
+		statistics = wait.until(EC.presence_of_all_elements_located((By.XPATH, '//div[@data-testid="wcl-statistics"]')))		
+		for indicator in statistics:		
+			stat_name = indicator.find_element(By.XPATH, './/div[@data-testid="wcl-statistics-category"]').text #data-testid="wcl-simpleText1		
+			statistic_values = indicator.find_elements(By.XPATH, './/div[@data-testid="wcl-statistics-value"]')
+			for value in statistic_values:			
+				if 'homeValue' in value.get_attribute('outerHTML'):
+					stat_home = value.text
+				if 'awayValue' in value.get_attribute('outerHTML'):
+					stat_away = value.text
+			statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
 	return statistics_info
 
 
@@ -529,7 +530,7 @@ def get_check_point(check_point, sport_id, country_league):
 	else:
 		return True
 
-def results_extraction(driver):	
+def results_fixtures_extraction(driver, name_section = 'results'):
 	sports_dict = load_check_point('check_points/leagues_info.json')
 	check_point = load_check_point('check_points/check_point_m4.json')
 	# dict_sport_id = load_json('check_points/sports_id.json')	
@@ -561,18 +562,18 @@ def results_extraction(driver):
 			if flag_to_continue and check_point_flag:
 				print("Start extraction...")				
 				
-				wait_update_page(driver, country_league_urls['results'], "container__heading")
+				wait_update_page(driver, country_league_urls[name_section], "container__heading")
 				print("Navigate navigate_through_rounds")
-				navigate_through_rounds(driver, country_league, section_name = 'results')
+				navigate_through_rounds(driver, country_league, section_name = name_section)
 
 				if not individual_sport:
 					get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
 								country_league_urls['season_id'],dict_country_league_season,\
-								 dict_country_league_check_point, dict_leagues_ready, section='results')
+								 dict_country_league_check_point, dict_leagues_ready, section=name_section)
 				else:
 					get_complete_match_info_tennis(driver, country_league, sport_id, country_league_urls['league_id'],
 							country_league_urls['season_id'],dict_country_league_season,\
-							 dict_country_league_check_point, dict_leagues_ready, section='results')
+							 dict_country_league_check_point, dict_leagues_ready, section=name_section)
 				build_check_point(sport_id, country_league)
 				# sport_dict[country_league] = []
 

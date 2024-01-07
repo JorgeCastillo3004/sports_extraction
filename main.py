@@ -24,7 +24,7 @@ from milestone1 import *
 from milestone2 import *
 from milestone3 import *
 from milestone4 import *
-from milestone5 import *
+# from milestone5 import *
 from milestone6 import *
 
 CONFIG = load_json('check_points/CONFIG.json')
@@ -33,8 +33,8 @@ if database_enable:
 	con = getdb()
 
 def main(driver):
-	main_extract_news_enable = True  	# 1
-	create_leagues_flag = False 	    # 2
+	main_extract_news_enable = False  	# 1
+	create_leagues_flag = True 	    # 2
 	teams_creation_flag = True 	  	# 3
 	results_extraction_flag = True		# 4
 	fixture_extraction_flag = True 	# 5
@@ -52,10 +52,10 @@ def main(driver):
 		teams_creation(driver)
 
 	if results_extraction_flag:
-		results_extraction(driver)
+		results_fixtures_extraction(driver, name_section = 'results')
 
 	if fixture_extraction_flag:
-		fixture_extraction(driver)
+		results_fixtures_extraction(driver, name_section = 'fixtures')
 
 	if players_flag:
 		players(driver)
