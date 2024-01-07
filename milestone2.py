@@ -325,7 +325,7 @@ def create_leagues(driver, flag_news = False):
 			#				SECTION GET CURRENT LEAGUES						  #
 			###################################################################
 			print("SPORT NAME: ", sport_name, "SPORT URL: ",dict_sports[sport_name])
-			wait_update_page(driver, dict_sports[sport], "container__heading")			
+			wait_update_page(driver, dict_sports[sport_name], "container__heading")			
 			dict_leagues_tornaments = find_ligues_torneos(driver)			
 			dict_league_info = {} # DICT TO SAVE ALL LEAGUES INFORMATION.
 			count_league = 1			
@@ -376,7 +376,7 @@ def create_leagues(driver, flag_news = False):
 						dict_league_info[sport_leag_countr_name][section] = url_section
 
 				# SAVE JSON FILE WITH THE INFORMATION RELATED TO EACH LEAGUE
-				json_check_point[sport] = dict_league_info
+				json_check_point[sport_name] = dict_league_info
 				save_check_point('check_points/leagues_info.json', json_check_point)
 				# stop_validate()
 
