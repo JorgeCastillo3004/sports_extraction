@@ -10,6 +10,7 @@ from common_functions import *
 from data_base import *
 
 def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_sport):	
+	print("max_older_news: ", max_older_news)
 	global count_match, count_recen_news, more_recent_news
 	count = 0	
 	wait = WebDriverWait(driver, 10)
@@ -21,31 +22,31 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 	for current_index, block in enumerate(container_news[last_index:]):
 		news_link = block.get_attribute('href')
 		news_date = block.find_element(By.XPATH, './/span[@data-testid="wcl-newsMetaInfo-date"]').text
+		print("news_date: ", news_date)
 		date_utc = process_date(news_date)
 		title = block.find_element(By.XPATH, './/div[@role="heading"]').text
 		image = wait.until(EC.element_to_be_clickable((By.XPATH, './/figure/picture/img')))
 		image = image.get_attribute('src')
 		print('*', end ='')
-		
+		print('title: ', title)
 		# image_url = block.find_element(By.XPATH, './/figure/picture/source').get_attribute('srcset').split(', ')[0]
 		# image_url = re.sub(r'\s+\d+\w','', image_url)
 		# if utc_time_naive - date_utc <timedelta(days=max_older_news):
 		if utc_time_naive - date_utc < timedelta(days=max_older_news):
+			print("CHECK MAX OLDER NEWS")
 			enable_save_new = check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport)
+			print("enable_save_new: ", enable_save_new)
 			if enable_save_new:
 				# Verificar base de datos
 				print("--", end = '')
 				image_path_small = random_name(folder = 'images/news/small_images', termination = '.avif')
 				# save_image(driver, image_url, image_path_small)
 				image_name_file = image_path_small.split('/')[-1]
-				dict_current_news = {'title':title, 'published':news_date, 'image':image_name_file, 'news_link':news_link}
-				print("dict_current_news: ", dict_current_news)
+				dict_current_news = {'title':title, 'published':news_date, 'image':image_name_file, 'news_link':news_link}				
 				dict_upate_news[current_index] = dict_current_news
 			else:
-				print("Duplicate news: ")
-				print("Title: ", title)
-		enable_save_new = False
-		print(dict_upate_news.keys())
+				print("Duplicate news: ")		
+		print("#"*50, '\n')
 	# print("len more_recent_news, last_news_list ", len(more_recent_news), len(last_news_list))
 	# print("more_recent_news: ", more_recent_news)
 	# print("last_news_list: ", last_news_list)
@@ -250,8 +251,8 @@ def main_extract_news(driver):
 			# if dict_check_point['sport'] == sport:
 			# 	print("Process sport activated: ")
 			# 	continue_sport = True
-			if sport == "FOOTBALL":
-				conf_enable_news['MAX_OLDER_DATE_ALLOWED'] = 5
+			# if sport == "FOOTBALL":
+			# 	conf_enable_news['MAX_OLDER_DATE_ALLOWED'] = 5
 			if continue_sport:
 				# dict_check_point['sport'] = sport
 				print(sport, news_url)
@@ -275,10 +276,11 @@ def main_extract_news(driver):
 					list_upate_news, last_index, last_news_saved_sport = get_list_recent_news(driver,conf_enable_news['MAX_OLDER_DATE_ALLOWED'],\
 												 last_index, last_news_saved_sport)
 					print("list_upate_news: ", list_upate_news)
-					save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)
+					if len(list_upate_news)!=0:
+						save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)					
+						container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
+						last_news_saved[sport] = last_news_saved_sport					
 					last_index += 1
-					container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
-					last_news_saved[sport] = last_news_saved_sport
 				save_check_point('check_points/last_saved_news.json', last_news_saved)	
 				#################### SECTION PROCESS NEWS #########################
 				extract_news_info(driver, dict_check_point)
