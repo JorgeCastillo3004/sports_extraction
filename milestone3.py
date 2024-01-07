@@ -126,6 +126,7 @@ def teams_creation(driver):
 		#																  	#
 		#				get_dict_league_ready 								#
 		#####################################################################
+		sport_id = sports_dict[sport_name]
 		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
 		# dict_teams_db = {}
 		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
