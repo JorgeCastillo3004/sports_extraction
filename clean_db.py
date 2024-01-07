@@ -15,6 +15,16 @@ def getdb():
 
 con = getdb()
 
+os.remove("check_points/last_saved_news.json")
+files = os.listdir('check_points/leagues_season/')
+
+# Iterate over each file and remove it
+for file_name in files:
+    file_path = os.path.join('check_points/leagues_season/', file_name)
+    if os.path.isfile(file_path):  # Check if it's a file and not a directory
+        os.remove(file_path)
+        print(f"Removed {file_path}")
+
 print("Delete all from score_entity ")
 query = "DELETE FROM score_entity;"
 cur = con.cursor()
@@ -70,6 +80,12 @@ con.commit()
 
 print("Delete all from sport ")
 query = "DELETE FROM sport;"
+cur = con.cursor()
+cur.execute(query)
+con.commit()
+
+print("Delete all from news ")
+query = "DELETE FROM news;"
 cur = con.cursor()
 cur.execute(query)
 con.commit()
