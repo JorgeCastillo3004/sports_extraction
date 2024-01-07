@@ -225,6 +225,10 @@ def random_name(folder = 'news_images', termination = '.jpg'):
 	file_name = ''.join(random.choice(string.ascii_lowercase) for i in range(16))
 	return os.path.join(folder,file_name + termination)
 
+def random_name_logos(folder = 'news_images', league_team, termination = '.jpg'):
+	file_name = ''.join(random.choice(string.ascii_lowercase) for i in range(16))
+	return os.path.join(folder,league_team+file_name + termination)
+
 def random_id():
 	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(8))
 	rand_id = rand_id + str(random.choice([0, 9]))
@@ -233,7 +237,7 @@ def random_id():
 
 def random_id_short():
 	rand_id = ''.join(random.choice(string.ascii_lowercase) for i in range(8))	
-	return rand_id
+	return rand_id+digits
 
 def stop_validate():
 	user_input = input("Type y to continue s to stop: ")

@@ -89,7 +89,7 @@ def get_league_data(driver, league_team):
 	league_name = block_ligue_team.find_element(By.CLASS_NAME,'heading__title').text
 	season_name = block_ligue_team.find_element(By.CLASS_NAME, 'heading__info').text
 	image_url = block_ligue_team.find_element(By.XPATH, './/div[@class= "heading"]/img').get_attribute('src')
-	image_path = random_name_logos(folder = 'images/logos/', league_team)
+	image_path = random_name_logos(league_team, folder = 'images/logos/')
 	save_image(driver, image_url, image_path)
 	image_path = image_path.replace('images/logos/','')
 	league_id = random_id()
