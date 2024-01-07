@@ -39,11 +39,13 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 				# save_image(driver, image_url, image_path_small)
 				image_name_file = image_path_small.split('/')[-1]
 				dict_current_news = {'title':title, 'published':news_date, 'image':image_name_file, 'news_link':news_link}
+				print("dict_current_news: ", dict_current_news)
 				dict_upate_news[current_index] = dict_current_news
 			else:
 				print("Duplicate news: ")
 				print("Title: ", title)
 		enable_save_new = False
+		print(dict_upate_news.keys())
 	# print("len more_recent_news, last_news_list ", len(more_recent_news), len(last_news_list))
 	# print("more_recent_news: ", more_recent_news)
 	# print("last_news_list: ", last_news_list)
@@ -57,7 +59,7 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 
 def check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport):
 	global count_match, count_recen_news, more_recent_news
-
+	enable_save_new = False
 	if utc_time_naive - date_utc < timedelta(days=max_older_news):
 		if len(last_news_saved_sport)!= 0 and count_match < 3:
 			if title in last_news_saved_sport:
@@ -189,14 +191,15 @@ def get_news_info_v2(driver, dict_news):
 
 def extract_news_info(driver, dict_check_point):
 
-	if os.path.exists('check_points/news/'):
-		news_files = os.listdir(league_folder)
-		file_paths = [os.path.join('check_points/news/', file) for file in files]
+	news_files = os.listdir('check_points/news/')
+	file_paths = [os.path.join('check_points/news/', file) for file in news_files]
 
 	continue_process = False
 	for file_path in file_paths:		
-		for index, current_dict in enumerate(load_check_point(file_path)):
-			print("-", index, '/',len(list_upate_news), end= ' ')
+		print("file_path: ", file_path)
+		input_dict = load_check_point(file_path)
+		for index, current_dict in input_dict.items():
+			print("-", index, '/',len(input_dict), end= ' ')
 			current_url = current_dict['news_link']
 			wait_load_detailed_news(driver, current_url)
 			dict_news = get_news_info_v2(driver, current_dict)
@@ -263,7 +266,7 @@ def main_extract_news(driver):
 
 				last_index = 0 
 				click_more_count = 0
-				################# LIST OF CONTAINERS NEWS #################
+				################ LIST OF CONTAINERS NEWS #################
 				xpath_expression = '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a'
 				container_news = driver.find_elements(By.XPATH, xpath_expression)
 				while last_index < len(container_news):
@@ -271,10 +274,10 @@ def main_extract_news(driver):
 
 					list_upate_news, last_index, last_news_saved_sport = get_list_recent_news(driver,conf_enable_news['MAX_OLDER_DATE_ALLOWED'],\
 												 last_index, last_news_saved_sport)
-
+					print("list_upate_news: ", list_upate_news)
 					save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)
 					last_index += 1
-					container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
+					# container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
 					last_news_saved[sport] = last_news_saved_sport
 				save_check_point('check_points/last_saved_news.json', last_news_saved)	
 				#################### SECTION PROCESS NEWS #########################

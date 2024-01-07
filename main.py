@@ -38,7 +38,7 @@ def main(driver):
 	teams_creation_flag = True 	  	# 3
 	results_extraction_flag = True		# 4
 	fixture_extraction_flag = True 	# 5
-	players_flag = True 				# 6	
+	players_flag = False 				# 6	
 	
 	dict_sports = load_json('check_points/sports_url_m2.json')
 	
