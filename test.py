@@ -6,8 +6,8 @@ import argparse
 from common_functions import load_json
 parser = argparse.ArgumentParser()
 parser.add_argument('--option', type=int, default=1)
-parser.add_argument('--table', type=str, default='news')
-parser.add_argument('--column', type=str, default='title')
+parser.add_argument('--table', type=str, default='match')
+parser.add_argument('--column', type=str, default='*')
 
 # parser.add_argument('--option', type=int, default=1, '--table', type=str, default='news')
 

@@ -186,7 +186,7 @@ def save_stadium(dict_match):
 	con.commit()
 
 def get_rounds_ready(league_id, season_id):
-	query = "SELECT rounds FROM match WHERE league_id ='{}' and season_id = '{}';".format(league_id, season_id)
+	query = "SELECT DISTINCT rounds FROM match WHERE league_id = '{}' AND season_id = '{}';".format(league_id, season_id)	
 	cur = con.cursor()
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]	

@@ -155,7 +155,7 @@ create table match
     place         varchar(128),
     start_time    time(6),
     league_id     varchar(40),
-    round     varchar(40),
+    rounds     varchar(40),
     season_id     varchar(40)
         constraint fk524ycxnj02ukjb4gghuqh1rod
             references league_team,
