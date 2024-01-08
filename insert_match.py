@@ -23,5 +23,7 @@ def save_math_info(dict_match):
 
 
 con = getdb()
-dict_match = {'match_id': 'vwku03936','league_id':'kubw94420', 'match_country': 'VENEZUELA','rounds':'RONDA 112'}
+dict_match = {'match_id': 'vwku03936', 'match_country': 'VENEZUELA', 'end_time':datetime.now(),
+				"match_date":datetime.now(), 'name':'ENCUENDTRO', 'place':'caracas123', 'start_time':datetime.now()
+				,'league_id':'kubw94420', 'stadium_id':'djjfjsk', 'rounds':'RONDA 112'}
 save_math_info(dict_match)
