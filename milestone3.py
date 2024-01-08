@@ -138,7 +138,7 @@ def teams_creation(driver):
 			for sport_id_league, legue_info in sport_dict.items():
 
 				# BUILD FILE NAME USED TO SAVE TEAM INFO
-				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, sport_id_league)
+				json_name = 'check_points/leagues_season/{}.json'.format(sport_id_league)
 				print(json_name)
 				
 				print("#"*30, "START PROCESS LEAGUE {}".format(sport_id_league), "#"*30)
