@@ -191,7 +191,5 @@ def get_rounds_ready(league_id, season_id):
 	results = [row[0] for row in cur.fetchall()]	
 	return results
 
-
-
 if database_enable:
 	con = getdb()

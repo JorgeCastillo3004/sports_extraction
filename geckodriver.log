@@ -1,0 +1,9 @@
+1704696169727	geckodriver	INFO	Listening on 127.0.0.1:53457
+1704696169732	mozrunner::runner	INFO	Running command: "/snap/bin/firefox" "--marionette" "--remote-debugging-port" "58375" "-no-remote" "-profile" "/tmp/rust_mozprofileHR6ORS"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1704696209756	geckodriver	INFO	Listening on 127.0.0.1:32889
+1704696209762	mozrunner::runner	INFO	Running command: "/snap/bin/firefox" "--marionette" "--remote-debugging-port" "45717" "-no-remote" "-profile" "/tmp/rust_mozprofileuoCZaF"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+[Parent 506394, IPC I/O Parent] WARNING: process 506533 exited on signal 9: file /build/firefox/parts/firefox/build/ipc/chromium/src/base/process_util_posix.cc:265
