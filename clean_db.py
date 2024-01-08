@@ -5,8 +5,8 @@ import argparse
 from common_functions import load_json
 import os
 
-if os.path.isfile("check_points/last_saved_news.json"):
-	os.remove("check_points/last_saved_news.json")
+# if os.path.isfile("check_points/last_saved_news.json"):
+# 	os.remove("check_points/last_saved_news.json")
 
 if os.path.isfile("check_points/sports_id.json"):
 	os.remove("check_points/sports_id.json")

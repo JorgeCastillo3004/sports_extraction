@@ -128,11 +128,13 @@ def teams_creation(driver):
 		#####################################################################
 		sport_id = dict_sport_id[sport_name]
 		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
+		print("dict_teams_db: ")
+		print(dict_teams_db)
 		# dict_teams_db = {}
 		if conf_enable_sport[sport_name]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
 			for sport_id_league, legue_info in sport_dict.items():
 
-				# BUIL FILE NAME USED TO SAVE TEAM INFO
+				# BUILD FILE NAME USED TO SAVE TEAM INFO
 				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, sport_id_league)
 				print(json_name)
 				
