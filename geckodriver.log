@@ -19,3 +19,41 @@ ATTENTION: default value of option mesa_glthread overridden by environment.
 1704733357785	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... pu" "--remote-debugging-port" "41521" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilePD1bEL"
 ATTENTION: default value of option mesa_glthread overridden by environment.
 ATTENTION: default value of option mesa_glthread overridden by environment.
+1704733496927	geckodriver	INFO	Listening on 127.0.0.1:48563
+1704733497586	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... te" "--remote-debugging-port" "56595" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilevYqzuB"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1704733846519	geckodriver	INFO	Listening on 127.0.0.1:50565
+1704733846525	mozrunner::runner	INFO	Running command: "/snap/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "41893" "-no-remote" "-profile" "/tmp/rust_mozprofileqJOFqK"
+*** You are running in headless mode.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1704733888303	geckodriver	INFO	Listening on 127.0.0.1:38899
+1704733888308	mozrunner::runner	INFO	Running command: "/snap/bin/firefox" "--marionette" "--remote-debugging-port" "53867" "-no-remote" "-profile" "/tmp/rust_mozprofilexn2wOl"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1704733970000	geckodriver	INFO	Listening on 127.0.0.1:40717
+1704733970005	mozrunner::runner	INFO	Running command: "/snap/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "59421" "-no-remote" "-profile" "/tmp/rust_mozprofile6jzPSs"
+*** You are running in headless mode.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1704734469903	geckodriver	INFO	Listening on 127.0.0.1:56769
+1704734469908	mozrunner::runner	INFO	Running command: "/snap/bin/firefox" "--marionette" "--headless" "--remote-debugging-port" "47937" "-no-remote" "-profile" "/tmp/rust_mozprofileOQ0s4A"
+*** You are running in headless mode.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1704734494331	geckodriver	INFO	Listening on 127.0.0.1:59675
+1704734494337	mozrunner::runner	INFO	Running command: "/snap/bin/firefox" "--marionette" "--remote-debugging-port" "37671" "-no-remote" "-profile" "/tmp/rust_mozprofilexohwQt"
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+/usr/local/bin/geckodriver: error: Found argument '--websocket-port' which wasn't expected, or isn't valid in this context
+
+USAGE:
+    geckodriver --port <PORT>
+
+For more information try --help
+
+/usr/local/bin/geckodriver: error: Found argument '--websocket-port' which wasn't expected, or isn't valid in this context
+
+USAGE:
+    geckodriver --port <PORT>
+
+For more information try --help
+

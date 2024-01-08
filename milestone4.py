@@ -551,10 +551,10 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result		
 		for country_league, country_league_urls in sport_dict.items():
 			dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
-			file_country_league_season = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
+			file_country_league_season = 'check_points/leagues_season/{}.json'.format(country_league)
 			print("League_id, season_id: ", country_league_urls['league_id'], country_league_urls['season_id'])
 			list_rounds = get_rounds_ready(country_league_urls['league_id'], country_league_urls['season_id'])
-			print(file_country_league_season)			
+			print("File to be search: ", file_country_league_season)
 			
 			# check_point_flag = get_check_point(check_point, sport_id, country_league)
 			check_point_flag = True
@@ -570,7 +570,8 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 			else:
 				individual_sport = False
 				flag_to_continue = os.path.isfile(file_country_league_season)
-			
+			print("Confirm file exist: ", flag_to_continue)
+			stop_validate()
 			dict_country_league_season = load_check_point(file_country_league_season)
 
 			if flag_to_continue and check_point_flag:
