@@ -352,6 +352,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 
 				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
 				event_info['end_time'] = event_info['start_time']
+				event_info['rounds'] = round_file.replace('.json', '')
 				# print("event_info: ", event_info)
 				try:
 					team_id_home = dict_country_league_season[event_info['home']]['team_id']
@@ -396,7 +397,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				match_detail_id = random_id()
 				score_id = random_id()
 				dict_visitor = {'match_detail_id':match_detail_id, 'home':False, 'visitor':True, 'match_id':event_info['match_id'],\
-							'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}				
+							'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}
 
 				# print("Event info:")
 				print(event_info)
