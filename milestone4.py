@@ -552,7 +552,7 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 		for country_league, country_league_urls in sport_dict.items():
 			dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
 			file_country_league_season = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
-			
+			print("League_id, season_id: ", country_league_urls['league_id'], country_league_urls['season_id'])
 			list_rounds = get_rounds_ready(country_league_urls['league_id'], country_league_urls['season_id'])
 			print(file_country_league_season)			
 			
