@@ -64,52 +64,48 @@ def get_unique_key(id_section_new, list_keys):
 			id_section_new = id_section_base +'_' +str(count_sub_rounds)
 	return id_section_new
 
-def extract_info_results(driver, start_index, results_block, section_name, country_league):
-	global count_sub_section, event_number, current_section_name, current_id_section, dict_rounds, new_section_name
-	for processed_index, row in enumerate(results_block[start_index:]):	
-		print(processed_index, end =' - ')
+def extract_info_results(driver, start_index, results_block, section_name, country_league, list_rounds):
+	global count_sub_section, event_number, current_id_section, dict_rounds, new_section_name
+	dict_rounds = {}
+	round_enable = False
+	for processed_index, row in enumerate(results_block[start_index:]):		
 		try:
+			# SECTION MAIN TITLE, ONLY FIND TITLE, IT IS NOT USED
 			HTML = row.get_attribute('outerHTML')
-			# print(HTML, '\n'*2)
-			class_name_section = re.findall(r'icon--flag.event__title fl_\d+', HTML)[0].replace(' ', '.')
-			# new_section_name = row.find_element(By.CLASS_NAME, class_name_section).text
-			# new_section_name = new_section_name.replace(' ', '_').replace('\n', '_').replace('/','*-*')
-			os.mkdir("check_points/{}/{}".format(section_name, country_league))
-			# print("End Section 1")
+			title_section = re.findall(r'icon--flag.event__title fl_\d+', HTML)[0].replace(' ', '.')
 		except:
 			try:
-				# print("Init Section 2")
-				result = get_result(row)
-				dict_rounds[current_id_section][event_number] = result
-				event_number += 1				
-				# print("End Section 2")
+				# SECTION TO FIND MATCH INFO, EXTRACT DETAILS
+				result = get_result(row)				
+				if round_enable:					
+					dict_rounds[current_round_name][event_number] = result
+					event_number += 1
 			except:
-				# Get Rounds block
-				# print("Init Section 3")
+				# SECTION TO FIND ROUND NAME.
 				try:
-					# Only get section name or ROUND name
-					id_section_new = row.find_element(By.CLASS_NAME, 'event__title--name').text.replace(' ','_').replace('/','*-*')
-					#id_section = row.find_element(By.CLASS_NAME, 'event__round event__round--static').text.replace(' ','_')
+					round_name = row.find_element(By.CLASS_NAME, 'event__title--name').text.replace(' ','_').replace('/','*-*')
+
 				except:
-					# Else get all available text					
-					id_section_new = get_unique_key(row.text, dict_rounds.keys())
-				# print("End Section 3")
-				if count_sub_section != 0:
-					# save current dict
-					# stop_validate()
-					file_name = 'check_points/{}/{}/{}.json'.format(section_name, country_league, current_id_section)
-					# print("file_name: ", file_name)
-					# print("confirm file exist: ", os.path.isfile(file_name))
-					# print("dict_rounds: ",dict_rounds)
-					save_check_point(file_name, dict_rounds[current_id_section])
+					round_name = get_unique_key(row.text, dict_rounds.keys())
+				# SECTION TO CHECK ROUND SAVED PREVIOUSLY
+				if round_name in list_rounds:
+					round_enable = False
+				else:
+					print("New round: ", round_name)
+					round_enable = True				
+				# IF round dictionary IS FILLED PROCEED TO SAVE DICT FOR PROCESSING IN THE NEXT STAGE
+				if len (dict_rounds)!= 0 and len(dict_rounds[current_round_name]) != 0:					
+					list_rounds.append(current_round_name)					
+					file_name = 'check_points/{}/{}/{}.json'.format(section_name, country_league, current_round_name)					
+					# save_check_point(file_name, dict_rounds[current_round_name])
 					webdriver.ActionChains(driver).send_keys(Keys.PAGE_DOWN).perform()
-				
-				current_id_section = id_section_new
-				current_section_name = country_league # new_section_name
-				dict_rounds[id_section_new] = {}
+				# RESTAR NEW DICTIONARY AND UPDATE CURRENT NAMES
+				current_round_name = round_name
+				dict_rounds[current_round_name] = {}
 				count_sub_section += 1
 				event_number = 0
-	return start_index + processed_index
+	print(round_enable)
+	return start_index + processed_index, round_enable	
 
 def click_show_more_rounds(driver, current_results, section_name):
 	wait = WebDriverWait(driver, 10)
@@ -156,22 +152,22 @@ def confirm_results(driver, section_name, max_count = 10):
 				print(stop)
 		time.sleep(0.3)
 
-def navigate_through_rounds(driver, country_league, section_name = 'results'):
-	global count_sub_section, event_number, dict_rounds	
+def navigate_through_rounds(driver, country_league, list_rounds ,section_name = 'results'):
+	global count_sub_section, event_number	
+	xpath_expression = '//div[@class="leagues--static event--leagues {}"]/div/div'.format(section_name)
 	last_procesed_index = 0
 	current_results = confirm_results(driver, section_name, max_count = 10)
 	print("Total current results: ", len(current_results))
 	count_sub_section = 0
-	event_number = 0
-	dict_rounds = {}
+	event_number = 0	
 	
 	while last_procesed_index < len(current_results):
 		print("last_procesed_index: ", last_procesed_index)
-
-		last_procesed_index = extract_info_results(driver, last_procesed_index, current_results, section_name, country_league)
-		# more_rounds_loaded = click_show_more_rounds(driver, current_results, section_name) # UNCOMENT ## URGENT DELETE
-		more_rounds_loaded = False ### URGENT DELETE
-		print("Len list results not updated: ", len(current_results))
+		
+		last_procesed_index, click_more_enable = extract_info_results(driver, last_procesed_index, current_results, section_name, country_league, list_rounds)
+		if click_more_enable:
+			more_rounds_loaded = click_show_more_rounds(driver, current_results, section_name) # UNCOMENT ## URGENT DELETE		
+			print("Len list results not updated: ", len(current_results))
 		if more_rounds_loaded:
 			# Update of list of current results
 			current_results = driver.find_elements(By.XPATH, xpath_expression)
@@ -523,11 +519,11 @@ def pending_to_process(dict_country_league_check_point, sport_id, country_league
 	list_sports = list(dict_country_league_check_point.keys())
 	if sport_id in list_sports:
 		if country_league in list(dict_country_league_check_point[sport_id].keys()):
-			return False, dict_country_league_check_point[sport_id]
+			return dict_country_league_check_point[sport_id]
 		else:
-			return True, dict_country_league_check_point[sport_id]
+			return dict_country_league_check_point[sport_id]
 	else:
-		return True, {}
+		return {}
 
 def build_check_point(sport_id, country_league):
 	check_point = {'sport_id':sport_id, 'country_league':country_league}
@@ -554,7 +550,7 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 		# sport_id = dict_sport_id[sport_id]
 		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result		
 		for country_league, country_league_urls in sport_dict.items():
-			league_pending, dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
+			dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
 			file_country_league_season = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 			
 			print(file_country_league_season)			
@@ -563,6 +559,10 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 			check_point_flag = True
 			print("check_point_flag: ", check_point_flag)
 
+
+			#############################################################
+			#	SECTION TO CHECK SPORT MODALITY TEAMS OR INDIVIDUAL		#
+			#############################################################
 			if sport_id in ['TENNIS', 'GOLF']:
 				individual_sport = True
 				flag_to_continue = True
