@@ -88,6 +88,8 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 				except:
 					round_name = get_unique_key(row.text, dict_rounds.keys())
 				# SECTION TO CHECK ROUND SAVED PREVIOUSLY
+				round_name = '_'.join(round_name.split())
+				print("round_name: ", round_name)				
 				if round_name in list_rounds:
 					round_enable = False
 				else:
@@ -560,6 +562,7 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 			file_country_league_season = 'check_points/leagues_season/{}.json'.format(country_league)
 			print("League_id, season_id: ", country_league_urls['league_id'], country_league_urls['season_id'])
 			list_rounds = get_rounds_ready(country_league_urls['league_id'], country_league_urls['season_id'])
+			print("List old rounds: ", list_rounds)
 			print("File to be search: ", file_country_league_season)
 			
 			# check_point_flag = get_check_point(check_point, sport_id, country_league)
