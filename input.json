@@ -1,7 +1,9 @@
 
-	{"section1": "weekly|dia_semana|15:30:00",
-	    "section2": "daily|10:30:30",
-	    "section3": "monthly|dia_del_mes_1-31|09:00:15",
-	    "section4": "time|3, o fraccion", "# correr cada 3 minutos"
-	    // "section5": "seconds|15|09:00:15"}
-
+	{
+		"EXTRAC_NEWS": "weekly|4:20:00",
+	    "CREATE_LEAGUES": "daily|4:22:30",
+	    "CREATE_TEAMS": "daily|4:25:15",
+	    "GET_RESULTS": "daily|4:27:15",
+	    "GET_FIXTURES": "daily|4:30:15",	    
+	    "GET_PLAYERS": "minute|4:32:15"
+	}
