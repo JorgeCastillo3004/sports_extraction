@@ -304,6 +304,7 @@ def create_leagues(driver, flag_news = False):
 	dict_sport_id = get_dict_sport_id()
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
 	dict_sport_info = load_check_point('check_points/leagues_info.json')
+	print("dict_sport_info: ", dict_sport_info)
 	for sport_name, sport_info in conf_enable_sport.items():
 		if sport_info['enable']:
 			###################################################################
@@ -331,7 +332,7 @@ def create_leagues(driver, flag_news = False):
 			###################################################################
 			#		CHECK IF SPORT WAS SAVED PREVIOUSLY						  #
 			###################################################################
-			if sport_id in list(dict_sport_info.keys()):
+			if sport_name in list(dict_sport_info.keys()):
 				dict_leagues_ready = dict_sport_info[sport_name]
 			else:
 				dict_leagues_ready = {}			

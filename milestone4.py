@@ -576,7 +576,7 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 				individual_sport = False
 				flag_to_continue = os.path.isfile(file_country_league_season)
 			print("Confirm file exist: ", flag_to_continue)
-			stop_validate()
+			# stop_validate()
 			dict_country_league_season = load_check_point(file_country_league_season)
 
 			if flag_to_continue and check_point_flag:
