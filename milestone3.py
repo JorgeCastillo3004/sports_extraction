@@ -129,7 +129,7 @@ def teams_creation(driver):
 		sport_id = dict_sport_id[sport_name]
 		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
 		# dict_teams_db = {}
-		if conf_enable_sport[sport_id]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
+		if conf_enable_sport[sport_name]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
 			for sport_id_league, legue_info in sport_dict.items():
 
 				# BUIL FILE NAME USED TO SAVE TEAM INFO
