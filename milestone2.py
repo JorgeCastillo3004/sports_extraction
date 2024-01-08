@@ -331,7 +331,7 @@ def create_leagues(driver, flag_news = False):
 			###################################################################
 			#		CHECK IF SPORT WAS SAVED PREVIOUSLY						  #
 			###################################################################
-			if sport_id in list(dict_sport_info.keys())
+			if sport_id in list(dict_sport_info.keys()):
 				dict_leagues_ready = dict_sport_info[sport_name]
 			else:
 				dict_leagues_ready = {}
