@@ -386,7 +386,7 @@ def create_leagues(driver, flag_news = False):
 
 				# SAVE JSON FILE WITH THE INFORMATION RELATED TO EACH LEAGUE
 				if enable_save:
-					dict_sport_info[sport_name] = dict_league_info
+					dict_sport_info[sport_name] = dict_leagues_ready
 				save_check_point('check_points/leagues_info.json', dict_sport_info)
 				# stop_validate()
 
