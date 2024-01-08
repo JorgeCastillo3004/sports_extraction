@@ -55,7 +55,10 @@ def get_teams_info_part1(driver):
 def get_teams_info_part2(driver, sport_id, league_id, season_id, team_info):
 	block_ligue_team = driver.find_element(By.CLASS_NAME, 'container__heading')
 	# sport = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/a[1]').text
-	team_country = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/a[2]').text
+	try:
+		team_country = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/a[2]').text
+	except:
+		team_country = block_ligue_team.find_element(By.XPATH, './/h2[@class= "breadcrumb"]/span[2]').text
 	team_name = block_ligue_team.find_element(By.CLASS_NAME,'heading__title').text
 
 	try:
