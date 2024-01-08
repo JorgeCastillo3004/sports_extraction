@@ -1,6 +1,9 @@
 
 
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+
 
 # Initialize FirefoxOptions
 options = webdriver.FirefoxOptions()
@@ -24,10 +27,14 @@ options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--disable-gpu')
 
 # Initialize Firefox driver with the configured options
-driver = webdriver.Firefox(options=options)
+# driver = webdriver.Firefox(options=options)
+driver = webdriver.Firefox(options=options, service=FirefoxService(GeckoDriverManager().install()))
 # Navigate to a website
 
-driver = webdriver.Firefox()
+# driver = webdriver.Firefox()
 
 # Navigate to a website
 driver.get("https://www.flashscore.com/golf/pga-tour/wgc-dell-technologies-match-play/standings/#/GzSXhozK/table")
+
+
+print("Done navigator open")
