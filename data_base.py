@@ -158,7 +158,8 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 	return dict_results
 
 def save_math_info(dict_match):
-	print("Inside save match: ", dict_match['rounds'])
+	print("Inside save match: ", dict_match['rounds'], type(dict_match['rounds']))
+	print(dict_match)
 	query = "INSERT INTO match VALUES(%(match_id)s, %(match_country)s, %(end_time)s,\
 	 %(match_date)s, %(name)s, %(place)s, %(start_time)s, %(league_id)s, %(stadium_id)s, %(rounds)s)"
 	cur = con.cursor()

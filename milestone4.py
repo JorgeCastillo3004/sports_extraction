@@ -402,10 +402,12 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 							'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}
 
 				# print("Event info:")
+				print(event_info['rounds'])
 				print(event_info)
 				if database_enable:
 					print("event_info.keys", list(event_info.keys()))					
 					save_math_info(event_info)
+					stop_validate()
 					save_details_math_info(dict_home)
 					save_details_math_info(dict_visitor)
 					save_score_info(dict_home)
