@@ -344,7 +344,7 @@ def create_leagues(driver, flag_news = False):
 				pin_activate = check_pin(driver) # CHECK PIN ACTIVE.
 				if pin_activate:
 					league_info = get_league_data(driver, league_name_url, sport_id)
-					sport_leag_countr_name = sport_id +"_"+ league_info['league_country'] +'_'+ league_info['league_name']
+					sport_leag_countr_name = sport_name +"_"+ league_info['league_country'] +'_'+ league_info['league_name']
 					print(sport_leag_countr_name, end = '')
 					###################################################################
 					#			SECTION CHECK LEAGUE SAVED PREVIUSLY				  #
