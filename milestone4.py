@@ -166,6 +166,7 @@ def navigate_through_rounds(driver, country_league, list_rounds ,section_name = 
 	event_number = 0	
 	
 	while last_procesed_index < len(current_results):
+		more_rounds_loaded = False
 		print("last_procesed_index: ", last_procesed_index)
 		
 		last_procesed_index, click_more_enable = extract_info_results(driver, last_procesed_index, current_results, section_name, country_league, list_rounds)
