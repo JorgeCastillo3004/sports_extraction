@@ -541,7 +541,7 @@ def get_check_point(check_point, sport_id, country_league):
 
 def results_fixtures_extraction(driver, name_section = 'results'):	
 	sports_dict = load_check_point('check_points/leagues_info.json')
-	check_point = load_check_point('check_points/check_point_m4.json')
+	check_point = load_check_point('check_points/check_point_m4.json')	
 	# dict_sport_id = load_json('check_points/sports_id.json')	
 	print("check_point: ", check_point)
 	# dict_teams_db = {}
@@ -553,6 +553,7 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 			dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
 			file_country_league_season = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 			
+			list_rounds = get_rounds_ready(country_league_urls['league_id'], country_league_urls['season_id'])
 			print(file_country_league_season)			
 			
 			# check_point_flag = get_check_point(check_point, sport_id, country_league)
@@ -577,7 +578,7 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 				
 				wait_update_page(driver, country_league_urls[name_section], "container__heading")
 				print("Navigate navigate_through_rounds")
-				navigate_through_rounds(driver, country_league, section_name = name_section)
+				navigate_through_rounds(driver, country_league, list_rounds, section_name = name_section)
 
 				if not individual_sport:
 					get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
