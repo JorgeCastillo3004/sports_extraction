@@ -334,9 +334,7 @@ def create_leagues(driver, flag_news = False):
 			if sport_id in list(dict_sport_info.keys()):
 				dict_leagues_ready = dict_sport_info[sport_name]
 			else:
-				dict_leagues_ready = {}
-
-			current_dict_info =  # DICT TO SAVE ALL LEAGUES INFORMATION.
+				dict_leagues_ready = {}			
 			count_league = 1			
 			for league_name_url, league_url in dict_leagues_tornaments.items():
 				print("***", league_name_url,"***", " "*(50-len(league_name_url)), count_league, "/" ,len(dict_leagues_tornaments))
