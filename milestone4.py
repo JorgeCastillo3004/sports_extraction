@@ -575,21 +575,21 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 
 			if flag_to_continue and check_point_flag:
 				print("Start extraction...")				
-				
-				wait_update_page(driver, country_league_urls[name_section], "container__heading")
-				print("Navigate navigate_through_rounds")
-				navigate_through_rounds(driver, country_league, list_rounds, section_name = name_section)
+				if name_section in list(country_league_urls.keys()):
+					wait_update_page(driver, country_league_urls[name_section], "container__heading")
+					print("Navigate navigate_through_rounds")
+					navigate_through_rounds(driver, country_league, list_rounds, section_name = name_section)
 
-				if not individual_sport:
-					get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
+					if not individual_sport:
+						get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
+									country_league_urls['season_id'],dict_country_league_season,\
+									 dict_country_league_check_point, dict_leagues_ready, section=name_section)
+					else:
+						get_complete_match_info_tennis(driver, country_league, sport_id, country_league_urls['league_id'],
 								country_league_urls['season_id'],dict_country_league_season,\
 								 dict_country_league_check_point, dict_leagues_ready, section=name_section)
-				else:
-					get_complete_match_info_tennis(driver, country_league, sport_id, country_league_urls['league_id'],
-							country_league_urls['season_id'],dict_country_league_season,\
-							 dict_country_league_check_point, dict_leagues_ready, section=name_section)
-				build_check_point(sport_id, country_league)
-				# sport_dict[country_league] = []
+					build_check_point(sport_id, country_league)
+					# sport_dict[country_league] = []
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
