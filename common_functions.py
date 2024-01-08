@@ -229,7 +229,7 @@ def random_name_logos(league_team, folder = 'news_images', termination = '.jpg')
 	file_name = ''.join(random.choice(string.ascii_lowercase) for i in range(4))
 	digits = ''.join([str(random.randint(0, 9)) for i in range(1)])
 	file_name = '_' + file_name + digits
-	league_team = '_'.join(league_team.replace('-', '_').lower().split())
+	league_team = '_'.join(league_team.replace('-', '_').replace('/', '_').lower().split())
 	return os.path.join(folder,(league_team) + file_name + termination)
 
 def random_id():
