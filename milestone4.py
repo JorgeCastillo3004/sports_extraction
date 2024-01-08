@@ -96,8 +96,9 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 				# IF round dictionary IS FILLED PROCEED TO SAVE DICT FOR PROCESSING IN THE NEXT STAGE
 				if len (dict_rounds)!= 0 and len(dict_rounds[current_round_name]) != 0:					
 					list_rounds.append(current_round_name)					
-					file_name = 'check_points/{}/{}/{}.json'.format(section_name, country_league, current_round_name)					
-					# save_check_point(file_name, dict_rounds[current_round_name])
+					file_name = 'check_points/{}/{}/{}.json'.format(section_name, country_league, current_round_name)
+					print(file_name)
+					save_check_point(file_name, dict_rounds[current_round_name])
 					webdriver.ActionChains(driver).send_keys(Keys.PAGE_DOWN).perform()
 				# RESTAR NEW DICTIONARY AND UPDATE CURRENT NAMES
 				current_round_name = round_name
