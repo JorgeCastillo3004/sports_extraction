@@ -404,6 +404,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				# print("Event info:")
 				print(event_info)
 				if database_enable:
+					print("event_info.keys", list(event_info.keys()))					
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
 					save_details_math_info(dict_visitor)
@@ -586,9 +587,9 @@ def results_fixtures_extraction(driver, name_section = 'results'):
 			if flag_to_continue and check_point_flag:
 				print("Start extraction...")				
 				if name_section in list(country_league_urls.keys()):
-					wait_update_page(driver, country_league_urls[name_section], "container__heading")
-					print("Navigate navigate_through_rounds")
-					navigate_through_rounds(driver, country_league, list_rounds, section_name = name_section)
+					# wait_update_page(driver, country_league_urls[name_section], "container__heading")
+					# print("Navigate navigate_through_rounds")
+					# navigate_through_rounds(driver, country_league, list_rounds, section_name = name_section)
 
 					if not individual_sport:
 						get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
