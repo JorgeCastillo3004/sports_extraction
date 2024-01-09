@@ -371,6 +371,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					print(" "*30, "STADIUM CREATED")
 					event_info['stadium_id'] = random_id()
 					event_info['season_id'] = season_id
+					print("event_info['stadium_id']: ", event_info['stadium_id'])
 
 					if 'CAPACITY' in list(event_info.keys()):
 						capacity = int(''.join(event_info['CAPACITY'].split()))
@@ -389,6 +390,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 					save_check_point(json_name, dict_country_league_season)					
 					# print(dict_stadium)
+					print("dict_stadium['stadium_id']: ", dict_stadium['stadium_id'])
 					if database_enable:
 						print("############ Save stadium info ###################")
 						save_stadium(dict_stadium)
