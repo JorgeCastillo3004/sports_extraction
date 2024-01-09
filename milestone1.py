@@ -284,8 +284,7 @@ def main_extract_news(driver):
 					last_index += 1
 				save_check_point('check_points/last_saved_news.json', last_news_saved)	
 				#################### SECTION PROCESS NEWS #########################
-				extract_news_info(driver, dict_check_point)
-		stop_validate()
+				extract_news_info(driver, dict_check_point)		
 
 def initial_settings_m1(driver):
 	# GET SPORTS AND SPORTS LINKS
