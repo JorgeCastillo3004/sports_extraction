@@ -4,11 +4,11 @@
         "mode": "BY_TEAM"
     },
     "TENNIS": {
-        "enable":false,
+        "enable":true,
         "mode": "BOTH"
     },
     "BASKETBALL": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "HOCKEY": {
@@ -48,7 +48,7 @@
         "mode": "BY_TEAM"
     },
     "BASEBALL": {
-        "enable": true,
+        "enable": false,
         "mode": "BY_TEAM"
     },
     "BEACH_SOCCER": {
