@@ -33,6 +33,54 @@ database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
+
+import schedule
+import time
+import datetime
+
+def job_func():
+    print("Ejecutando la tarea programada...")
+
+def schedule_weekly(day_of_week, hour, minute):
+    # Diccionario para mapear nombres de días a números
+    days = {
+        'monday': 0,
+        'twesday': 1,
+        'miércoles': 2,
+        'jueves': 3,
+        'viernes': 4,
+        'sábado': 5,
+        'domingo': 6
+    }
+
+    # Mapear el nombre del día ingresado al número correspondiente
+    day_number = days.get(day_of_week.lower())
+
+    if day_number is None:
+        print("Error: Nombre de día no válido.")
+        return
+
+    # Crear la programación usando la biblioteca schedule
+    schedule.every().day.at(f"{hour}:{minute}").do(job_func).day.at(f"{hour}:{minute}").do(job_func).wednesday.at(f"{hour}:{minute}").do(job_func)
+
+    while True:
+        # Verificar si el día actual coincide con el día programado
+        if datetime.datetime.now().weekday() == day_number:
+            schedule.run_pending()
+        time.sleep(1)
+
+# Ejemplo de uso
+schedule_weekly('lunes', '10', '30')
+
+
+
+
+
+
+
+
+
+
 def main_extract_news(driver):
 	print("Extract news")
 	
