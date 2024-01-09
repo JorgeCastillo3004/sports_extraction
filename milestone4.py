@@ -370,6 +370,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				except:
 					print(" "*30, "STADIUM CREATED")
 					event_info['stadium_id'] = random_id()
+					event_info['season_id'] = season_id
 
 					if 'CAPACITY' in list(event_info.keys()):
 						capacity = int(''.join(event_info['CAPACITY'].split()))
