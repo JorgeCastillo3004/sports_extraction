@@ -185,8 +185,8 @@ def players(driver):
 						squad_button = driver.find_element(By.XPATH, '//a[@title="Squad"]')
 					squad_url = squad_button.get_attribute('href')
 					wait_update_page(driver, squad_url, 'heading')
-					sport_name = inverted_dict[sport_id]
-					dict_squad = get_squad_dict(driver, sport_id = sport_name)
+					# sport_name = inverted_dict[sport_id]
+					dict_squad = get_squad_dict(driver, sport_id = sport_id)
 					dict_players_ready = get_check_point(dict_players_ready, sport_id, country_league, team_name)
 					navigate_through_players(driver, sport_id, country_league, team_name, country_league_urls['season_id'],\
 										 team_info['team_id'], dict_squad, dict_players_ready)
