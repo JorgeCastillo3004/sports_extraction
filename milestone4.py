@@ -409,7 +409,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				print(event_info)
 				if database_enable:					
 					save_math_info(event_info)
-					if section ="results":
+					if section =="results":
 						save_details_math_info(dict_home)
 						save_details_math_info(dict_visitor)					
 						save_score_info(dict_home)
