@@ -408,11 +408,12 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				print("event_info before save: ", event_info['stadium_id'])
 				print(event_info)
 				if database_enable:					
-					save_math_info(event_info)					
-					save_details_math_info(dict_home)
-					save_details_math_info(dict_visitor)
-					save_score_info(dict_home)
-					save_score_info(dict_visitor)
+					save_math_info(event_info)
+					if section ="results":
+						save_details_math_info(dict_home)
+						save_details_math_info(dict_visitor)					
+						save_score_info(dict_home)
+						save_score_info(dict_visitor)
 					print("s... db ", end='')
 			print("#"*80, '\n'*2)
 			list_rounds_ready.append(round_file.split('/')[-1])
