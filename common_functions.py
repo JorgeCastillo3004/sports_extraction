@@ -114,14 +114,14 @@ def check_previous_execution(file_path = 'check_points/scraper_control.json'):
 
 def launch_navigator(url, database_enable):
 	options = webdriver.ChromeOptions()
-	options.add_argument("--disable-blink-features=AutomationControlled") 
-	options.add_experimental_option("excludeSwitches", ["enable-automation"]) 
+	# options.add_argument("--disable-blink-features=AutomationControlled")     --
+	# options.add_experimental_option("excludeSwitches", ["enable-automation"]) ----
 	options.add_experimental_option("useAutomationExtension", False)
 	if database_enable:
 		options.add_argument('--headless')
 	options.add_argument('--no-sandbox')
-	options.add_argument('--disable-dev-shm-usage')
-	options.add_argument('--disable-gpu')
+	# options.add_argument('--disable-dev-shm-usage')  ---
+	options.add_argument('--disable-gpu')	
 	# chrome_path = os.getcwd()+'/chrome_files'
 	# print("chrome_path: ", chrome_path)
 	# options.add_argument(r"user-data-dir={}".format(chrome_path))
