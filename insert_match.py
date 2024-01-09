@@ -23,7 +23,26 @@ def save_math_info(dict_match):
 
 
 con = getdb()
-dict_match = {'match_id': 'vwku03936', 'match_country': 'VENEZUELA', 'end_time':datetime.now(),
-				"match_date":datetime.now(), 'name':'ENCUENDTRO', 'place':'caracas123', 'start_time':datetime.now()
-				,'league_id':'kubw94420', 'stadium_id':'lwewwwexwfnwcybs09550', 'rounds':'RONDA 112'}
-save_math_info(dict_match)
+# dict_match = {'match_id': 'vwku03936', 'match_country': 'VENEZUELA', 'end_time':datetime.now(),
+# 				"match_date":datetime.now(), 'name':'ENCUENDTRO', 'place':'caracas123', 'start_time':datetime.now()
+# 				,'league_id':'kubw94420', 'stadium_id':'lwewwwexwfnwcybs09550', 'rounds':'RONDA 112'}
+# save_math_info(dict_match)
+
+print("Delete all from score_entity ")
+query = "DELETE FROM score_entity;"
+cur = con.cursor()
+cur.execute(query)
+con.commit()
+
+
+print("Delete all from match_detail ")
+query = "DELETE FROM match_detail;"
+cur = con.cursor()
+cur.execute(query)
+con.commit()
+
+print("Delete all from match ")
+query = "DELETE FROM match;"
+cur = con.cursor()
+cur.execute(query)
+con.commit()
