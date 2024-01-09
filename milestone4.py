@@ -350,7 +350,8 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				print("event_info part 1: ", event_info)
 				
 				event_info['statistic_info'] = get_statistics_game(driver)
-				event_info['league_id'] = league_id			
+				event_info['league_id'] = league_id
+				event_info['season_id'] = season_id
 
 				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
 				event_info['end_time'] = event_info['start_time']
@@ -366,11 +367,10 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				############# STADIUM OR PLACE SECTION #########################
 				try:
 					event_info['stadium_id'] = dict_country_league_season[event_info['home']]['stadium_id']
-					print(" "*30, "STADIUM READY")
+					print(" "*30, "STADIUM READY")					
 				except:
 					print(" "*30, "STADIUM CREATED")
-					event_info['stadium_id'] = random_id()
-					event_info['season_id'] = season_id
+					event_info['stadium_id'] = random_id()					
 					print("event_info['stadium_id']: ", event_info['stadium_id'])
 
 					if 'CAPACITY' in list(event_info.keys()):
