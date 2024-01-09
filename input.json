@@ -1,9 +1,9 @@
 
 	{
 		"main_extract_news": "minutes|23:18:00",
-	    "create_leagues": "daily|4:22:30",
-	    "teams_creation": "daily|4:25:15",
+	    "create_leagues": "weekly|monday|4:22:30",
+	    "teams_creation": "montly|4:25:15",
 	    "results_fixtures_extraction": "daily|4:27:15",
-	    "GET_FIXTURES": "daily|4:30:15",	    
+	    "GET_FIXTURES": "seconds|30",	    
 	    "GET_PLAYERS": "minute|4:32:15"
 	}
