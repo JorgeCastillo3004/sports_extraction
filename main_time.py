@@ -54,7 +54,7 @@ def players(driver):
 # Cargar el archivo JSON
 with open('input.json', 'r') as file:
 	data = json.load(file)
-driver = 15
+# driver = 15
 # driver = launch_navigator('https://www.flashscore.com', database_enable)
 # login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
 # Procesar las secciones y programar la ejecución

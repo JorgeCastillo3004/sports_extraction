@@ -8,7 +8,7 @@
         "mode": "BOTH"
     },
     "BASKETBALL": {
-        "enable": true,
+        "enable": false,
         "mode": "BY_TEAM"
     },
     "HOCKEY": {
@@ -28,7 +28,7 @@
         "mode": "BOTH"
     },
     "GOLF": {
-        "enable": false,
+        "enable": true,
         "mode": "BOTH"
     },
     "AM._FOOTBALL": {
@@ -48,7 +48,7 @@
         "mode": "BY_TEAM"
     },
     "BASEBALL": {
-        "enable": false,
+        "enable": true,
         "mode": "BY_TEAM"
     },
     "BEACH_SOCCER": {
