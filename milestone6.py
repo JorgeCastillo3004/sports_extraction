@@ -95,7 +95,7 @@ def get_player_data(driver):
 	 'player_photo':player_photo, 'player_position':player_position}
 	return player_dict
 
-def get_squad_list(driver, sport_id = 'barketball')
+def get_squad_list(driver, sport_id = 'barketball'):
     if sport_id.lower() == 'football':
         sport_id = 'soccer'
     else:
