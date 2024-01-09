@@ -45,17 +45,19 @@ while True and count < 100:
 	if 'weekly' in execution_schedule and not execute_ready:
 
 		interval, day_exe, time_str = execution_schedule.split("|")
-		time_execution = datetime.strptime(time_str, '%H:%M:%S')
+		time_execution = datetime.strptime(time_str, '%H:%M:%S').time()
 		print("Case weekly: ", day_exe, days[day_exe])
 		print(time_execution)
-		if datetime.now().day == days[day_exe] and datetime.now() > time_execution:		
+		if datetime.now().weekday() == days[day_exe] and datetime.now().time() > time_execution:
 			print("Execute function: ")
 			extract_news()
 			execute_ready = True
 			day_execution = datetime.now().day
+	
 	if datetime.now().day != day_execution:
+		print("Other day")
 		execute_ready = False
 		day_execution = -1
-
-	time.sleep(1)
+	# print(stop)
+	time.sleep(0.05)
 	count += 1
