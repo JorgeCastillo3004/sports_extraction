@@ -8,7 +8,7 @@
         "mode": "BOTH"
     },
     "BASKETBALL": {
-        "enable": true,
+        "enable": false,
         "mode": "BY_TEAM"
     },
     "HOCKEY": {
