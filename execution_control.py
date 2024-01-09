@@ -1,9 +1,10 @@
 
 import time
 from datetime import date, timedelta
+from datetime import datetime
 
 section_schedule =	{
-		"main_extract_news": "minutes|23:18:00",
+		"main_extract_news": "weekly|tuesday|2:15:00",
 	    "create_leagues": "weekly|monday|4:22:30",
 	    "teams_creation": "montly|4:25:15",
 	    "results_fixtures_extraction": "daily|4:27:15",
@@ -25,18 +26,21 @@ days = {
 # 	section_schedule = json.load(file)
 count = 0
 while True and count < 100:
-
+	print(count, end = '-')
 	execution_schedule = section_schedule['main_extract_news']
 	if 'montly' in execution_schedule:
 		interval, day_exe, time_str = execution_schedule.split("|")
-		if datetime.datetime.now().day == days['day_exe']:
+		if datetime.now().day == days['day_exe']:
 
-			time_execution = datetime.strptime(time_str, '%H:%M')
+			time_execution = datetime.strptime(time_str, '%H:%M:%S')
 			print(time_execution)
 
-
 	if 'weekly' in execution_schedule:
-		interval, day, time = execution_schedule.split("|")
+		interval, day, time_str = execution_schedule.split("|")
+		time_execution = datetime.strptime(time_str, '%H:%M:%S')
+		print(time_execution)
+		if datetime.now() > time_execution:
+			print("Execure function: ")
 
 	time.sleep(1)
 	count += 1
