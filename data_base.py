@@ -193,5 +193,13 @@ def get_rounds_ready(league_id, season_id):
 	results = [row[0] for row in cur.fetchall()]	
 	return results
 
+def check_player_duplicates(player_country, player_name, player_dob):
+	query = "SELECT player_id FROM player WHERE player_country ='{}' AND player_name ='{}' player_dob ='{}';".format(player_country, player_name, player_dob)
+	cur = con.cursor()
+	cur.execute(query)	
+	results = [row[0] for row in cur.fetchall()]
+	return results
+
+
 if database_enable:
 	con = getdb()
