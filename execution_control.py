@@ -41,6 +41,16 @@ def execute_section(execution_schedule):
 			enable_execution = True
 			execute_ready = True
 			day_execution = datetime.now().day
+
+	if 'minute' in execution_schedule and not execute_ready:
+		print("Case daily")
+		_, time_str = execution_schedule.split("|")		
+		time_execution = datetime.strptime(time_str, '%H:%M:%S').time()
+		if datetime.now().time() >= time_execution:
+			enable_execution = True
+			execute_ready = True
+			time_execution = time_execution + timedelta(minutes=1)
+			# day_execution = datetime.now().day
 	
 	if datetime.now().day != day_execution:		
 		execute_ready = False
@@ -56,6 +66,9 @@ def create_leagues(driver):
 
 def create_teams(driver):
 	print("Create_teams: ")
+	
+def create_player(driver):
+	print("Create_teams: ")
 # with open('input.json', 'r') as file:
 # 	section_schedule = json.load(file)
 
@@ -65,16 +78,21 @@ section_schedule =	{
 	    "teams_creation": "montly|15|4:25:15",
 	    "results_fixtures_extraction": "daily|4:27:15",
 	    "GET_FIXTURES": "seconds|30",	    
-	    "GET_PLAYERS": "minute|4:32:15"
+	    "GET_PLAYERS": "minute|4:36:15"
 	}
 
 
 count = 0
 day_execution = -1
 execute_ready = False
-while True:
-	print(count, end = '-')
+while True:	
+	print(datetime.now().time())
 	execution_schedule = section_schedule['main_extract_news']
+	enable_execution = execute_section(execution_schedule)
+	if enable_execution:
+		extract_news(driver)
+
+	execution_schedule = section_schedule['GET_PLAYERS']
 	enable_execution = execute_section(execution_schedule)
 	if enable_execution:
 		extract_news(driver)
