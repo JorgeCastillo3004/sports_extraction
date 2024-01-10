@@ -321,7 +321,7 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 
 def get_complete_match_info(driver, country_league, sport_id, league_id, season_id,
 							 dict_country_league_season, dict_country_league_check_point, \
-							 dict_leagues_ready, section = 'results'):
+							 section = 'results'):
 	
 	league_folder = 'check_points/{}/{}/'.format(section, country_league)
 	if os.path.exists(league_folder):
@@ -331,13 +331,13 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 
 	print(round_files, '\n')
 	# load round ready:
-	try:
-		list_rounds_ready = dict_leagues_ready[country_league]
-	except:
-		list_rounds_ready = []
+	# try:
+	# 	list_rounds_ready = dict_leagues_ready[country_league]
+	# except:
+	# 	list_rounds_ready = []
 	
 	for round_file in round_files:
-		if not round_file.split('/')[-1] in list_rounds_ready:
+		# if not round_file.split('/')[-1] in list_rounds_ready:
 			file_path = os.path.join(league_folder, round_file)
 			print(file_path)
 			round_info = load_json(file_path)        
@@ -416,17 +416,17 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 						save_score_info(dict_visitor)
 					print("s... db ", end='')
 			print("#"*80, '\n'*2)
-			list_rounds_ready.append(round_file.split('/')[-1])
-			dict_leagues_ready[country_league] = list_rounds_ready
-			dict_country_league_check_point[sport_id] = dict_leagues_ready
-			save_check_point('check_points/country_leagues_results_ready.json', dict_country_league_check_point)
+			# list_rounds_ready.append(round_file.split('/')[-1])
+			# dict_leagues_ready[country_league] = list_rounds_ready
+			# dict_country_league_check_point[sport_id] = dict_leagues_ready
+			# save_check_point('check_points/country_leagues_results_ready.json', dict_country_league_check_point)
 	if os.path.exists(league_folder):
 		print("folder_path to delete: ", league_folder)
 		shutil.rmtree(league_folder)
 
 def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, season_id,
 							 dict_country_league_season, dict_country_league_check_point, \
-							 dict_leagues_ready, section = 'results'):
+							 section = 'results'):
 	
 	league_folder = 'check_points/{}/{}/'.format(section, country_league)
 	if os.path.exists(league_folder):
@@ -436,13 +436,13 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 
 	print(round_files, '\n')
 	# load round ready:
-	try:
-		list_rounds_ready = dict_leagues_ready[country_league]
-	except:
-		list_rounds_ready = []
+	# try:
+	# 	list_rounds_ready = dict_leagues_ready[country_league]
+	# except:
+	# 	list_rounds_ready = []
 	
 	for round_file in round_files:
-		if not round_file.split('/')[-1] in list_rounds_ready:
+		# if not round_file.split('/')[-1] in list_rounds_ready:
 			file_path = os.path.join(league_folder, round_file)
 			print(file_path)
 			round_info = load_json(file_path)        
@@ -520,10 +520,10 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 					save_score_info(dict_home)
 					save_score_info(dict_visitor)
 					print("s... db ", end='')
-			list_rounds_ready.append(round_file.split('/')[-1])
-			dict_leagues_ready[country_league] = list_rounds_ready
-			dict_country_league_check_point[sport_id] = dict_leagues_ready
-			save_check_point('check_points/country_leagues_results_ready.json', dict_country_league_check_point)
+			# list_rounds_ready.append(round_file.split('/')[-1])
+			# dict_leagues_ready[country_league] = list_rounds_ready
+			# dict_country_league_check_point[sport_id] = dict_leagues_ready
+			# save_check_point('check_points/country_leagues_results_ready.json', dict_country_league_check_point)
 	if os.path.exists(league_folder):
 		print("folder_path to delete: ", league_folder)
 		shutil.rmtree(league_folder)
@@ -597,7 +597,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 				#############################################################
 				#	SECTION TO CHECK SPORT MODALITY TEAMS OR INDIVIDUAL		#
 				#############################################################
-				if sport_id in ['TENNIS', 'GOLF']:
+				if sport_name in ['TENNIS', 'GOLF']:
 					individual_sport = True
 					flag_to_continue = True
 				else:
@@ -622,11 +622,11 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 						if not individual_sport:
 							get_complete_match_info(driver, league_name, sport_id, league_info['league_id'],
 										league_info['season_id'],dict_league,\
-										 dict_country_league_check_point, dict_leagues_ready, section=name_section)
+										 dict_country_league_check_point, section=name_section)
 						else:
 							get_complete_match_info_tennis(driver, league_name, sport_id, league_info['league_id'],
 									league_info['season_id'],dict_league,\
-									 dict_country_league_check_point, dict_leagues_ready, section=name_section)
+									 dict_country_league_check_point, section=name_section)
 						build_check_point(sport_id, league_name)
 						# sport_dict[league_name] = []
 
