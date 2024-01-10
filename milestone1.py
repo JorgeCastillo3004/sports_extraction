@@ -11,6 +11,7 @@ from data_base import *
 
 def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_sport):	
 	print("max_older_news: ", max_older_news)
+	print("last_news_saved_sport: ", last_news_saved_sport)
 	global count_match, count_recent_news, more_recent_news
 	count = 0	
 	wait = WebDriverWait(driver, 10)
@@ -37,7 +38,7 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 		# if utc_time_naive - news_timestamp <timedelta(days=max_older_news):
 		print("news_date: ", news_date, "#", news_timestamp,"#", utc_time_naive - news_timestamp)
 		if utc_time_naive - news_timestamp < timedelta(days=max_older_news):
-			print("NEWS ADDED: ", news_timestamp)
+			print("NEWS TIME: ", news_timestamp)
 			# CHECK IF IS A NEW NEWS AND IF IS NOT CONTAINED IN THE LAST NEWS LIST.
 			enable_save_new = check_enable_add_news(title, news_timestamp, max_older_news, last_news_saved_sport)
 			if enable_save_new:
@@ -48,13 +49,17 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 				image_name_file = image_path_small.split('/')[-1]
 				dict_current_news = {'title':title, 'published':news_date, 'image':image_name_file, 'news_link':news_link}				
 				dict_upate_news[current_index] = dict_current_news
+				print("New len")
+				print(len(dict_upate_news))
 			else:
 				print("Duplicate news: ")
+				print(len(dict_upate_news))
 		else:
 			print("Don't added ")
 		print("#"*50, '\n')
 	last_news_list = more_recent_news + last_news_saved_sport
 	last_news_saved_sport = last_news_list[0:5]	
+	print("NEW LIST: ", last_news_saved_sport)
 	last_index = last_index + current_index
 	return dict_upate_news, last_index, last_news_saved_sport
 
@@ -285,7 +290,7 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 					print("list_upate_news: ", len(list_upate_news))
 					if len(list_upate_news)!=0:
 						save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)					
-						container_news = click_show_more_news(driver, MAX_OLDER_DATE_ALLOWED, max_click_more = 5)
+						# container_news = click_show_more_news(driver, MAX_OLDER_DATE_ALLOWED, max_click_more = 5)
 						last_news_saved[sport_name] = last_news_saved_sport
 					last_index += 1
 				# global_check_point["M1"] = {'sport': sport_point, 'files':True}
