@@ -570,8 +570,8 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 		#############################################################
 		# 				MAIN LOOP OVER LEAGUES  					#
 		#############################################################
-		for country_league, league_info in leagues_info_json[sport_name].items():
-				print("country_league: ", country_league)
+		for league_name, league_info in leagues_info_json[sport_name].items():
+				print("league_name: ", league_name)
 			# for league_name, league_info in league_info.items():				
 				# CHECK LIST OF ROUNDS READY BY LEAGUE NAME
 				# dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, league_name)
@@ -585,7 +585,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 				#																  	#
 				#				get_dict_league_ready 								#
 				#####################################################################
-				path_league_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
+				path_league_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, league_name)
 				print("League_id, season_id: ", league_info['league_id'], league_info['season_id'])
 				list_rounds = get_rounds_ready(league_info['league_id'], league_info['season_id'])
 				print("List old round from db ", list_rounds)
