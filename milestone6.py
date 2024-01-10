@@ -122,10 +122,9 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 		# name_ = player_dict['player_country'] + '_' + player_dict['player_name']
 		print(player_dict)
 		print("Input name: ", player_dict['player_name'])
-		player_dict['player_name'] = player_dict['player_name'].replace("'", " ")
-		print("out name: ", player_dict['player_name'])
+		player_dict['player_name'] = player_dict['player_name'].replace("'", " ")		
 		players_ready = check_player_duplicates(player_dict['player_country'], player_dict['player_name'], player_dict['player_dob'])
-		print("players_ready ", players_ready)
+		print("players_ready ", players_ready['player_id'])
 		if len(players_ready) == 0:
 			# players_ready.append(name_)
 			if database_enable:
@@ -177,6 +176,10 @@ def players(driver, list_sports):
 	# 				MAIN LOOP OVER LIST SPORTS 					#
 	#############################################################
 	for sport_name in list_sports:		
+		line_sport = "#" + " "*(50 - int(len(sport_name)/2)) + sport_name + " "*(50 - int(len(sport_name)/2)) + "#"
+		print("#"*len(line_sport))
+		print(line_sport)
+		print("#"*len(line_sport))
 		##########  ENABLE CHECK POINT SPORT #############
 		if sport_point != '':
 			if sport_point == sport_name:
@@ -187,6 +190,7 @@ def players(driver, list_sports):
 		if enable_sport:
 			print(leagues_info_json.keys())
 			for country_league, league_info in leagues_info_json[sport_name].items():
+				league_info = leagues_info_json[sport_name]
 				##########  ENABLE CHECK POINT LEAGUE #############
 				print("country_league: ", country_league)
 				if league_point != '':
@@ -195,14 +199,14 @@ def players(driver, list_sports):
 				else:
 					enable_league = True
 				#################################################
-				print("league_info keys: ", league_info)
+				print("country_league: ", country_league)
 				# for team_name, country_league_urls in league_info.items():
 				##########  ENABLE CHECK POINT LEAGUE #############
-				if league_point != '':
-					if league_point == country_league:
-						enable_league = True
-				else:
-					enable_league = True
+				# if league_point != '':
+				# 	if league_point == country_league:
+				# 		enable_league = True
+				# else:
+				# 	enable_league = True
 				#################################################
 				path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
 				print(path_leagues_teams_info)
