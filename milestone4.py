@@ -619,11 +619,11 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 						navigate_through_rounds(driver, league_name, list_rounds, section_name = name_section)
 
 						if not individual_sport:
-							get_complete_match_info(driver, league_name, sport_id, league_info['league_id'],
+							get_complete_match_info(driver, league_name, sport_name, league_info['league_id'],
 										league_info['season_id'],dict_league,\
 										 dict_country_league_check_point, section=name_section)
 						else:
-							get_complete_match_info_tennis(driver, league_name, sport_id, league_info['league_id'],
+							get_complete_match_info_tennis(driver, league_name, sport_name, league_info['league_id'],
 									league_info['season_id'],dict_league,\
 									 dict_country_league_check_point, section=name_section)
 						# build_check_point(sport_id, league_name)
