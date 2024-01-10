@@ -328,7 +328,7 @@ def create_leagues(driver, list_sports):
 				league_info = get_league_data(driver, league_name, sport_id)
 				sport_leag_countr_name_db = sport_id+"_"+league_info['league_country'] +'_'+ league_info['league_name']
 				sport_leag_countr_name_json = league_info['league_country'] +'_'+ league_info['league_name']
-				print("db ", sport_leag_countr_name_db, end = '')
+				print("db ", sport_leag_countr_name_db)
 				print("json: ", sport_leag_countr_name_json)
 				###################################################################
 				#			SECTION CHECK IF LEAGUE WAS SAVED IN DB				  #
@@ -338,8 +338,7 @@ def create_leagues(driver, list_sports):
 				if sport_leag_countr_name_db in list(dict_leagues_ready_db.keys()):
 					enable_save = False
 					print(" "*(60-len(sport_leag_countr_name_json))," READY")							
-					league_id = dict_leagues_ready_db[sport_leag_countr_name_db]
-					print(league_id.keys())
+					league_id = dict_leagues_ready_db[sport_leag_countr_name_db]					
 					print("League id from db: ", league_id)					
 					# league_info['league_id'] = league_id						
 				else:
