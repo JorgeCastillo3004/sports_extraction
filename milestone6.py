@@ -241,7 +241,7 @@ def players(driver, list_sports):
 							print("squad_url URL: ", squad_url)
 
 							# GET LIST OF PLAYERS AVAILABLES
-							list_squad = get_squad_list(driver, sport_id = sport_id)						
+							list_squad = get_squad_list(driver, sport_id = sport_name)
 
 							# NAVIGATE AND EXTRACT INFO FROM EACH PLAYER LINK
 							navigate_through_players(driver, sport_id, country_league, team_name, country_league_urls['season_id'],\
