@@ -538,9 +538,9 @@ def pending_to_process(dict_country_league_check_point, sport_id, country_league
 	else:
 		return {}
 
-def build_check_point(sport_id, country_league):
-	check_point = {'sport_id':sport_id, 'country_league':country_league}
-	save_check_point('check_points/check_point_m4.json', check_point)
+# def build_check_point(sport_id, country_league):
+# 	check_point = {'sport_id':sport_id, 'country_league':country_league}
+# 	save_check_point('check_points/check_point_m4.json', check_point)
 
 # def get_check_point(check_point, sport_id, country_league):
 # 	print(check_point)
@@ -626,7 +626,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 							get_complete_match_info_tennis(driver, league_name, sport_id, league_info['league_id'],
 									league_info['season_id'],dict_league,\
 									 dict_country_league_check_point, section=name_section)
-						build_check_point(sport_id, league_name)
+						# build_check_point(sport_id, league_name)
 						# sport_dict[league_name] = []
 
 CONFIG = load_json('check_points/CONFIG.json')
