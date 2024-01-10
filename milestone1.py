@@ -284,7 +284,7 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 					if len(list_upate_news)!=0:
 						save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)					
 						container_news = click_show_more_news(driver, MAX_OLDER_DATE_ALLOWED, max_click_more = 5)
-						last_news_saved[sport] = last_news_saved_sport					
+						last_news_saved[sport_name] = last_news_saved_sport
 					last_index += 1
 				# global_check_point["M1"] = {'sport': sport_point, 'files':True}
 				save_check_point('check_points/last_saved_news.json', last_news_saved)
