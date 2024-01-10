@@ -570,9 +570,10 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 		#############################################################
 		# 				MAIN LOOP OVER LEAGUES  					#
 		#############################################################
-		for sport_id, dict_current_sport in leagues_info_json[sport_name].items():
-
+		for country_league, dict_current_sport in leagues_info_json[sport_name].items():
+			print("country_league: ", country_league)
 			for league_name, league_info in dict_current_sport.items():
+				print("league_name: ", league_name)
 				# CHECK LIST OF ROUNDS READY BY LEAGUE NAME
 				dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, league_name)
 
