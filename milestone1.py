@@ -262,7 +262,7 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 			# WAIT UNTIL LOAD PAGE
 			print(news_url)
 			wait_update_page(driver, news_url, "section__mainTitle")
-			file_point = True
+			file_point = False
 			if not(file_point):
 				####################### GET LAST NEWS SAVED #######################		
 				if sport in list(last_news_saved.keys()):
