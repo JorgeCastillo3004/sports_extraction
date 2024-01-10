@@ -261,34 +261,6 @@ def get_player_data(driver):
 	 'player_photo':player_photo, 'player_position':player_position}
 	return player_dict
 
-def get_squad_dict(driver):
-	# Function to get positions and url for each player
-	lineups_blocks = driver.find_element(By.XPATH, '//div[@class="lineup lineup--soccer"]')
-	sections = lineups_blocks.find_elements(By.CLASS_NAME, 'lineup__rows')
-
-	dict_squad = {}
-	for section in sections:
-		position = section.find_element(By.CLASS_NAME, 'lineup__title').text
-		players = section.find_elements(By.CLASS_NAME, 'lineup__cell.lineup__cell--name')
-		list_links = []
-		for player in players:        
-			list_links.append(player.get_attribute('href'))
-		dict_squad[position] = list_links    
-
-	return dict_squad
-
-def navigate_through_players(driver, dict_squad):
-	for position, list_links in dict_squad.items():
-		for player_link in list_links: ### URGENT DELETE #######
-			wait_update_page(driver, player_link, 'container__heading')
-			player_dict = get_player_data(driver)
-			print(player_dict)
-			print("Save player info in database")
-			if database_enable:
-				save_player_info(player_dict)
-			break ### URGENT DELETE #######
-		break ### URGENT DELETE #######
-
 def get_sections_links(driver):
 	list_links = driver.find_elements(By.XPATH, '//div[@class="tabs__group"]/a')
 

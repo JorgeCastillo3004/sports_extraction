@@ -37,7 +37,7 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 		# if utc_time_naive - news_timestamp <timedelta(days=max_older_news):
 		print("news_date: ", news_date, "#", news_timestamp,"#", utc_time_naive - news_timestamp)
 		if utc_time_naive - news_timestamp < timedelta(days=max_older_news):
-			print("NEWS TIME STAMP: ", news_timestamp)
+			print("NEWS ADDED: ", news_timestamp)
 			# CHECK IF IS A NEW NEWS AND IF IS NOT CONTAINED IN THE LAST NEWS LIST.
 			enable_save_new = check_enable_add_news(title, news_timestamp, max_older_news, last_news_saved_sport)
 			if enable_save_new:
@@ -49,7 +49,9 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 				dict_current_news = {'title':title, 'published':news_date, 'image':image_name_file, 'news_link':news_link}				
 				dict_upate_news[current_index] = dict_current_news
 			else:
-				print("Duplicate news: ")		
+				print("Duplicate news: ")
+		else:
+			print("Don't added ")
 		print("#"*50, '\n')
 	last_news_list = more_recent_news + last_news_saved_sport
 	last_news_saved_sport = last_news_list[0:5]	
