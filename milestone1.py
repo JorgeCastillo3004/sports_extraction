@@ -290,7 +290,7 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 				save_check_point('check_points/last_saved_news.json', last_news_saved)
 			# save_check_point('check_points/global_check_point.json', global_check_point)
 			#################### SECTION PROCESS NEWS #########################
-			extract_news_info(driver, global_check_point)
+			extract_news_info(driver)
 
 def initial_settings_m1(driver):
 	# GET SPORTS AND SPORTS LINKS
