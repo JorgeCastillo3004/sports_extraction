@@ -208,7 +208,7 @@ def players(driver, list_sports):
 				# 	enable_league = True
 				#################################################
 				path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)				
-				
+				print('\n', "league_info: ", league_info, '\n')
 				if os.path.isfile(path_leagues_teams_info) and enable_league:
 					print("Start extraction for league: ", country_league)
 
