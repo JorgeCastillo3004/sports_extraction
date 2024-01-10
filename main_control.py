@@ -175,7 +175,7 @@ def main(driver):
 			old_execution_schedule_s1 = execution_schedule_s1	
 		enable_execution_s1, day_execution_s1, execute_ready_s1, _ = execute_section(execution_schedule_s1, day_execution_s1, execute_ready_s1)
 		if enable_execution_s1:		
-			main_extract_news(driverdriver, section_schedule['EXTRACT_NEWS']['SPORTS'], section_schedule['EXTRACT_NEWS']['MAX_OLDER_DATE_ALLOWED'])
+			main_extract_news(driver, section_schedule['EXTRACT_NEWS']['SPORTS'], section_schedule['EXTRACT_NEWS']['MAX_OLDER_DATE_ALLOWED'])
 			list_s1.append(datetime.now().time().strftime('%H:%M:%S'))
 			print(list_s1, '\n')
 
