@@ -16,7 +16,7 @@
 
 	"GET_FIXTURES": {"TIME":"weekly|wednesday|22:15:00",
 					"SPORTS": ["HOCKEY"]},
-	"GET_PLAYERS": {"TIME":"weekly|wednesday|18:34:00",
+	"GET_PLAYERS": {"TIME":"weekly|wednesday|18:40:00",
 					"SPORTS": ["HOCKEY"]},
 	"ALL_SPORTS": {"TIME":"minute|14:15:00",
 					"SPORTS": ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY", "GOLF", "AM._FOOTBALL",
