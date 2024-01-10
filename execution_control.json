@@ -8,7 +8,7 @@
 	"CREATE_LEAGUES": {"TIME":"weekly|wednesday|15:58:00",
 						"SPORTS": ["HOCKEY", "BASKETBALL"]},
 
-	"CREATE_TEAMS": {"TIME":"weekly|wednesday|15:05:00", 
+	"CREATE_TEAMS": {"TIME":"weekly|wednesday|17:01:00", 
 					"SPORTS": ["HOCKEY", "BASKETBALL"]},
 
 	"GET_RESULTS": {"TIME":"weekly|wednesday|18:00:30", 
