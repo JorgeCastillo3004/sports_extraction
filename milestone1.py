@@ -232,8 +232,7 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 		# 	TITLE SECTION PRINT
 		print("#"*102)
 		print("#", " "*(50 - int(len(sport_name)/2)), sport_name, " "*(50 - int(len(sport_name)/2)), "#")
-		print("#"*102)
-		print(conf_enable_news['SPORTS'][sport])
+		print("#"*102)		
 
 		#############################################################
 		#	SECTION TO LOAD CHECK POINT FROM LAST RUN 				#
