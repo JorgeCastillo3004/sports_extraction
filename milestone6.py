@@ -117,14 +117,11 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 		player_dict = get_player_data(driver)			
 		player_dict['season_id'] = season_id
 		player_dict['team_id'] = team_id
-		player_dict['player_meta'] = ''			
-		print("Save player info in database")
-		# name_ = player_dict['player_country'] + '_' + player_dict['player_name']
-		print(player_dict)
-		print("Input name: ", player_dict['player_name'])
+		player_dict['player_meta'] = ''		
+		# name_ = player_dict['player_country'] + '_' + player_dict['player_name']		
 		player_dict['player_name'] = player_dict['player_name'].replace("'", " ")		
 		players_ready = check_player_duplicates(player_dict['player_country'], player_dict['player_name'], player_dict['player_dob'])
-		print("players_ready ", player_dict['player_id'])
+		print('-e-', end = '')
 		if len(players_ready) == 0:
 			# players_ready.append(name_)
 			if database_enable:
@@ -148,6 +145,10 @@ def get_check_point(dict_players_ready, sport_id, country_league, team_name):
 		dict_players_ready[sport_id][country_league] = {}
 		dict_players_ready[sport_id][country_league][team_name] = []
 	return dict_players_ready
+
+def print_section(section, space_ = 50):
+	line_sport = "#" + " "*(space_ - int(len(section)/2)) + section + " "*(space_ - int(len(section)/2)) + "#"
+	print("#"*len(line_sport),'\n', line_sport, '\n',"#"*len(line_sport))
 
 def players(driver, list_sports):
 	leagues_info_json = load_check_point('check_points/leagues_info.json')	
@@ -176,10 +177,7 @@ def players(driver, list_sports):
 	# 				MAIN LOOP OVER LIST SPORTS 					#
 	#############################################################
 	for sport_name in list_sports:		
-		line_sport = "#" + " "*(50 - int(len(sport_name)/2)) + sport_name + " "*(50 - int(len(sport_name)/2)) + "#"
-		print("#"*len(line_sport))
-		print(line_sport)
-		print("#"*len(line_sport))
+		print_section(sport_name, space_ = 50)
 		##########  ENABLE CHECK POINT SPORT #############
 		if sport_point != '':
 			if sport_point == sport_name:
@@ -190,7 +188,7 @@ def players(driver, list_sports):
 		if enable_sport:
 			print(leagues_info_json.keys())
 			for country_league, league_info in leagues_info_json[sport_name].items():
-				
+				print_section(country_league, space_ = 30)
 				##########  ENABLE CHECK POINT LEAGUE #############
 				print("country_league: ", country_league)
 				if league_point != '':
@@ -207,8 +205,8 @@ def players(driver, list_sports):
 				# else:
 				# 	enable_league = True
 				#################################################
-				path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)				
-				print('\n', "league_info: ", league_info, '\n')
+				path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
+				
 				if os.path.isfile(path_leagues_teams_info) and enable_league:
 					print("Start extraction for league: ", country_league)
 
@@ -218,6 +216,7 @@ def players(driver, list_sports):
 					dict_country_league_season = load_check_point(path_leagues_teams_info)
 
 					for team_name, team_info in dict_country_league_season.items():
+						print_section(team_name, space_ = 20)
 						##########  ENABLE CHECK POINT TEAM #############
 						if team_point != '':
 							if team_point == team_name:
@@ -239,8 +238,7 @@ def players(driver, list_sports):
 
 							# WAIT UNTIL COMPLETE LOAD
 							wait_update_page(driver, squad_url, 'heading')
-							# sport_name = inverted_dict[sport_id]						
-							print("squad_url URL: ", squad_url)
+							# sport_name = inverted_dict[sport_id]
 
 							# GET LIST OF PLAYERS AVAILABLES
 							list_squad = get_squad_list(driver, sport_id = sport_name)
