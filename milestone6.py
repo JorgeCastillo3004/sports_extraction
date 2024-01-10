@@ -150,7 +150,7 @@ def get_check_point(dict_players_ready, sport_id, country_league, team_name):
 		dict_players_ready[sport_id][country_league][team_name] = []
 	return dict_players_ready
 
-def players(driver, league_name):
+def players(driver, list_sports):
 	leagues_info_json = load_check_point('check_points/leagues_info.json')	
 	dict_sport_id = get_dict_sport_id()	# GET DICT SPORT FROM DATABASE
 	inverted_dict = {value: key for key, value in dict_sport_id.items()}
