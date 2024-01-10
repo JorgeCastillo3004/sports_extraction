@@ -365,8 +365,8 @@ def create_leagues(driver, list_sports):
 					dict_leagues_ready_json[sport_leag_countr_name_json] = {'league_name':league_info['league_name'] , 'url':league_url,\
 														 'league_id':league_id, 'season_id':league_info['season_id']}
 
-				print("league info to save in file json: ")
-				print(dict_leagues_ready_json[sport_leag_countr_name_json])
+					print("league info to save in file json: ")
+					print(dict_leagues_ready_json[sport_leag_countr_name_json])
 
 				# GET SECTIONS LINKS
 				dict_sections_links = get_sections_links(driver)
