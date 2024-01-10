@@ -108,20 +108,21 @@ def execute_section(execution_schedule, day_execution, execute_ready):
 	return enable_execution, day_execution, execute_ready, execution_schedule
 
 driver = 1
-# def extract_news(driver):
-# 	print("Extracting news: ")
+def main_extract_news(driver, list_teams, MAX_OLDER_DATE_ALLOWED = 30):
+	print("Extracting news: ")
 
-# def create_leagues(driver):
-# 	print("Create Leagues: ")
+def create_leagues(driver, list_teams):
+	print("Create Leagues: ")
+	print(list_teams)
 
-# def create_teams(driver):
-# 	print("Create_teams: ")
+def teams_creation(driver, list_teams):
+	print("Create_teams: ")
 
-# def get_results(driver, section = 'results'):
-# 	print("Get {}".format(section))
+def results_fixtures_extraction(driver, list_teams, section = 'results'):
+	print("Get {}".format(section))
 
-# def create_player(driver):
-# 	print("Create_players: ")
+def players(driver):
+	print("Create_players: ")
 
 def update_data():
 	with open('execution_control.json', 'r') as file:
@@ -172,7 +173,8 @@ def main(driver):
 		new_execution_schedule_s1 = section_schedule['EXTRACT_NEWS']['TIME']
 		if new_execution_schedule_s1 != old_execution_schedule_s1:
 			execution_schedule_s1 = new_execution_schedule_s1
-			old_execution_schedule_s1 = execution_schedule_s1	
+			old_execution_schedule_s1 = execution_schedule_s1
+			day_execution_s1 = -1
 		enable_execution_s1, day_execution_s1, execute_ready_s1, _ = execute_section(execution_schedule_s1, day_execution_s1, execute_ready_s1)
 		if enable_execution_s1:		
 			main_extract_news(driver, section_schedule['EXTRACT_NEWS']['SPORTS'], section_schedule['EXTRACT_NEWS']['MAX_OLDER_DATE_ALLOWED'])
@@ -182,7 +184,8 @@ def main(driver):
 		new_execution_schedule_s2 = section_schedule['CREATE_LEAGUES']['TIME']
 		if new_execution_schedule_s2 != old_execution_schedule_s2:
 			execution_schedule_s2 = new_execution_schedule_s2
-			old_execution_schedule_s2 = execution_schedule_s2	
+			old_execution_schedule_s2 = execution_schedule_s2
+			day_execution_s2 = -1
 		enable_execution_s2, day_execution_s2, execute_ready_s2, _ = execute_section(execution_schedule_s2, day_execution_s2, execute_ready_s2)
 		if enable_execution_s2:
 			create_leagues(driver, section_schedule['CREATE_LEAGUES']['SPORTS'])
@@ -193,6 +196,7 @@ def main(driver):
 		if new_execution_schedule_s3 != old_execution_schedule_s3:
 			execution_schedule_s3 = new_execution_schedule_s3
 			old_execution_schedule_s3 = execution_schedule_s3
+			day_execution_s3 = -1
 		enable_execution_s3, day_execution_s3, execute_ready_s3, _ = execute_section(execution_schedule_s3, day_execution_s3, execute_ready_s3)
 		if enable_execution_s3:
 			teams_creation(driver, section_schedule['CREATE_TEAMS']['SPORTS'])
@@ -203,6 +207,7 @@ def main(driver):
 		if new_execution_schedule_s4 != old_execution_schedule_s4:
 			execution_schedule_s4 = new_execution_schedule_s4
 			old_execution_schedule_s4 = execution_schedule_s4
+			day_execution_s4 = -1
 		enable_execution_s4, day_execution_s4, execute_ready_s4, execution_schedule_s4 = execute_section(execution_schedule_s4, day_execution_s4, execute_ready_s4)	
 		if enable_execution_s4:
 			results_fixtures_extraction(driver, section_schedule['GET_RESULTS']['SPORTS'], section = 'results')
@@ -212,7 +217,8 @@ def main(driver):
 		new_execution_schedule_s5 = section_schedule['GET_FIXTURES']['TIME']
 		if new_execution_schedule_s5 != old_execution_schedule_s5:
 			execution_schedule_s5 = new_execution_schedule_s5
-			old_execution_schedule_s5 = execution_schedule_s5		
+			old_execution_schedule_s5 = execution_schedule_s5
+			day_execution_s5 = -1
 		enable_execution_s5, day_execution_s5, execute_ready_s5, execution_schedule_s5 = execute_section(execution_schedule_s5, day_execution_s5, execute_ready_s5)
 		if enable_execution_s5:
 			results_fixtures_extraction(driver, section_schedule['GET_FIXTURES']['SPORTS'], section = 'fixtures')
@@ -223,6 +229,7 @@ def main(driver):
 		if new_execution_schedule_s6 != old_execution_schedule_s6:
 			execution_schedule_s6 = new_execution_schedule_s6
 			old_execution_schedule_s6 = execution_schedule_s6
+			day_execution_s6 = -1
 		enable_execution_s6, day_execution_s6, execute_ready_s6, execution_schedule_s6 = execute_section(execution_schedule_s6, day_execution_s6, execute_ready_s6)
 		if enable_execution_s6:
 			players(driver, section_schedule['GET_PLAYERS']['SPORTS'])

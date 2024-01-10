@@ -1,17 +1,17 @@
 
 {
-	"EXTRACT_NEWS": {"TIME":"weekly|friday|14:55:00",
+	"EXTRACT_NEWS": {"TIME":"weekly|wednesday|22:23:00",
 					"SPORTS": ["TENNIS", "BASKETBALL","AMERICAN_SPORTS", 
 							  "HOCKEY"],
 					"MAX_OLDER_DATE_ALLOWED":31
 					},
-	"CREATE_LEAGUES": {"TIME":"weekly|wednesday|15:58:00",
+	"CREATE_LEAGUES": {"TIME":"weekly|wednesday|17:42:00",
 						"SPORTS": ["HOCKEY", "BASKETBALL"]},
 
-	"CREATE_TEAMS": {"TIME":"daily|17:06:00", 
+	"CREATE_TEAMS": {"TIME":"weekly|wednesday|17:45:00", 
 					"SPORTS": ["HOCKEY", "BASKETBALL"]},
 
-	"GET_RESULTS": {"TIME":"weekly|wednesday|18:00:30", 
+	"GET_RESULTS": {"TIME":"weekly|wednesday|22:27:30", 
 					"SPORTS": ["HOCKEY"]},
 
 	"GET_FIXTURES": {"TIME":"weekly|wednesday|22:15:00",
