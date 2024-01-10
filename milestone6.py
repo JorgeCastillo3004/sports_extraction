@@ -124,7 +124,7 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 		print("Input name: ", player_dict['player_name'])
 		player_dict['player_name'] = player_dict['player_name'].replace("'", " ")		
 		players_ready = check_player_duplicates(player_dict['player_country'], player_dict['player_name'], player_dict['player_dob'])
-		print("players_ready ", players_ready['player_id'])
+		print("players_ready ", player_dict['player_id'])
 		if len(players_ready) == 0:
 			# players_ready.append(name_)
 			if database_enable:
