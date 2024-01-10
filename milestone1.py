@@ -230,38 +230,39 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 	for sport_name in list_sports:
 		news_url = dict_url_news[sport_name]	
 		# 	TITLE SECTION PRINT
-		print("#"*102)
-		print("#", " "*(50 - int(len(sport_name)/2)), sport_name, " "*(50 - int(len(sport_name)/2)), "#")
-		print("#"*102)		
+		line_sport = "#" + " "*(50 - int(len(sport_name)/2)) + sport_name + " "*(50 - int(len(sport_name)/2)) + "#"
+		print("#"*len(line_sport))
+		print(line_sport)
+		print("#"*len(line_sport))
 
 		#############################################################
 		#	SECTION TO LOAD CHECK POINT FROM LAST RUN 				#
 		#############################################################
-		if not check_point_loaded:
-			if 'M1' in global_check_point.keys():			
-				sport_point = global_check_point['sport']
-				file_point = global_check_point['sport']['files']
-				extrac_point  = global_check_point['sport']['extract']
-			else:
-				global_check_point["M1"] = {'sport': sport_point, 'files':False}
-				sport_point = sport_name
-				file_point = False
-				extrac_point = 0
-			check_point_loaded = True
-		else:
-			sport_point = sport_name
-			file_point = False
+		# if not check_point_loaded:
+		# 	if 'M1' in global_check_point.keys():			
+		# 		sport_point = global_check_point['sport']
+		# 		file_point = global_check_point['sport']['files']
+		# 		extrac_point  = global_check_point['sport']['extract']
+		# 	else:
+		# 		global_check_point["M1"] = {'sport': sport_point, 'files':False}
+		# 		sport_point = sport_name
+		# 		file_point = False
+		# 		extrac_point = 0
+		# 	check_point_loaded = True
+		# else:
+		# 	sport_point = sport_name
+		# 	file_point = False
 		#############################################################
 		# 				ENABLE CHECK POINT 		 					#
 		#############################################################
-		if sport_name == sport_point:
-			enable_start = True
+		# if sport_name == sport_point:
+		enable_start = True
 
 		if enable_start:
 			# WAIT UNTIL LOAD PAGE
 			print(news_url)
 			wait_update_page(driver, news_url, "section__mainTitle")
-
+			file_point = True
 			if not(file_point):
 				####################### GET LAST NEWS SAVED #######################		
 				if sport in list(last_news_saved.keys()):
@@ -285,10 +286,9 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 						container_news = click_show_more_news(driver, MAX_OLDER_DATE_ALLOWED, max_click_more = 5)
 						last_news_saved[sport] = last_news_saved_sport					
 					last_index += 1
-				global_check_point["M1"] = {'sport': sport_point, 'files':True}
+				# global_check_point["M1"] = {'sport': sport_point, 'files':True}
 				save_check_point('check_points/last_saved_news.json', last_news_saved)
-
-			save_check_point('check_points/global_check_point.json', global_check_point)
+			# save_check_point('check_points/global_check_point.json', global_check_point)
 			#################### SECTION PROCESS NEWS #########################
 			extract_news_info(driver, global_check_point)
 
