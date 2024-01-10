@@ -244,7 +244,7 @@ def players(driver, list_sports):
 							list_squad = get_squad_list(driver, sport_id = sport_name)
 
 							# NAVIGATE AND EXTRACT INFO FROM EACH PLAYER LINK
-							navigate_through_players(driver, country_league, team_name, country_league_urls['season_id'],\
+							navigate_through_players(driver, country_league, team_name, league_info['season_id'],\
 												 team_info['team_id'], list_squad)
 							global_check_point['M6'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
 
