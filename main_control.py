@@ -137,37 +137,36 @@ def update_data():
 # 	    "GET_PLAYERS": "seconds|30|11:50:00"
 # 	}
 
-day_execution_s1 = -1
-day_execution_s2 = -1
-day_execution_s3 = -1
-day_execution_s4 = -1
-day_execution_s5 = -1
-day_execution_s6 = -1
-execute_ready_s1 = False
-execute_ready_s2 = False
-execute_ready_s3 = False
-execute_ready_s4 = False
-execute_ready_s5 = False
-execute_ready_s6 = False
-
-list_s1 = []
-list_s2 = []
-list_s3 = []
-list_s4 = []
-list_s5 = []
-list_s6 = []
-old_execution_schedule_s1 = '*'
-old_execution_schedule_s2 = '*'
-old_execution_schedule_s3 = '*'
-old_execution_schedule_s4 = '*'
-old_execution_schedule_s5 = '*'
-old_execution_schedule_s6 = '*'
-
 database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
 def main(driver):
+	day_execution_s1 = -1
+	day_execution_s2 = -1
+	day_execution_s3 = -1
+	day_execution_s4 = -1
+	day_execution_s5 = -1
+	day_execution_s6 = -1
+	execute_ready_s1 = False
+	execute_ready_s2 = False
+	execute_ready_s3 = False
+	execute_ready_s4 = False
+	execute_ready_s5 = False
+	execute_ready_s6 = False
+
+	list_s1 = []
+	list_s2 = []
+	list_s3 = []
+	list_s4 = []
+	list_s5 = []
+	list_s6 = []
+	old_execution_schedule_s1 = '*'
+	old_execution_schedule_s2 = '*'
+	old_execution_schedule_s3 = '*'
+	old_execution_schedule_s4 = '*'
+	old_execution_schedule_s5 = '*'
+	old_execution_schedule_s6 = '*'
 	section_schedule = update_data()
 	while True:
 		new_execution_schedule_s1 = section_schedule['EXTRACT_NEWS']['TIME']

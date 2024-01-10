@@ -1,6 +1,6 @@
 
 {
-	"EXTRACT_NEWS": {"TIME":"daily|3:05:15",
+	"EXTRACT_NEWS": {"TIME":"daily|3:12:15",
 					"SPORTS": ["TENNIS", "BASKETBALL","AMERICAN_SPORTS", 
 							  "HOCKEY"],
 					"MAX_OLDER_DATE_ALLOWED":31
