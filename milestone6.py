@@ -190,7 +190,7 @@ def players(driver, list_sports):
 		if enable_sport:
 			print(leagues_info_json.keys())
 			for country_league, league_info in leagues_info_json[sport_name].items():
-				league_info = leagues_info_json[sport_name]
+				
 				##########  ENABLE CHECK POINT LEAGUE #############
 				print("country_league: ", country_league)
 				if league_point != '':
@@ -198,8 +198,7 @@ def players(driver, list_sports):
 						enable_league = True
 				else:
 					enable_league = True
-				#################################################
-				print("country_league: ", country_league)
+				#################################################				
 				# for team_name, country_league_urls in league_info.items():
 				##########  ENABLE CHECK POINT LEAGUE #############
 				# if league_point != '':
@@ -208,8 +207,7 @@ def players(driver, list_sports):
 				# else:
 				# 	enable_league = True
 				#################################################
-				path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
-				print(path_leagues_teams_info)
+				path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)				
 				
 				if os.path.isfile(path_leagues_teams_info) and enable_league:
 					print("Start extraction for league: ", country_league)
