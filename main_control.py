@@ -17,7 +17,6 @@ import os
 from selenium.webdriver.support.ui import Select
 from datetime import date, timedelta
 import string
-import schedule
 from common_functions import *
 from data_base import *
 from milestone1 import *
