@@ -5,12 +5,11 @@
 							  "HOCKEY"],
 					"MAX_OLDER_DATE_ALLOWED":31
 					},
-	"CREATE_LEAGUES": {"TIME":"weekly|friday|3:30:00",
-						"SPORTS": ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY", "GOLF", "AM._FOOTBALL",
-						"BASEBALL", "BOXING"]},
+	"CREATE_LEAGUES": {"TIME":"weekly|wednesday|15:58:00",
+						"SPORTS": ["HOCKEY", "BASKETBALL"]},
 
-	"CREATE_TEAMS": {"TIME":"weekly|wednesday|16:52:00", 
-					"SPORTS": ["FOOTBALL", "TENNIS","AM._FOOTBALL","BASEBALL", "BOXING"]},
+	"CREATE_TEAMS": {"TIME":"weekly|wednesday|15:05:00", 
+					"SPORTS": ["HOCKEY", "BASKETBALL"]},
 
 	"GET_RESULTS": {"TIME":"weekly|wednesday|18:00:30", 
 					"SPORTS": ["HOCKEY"]},
