@@ -116,9 +116,9 @@ def teams_creation(driver, list_sports):
 	dict_sport_id = get_dict_sport_id()	# GET DICT SPORT FROM DATABASE
 	global_check_point = load_check_point('check_points/global_check_point.json')
 	if 'M3' in global_check_point.keys():			
-		sport_point = global_check_point['sport']
-		league_point = global_check_point['league']
-		team_point  = global_check_point['team_name']
+		sport_point = global_check_point['M3']['sport']
+		league_point = global_check_point['M3']['league']
+		team_point  = global_check_point['M3']['team_name']
 	else:
 		sport_point = ''
 		league_point = ''
