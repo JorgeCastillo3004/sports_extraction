@@ -16,6 +16,7 @@ if os.path.isfile("check_points/leagues_info.json"):
 
 files = os.listdir('check_points/leagues_season/')
 
+print("Files and folder removed: ")
 # Iterate over each file and remove it
 for file_name in files:
     file_path = os.path.join('check_points/leagues_season/', file_name)
