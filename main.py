@@ -107,22 +107,22 @@ def execute_section(execution_schedule, day_execution, execute_ready):
 
 	return enable_execution, day_execution, execute_ready, execution_schedule
 
-driver = 1
-def main_extract_news(driver, list_teams, MAX_OLDER_DATE_ALLOWED = 30):
-	print("Extracting news: ")
+# driver = 1
+# def main_extract_news(driver, list_teams, MAX_OLDER_DATE_ALLOWED = 30):
+# 	print("Extracting news: ")
 
-def create_leagues(driver, list_teams):
-	print("Create Leagues: ")
-	print(list_teams)
+# def create_leagues(driver, list_teams):
+# 	print("Create Leagues: ")
+# 	print(list_teams)
 
-def teams_creation(driver, list_teams):
-	print("Create_teams: ")
+# def teams_creation(driver, list_teams):
+# 	print("Create_teams: ")
 
-def results_fixtures_extraction(driver, list_teams, section = 'results'):
-	print("Get {}".format(section))
+# def results_fixtures_extraction(driver, list_teams, section = 'results'):
+# 	print("Get {}".format(section))
 
-def players(driver):
-	print("Create_players: ")
+# def players(driver):
+# 	print("Create_players: ")
 
 def update_data():
 	with open('execution_control.json', 'r') as file:
