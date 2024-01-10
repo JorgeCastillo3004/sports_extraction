@@ -284,9 +284,10 @@ def create_leagues(driver, list_sports):
 		###################################################################
 		#						TITLE SECTION 						  	  #
 		###################################################################
-		print("#"*102)
-		print("#", " "*(50 - int(len(sport_name/2))), sport_name, " "*(50 - int(len(sport_name/2))), "#")
-		print("#"*102)
+		line_sport = "#" + " "*(50 - int(len(sport_name)/2)) + sport_name + " "*(50 - int(len(sport_name)/2)) + "#"
+		print("#"*len(line_sport))
+		print(line_sport)
+		print("#"*len(line_sport))
 		###################################################################
 		#		CHECK IF SPORT WAS SAVED PREVIOUSLY						  #
 		###################################################################
