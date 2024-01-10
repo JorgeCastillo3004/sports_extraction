@@ -32,19 +32,19 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 		news_timestamp = process_date(news_date)
 		title = block.find_element(By.XPATH, './/div[@role="heading"]').text		
 		image = image.get_attribute('src')		
-		image_url = block.find_element(By.XPATH, './/figure/picture/source').get_attribute('srcset').split(', ')[0]
-		image_url = re.sub(r'\s+\d+\w','', image_url)
+		# image_url = block.find_element(By.XPATH, './/figure/picture/source').get_attribute('srcset').split(', ')[0]
+		# image_url = re.sub(r'\s+\d+\w','', image_url)
 		# if utc_time_naive - news_timestamp <timedelta(days=max_older_news):
-		print("news_date: ", news_date, news_timestamp, utc_time_naive - news_timestamp)
+		print("news_date: ", news_date, "#", news_timestamp,"#", utc_time_naive - news_timestamp)
 		if utc_time_naive - news_timestamp < timedelta(days=max_older_news):
-			print("CHECK MAX OLDER NEWS", news_timestamp)
+			print("NEWS TIME STAMP: ", news_timestamp)
 			# CHECK IF IS A NEW NEWS AND IF IS NOT CONTAINED IN THE LAST NEWS LIST.
 			enable_save_new = check_enable_add_news(title, news_timestamp, max_older_news, last_news_saved_sport)
 			if enable_save_new:
 				# Verificar base de datos
 				print("--", end = '')
 				image_path_small = random_name(folder = 'images/news/small_images', termination = '.avif')
-				save_image(driver, image_url, image_path_small)
+				# save_image(driver, image_url, image_path_small)
 				image_name_file = image_path_small.split('/')[-1]
 				dict_current_news = {'title':title, 'published':news_date, 'image':image_name_file, 'news_link':news_link}				
 				dict_upate_news[current_index] = dict_current_news
