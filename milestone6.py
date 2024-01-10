@@ -160,10 +160,10 @@ def players(driver, league_name):
 	#############################################################
 
 	global_check_point = load_check_point('check_points/global_check_point.json')
-	if 'M3' in global_check_point.keys():			
-		sport_point = global_check_point['sport']
-		league_point = global_check_point['league']
-		team_point  = global_check_point['team_name']
+	if 'M6' in global_check_point.keys():			
+		sport_point = global_check_point['M6']['sport']
+		league_point = global_check_point['M6']['league']
+		team_point  = global_check_point['M6']['team_name']
 	else:
 		sport_point = ''
 		league_point = ''
