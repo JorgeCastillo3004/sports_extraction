@@ -11,12 +11,12 @@
 	"CREATE_TEAMS": {"TIME":"weekly|wednesday|17:55:00", 
 					"SPORTS": ["HOCKEY", "BASKETBALL"]},
 
-	"GET_RESULTS": {"TIME":"weekly|wednesday|22:27:30", 
+	"GET_RESULTS": {"TIME":"weekly|wednesday|18:15:30", 
 					"SPORTS": ["HOCKEY"]},
 
 	"GET_FIXTURES": {"TIME":"weekly|wednesday|22:15:00",
 					"SPORTS": ["HOCKEY"]},
-	"GET_PLAYERS": {"TIME":"weekly|wednesday|23:15:00",
+	"GET_PLAYERS": {"TIME":"weekly|wednesday|18:25:00",
 					"SPORTS": ["HOCKEY"]},
 	"ALL_SPORTS": {"TIME":"minute|14:15:00",
 					"SPORTS": ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY", "GOLF", "AM._FOOTBALL",
