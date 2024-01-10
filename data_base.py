@@ -152,7 +152,7 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 	cur.execute(query)
 	results = cur.fetchall()
 	dict_results = {}
-	for row in results:
+	for row in results:	
 		dict_results.setdefault(row[0], {}).setdefault(row[1], {}).setdefault(row[2], {})[row[3]] = {'team_id': row[4]}	
 
 	return dict_results

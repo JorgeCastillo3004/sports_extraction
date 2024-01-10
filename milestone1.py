@@ -11,55 +11,53 @@ from data_base import *
 
 def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_sport):	
 	print("max_older_news: ", max_older_news)
-	global count_match, count_recen_news, more_recent_news
+	global count_match, count_recent_news, more_recent_news
 	count = 0	
 	wait = WebDriverWait(driver, 10)
+	#############################################################
+	# 				FIND CONTAINER BLOCK OF EACH NEWS 			#
+	#############################################################
 	webdriver.ActionChains(driver).send_keys(Keys.END).perform()
 	xpath_expression = '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a'
 	container_news = driver.find_elements(By.XPATH, xpath_expression)
 	dict_upate_news = {}
-	count_match, count_recen_news, more_recent_news = 0, 0, []
+	count_match, count_recent_news, more_recent_news = 0, 0, []
+
+	# LOOP OVER ALL NEWS FOUND SO FAR.
 	for current_index, block in enumerate(container_news[last_index:]):
-		news_link = block.get_attribute('href')
-		news_date = block.find_element(By.XPATH, './/span[@data-testid="wcl-newsMetaInfo-date"]').text
-		print("news_date: ", news_date)
-		date_utc = process_date(news_date)
-		title = block.find_element(By.XPATH, './/div[@role="heading"]').text
+		# FIND NECESSARY FIELDS 
 		image = wait.until(EC.element_to_be_clickable((By.XPATH, './/figure/picture/img')))
-		image = image.get_attribute('src')
-		print('*', end ='')
-		print('title: ', title)
-		# image_url = block.find_element(By.XPATH, './/figure/picture/source').get_attribute('srcset').split(', ')[0]
-		# image_url = re.sub(r'\s+\d+\w','', image_url)
-		# if utc_time_naive - date_utc <timedelta(days=max_older_news):
-		if utc_time_naive - date_utc < timedelta(days=max_older_news):
-			print("CHECK MAX OLDER NEWS")
+		news_link = block.get_attribute('href')
+		news_date = block.find_element(By.XPATH, './/span[@data-testid="wcl-newsMetaInfo-date"]').text		
+		news_timestamp = process_date(news_date)
+		title = block.find_element(By.XPATH, './/div[@role="heading"]').text		
+		image = image.get_attribute('src')		
+		image_url = block.find_element(By.XPATH, './/figure/picture/source').get_attribute('srcset').split(', ')[0]
+		image_url = re.sub(r'\s+\d+\w','', image_url)
+		# if utc_time_naive - news_timestamp <timedelta(days=max_older_news):
+		print("news_date: ", news_date, news_timestamp, utc_time_naive - news_timestamp)
+		if utc_time_naive - news_timestamp < timedelta(days=max_older_news):
+			print("CHECK MAX OLDER NEWS", news_timestamp)
+			# CHECK IF IS A NEW NEWS AND IF IS NOT CONTAINED IN THE LAST NEWS LIST.
 			enable_save_new = check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport)
-			print("enable_save_new: ", enable_save_new)
 			if enable_save_new:
 				# Verificar base de datos
 				print("--", end = '')
 				image_path_small = random_name(folder = 'images/news/small_images', termination = '.avif')
-				# save_image(driver, image_url, image_path_small)
+				save_image(driver, image_url, image_path_small)
 				image_name_file = image_path_small.split('/')[-1]
 				dict_current_news = {'title':title, 'published':news_date, 'image':image_name_file, 'news_link':news_link}				
 				dict_upate_news[current_index] = dict_current_news
 			else:
 				print("Duplicate news: ")		
 		print("#"*50, '\n')
-	# print("len more_recent_news, last_news_list ", len(more_recent_news), len(last_news_list))
-	# print("more_recent_news: ", more_recent_news)
-	# print("last_news_list: ", last_news_list)
 	last_news_list = more_recent_news + last_news_saved_sport
-	last_news_saved_sport = last_news_list[0:5]
-	# print("Saving new list of last news by the sport: ", sport)
-	# print("last_news_saved: ", last_news_saved)	
+	last_news_saved_sport = last_news_list[0:5]	
 	last_index = last_index + current_index
 	return dict_upate_news, last_index, last_news_saved_sport
 
-
 def check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport):
-	global count_match, count_recen_news, more_recent_news
+	global count_match, count_recent_news, more_recent_news
 	enable_save_new = False
 	if utc_time_naive - date_utc < timedelta(days=max_older_news):
 		if len(last_news_saved_sport)!= 0 and count_match < 3:
@@ -68,14 +66,14 @@ def check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport
 				count_match += 1
 			else:
 				enable_save_new = True
-				if count_recen_news < 5:                
+				if count_recent_news < 5:                
 					more_recent_news.append(title)						
-					count_recen_news += 1						
+					count_recent_news += 1						
 		if len(last_news_saved_sport) == 0:
 			enable_save_new = True
-			if count_recen_news < 5:
+			if count_recent_news < 5:
 				more_recent_news.append(title)					
-				count_recen_news += 1
+				count_recent_news += 1
 	return enable_save_new
 
 def get_list_recent_news_v2(driver, sport, max_older_news):	
@@ -119,35 +117,41 @@ def get_list_recent_news_v2(driver, sport, max_older_news):
 
 def click_show_more_news(driver, max_older_news, max_click_more = 5):
 	wait = WebDriverWait(driver, 5)
+
+	# FIND THE BUTTON SHOW MORE NEWS
 	showmore = driver.find_elements(By.CLASS_NAME, 'showMore.showMore--fsNews')
 	if len(showmore)!= 0:
 		click_more = True
 	else:
 		click_more = False
-	# container_news = driver.find_elements(By.XPATH, '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a')
-	# print(len(container_news))
-	
+
+	# LOAD THE CURRENT BLOCKS OF NEWS
 	xpath_expression = '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a'
 	container_news = driver.find_elements(By.XPATH, xpath_expression)
 	current_len = len(container_news)
-	# news_date = container_news[-1].find_element(By.CLASS_NAME, '_newsMeta_gh8ui_5').text
-	news_date = container_news[-1].find_element(By.XPATH, '//div[@data-testid="wcl-newsMetaGroup"]').text
-	
-	date_utc = process_date(news_date)
 
+	# CHECK THE DATE OF THE LAST NEWS FOUND 
+	news_date = container_news[-1].find_element(By.XPATH, '//div[@data-testid="wcl-newsMetaGroup"]').text	
+	date_utc = process_date(news_date)
 	click_count = 0
 	while click_count < max_click_more and click_more and utc_time_naive - date_utc < timedelta(days=max_older_news):
-		print("click_count: ", click_count)
+		# CLICK ON MORE NEWS 
+		print("MORE_NEWS: ", click_count, end ='')
 		showmore = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'showMore.showMore--fsNews')))
 		showmore.click()
 		new_len = current_len
+
+		# WAIT UNTIL LOAD ALL THE NEWS
 		while current_len == new_len:
 			time.sleep(0.8)
 			new_len = len(driver.find_elements(By.XPATH, xpath_expression))
 		time.sleep(1)
+
+		# MOVE TO THE LAST PART OF THE PAGE
 		webdriver.ActionChains(driver).send_keys(Keys.END).perform()
 		webdriver.ActionChains(driver).send_keys(Keys.PAGE_UP).perform()
 
+		# VERIFY IF STILL APPEAR SHOW MORE NEWS BUTTON
 		showmore = driver.find_elements(By.CLASS_NAME, 'showMore.showMore--fsNews')
 		if len(showmore)== 0:
 			click_more = False
@@ -156,9 +160,8 @@ def click_show_more_news(driver, max_older_news, max_click_more = 5):
 		news_date = container_news[-1].find_element(By.XPATH, '//div[@data-testid="wcl-newsMetaGroup"]').text
 		print(news_date)
 		date_utc = process_date(news_date)
-		# container_news = driver.find_elements(By.XPATH, '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a')
-		print("Total news found: ", len(container_news))
 		click_count += 1
+	print("Total news found: ", len(container_news))
 	return container_news
 
 def get_news_info_v2(driver, dict_news):	
@@ -190,7 +193,7 @@ def get_news_info_v2(driver, dict_news):
 	# 			'published':date,'news_tags': mentions}
 	return dict_news
 
-def extract_news_info(driver, dict_check_point):
+def extract_news_info(driver):
 
 	news_files = os.listdir('check_points/news/')
 	file_paths = [os.path.join('check_points/news/', file) for file in news_files]
@@ -208,59 +211,60 @@ def extract_news_info(driver, dict_check_point):
 			if database_enable:				
 				# try:
 				print("Insert news in db")
-				save_news_database(dict_news)
-				# except:
-				# 	max_size = load_check_point('check_points/max_size.json')
-				# 	if len(max_size)!= 0:
-				# 		compare = True
-				# 	else:
-				# 		compare = False
-						
-				# 	for key, field in dict_news.items():
-				# 		if key != 'published':
-				# 			if compare:
-				# 				if max_size[key] < len(field):
-				# 					max_size[key] = len(field)
-				# 			else:								
-				# 				max_size[key] = len(field)
-					# save_check_point('check_points/max_size.json', max_size)
-			dict_check_point['index'] = index
-			pending_extract = False
+				save_news_database(dict_news)		
+			
+			
 		os.remove(file_path)
 
-def main_extract_news(driver):
-	dict_check_point = {} #check_previous_execution(file_path = 'check_points/check_point_m1_news.json')
-	conf_enable_news = check_previous_execution(file_path = 'check_points/CONFIG_M1.json')
+def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED):
+	# dict_check_point = {} #check_previous_execution(file_path = 'check_points/check_point_m1_news.json')
+	global_check_point = load_check_point('check_points/global_check_point.json')
+	# conf_enable_news = check_previous_execution(file_path = 'check_points/CONFIG_M1.json')
 	dict_url_news = load_json('check_points/sports_url_m1.json')
-	
-	print("New update function: ")
-
-	if len(dict_check_point) == 0:
-		print("Create an empty check point ")
-		dict_check_point = {'sport':'', 'index':0}
-		continue_sport = True
-	else:
-		dict_check_point['index'] = dict_check_point['index'] + 1
-		continue_sport = False
-	print(conf_enable_news)
-
-	for sport, news_url in dict_url_news.items():
-		print(sport)		
+	last_news_saved = load_check_point(file_path = 'check_points/last_saved_news.json')
+	check_point_loaded = False
+	enable_start = False
+	#############################################################
+	# 				MAIN LOOP OVER LIST SPORTS 					#
+	#############################################################
+	for sport_name in list_sports:
+		news_url = dict_url_news[sport_name]	
+		# 	TITLE SECTION PRINT
+		print("#"*102)
+		print("#", " "*(50 - int(len(sport_name/2))), sport_name, " "*(50 - int(len(sport_name/2))), "#")
+		print("#"*102)
 		print(conf_enable_news['SPORTS'][sport])
-		if conf_enable_news['SPORTS'][sport]:
-			print("Current sport: ", sport, "#")
-			# if dict_check_point['sport'] == sport:
-			# 	print("Process sport activated: ")
-			# 	continue_sport = True
-			# if sport == "FOOTBALL":
-			# 	conf_enable_news['MAX_OLDER_DATE_ALLOWED'] = 5
-			if continue_sport:
-				# dict_check_point['sport'] = sport
-				print(sport, news_url)
-				wait_update_page(driver, news_url, "section__mainTitle")
 
-				####################### NAVIGATE AND PROCESS NEWS #######################
-				last_news_saved = check_previous_execution(file_path = 'check_points/last_saved_news.json')
+		#############################################################
+		#	SECTION TO LOAD CHECK POINT FROM LAST RUN 				#
+		#############################################################
+		if not check_point_loaded:
+			if 'M1' in global_check_point.keys():			
+				sport_point = global_check_point['sport']
+				file_point = global_check_point['sport']['files']
+				extrac_point  = global_check_point['sport']['extract']
+			else:
+				global_check_point["M1"] = {'sport': sport_point, 'files':False}
+				sport_point = sport_name
+				file_point = False
+				extrac_point = 0
+			check_point_loaded = True
+		else:
+			sport_point = sport_name
+			file_point = False
+		#############################################################
+		# 				ENABLE CHECK POINT 		 					#
+		#############################################################
+		if sport_name == sport_point:
+			enable_start = True
+
+		if enable_start:
+			# WAIT UNTIL LOAD PAGE
+			print(news_url)
+			wait_update_page(driver, news_url, "section__mainTitle")
+
+			if not(file_point):
+				####################### GET LAST NEWS SAVED #######################		
 				if sport in list(last_news_saved.keys()):
 					last_news_saved_sport = last_news_saved[sport]
 				else:
@@ -274,17 +278,20 @@ def main_extract_news(driver):
 				while last_index < len(container_news):
 					start_index = last_index
 
-					list_upate_news, last_index, last_news_saved_sport = get_list_recent_news(driver,conf_enable_news['MAX_OLDER_DATE_ALLOWED'],\
-												 last_index, last_news_saved_sport)
-					print("list_upate_news: ", list_upate_news)
+					list_upate_news, last_index, last_news_saved_sport = get_list_recent_news(driver, MAX_OLDER_DATE_ALLOWED,\
+												 							last_index, last_news_saved_sport)
+					print("list_upate_news: ", len(list_upate_news))
 					if len(list_upate_news)!=0:
 						save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)					
-						container_news = click_show_more_news(driver,  conf_enable_news['MAX_OLDER_DATE_ALLOWED'], max_click_more = 5)
+						container_news = click_show_more_news(driver, MAX_OLDER_DATE_ALLOWED, max_click_more = 5)
 						last_news_saved[sport] = last_news_saved_sport					
 					last_index += 1
-				save_check_point('check_points/last_saved_news.json', last_news_saved)	
-				#################### SECTION PROCESS NEWS #########################
-				extract_news_info(driver, dict_check_point)		
+				global_check_point["M1"] = {'sport': sport_point, 'files':True}
+				save_check_point('check_points/last_saved_news.json', last_news_saved)
+
+			save_check_point('check_points/global_check_point.json', global_check_point)
+			#################### SECTION PROCESS NEWS #########################
+			extract_news_info(driver, global_check_point)
 
 def initial_settings_m1(driver):
 	# GET SPORTS AND SPORTS LINKS

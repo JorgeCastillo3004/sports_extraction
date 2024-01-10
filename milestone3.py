@@ -110,95 +110,131 @@ def navigate_through_teams(driver, sport_id, league_id, tournament_id, season_id
 		# Remove processed file
 		os.remove(file_name)
 
-def teams_creation(driver):
+def teams_creation(driver, list_sports):
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
-	sports_dict = load_check_point('check_points/leagues_info.json')
-	dict_sport_id = get_dict_sport_id()
-	# dict_sport_id = load_json('check_points/sports_id.json')
+	leagues_info_json = load_check_point('check_points/leagues_info.json')
+	dict_sport_id = get_dict_sport_id()	# GET DICT SPORT FROM DATABASE
+	global_check_point = load_check_point('check_points/global_check_point.json')
+	if 'M3' in global_check_point.keys():			
+		sport_point = global_check_point['sport']
+		league_point = global_check_point['league']
+		team_point  = global_check_point['team_name']
+	else:
+		sport_point = ''
+		league_point = ''
+		team_point  = ''
 
-	for sport_name, sport_dict in sports_dict.items():
-		# sport_id = dict_sport_id[sport_id]
-		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result
+	enable_sport = False
+	enable_league = False
+	enable_team = False
+	#############################################################
+	# 				MAIN LOOP OVER LIST SPORTS 					#
+	#############################################################
+	for sport_name in list_sports:
 
-		#####################################################################
-		#		GET DICT WITH LEAGUES SAVED IN DATA_BASE 				  	#
-		#		'{ sport_id: 												#
-		#					team_country: 									#
-		#						league_country 								#
-		#								team_name: team_id}   				#
-		#																  	#
-		#				get_dict_league_ready 								#
-		#####################################################################
-		sport_id = dict_sport_id[sport_name]
-		dict_teams_db = get_dict_league_ready(sport_id = sport_id)
-		print("dict_teams_db: ")
-		print(dict_teams_db)
-		# dict_teams_db = {}
-		if conf_enable_sport[sport_name]['enable'] and not(sport_id in ['TENNIS', 'GOLF']):
-			for sport_id_league, legue_info in sport_dict.items():
+		##########  ENABLE CHECK POINT SPORT #############
+		if sport_point != '':
+			if sport_point == sport_name:
+				enable_sport = True
+		else:
+			enable_sport = True
+		#################################################
+		if not sport_name in ['TENNIS', 'GOLF'] and enable_sport:
+			sport_id = dict_sport_id[sport_name]
+			#####################################################################
+			#		GET DICT WITH LEAGUES SAVED IN DATA_BASE 				  	#
+			#		'{ sport_id: 												#
+			#					team_country: 									#
+			#						league_country 								#
+			#								team_name: team_id}   				#
+			#																  	#
+			#				get_dict_league_ready 								#
+			#####################################################################
+			dict_teams_db = get_dict_league_ready(sport_id = sport_id)		
 
-				# BUILD FILE NAME USED TO SAVE TEAM INFO
-				json_name = 'check_points/leagues_season/{}.json'.format(sport_id_league)
+			for country_league, legue_info in leagues_info_json[sport_name].items():
+
+				##########  ENABLE CHECK POINT LEAGUE #############
+				if league_point != '':
+					if league_point == country_league:
+						enable_league = True
+				else:
+					enable_league = True
+				#################################################
+
+				# CREATE A FOLDER FOR EACH SPORT
+				if not os.path.exists('check_points/leagues_season/{}/'.format(sport_name)):
+					os.mkdir('check_points/leagues_season/{}/'.format(sport_name))
+
+				# BUILD FILE NAME USED TO SAVE TEAM INFO	
+				json_name = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
 				print(json_name)
 				
-				print("#"*30, "START PROCESS LEAGUE {}".format(sport_id_league), "#"*30)
-				print(legue_info)
+				print("#"*30, "START PROCESS LEAGUE {}".format(country_league), "#"*30)				
 				
 				# CHECK IF THE FILE EXISTS; IF IT DOESN'T, IT MEANS IT HASN'T BEEN PROCESSED.
-				if not os.path.isfile(json_name) and 'standings' in list(legue_info.keys()):					
+				if not os.path.isfile(json_name) and 'standings' in list(legue_info.keys()) and enable_league:					
 					
 					# LOAD LEAGUE STANDING SECTION AND WAIT UNTIL LOAD
 					wait_update_page(driver, legue_info['standings'], "container__heading")					
 					
-					# GET TEAMINFO PART1: team url, statistics, team position, last results
+					# GET TEAM INFO PART1: team url, statistics, team position, last results
 					dict_teams_availables = get_teams_info_part1(driver)
 					dict_country_league_season = {}
 					for team_name, team_info_url in dict_teams_availables.items():
 
-						
-						###################################################################
-						#				LOAD TEAM URL 		 							  #
-						###################################################################
-						wait_update_page(driver, team_info_url['team_url'], 'heading')
-						print("Curren league id: ", legue_info['league_id'])
-						 
-						##########################################################################
-						# GET TEAM INFO PART2: team_name, team_country, complete other fields.   #
-						##########################################################################
-						dict_team = get_teams_info_part2(driver, sport_id, legue_info['league_id'],\
-													 legue_info['season_id'], team_info_url)
-						print("Team id: ", dict_team['league_id'])
-						
-						##########################################################################
-						#      CHECK IF TEAM IS CONTAINED IN DATA BASE USING dict_team_db   	 #
-						##########################################################################
-						try:
-							team_country = dict_team['team_country']
-							team_name = dict_team['team_name']							
-							dict_country = dict_teams_db[sport_id][team_country]							
-							dict_team_db = dict_teams_db[sport_id][team_country][team_name]							
-						except:
-							dict_team_db = {}
-
-						if len(dict_team_db) != 0:
-							print("TEAM HAS BEEN SAVED PREVIOUSLY")
-							team_id = dict_teams_db[sport_id][team_country][team_name]['team_id']							
+						##########  ENABLE CHECK POINT TEAM #############
+						if team_point != '':
+							if team_point == team_name:
+								enable_team = True
 						else:
-							if database_enable:
-								team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])								
-								if len(team_id_db) == 0:
-									save_team_info(dict_team)
-									save_league_team_entity(dict_team)								
-							team_id = dict_team['team_id']
-						#####################################################################################
-						#      SAVE TEAM INFO IN DICT dict_country_league_season (one file by each league)  #
-						#####################################################################################
+							enable_team = True
+						#################################################
+						if enable_team:
+							###################################################################
+							#				LOAD TEAM URL 		 							  #
+							###################################################################
+							wait_update_page(driver, team_info_url['team_url'], 'heading')
+							print("Curren league id: ", legue_info['league_id'])
+							 
+							##########################################################################
+							# GET TEAM INFO PART2: team_name, team_country, complete other fields.   #
+							##########################################################################
+							dict_team = get_teams_info_part2(driver, sport_id, legue_info['league_id'],\
+														 legue_info['season_id'], team_info_url)
+							print("Team id: ", dict_team['league_id'])
+							
+							##########################################################################
+							#      CHECK IF TEAM IS CONTAINED IN DATA BASE USING dict_teams_db   	 #
+							##########################################################################
+							try:
+								team_country = dict_team['team_country']
+								team_name = dict_team['team_name']							
+								dict_country = dict_teams_db[sport_id][team_country]							
+								dict_team_db = dict_teams_db[sport_id][team_country][team_name]							
+							except:
+								dict_team_db = {}
 
-						dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}
+							if len(dict_team_db) != 0:
+								print("TEAM HAS BEEN SAVED PREVIOUSLY")
+								team_id = dict_teams_db[sport_id][team_country][team_name]['team_id']							
+							else:
+								if database_enable:
+									team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])								
+									if len(team_id_db) == 0:
+										save_team_info(dict_team)
+										save_league_team_entity(dict_team)								
+								team_id = dict_team['team_id']
+							#####################################################################################
+							#      SAVE TEAM INFO IN DICT dict_country_league_season (one file by each league)  #
+							#####################################################################################
 
+							dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}
+							global_check_point['M3'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
+							save_check_point('check_points/global_check_point.json', global_check_point)
 					# Save file sport_country_league_season.jso
 					print("dict_teams_availables", len(dict_teams_availables))
-					print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(sport_id_league), "#"*30)
+					print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(country_league), "#"*30)
 					print("Len of dict teams: ", len(dict_country_league_season))
 					if len(dict_teams_availables) != 0:
 						print("File saved: ")

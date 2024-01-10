@@ -552,59 +552,82 @@ def get_check_point(check_point, sport_id, country_league):
 	else:
 		return True
 
-def results_fixtures_extraction(driver, name_section = 'results'):	
-	sports_dict = load_check_point('check_points/leagues_info.json')
-	check_point = load_check_point('check_points/check_point_m4.json')	
-	# dict_sport_id = load_json('check_points/sports_id.json')	
-	print("check_point: ", check_point)
-	# dict_teams_db = {}
+def results_fixtures_extraction(driver, list_sports, name_section = 'results'):	
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
-	for sport_id, sport_dict in sports_dict.items():
-		# sport_id = dict_sport_id[sport_id]
-		# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result		
-		for country_league, country_league_urls in sport_dict.items():
-			dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, country_league)
-			file_country_league_season = 'check_points/leagues_season/{}.json'.format(country_league)
-			print("League_id, season_id: ", country_league_urls['league_id'], country_league_urls['season_id'])
-			list_rounds = get_rounds_ready(country_league_urls['league_id'], country_league_urls['season_id'])
-			print("List old rounds: ", list_rounds)
-			print("File to be search: ", file_country_league_season)
-			
-			# check_point_flag = get_check_point(check_point, sport_id, country_league)
-			check_point_flag = True
-			print("check_point_flag: ", check_point_flag)
+	leagues_info_json = load_check_point('check_points/leagues_info.json')
+	check_point = load_check_point('check_points/check_point_m4.json')	
+	# dict_sport_id = load_json('check_points/sports_id.json')		
+	# dict_teams_db = {}
 
+	# sport_id = dict_sport_id[sport_id]
+	# dict_teams_db = get_dict_teams(sport_id = 'FOOTBALL') # add return stadium result		
 
-			#############################################################
-			#	SECTION TO CHECK SPORT MODALITY TEAMS OR INDIVIDUAL		#
-			#############################################################
-			if sport_id in ['TENNIS', 'GOLF']:
-				individual_sport = True
-				flag_to_continue = True
-			else:
-				individual_sport = False
-				flag_to_continue = os.path.isfile(file_country_league_season)
-			print("Confirm file exist: ", flag_to_continue)
-			# stop_validate()
-			dict_country_league_season = load_check_point(file_country_league_season)
+	#############################################################
+	# 				MAIN LOOP OVER LIST SPORTS 					#
+	#############################################################
+	for sport_name in list_sports:
 
-			if flag_to_continue and check_point_flag:
-				print("Start extraction...")				
-				if name_section in list(country_league_urls.keys()):
-					wait_update_page(driver, country_league_urls[name_section], "container__heading")
-					print("Navigate navigate_through_rounds")
-					navigate_through_rounds(driver, country_league, list_rounds, section_name = name_section)
+		#############################################################
+		# 				MAIN LOOP OVER LEAGUES  					#
+		#############################################################
+		for sport_id, dict_current_sport in leagues_info_json[sport_name].items():
 
-					if not individual_sport:
-						get_complete_match_info(driver, country_league, sport_id, country_league_urls['league_id'],
-									country_league_urls['season_id'],dict_country_league_season,\
+			for league_name, league_info in dict_current_sport.items():
+				# CHECK LIST OF ROUNDS READY BY LEAGUE NAME
+				dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, league_name)
+
+				#####################################################################
+				#		LOAD DICT FOR EACH LEAGUE 				 				  	#
+				#		'FOLDER /leagues_season/sport_name/LEAGUE_NAME.json			#
+				#					{team_name: 									#
+				#						url :										#
+				#						 team_id }									#				
+				#																  	#
+				#				get_dict_league_ready 								#
+				#####################################################################
+				path_league_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, league_name)
+				print("League_id, season_id: ", league_info['league_id'], league_info['season_id'])
+				list_rounds = get_rounds_ready(league_info['league_id'], league_info['season_id'])
+				print("List old round from db ", list_rounds)
+				print("File to be search: ", path_league_info)
+				
+				# check_point_flag = get_check_point(check_point, sport_id, country_league)
+
+				#############################################################
+				#	SECTION TO CHECK SPORT MODALITY TEAMS OR INDIVIDUAL		#
+				#############################################################
+				if sport_id in ['TENNIS', 'GOLF']:
+					individual_sport = True
+					flag_to_continue = True
+				else:
+					individual_sport = False
+					flag_to_continue = os.path.isfile(path_league_info) # CONFIRM IF TEAM WAS CREATED
+				print("Confirm file exist: ", flag_to_continue)
+				# stop_validate()
+				dict_league = load_check_point(path_league_info)
+
+				if flag_to_continue and check_point_flag:
+					print("Start extraction...")
+					# CHECK IF SECTION IS AVAILABLE FOR EACH LEAGUE
+					if name_section in list(league_info.keys()):
+
+						# LOAD SECTION RESULS OR FIXTURES
+						wait_update_page(driver, league_info[name_section], "container__heading")
+						
+						# START NAVIGATION THROUGH ROUNDS
+						print("Navigate navigate_through_rounds")
+						navigate_through_rounds(driver, league_name, list_rounds, section_name = name_section)
+
+						if not individual_sport:
+							get_complete_match_info(driver, league_name, sport_id, league_info['league_id'],
+										league_info['season_id'],dict_league,\
+										 dict_country_league_check_point, dict_leagues_ready, section=name_section)
+						else:
+							get_complete_match_info_tennis(driver, league_name, sport_id, league_info['league_id'],
+									league_info['season_id'],dict_league,\
 									 dict_country_league_check_point, dict_leagues_ready, section=name_section)
-					else:
-						get_complete_match_info_tennis(driver, country_league, sport_id, country_league_urls['league_id'],
-								country_league_urls['season_id'],dict_country_league_season,\
-								 dict_country_league_check_point, dict_leagues_ready, section=name_section)
-					build_check_point(sport_id, country_league)
-					# sport_dict[country_league] = []
+						build_check_point(sport_id, league_name)
+						# sport_dict[league_name] = []
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']

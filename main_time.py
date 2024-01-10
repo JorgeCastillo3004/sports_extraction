@@ -38,39 +38,45 @@ import schedule
 import time
 import datetime
 
-def job_func():
-    print("Ejecutando la tarea programada...")
+import schedule
+import time
+import datetime
 
-def schedule_weekly(day_of_week, hour, minute):
-    # Diccionario para mapear nombres de días a números
+def job_func():
+    print("Executing the scheduled task...")
+
+def schedule_weekly(day_of_week, hour_minute):
+	hour, minute = hour_minute.split(':')
+    # Dictionary to map day names to numbers
     days = {
         'monday': 0,
-        'twesday': 1,
-        'miércoles': 2,
-        'jueves': 3,
-        'viernes': 4,
-        'sábado': 5,
-        'domingo': 6
+        'tuesday': 1,
+        'wednesday': 2,
+        'thursday': 3,
+        'friday': 4,
+        'saturday': 5,
+        'sunday': 6
     }
 
-    # Mapear el nombre del día ingresado al número correspondiente
+    # Map the entered day name to the corresponding number
     day_number = days.get(day_of_week.lower())
 
     if day_number is None:
-        print("Error: Nombre de día no válido.")
+        print("Error: Invalid day name.")
         return
 
-    # Crear la programación usando la biblioteca schedule
-    schedule.every().day.at(f"{hour}:{minute}").do(job_func).day.at(f"{hour}:{minute}").do(job_func).wednesday.at(f"{hour}:{minute}").do(job_func)
+    # Create the schedule using the schedule library
+    schedule.every(7).day.at(f"{hour}:{minute}").do(job_func).wednesday.at(f"{hour}:{minute}").do(job_func)
 
     while True:
-        # Verificar si el día actual coincide con el día programado
+        # Check if the current day matches the scheduled day
         if datetime.datetime.now().weekday() == day_number:
             schedule.run_pending()
         time.sleep(1)
 
-# Ejemplo de uso
-schedule_weekly('lunes', '10', '30')
+# Example usage
+schedule_weekly('monday', '10', '30')
+
 
 
 

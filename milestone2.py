@@ -299,97 +299,110 @@ def get_sections_links(driver):
 	return dict_links
 #####################################################################
 
-def create_leagues(driver, flag_news = False):
-	dict_sports = load_json('check_points/sports_url_m2.json')
-	dict_sport_id = get_dict_sport_id()
-	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
-	dict_sport_info = load_check_point('check_points/leagues_info.json')
-	print("dict_sport_info: ", dict_sport_info)
-	for sport_name, sport_info in conf_enable_sport.items():
-		if sport_info['enable']:
-			###################################################################
-			#				SECTION GET SPORT ID 							  #
-			###################################################################
-			if not sport_name in dict_sport_id.keys():				
-				sport_dict, sport_id = create_sport_dict(sport_info['mode'], sport_name)
-				if database_enable:					
-					save_sport_database(sport_dict)
-			else:
-				sport_id = dict_sport_id[sport_name]				
-			###################################################################
-			#		GET DICT WITH LEAGUES SAVED IN DATA_BASE 				  #
-			#		'{ sport_id _ league_country _ league_name : league_id}   #
-			#																  #
-			dict_leagues_ready = get_dict_results(table= 'league', column = 'sport_id, league_country, league_name, league_id')
-			print("#"*50, '\n', dict_leagues_ready, '\n', "#"*50, '\n')
-			###################################################################
-			#				SECTION GET CURRENT LEAGUES						  #
-			###################################################################
-			print("SPORT NAME: ", sport_name)
-			wait_update_page(driver, dict_sports[sport_name], "container__heading")			
-			dict_leagues_tornaments = find_ligues_torneos(driver)			
+def create_leagues(driver, list_sports):
+	dict_sports_url = load_json('check_points/sports_url_m2.json')
+	dict_sport_id = get_dict_sport_id() # GET DICT SPORT FROM DATABASE
+	sport_mode_dict = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
+	dict_sport_info = load_check_point('check_points/leagues_info.json')	
 
-			###################################################################
-			#		CHECK IF SPORT WAS SAVED PREVIOUSLY						  #
-			###################################################################
-			if sport_name in list(dict_sport_info.keys()):
-				dict_leagues_ready = dict_sport_info[sport_name]
-			else:
-				dict_leagues_ready = {}			
-			count_league = 1			
-			for league_name_url, league_url in dict_leagues_tornaments.items():
-				print("***", league_name_url,"***", " "*(50-len(league_name_url)), count_league, "/" ,len(dict_leagues_tornaments))
-				wait_update_page(driver, league_url, "container__heading")
-				count_league += 1
-				pin_activate = check_pin(driver) # CHECK PIN ACTIVE.
-				if pin_activate:
-					league_info = get_league_data(driver, league_name_url, sport_id)
-					sport_leag_countr_name = sport_name +"_"+ league_info['league_country'] +'_'+ league_info['league_name']
-					print(sport_leag_countr_name, end = '')
-					###################################################################
-					#			SECTION CHECK LEAGUE SAVED PREVIUSLY				  #
-					###################################################################
-					if sport_leag_countr_name in list(dict_leagues_ready.keys()):
-						enable_save = False
-						print(" "*(60-len(sport_leag_countr_name))," READY")							
-						league_id = dict_leagues_ready[sport_leag_countr_name]['league_id']
-						# league_info['league_id'] = league_id						
-					else:
-						enable_save = True
-						print(" "*(60-len(sport_leag_countr_name)), " NEW LEAGUE")
-						league_id = league_info['league_id']
-						if database_enable:							
-							save_league_info(league_info) # UNCOMENT
+	print("dict_sport_info: ", dict_sport_info.keys())
+	# for sport_name, sport_info in conf_enable_sport.items():
+	# 	if sport_info['enable']:
+	for sport_name in list_sports:
+		###################################################################
+		#						TITLE SECTION 						  	  #
+		###################################################################
+		print("#"*102)
+		print("#", " "*(50 - int(len(sport_name/2))), sport_name, " "*(50 - int(len(sport_name/2))), "#")
+		print("#"*102)
+		###################################################################
+		#		CHECK IF SPORT WAS SAVED PREVIOUSLY						  #
+		###################################################################
+		if not sport_name in dict_sport_id.keys():				
+			sport_dict, sport_id = create_sport_dict(sport_mode_dict[sport_name]['mode'], sport_name)
+			if database_enable:					
+				save_sport_database(sport_dict)
+		else:
+			sport_id = dict_sport_id[sport_name]
+		###################################################################
+		#		GET DICT WITH LEAGUES SAVED IN DATA_BASE 				  #
+		#		'{ sport_id _ league_country _ league_name : league_id}   #
+		#																  #
+		dict_leagues_ready_db = get_dict_results(table= 'league', column = 'sport_id, league_country, league_name, league_id')
+		print("#"*50, '\n', dict_leagues_ready_db, '\n', "#"*50, '\n')
+		
+		###################################################################
+		#				SECTION GET CURRENT LEAGUES						  #
+		###################################################################		
+		wait_update_page(driver, dict_sports_url[sport_name], "container__heading")			
+		new_dict_leagues = find_ligues_torneos(driver)			
 
-					print(" "*30, "League_id: ", league_id)
-					###################################################################
-					#			SECTION CHECK SEASON SAVED PREVIUSLY				  #
-					###################################################################
-					list_seasons = get_seasons(league_id, league_info['season_name'])
-					# list_seasons = [] # UNCOMENT
-					print("list_seasons: ", list_seasons)
-					
-					if len(list_seasons) == 0:
-						print(" "*30, "SAVE NEW SEASON", league_info['season_id'])
-						if database_enable:
-							save_season_database(league_info) # UNCOMENT
-					if enable_save:
-						dict_leagues_ready[sport_leag_countr_name] = {'league_name':league_info['league_name'] , 'url':league_url,\
-															 'league_id':league_id, 'season_id':league_info['season_id']}
+		###################################################################
+		#		CHECK IF SPORT WAS SAVED PREVIOUSLY						  #
+		###################################################################
+		if sport_name in list(dict_sport_info.keys()):
+			dict_leagues_ready_json = dict_sport_info[sport_name]
+		else:
+			dict_leagues_ready_json = {}			
+		count_league = 1			
+		for league_name, league_url in new_dict_leagues.items():
+			print("***", league_name,"***", " "*(50-len(league_name)), count_league, "/" ,len(new_dict_leagues))
+			wait_update_page(driver, league_url, "container__heading")
+			count_league += 1
+			pin_activate = check_pin(driver) # CHECK PIN ACTIVE.
+			if pin_activate:
+				# EXTRACT LEAGUES DATA FROM THE CURRENT URL
+				league_info = get_league_data(driver, league_name, sport_id)
+				sport_leag_countr_name_db = sport_id+"_"+league_info['league_country'] +'_'+ league_info['league_name']
+				sport_leag_countr_name_json = league_info['league_country'] +'_'+ league_info['league_name']
+				print(sport_leag_countr_name_db, end = '')
+				###################################################################
+				#			SECTION CHECK IF LEAGUE WAS SAVED IN DB				  #
+				###################################################################
+				if sport_leag_countr_name_db in list(dict_leagues_ready_db.keys()):
+					enable_save = False
+					print(" "*(60-len(sport_leag_countr_name_json))," READY")							
+					league_id = dict_leagues_ready_db[sport_leag_countr_name]['league_id']
+					print("League id from db: ", league_id)
+					print("League id from json: ", dict_leagues_ready_json[sport_name]['league_id'])
+					# league_info['league_id'] = league_id						
+				else:
+					enable_save = True
+					print(" "*(60-len(sport_leag_countr_name_json)), " NEW LEAGUE")
+					league_id = league_info['league_id']
+					if database_enable:							
+						save_league_info(league_info) # UNCOMENT
 
-					print("league info to save in file json: ")
-					print(dict_leagues_ready[sport_leag_countr_name])
-
-					# GET SECTIONS LINKS
-					dict_sections_links = get_sections_links(driver)
-					for section, url_section in dict_sections_links.items():						
-						dict_leagues_ready[sport_leag_countr_name][section] = url_section
-
-				# SAVE JSON FILE WITH THE INFORMATION RELATED TO EACH LEAGUE
+				print(" "*30, "League_id: ", league_id)
+				###################################################################
+				#			SECTION CHECK SEASON SAVED PREVIUSLY				  #
+				###################################################################
+				# CHECK SEASON FROM DATA BASE
+				list_seasons = get_seasons(league_id, league_info['season_name'])
+				# list_seasons = [] # UNCOMENT
+				print("list_seasons: ", list_seasons)
+				
+				if len(list_seasons) == 0:
+					print(" "*30, "SAVE NEW SEASON", league_info['season_id'])
+					if database_enable:
+						save_season_database(league_info) # UNCOMENT
 				if enable_save:
-					dict_sport_info[sport_name] = dict_leagues_ready
-				save_check_point('check_points/leagues_info.json', dict_sport_info)
-				# stop_validate()
+					dict_leagues_ready_json[sport_leag_countr_name_json] = {'league_name':league_info['league_name'] , 'url':league_url,\
+														 'league_id':league_id, 'season_id':league_info['season_id']}
+
+				print("league info to save in file json: ")
+				print(dict_leagues_ready_json[sport_leag_countr_name_json])
+
+				# GET SECTIONS LINKS
+				dict_sections_links = get_sections_links(driver)
+				for section, url_section in dict_sections_links.items():
+					dict_leagues_ready_json[sport_leag_countr_name][section] = url_section
+
+			# SAVE JSON FILE WITH THE INFORMATION RELATED TO EACH LEAGUE
+			if enable_save:
+				dict_sport_info[sport_name] = dict_leagues_ready_json
+			save_check_point('check_points/leagues_info.json', dict_sport_info)
+			# stop_validate()
 
 def initial_settings_m2(driver):
 
