@@ -542,15 +542,15 @@ def build_check_point(sport_id, country_league):
 	check_point = {'sport_id':sport_id, 'country_league':country_league}
 	save_check_point('check_points/check_point_m4.json', check_point)
 
-def get_check_point(check_point, sport_id, country_league):
-	print(check_point)
-	if len(check_point)!= 0:
-		if check_point['sport_id'] == sport_id and check_point['country_league'] == country_league:
-			return True
-		else:
-			return False
-	else:
-		return True
+# def get_check_point(check_point, sport_id, country_league):
+# 	print(check_point)
+# 	if len(check_point)!= 0:
+# 		if check_point['sport_id'] == sport_id and check_point['country_league'] == country_league:
+# 			return True
+# 		else:
+# 			return False
+# 	else:
+# 		return True
 
 def results_fixtures_extraction(driver, list_sports, name_section = 'results'):	
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
@@ -607,7 +607,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 				# stop_validate()
 				dict_league = load_check_point(path_league_info)
 
-				if flag_to_continue and check_point_flag:
+				if flag_to_continue:
 					print("Start extraction...")
 					# CHECK IF SECTION IS AVAILABLE FOR EACH LEAGUE
 					if name_section in list(league_info.keys()):
