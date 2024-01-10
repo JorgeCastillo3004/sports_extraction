@@ -110,7 +110,7 @@ def get_squad_list(driver, sport_id = 'barketball'):
     player_links = [link.get_attribute('href') for link in player_links]
     return player_links
 
-def navigate_through_players(driver, sport_id, country_league, team_name, season_id, team_id, list_squad):
+def navigate_through_players(driver, country_league, team_name, season_id, team_id, list_squad):
 
 	for player_link in list_squad:
 		wait_update_page(driver, player_link, 'container__heading')
@@ -244,7 +244,7 @@ def players(driver, list_sports):
 							list_squad = get_squad_list(driver, sport_id = sport_name)
 
 							# NAVIGATE AND EXTRACT INFO FROM EACH PLAYER LINK
-							navigate_through_players(driver, sport_id, country_league, team_name, country_league_urls['season_id'],\
+							navigate_through_players(driver, country_league, team_name, country_league_urls['season_id'],\
 												 team_info['team_id'], list_squad)
 							global_check_point['M6'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
 
