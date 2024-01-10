@@ -200,6 +200,12 @@ def check_player_duplicates(player_country, player_name, player_dob):
 	results = [row[0] for row in cur.fetchall()]
 	return results
 
+def check_player_duplicates(player_country, player_name, player_dob):
+	query = "SELECT player_id FROM player WHERE player_country ='{}' AND player_name ='{}' AND player_dob ='{}';".format(player_country, player_name, player_dob)
+	cur = con.cursor()
+	cur.execute(query)	
+	results = [row[0] for row in cur.fetchall()]
+	return results
 
 if database_enable:
 	con = getdb()
