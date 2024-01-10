@@ -114,9 +114,9 @@ for country in list(dict_sport.keys()):
 print(results)
 # print("#"*50)
 
-# dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
+dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
 
-# print("dict_leagues: ", dict_leagues)
+print("dict_leagues: ", dict_leagues)
 
 # first_key = list(dict_leagues.keys())[0]
 # print("First key: ", first_key)
