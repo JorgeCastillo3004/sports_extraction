@@ -185,16 +185,18 @@ def players(driver, list_sports):
 			enable_sport = True
 		#################################################
 		if enable_sport:
-			for country_league, legue_info in leagues_info_json[sport_name].items():
+			print(leagues_info_json.keys())
+			for country_league, league_info in leagues_info_json[sport_name].items():
 				##########  ENABLE CHECK POINT LEAGUE #############
+				print("country_league: ", country_league)
 				if league_point != '':
 					if league_point == country_league:
 						enable_league = True
 				else:
 					enable_league = True
 				#################################################
-
-				for country_league, country_league_urls in sport_dict.items():
+				print("league_info keys: ", league_info)
+				for team_name, country_league_urls in league_info.items():
 					##########  ENABLE CHECK POINT LEAGUE #############
 					if league_point != '':
 						if league_point == country_league:
