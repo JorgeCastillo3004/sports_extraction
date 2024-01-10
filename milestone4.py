@@ -586,8 +586,8 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 				#				get_dict_league_ready 								#
 				#####################################################################
 				path_league_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, league_name)
-				print("League_id, season_id: ", league_info['league_id'], league_info['season_id'])
-				list_rounds = get_rounds_ready(league_info['league_id'], league_info['season_id'])
+				print("League_id, season_id: ", dict_current_sport['league_id'], dict_current_sport['season_id'])
+				list_rounds = get_rounds_ready(dict_current_sport['league_id'], dict_current_sport['season_id'])
 				print("List old round from db ", list_rounds)
 				print("File to be search: ", path_league_info)
 				
