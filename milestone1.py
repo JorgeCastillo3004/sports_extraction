@@ -265,8 +265,8 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 			file_point = False
 			if not(file_point):
 				####################### GET LAST NEWS SAVED #######################		
-				if sport in list(last_news_saved.keys()):
-					last_news_saved_sport = last_news_saved[sport]
+				if sport_name in list(last_news_saved.keys()):
+					last_news_saved_sport = last_news_saved[sport_name]
 				else:
 					last_news_saved_sport = []
 
