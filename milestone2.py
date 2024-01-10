@@ -335,7 +335,7 @@ def create_leagues(driver, list_sports):
 				if sport_leag_countr_name_db in list(dict_leagues_ready_db.keys()):
 					enable_save = False
 					print(" "*(60-len(sport_leag_countr_name_json))," READY")							
-					league_id = dict_leagues_ready_db[sport_leag_countr_name]['league_id']
+					league_id = dict_leagues_ready_db[sport_leag_countr_name_db]['league_id']
 					print("League id from db: ", league_id)
 					print("League id from json: ", dict_leagues_ready_json[sport_name]['league_id'])
 					# league_info['league_id'] = league_id						
