@@ -210,7 +210,7 @@ def main(driver):
 			day_execution_s4 = -1
 		enable_execution_s4, day_execution_s4, execute_ready_s4, execution_schedule_s4 = execute_section(execution_schedule_s4, day_execution_s4, execute_ready_s4)	
 		if enable_execution_s4:
-			results_fixtures_extraction(driver, section_schedule['GET_RESULTS']['SPORTS'], section = 'results')
+			results_fixtures_extraction(driver, section_schedule['GET_RESULTS']['SPORTS'], name_section = 'results')
 			list_s4.append(datetime.now().time().strftime('%H:%M:%S'))
 			print(list_s4, '\n')
 
@@ -221,7 +221,7 @@ def main(driver):
 			day_execution_s5 = -1
 		enable_execution_s5, day_execution_s5, execute_ready_s5, execution_schedule_s5 = execute_section(execution_schedule_s5, day_execution_s5, execute_ready_s5)
 		if enable_execution_s5:
-			results_fixtures_extraction(driver, section_schedule['GET_FIXTURES']['SPORTS'], section = 'fixtures')
+			results_fixtures_extraction(driver, section_schedule['GET_FIXTURES']['SPORTS'], name_section = 'fixtures')
 			list_s5.append(datetime.now().time().strftime('%H:%M:%S'))
 			print(list_s5, '\n')
 
