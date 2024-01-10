@@ -202,7 +202,7 @@ def teams_creation(driver, list_sports):
 							##########################################################################
 							dict_team = get_teams_info_part2(driver, sport_id, legue_info['league_id'],\
 														 legue_info['season_id'], team_info_url)
-							print("Team id: ", dict_team['league_id'])
+							print("Team id: ", dict_team['team_id'])
 							
 							##########################################################################
 							#      CHECK IF TEAM IS CONTAINED IN DATA BASE USING dict_teams_db   	 #
