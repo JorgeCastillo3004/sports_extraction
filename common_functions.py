@@ -154,7 +154,7 @@ def login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n"
     email = driver.find_element(By.ID,'passwd')
     email.send_keys(password_)
     time.sleep(6)
-    print("Login...")
+    print("Login...", '\n')
     # webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
 
 def wait_update_page(driver, url, class_name):

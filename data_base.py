@@ -107,7 +107,7 @@ def get_seasons(league_id, season_name):
 	return results
 
 def get_list_id_teams(sport_id, team_country, team_name):
-	query = "SELECT team_id FROM team WHERE sport_id ='{}' and team_country = '{}' and team_name = '{}';".format(sport_id, team_country, team_name)
+	query = """SELECT team_id FROM team WHERE sport_id ="{}" and team_country = "{}" and team_name = "{}";""".format(sport_id, team_country, team_name)
 	cur = con.cursor()
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]

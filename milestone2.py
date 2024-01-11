@@ -336,8 +336,7 @@ def create_leagues(driver, list_sports):
 				###################################################################
 				print("dict_leagues_ready_db")
 				print("#"*80)
-				if sport_leag_countr_name_db in list(dict_leagues_ready_db.keys()):
-					enable_save = False
+				if sport_leag_countr_name_db in list(dict_leagues_ready_db.keys()):					
 					print(" "*(60-len(sport_leag_countr_name_json))," READY")							
 					league_id = dict_leagues_ready_db[sport_leag_countr_name_db]					
 					league_info['league_id'] = league_id # REPLACE LEAGUE ID WITH LEAGUE ID FROM DATABASE
@@ -349,7 +348,7 @@ def create_leagues(driver, list_sports):
 					if database_enable:							
 						save_league_info(league_info) # UNCOMENT
 
-				print(" "*30, "League_id: ", league_id)
+				print("LEAGUE ID USED FOR SEASON: ", league_id)
 				###################################################################
 				#			SECTION CHECK SEASON SAVED PREVIUSLY				  #
 				###################################################################
@@ -359,12 +358,19 @@ def create_leagues(driver, list_sports):
 				print("list_seasons: ", list_seasons)
 				
 				if len(list_seasons) == 0:
+					enable_save = True
 					print(" "*30, "SAVE NEW SEASON", league_info['season_id'])
 					if database_enable:
 						save_season_database(league_info) # UNCOMENT
+
+				###################################################################
+				#			SECTION CHECK SEASON SAVED PREVIUSLY				  #
+				###################################################################
+
 				if enable_save:
-					dict_leagues_ready_json[sport_leag_countr_name_json] = {'league_name':league_info['league_name'] , 'url':league_url,\
-														 'league_id':league_id, 'season_id':league_info['season_id']}
+					dict_leagues_ready_json[sport_leag_countr_name_json] = {'league_name':league_info['league_name'] ,
+															'url':league_url, 'league_id':league_id,
+															 'season_id':league_info['season_id']}
 
 					print("league info to save in file json: ")
 					print(dict_leagues_ready_json[sport_leag_countr_name_json])
@@ -378,6 +384,7 @@ def create_leagues(driver, list_sports):
 			if enable_save:
 				dict_sport_info[sport_name] = dict_leagues_ready_json
 			save_check_point('check_points/leagues_info.json', dict_sport_info)
+			enable_save = False
 			# stop_validate()
 
 def initial_settings_m2(driver):
