@@ -138,6 +138,8 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 					save_team_players_entity(player_dict) # team_players_entity
 			global_check_point['M6']['player'] = player_link
 			save_check_point('check_points/global_check_point.json', global_check_point)
+	global_check_point['M6']['player'] = ''
+	save_check_point('check_points/global_check_point.json', global_check_point)
 		
 	# 	break
 	# break
