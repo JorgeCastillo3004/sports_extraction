@@ -297,8 +297,7 @@ def create_leagues(driver, list_sports):
 		#		GET DICT WITH LEAGUES SAVED IN DATA_BASE 				  #
 		#		'{ sport_id _ league_country _ league_name : league_id}   #
 		#																  #
-		dict_leagues_ready_db = get_dict_results(table= 'league', column = 'sport_id, league_country, league_name, league_id')
-		print("#"*50, '\n', dict_leagues_ready_db, '\n', "#"*50, '\n')
+		dict_leagues_ready_db = get_dict_results(table= 'league', column = 'sport_id, league_country, league_name, league_id')		
 		
 		###################################################################
 		#				SECTION GET CURRENT LEAGUES						  #

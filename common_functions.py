@@ -253,6 +253,6 @@ def stop_validate():
 
 def print_section(section, space_ = 50):
 	line_sport = "#" + " "*(space_ - int(len(section)/2)) + section + " "*(space_ - int(len(section)/2)) + "#"
-	print("#"*len(line_sport),'\n', line_sport, '\n',"#"*len(line_sport))
+	print("#"*len(line_sport),'\n', line_sport, '\n',"#"*len(line_sport), '\n')
 	
 int_folders()
