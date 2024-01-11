@@ -220,7 +220,17 @@ def teams_creation(driver, list_sports):
 								team_id = dict_teams_db[sport_id][team_country][team_name]['team_id']							
 							else:
 								if database_enable:
-									team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])								
+									print("dict_team['team_name']: 0", dict_team['team_name'])
+									dict_team['team_name'] = dict_team['team_name'].replace("\\'", "\'")
+
+									print("dict_team['team_name']: 1", dict_team['team_name'])
+									dict_team['team_name'] = dict_team['team_name'].replace("'", "\'")
+
+									print("dict_team['team_name']: 2", dict_team['team_name'])
+									dict_team['team_name'] = dict_team['team_name'].replace("'", "\'")
+									print("dict_team['team_name']: 3", dict_team['team_name'])
+
+									team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])
 									if len(team_id_db) == 0:
 										save_team_info(dict_team)
 										save_league_team_entity(dict_team)								
