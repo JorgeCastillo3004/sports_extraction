@@ -207,12 +207,12 @@ def check_player_duplicates(player_country, player_name, player_dob):
 	results = [row[0] for row in cur.fetchall()]
 	return results
 
-def get_live_match_id(league_country, league_name, match_date, match_name):
+def get_match_id(league_country, league_name, match_date, match_name):
 	
 	query = """
 	SELECT match.match_id
-	FROM match 
-	JOIN league ON match.league_id = league.league_id	
+	FROM match
+	JOIN league ON league.league_id = match.league_id
 	WHERE league.league_country = '{}' and 
 	league.league_name = '{}' and 
 	match.match_date = '{}' and match.name = '{}'""".format(league_country, league_name, match_date, match_name)
@@ -222,12 +222,29 @@ def get_live_match_id(league_country, league_name, match_date, match_name):
 
 def get_math_details_ids(match_id):
 	query = """
-	SELECT match_detail.match_detail_id, match_detail.home, match_detail.visitor
-	FROM match_details
-	WHERE match_id = '{}' """.format(match_id)
+	SELECT match_detail_id, home FROM match_detail
+	 WHERE match_id = '{}';""".format(match_id);
 	cur = con.cursor()
-	cur.execute(query, dict_match)
+	cur.execute(query)
+
+	dict_results = {row[0]:row[1] for row in cur.fetchall()}
+	return dict_results
+
+def update_score(params):
+	query = cursor.execute("UPDATE score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s", params)
+	cur = con.cursor()
+	cur.execute(query, params)
 	con.commit()
+
+	
+# Execute the query
+
+
+# Commit the changes
+
+
+
+
 
 
 if database_enable:

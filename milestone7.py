@@ -151,17 +151,27 @@ def live_games(driver, list_sports):
 		for match_info in list_live_match:
 
 			# get match id
-			match_info['match_id'] = get_match_id(match['league_country'],\
+			match_id = get_match_id(match['league_country'],\
 								 match['league_name'], current_date, match['name'])
-			get_match_id(league_country, league_name, match_date, match_name)
 			# update_data base
-			dict_home = {'match_detail_id':match_detail_id, 'home':True, 'visitor':False, 'match_id':event_info['match_id'],\
-			'team_id':team_id_home, 'points':event_info['home_result'], 'score_id':score_id}
-			# match_detail_id = random_id()
-			# score_id = random_id()
-			dict_visitor = {'match_detail_id':match_detail_id, 'home':False, 'visitor':True, 'match_id':event_info['match_id'],\
-			'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}
-			update_match_info(match_info)
+			# Get score_id home and score_id visitor
+			#{match_detail_id_visitor: False, match_detail_id_home:True}
+			dict_match_detail_id = get_math_details_ids(match_id)
+
+			for match_detail_id, home_flag in dict_match_detail_id.items():
+				if home_flag:
+					# Update home score
+					params = {'match_detail_id': match_detail_id,
+							'points': match_info['home_score'] }
+					update_score(params)
+				elif:
+					# Update visitor score
+					params = {'match_detail_id': match_detail_id,
+							'points': match_info['visitor_score'] }
+					update_score(params)
+
+
+			
 
 		###################### LOOP OVER LIVE MATCHS #######################	
 
