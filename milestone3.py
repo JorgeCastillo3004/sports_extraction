@@ -221,7 +221,7 @@ def teams_creation(driver, list_sports):
 							else:
 								if database_enable:
 									print("dict_team['team_name']: 0", dict_team['team_name'])
-									dict_team['team_name'] = dict_team['team_name'].replace("\\'", "\'")
+									dict_team['team_name'] = dict_team['team_name'].replace("'", "\''")
 
 									print("dict_team['team_name']: 1", dict_team['team_name'])
 									dict_team['team_name'] = dict_team['team_name'].replace("'", "\'")
