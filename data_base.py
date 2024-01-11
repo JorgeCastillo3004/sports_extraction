@@ -38,7 +38,6 @@ def get_dict_sport_id():
 	dict_results = {row[0] : row[1] for row in cur.fetchall()}
 	return dict_results
 
-
 def save_league_info(dict_ligue_tornament):	
 	query = "INSERT INTO league VALUES(%(league_id)s, %(league_country)s, %(league_logo)s, %(league_name)s, %(league_name_i18n)s, %(sport_id)s)"
 	cur = con.cursor()																			 
@@ -206,6 +205,15 @@ def check_player_duplicates(player_country, player_name, player_dob):
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]
 	return results
+
+def get_live_match(player_country, player_name, player_dob):
+	query = "SELECT  FROM match WHERE match_country ='{}' AND match_date ='{}' AND league_id ='{}';".format(match_country, match_date, league_id)
+	cur = con.cursor()
+	cur.execute(query)	
+	results = [row[0] for row in cur.fetchall()]
+	return results
+
+
 
 if database_enable:
 	con = getdb()

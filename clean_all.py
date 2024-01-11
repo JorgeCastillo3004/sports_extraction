@@ -14,6 +14,9 @@ if os.path.isfile("check_points/sports_id.json"):
 if os.path.isfile("check_points/leagues_info.json"):
 	os.remove("check_points/leagues_info.json")
 
+if os.path.isfile('check_points/global_check_point.json'):
+	os.remove('check_points/global_check_point.json')
+
 files = os.listdir('check_points/leagues_season/')
 
 print("Files and folder removed: ")

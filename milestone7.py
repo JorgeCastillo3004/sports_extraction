@@ -78,36 +78,78 @@ def extract_info_results(driver, results_block, section_name):
 				count_sub_section += 1
 				event_number = 0
 	print(round_enable)
-	return start_index + processed_index, round_enable	
+	return start_index + processed_index, round_enable
 
+def give_click_on_live(driver, class_name):
+	wait = WebDriverWait(driver, 10)
+	current_tab = driver.find_elements(By.CLASS_NAME, class_name)
+	livebutton = driver.find_element(By.XPATH, '//div[@class="filters__tab" and contains(.,"LIVE Games")]')
+	livebutton.click()		
 
+	if len(current_tab) == 0:
+		current_tab = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, class_name)))
+	else:
+		element_updated = wait.until(EC.staleness_of(current_tab[0]))
+
+def get_live_match(driver, sport_name='FOOTBALL'):
+	if sport_name=='FOOTBALL':
+		sport_name = 'soccer'
+	else:
+		sport_name = sport_name.lower()
+	print(sport_name)
+	rows = driver.find_elements(By.XPATH, '//div[@class="sportName {}"]/div'.format(sport_name))
+	print(len(rows))
+	print("#"*100)
+	enable_load = False
+	list_match = []
+	for index, row in enumerate(rows):
+		try:			
+			title = row.find_element(By.XPATH, './/div[@class="event__titleBox"]')
+			enable_load = False
+			league_country = row.find_element(By.XPATH, './/span[@class="event__title--type"]').text 
+			league_name= row.find_element(By.XPATH, './/span[@class="event__title--name"]').text
+			HTML = row.get_attribute('outerHTML')
+			if 'pin--active"' in HTML:
+				enable_load = True
+		except:
+			try:				
+				if enable_load:
+					game_results = get_live_result(row)
+					HTML = row.get_attribute('outerHTML')
+					game_results['league_name'] = league_name
+					game_results['league_country'] = league_country
+					list_match.append(game_results)
+			except:
+				pass
+	return list_match
 
 
 def live_games(driver, list_sports):
+	dict_sports_url = load_json('check_points/sports_url_m2.json')
 	#############################################################
 	# 				MAIN LOOP OVER LIST SPORTS 					#
 	#############################################################
 	for sport_name in list_sports:
 
 		#################################################
-		for country_league, legue_info in leagues_info_json[sport_name].items():
+		# LOAD SPORT LINKK		
+		wait_update_page(driver, dict_sports_url[sport_name], "container__heading")
+		new_dict_leagues = find_ligues_torneos(driver)
 
-			###################### LIVE SECTION #######################
-			# CLICK ON LIVE BUTTON
-			livebutton = driver.find_element(By.XPATH, '//div[@class="filters__tab" and contains(.,"LIVE Games")]')
-			livebutton.click()
+		###################### LIVE SECTION ############################################
+		# CLICK ON LIVE BUTTON		
+		give_click_on_live(driver, "container__heading")
 
-			###################### LOOP OVER LIVE MATCHS #######################
-			live_matchs = driver.find_elements(By.XPATH, '//div[@title="Click for match detail!"]')
+		###############################################################################
+		list_live_match = get_live_match(driver, sport_name='FOOTBALL')		
 
-			# Filter elements that contain the desired class
-			live_matchs = [element for element in live_matchs if 'liveBet liveBet--animated' in element.get_attribute('outerHTML')]
+		for match_info in list_live_match:
 
-			print(len(filtered_elements))
+			# get match id
+			match_info['match_id'] = get_match_id(match['league_countrycountry'], match['league_name'], date, )
+			
+			# update_data base
+			update_match_info(match_info)
 
-			for live_math in live_matchs:
-			    
-			    live_results = get_result(live_math)
-			    
-			    print(live_results)
-			    print("#"*100)
+		###################### LOOP OVER LIVE MATCHS #######################	
+
