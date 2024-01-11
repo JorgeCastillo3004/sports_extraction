@@ -156,6 +156,7 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 
 	return dict_results
 
+######################################## FUNCTIONS RELATED TO MATCHS ########################################
 def save_math_info(dict_match):
 	query = "INSERT INTO match VALUES(%(match_id)s, %(match_country)s, %(end_time)s,\
 	 %(match_date)s, %(name)s, %(place)s, %(start_time)s, %(league_id)s, %(stadium_id)s, %(rounds)s ,%(season_id)s)"
@@ -206,13 +207,27 @@ def check_player_duplicates(player_country, player_name, player_dob):
 	results = [row[0] for row in cur.fetchall()]
 	return results
 
-def get_live_match(player_country, player_name, player_dob):
-	query = "SELECT  FROM match WHERE match_country ='{}' AND match_date ='{}' AND league_id ='{}';".format(match_country, match_date, league_id)
+def get_live_match_id(league_country, league_name, match_date, match_name):
+	
+	query = """
+	SELECT match.match_id
+	FROM match 
+	JOIN league ON match.league_id = league.league_id	
+	WHERE league.league_country = '{}' and 
+	league.league_name = '{}' and 
+	match.match_date = '{}' and match.name = '{}'""".format(league_country, league_name, match_date, match_name)
 	cur = con.cursor()
-	cur.execute(query)	
-	results = [row[0] for row in cur.fetchall()]
-	return results
+	cur.execute(query)
+	return cur.fetchone()
 
+def get_math_details_ids(match_id):
+	query = """
+	SELECT match_detail.match_detail_id, match_detail.home, match_detail.visitor
+	FROM match_details
+	WHERE match_id = '{}' """.format(match_id)
+	cur = con.cursor()
+	cur.execute(query, dict_match)
+	con.commit()
 
 
 if database_enable:
