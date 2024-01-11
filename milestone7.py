@@ -126,6 +126,10 @@ def get_live_match(driver, sport_name='FOOTBALL'):
 
 def live_games(driver, list_sports):
 	dict_sports_url = load_json('check_points/sports_url_m2.json')
+	current_date = datetime.now().date()
+	# date = dt_object.date()
+	# time = dt_object.time()
+
 	#############################################################
 	# 				MAIN LOOP OVER LIST SPORTS 					#
 	#############################################################
