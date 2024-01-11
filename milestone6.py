@@ -160,10 +160,6 @@ def get_check_point(dict_players_ready, sport_id, country_league, team_name):
 		dict_players_ready[sport_id][country_league][team_name] = []
 	return dict_players_ready
 
-def print_section(section, space_ = 50):
-	line_sport = "#" + " "*(space_ - int(len(section)/2)) + section + " "*(space_ - int(len(section)/2)) + "#"
-	print("#"*len(line_sport),'\n', line_sport, '\n',"#"*len(line_sport))
-
 def players(driver, list_sports):
 	leagues_info_json = load_check_point('check_points/leagues_info.json')	
 	dict_sport_id = get_dict_sport_id()	# GET DICT SPORT FROM DATABASE

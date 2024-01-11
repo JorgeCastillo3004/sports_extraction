@@ -275,19 +275,15 @@ def create_leagues(driver, list_sports):
 	dict_sports_url = load_json('check_points/sports_url_m2.json')
 	dict_sport_id = get_dict_sport_id() # GET DICT SPORT FROM DATABASE
 	sport_mode_dict = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
-	dict_sport_info = load_check_point('check_points/leagues_info.json')	
-
-	print("dict_sport_info: ", dict_sport_info.keys())
+	dict_sport_info = load_check_point('check_points/leagues_info.json')
+	
 	# for sport_name, sport_info in conf_enable_sport.items():
 	# 	if sport_info['enable']:
 	for sport_name in list_sports:
 		###################################################################
 		#						TITLE SECTION 						  	  #
 		###################################################################
-		line_sport = "#" + " "*(50 - int(len(sport_name)/2)) + sport_name + " "*(50 - int(len(sport_name)/2)) + "#"
-		print("#"*len(line_sport))
-		print(line_sport)
-		print("#"*len(line_sport))
+		print_section(sport_name, space_ = 50)
 		###################################################################
 		#		CHECK IF SPORT WAS SAVED PREVIOUSLY						  #
 		###################################################################
@@ -317,8 +313,13 @@ def create_leagues(driver, list_sports):
 			dict_leagues_ready_json = dict_sport_info[sport_name]
 		else:
 			dict_leagues_ready_json = {}			
-		count_league = 1			
+		count_league = 1
+
+		###################################################################
+		#						LOOP OVER LEAGUES 						  #
+		###################################################################
 		for league_name, league_url in new_dict_leagues.items():
+
 			print("***", league_name,"***", " "*(50-len(league_name)), count_league, "/" ,len(new_dict_leagues))
 			wait_update_page(driver, league_url, "container__heading")
 			count_league += 1
@@ -328,8 +329,8 @@ def create_leagues(driver, list_sports):
 				league_info = get_league_data(driver, league_name, sport_id)
 				sport_leag_countr_name_db = sport_id+"_"+league_info['league_country'] +'_'+ league_info['league_name']
 				sport_leag_countr_name_json = league_info['league_country'] +'_'+ league_info['league_name']
-				print("db ", sport_leag_countr_name_db)
-				print("json: ", sport_leag_countr_name_json)
+				print("key db ", sport_leag_countr_name_db)
+				print("key json: ", sport_leag_countr_name_json)
 				###################################################################
 				#			SECTION CHECK IF LEAGUE WAS SAVED IN DB				  #
 				###################################################################
@@ -339,8 +340,8 @@ def create_leagues(driver, list_sports):
 					enable_save = False
 					print(" "*(60-len(sport_leag_countr_name_json))," READY")							
 					league_id = dict_leagues_ready_db[sport_leag_countr_name_db]					
+					league_info['league_id'] = league_id # REPLACE LEAGUE ID WITH LEAGUE ID FROM DATABASE
 					print("League id from db: ", league_id)					
-					# league_info['league_id'] = league_id						
 				else:
 					enable_save = True
 					print(" "*(60-len(sport_leag_countr_name_json)), " NEW LEAGUE")
