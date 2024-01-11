@@ -177,6 +177,7 @@ def players(driver, list_sports):
 		league_point = global_check_point['M6']['league']
 		team_point  = global_check_point['M6']['team_name']		
 	else:
+		global_check_point['M6'] = {}
 		sport_point = ''
 		league_point = ''
 		team_point  = ''
