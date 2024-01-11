@@ -319,7 +319,7 @@ def create_leagues(driver, list_sports):
 		#						LOOP OVER LEAGUES 						  #
 		###################################################################
 		for league_name, league_url in new_dict_leagues.items():
-
+			enable_save = False
 			print("***", league_name,"***", " "*(50-len(league_name)), count_league, "/" ,len(new_dict_leagues))
 			wait_update_page(driver, league_url, "container__heading")
 			count_league += 1
@@ -384,7 +384,7 @@ def create_leagues(driver, list_sports):
 			if enable_save:
 				dict_sport_info[sport_name] = dict_leagues_ready_json
 			save_check_point('check_points/leagues_info.json', dict_sport_info)
-			enable_save = False
+			
 			# stop_validate()
 
 def initial_settings_m2(driver):
