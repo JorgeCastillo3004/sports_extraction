@@ -146,7 +146,7 @@ def live_games(driver, list_sports):
 		give_click_on_live(driver)
 
 		###############################################################################
-		
+		count = 0
 		while count < 1000:
 			list_live_match = get_live_match(driver, sport_name=sport_name)		
 			print(len(list_live_match))
@@ -180,6 +180,7 @@ def live_games(driver, list_sports):
 								'points': match_info['visitor_result'] }
 						update_score(params)# UNCOMENT
 			print("Updated")
+			count += 1
 			time.sleep(15)
 
 		###################### LOOP OVER LIVE MATCHS #######################	
