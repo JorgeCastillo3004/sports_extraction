@@ -135,7 +135,7 @@ def live_games(driver, list_sports):
 								'points': match_info['visitor_result'] }
 						update_score(params)# UNCOMENT
 				# print("Updated") # COMENT
-			count += 1
+			# count += 1
 			# time.sleep(15)
 
 		###################### LOOP OVER LIVE MATCHS #######################	
