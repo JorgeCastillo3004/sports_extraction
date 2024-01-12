@@ -26,14 +26,7 @@ from milestone4 import *
 from milestone5 import *
 from milestone6 import *
 
-days = {'monday': 0,
-		'tuesday': 1,
-		'wednesday': 2,
-		'thursday': 3,
-		'friday': 4,
-		'saturday': 5,
-		'sunday': 6}
-
+CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
