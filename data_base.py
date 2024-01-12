@@ -238,7 +238,7 @@ def get_math_details_ids(match_id):
 	return dict_results
 
 def update_score(params):
-	query = "UPDATE score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s"
+	query = "INSERT score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s"
 	cur = con.cursor()
 	cur.execute(query, params)
 	con.commit()
