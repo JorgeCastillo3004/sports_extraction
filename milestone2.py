@@ -276,7 +276,7 @@ def create_leagues(driver, list_sports):
 	dict_sport_id = get_dict_sport_id() # GET DICT SPORT FROM DATABASE
 	sport_mode_dict = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
 	dict_sport_info = load_check_point('check_points/leagues_info.json')
-	
+
 	# for sport_name, sport_info in conf_enable_sport.items():
 	# 	if sport_info['enable']:
 	for sport_name in list_sports:

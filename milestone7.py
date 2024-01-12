@@ -80,11 +80,12 @@ def extract_info_results(driver, results_block, section_name):
 	print(round_enable)
 	return start_index + processed_index, round_enable
 
-def give_click_on_live(driver, class_name):
+def give_click_on_live(driver):
 	wait = WebDriverWait(driver, 10)
-	current_tab = driver.find_elements(By.CLASS_NAME, class_name)
-	livebutton = driver.find_element(By.XPATH, '//div[@class="filters__tab" and contains(.,"LIVE Games")]')
-	livebutton.click()		
+	xpath_expression = '//div[@title="Click for match detail!"]'
+	current_tab = driver.find_elements(By.XPATH, xpath_expression)
+	livebutton = wait.until(EC.element_to_be_clickable((By.XPATH, '//div[@class="filters__tab" and contains(.,"LIVE Games")]')))	
+	livebutton.click()
 
 	if len(current_tab) == 0:
 		current_tab = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, class_name)))
@@ -96,10 +97,8 @@ def get_live_match(driver, sport_name='FOOTBALL'):
 		sport_name = 'soccer'
 	else:
 		sport_name = sport_name.lower()
-	print(sport_name)
-	rows = driver.find_elements(By.XPATH, '//div[@class="sportName {}"]/div'.format(sport_name))
-	print(len(rows))
-	print("#"*100)
+	
+	rows = driver.find_elements(By.XPATH, '//div[@class="sportName {}"]/div'.format(sport_name))	
 	enable_load = False
 	list_match = []
 	for index, row in enumerate(rows):
@@ -138,37 +137,41 @@ def live_games(driver, list_sports):
 
 		#################################################
 		# LOAD SPORT LINKK		
-		wait_update_page(driver, dict_sports_url[sport_name], "container__heading")
-		new_dict_leagues = find_ligues_torneos(driver)
+		wait_update_page(driver, dict_sports_url[sport_name], "container__heading")		
 
 		###################### LIVE SECTION ############################################
 		# CLICK ON LIVE BUTTON		
-		give_click_on_live(driver, "container__heading")
+		give_click_on_live(driver)
 
 		###############################################################################
-		list_live_match = get_live_match(driver, sport_name='FOOTBALL')		
+		list_live_match = get_live_match(driver, sport_name=sport_name)		
+		print(len(list_live_match))
 
 		for match_info in list_live_match:
 
 			# get match id
-			match_id = get_match_id(match['league_country'],\
-								 match['league_name'], current_date, match['name'])
+			match_id = 'dsada26263'
+			# match_id = get_match_id(match['league_country'],\
+								 # match['league_name'], current_date, match['name'])
+			print(match_info)
+			stop_validate()
 			# update_data base
 			# Get score_id home and score_id visitor
 			#{match_detail_id_visitor: False, match_detail_id_home:True}
-			dict_match_detail_id = get_math_details_ids(match_id)
+			# dict_match_detail_id = get_math_details_ids(match_id) # UNCOMENT
+			dict_match_detail_id = {'KAFHD3536':True, 'dkdfkd': False}
 
 			for match_detail_id, home_flag in dict_match_detail_id.items():
 				if home_flag:
 					# Update home score
 					params = {'match_detail_id': match_detail_id,
-							'points': match_info['home_score'] }
-					update_score(params)
-				elif:
+							'points': match_info['home_result'] }
+					# update_score(params)# UNCOMENT
+				else:
 					# Update visitor score
 					params = {'match_detail_id': match_detail_id,
-							'points': match_info['visitor_score'] }
-					update_score(params)
+							'points': match_info['visitor_result'] }
+					# update_score(params)# UNCOMENT
 
 
 			

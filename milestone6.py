@@ -25,6 +25,7 @@ def get_player_data_tennis(driver):
 		player_dob = datetime.strptime('01.01.1900', "%d.%m.%Y") 
 
 	player_name = profile_block.find_element(By.XPATH, './/div[@class="heading__name"]').text
+	player_name = clean_field(player_name)
 
 	image_url = profile_block.find_element(By.XPATH, './/img').get_attribute('src')
 	image_path = random_name_logos(player_name, folder = 'images/players/')	

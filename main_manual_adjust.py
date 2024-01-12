@@ -60,8 +60,6 @@ def main(driver):
 	if players_flag:
 		players(driver, ["HOCKEY", "BASKETBALL"])
 
-
-
 if __name__ == "__main__":  	
 	driver = launch_navigator('https://www.flashscore.com', database_enable)
 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
