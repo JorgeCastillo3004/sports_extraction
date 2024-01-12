@@ -34,15 +34,33 @@ def get_live_result(row):
 
 def give_click_on_live(driver):
 	wait = WebDriverWait(driver, 10)
-	xpath_expression = '//div[@title="Click for match detail!"]'
-	current_tab = driver.find_elements(By.XPATH, xpath_expression)
-	livebutton = wait.until(EC.element_to_be_clickable((By.XPATH, '//div[@class="filters__tab" and contains(.,"LIVE Games")]')))	
-	livebutton.click()
+	# get list of games section all
+	xpath_expression_game = '//div[@title="Click for match detail!"]'	
+	current_tab = driver.find_elements(By.XPATH, xpath_expression_game)
 
-	if len(current_tab) == 0:
-		current_tab = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, class_name)))
+	# give click
+	xpath_expression = '//div[@class="filters__tab" and contains(.,"LIVE Games")]'
+	livebutton = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_expression)))
+	livebutton.click()
+	time.sleep(0.3)
+	# after click, check results or empy page.
+	try:
+		nomatchs = driver.find_element(By.CLASS_NAME, 'nmf__title')
+		print(nomatchs.text)
+		option = 1
+	except:		
+		current_tab = driver.find_element(By.XPATH, xpath_expression_game)
+		option = 2
+
+	# Continue option 2
+	if option == 2:
+		if len(current_tab) == 0:
+			current_tab = wait.until(EC.presence_of_all_elements_located((By.XPATH, xpath_expression_game)))
+		else:
+			element_updated = wait.until(EC.staleness_of(current_tab[0]))
+		return True
 	else:
-		element_updated = wait.until(EC.staleness_of(current_tab[0]))
+		return False
 
 def get_live_match(driver, sport_name='FOOTBALL'):
 	if sport_name=='FOOTBALL':
@@ -97,48 +115,43 @@ def live_games(driver, list_sports):
 
 		###################### LIVE SECTION ############################################
 		# CLICK ON LIVE BUTTON		
-		give_click_on_live(driver)
+		live_games_found = give_click_on_live(driver)
 
 		###############################################################################
 		# count = 0 # COMENT
 		# while count < 1000: # COMENT
+		if live_games_found:
 
-		list_live_match = get_live_match(driver, sport_name=sport_name)		
-		print(len(list_live_match))
-		print_section("SEARCHING LIVE MATCH", space_ = 50)
-		for match_info in list_live_match:
-			print(match_info)
-			# get match id
-			match_id = 'dsada26263'
-			match_id = get_match_id(match_info['league_country'],\
-								 match_info['league_name'], current_date, match_info['name'])
+			list_live_match = get_live_match(driver, sport_name=sport_name)		
+			print(len(list_live_match))
+			print_section("SEARCHING LIVE MATCH", space_ = 50)
+			for match_info in list_live_match:
+				print(match_info)
+				# get match id				
+				match_id = get_match_id(match_info['league_country'],\
+									 match_info['league_name'], current_date, match_info['name'])
+				print("Match id: ", match_id)
+				# Get score_id home and score_id visitor
+				#{match_detail_id_visitor: False, match_detail_id_home:True}
+				if match_id:
+					dict_match_detail_id = get_math_details_ids(match_id) # UNCOMENT
+					print("dict_match_detail_id: ", dict_match_detail_id)
+					# dict_match_detail_id = {'KAFHD3536':True, 'dkdfkd': False}
 
-			print("Match id: ", match_id)
-
-			# stop_validate()
-			# match_id = 'ywse92791'
-			# update_data base
-			# Get score_id home and score_id visitor
-			#{match_detail_id_visitor: False, match_detail_id_home:True}
-			if match_id:
-				dict_match_detail_id = get_math_details_ids(match_id) # UNCOMENT
-				print("dict_match_detail_id: ", dict_match_detail_id)
-				# dict_match_detail_id = {'KAFHD3536':True, 'dkdfkd': False}
-
-				for match_detail_id, home_flag in dict_match_detail_id.items():
-					if home_flag:
-						# Update home score
-						params = {'match_detail_id': match_detail_id,
-								'points': match_info['home_result'] }
-						update_score(params)# UNCOMENT
-					else:
-						# Update visitor score
-						params = {'match_detail_id': match_detail_id,
-								'points': match_info['visitor_result'] }
-						update_score(params)# UNCOMENT
-				# print("Updated") # COMENT
-			# count += 1
-			# time.sleep(15)
+					for match_detail_id, home_flag in dict_match_detail_id.items():
+						if home_flag:
+							# Update home score
+							params = {'match_detail_id': match_detail_id,
+									'points': match_info['home_result'] }
+							update_score(params)# UNCOMENT
+						else:
+							# Update visitor score
+							params = {'match_detail_id': match_detail_id,
+									'points': match_info['visitor_result'] }
+							update_score(params)# UNCOMENT
+					# print("Updated") # COMENT
+				# count += 1
+				# time.sleep(15)
 	end_time = time.time()
 	elapsed_time = end_time - start_time
 	print("Complete time: ", elapsed_time)

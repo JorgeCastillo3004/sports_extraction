@@ -269,11 +269,11 @@ def clean_field(text):
 def execute_section(execution_schedule, day_execution, execute_ready):
 	# global day_execution, execute_ready
 	enable_execution = False	
-	if 'montly' in execution_schedule and not execute_ready:		
+	if 'montly' in execution_schedule and not execute_ready:
 		interval, day_exe, time_str = execution_schedule.split("|")
 		if datetime.now().day == day_exe:
 			time_execution = datetime.strptime(time_str, '%H:%M:%S').time()
-			if datetime.now().time() > time_execution:
+			if datetime.now().time() > time_execution and datetime.now().time() < (time_execution + timedelta(minutes=1)).time():
 				print(time_execution)
 				enable_execution = True
 				execute_ready = True
@@ -281,7 +281,7 @@ def execute_section(execution_schedule, day_execution, execute_ready):
 	if 'weekly' in execution_schedule and not execute_ready:
 		interval, day_exe, time_str = execution_schedule.split("|")
 		time_execution = datetime.strptime(time_str, '%H:%M:%S').time()		
-		if datetime.now().weekday() == days[day_exe] and datetime.now().time() > time_execution:			
+		if datetime.now().weekday() == days[day_exe] and datetime.now().time() > time_execution and datetime.now().time() < (time_execution + timedelta(minutes=1)).time():			
 			enable_execution = True
 			execute_ready = True
 			day_execution = datetime.now().day
@@ -290,7 +290,7 @@ def execute_section(execution_schedule, day_execution, execute_ready):
 		# print("Case daily")
 		_, time_str = execution_schedule.split("|")		
 		time_execution = datetime.strptime(time_str, '%H:%M:%S').time()
-		if datetime.now().time() >= time_execution:
+		if datetime.now().time() >= time_execution and datetime.now().time() < (time_execution + timedelta(minutes=1)).time():
 			enable_execution = True
 			execute_ready = True
 			day_execution = datetime.now().day
