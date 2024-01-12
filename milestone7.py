@@ -56,8 +56,8 @@ def give_click_on_live(driver):
 	if option == 2:
 		if len(current_tab) == 0:
 			current_tab = wait.until(EC.presence_of_all_elements_located((By.XPATH, xpath_expression_game)))
-		else:
-			element_updated = wait.until(EC.staleness_of(current_tab[0]))
+		# else:
+		# 	element_updated = wait.until(EC.staleness_of(current_tab[-1]))
 		return True
 	else:
 		return False
