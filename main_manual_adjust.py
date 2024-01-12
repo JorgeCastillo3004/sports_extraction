@@ -62,7 +62,7 @@ def main(driver):
 		players(driver, ["HOCKEY", "BASKETBALL"])
 
 	if live_games_flag:
-		live_games(driver, ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY", "AM._FOOTBALL",
+		live_games(driver, ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY",
 					  "BASEBALL","BOXING", "MOTORSPORT", "VOLLEYBALL"])
 
 if __name__ == "__main__":  	
