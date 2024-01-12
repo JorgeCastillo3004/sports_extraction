@@ -85,6 +85,8 @@ def live_games(driver, list_sports):
 	#############################################################
 	# 				MAIN LOOP OVER LIST SPORTS 					#
 	#############################################################
+	start_time = time.time()
+	print("start_time: ", start_time)
 	for sport_name in list_sports:
 
 		print_section("LIVE SECTION: " + sport_name, space_ = 50)
@@ -137,6 +139,8 @@ def live_games(driver, list_sports):
 				# print("Updated") # COMENT
 			# count += 1
 			# time.sleep(15)
-
+	end_time = time.time()
+	elapsed_time = end_time - start_time
+	print("Complete time: ", elapsed_time)
 		###################### LOOP OVER LIVE MATCHS #######################	
 
