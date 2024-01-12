@@ -408,7 +408,9 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
 					save_details_math_info(dict_visitor)
-					# if section =="results":
+					if section !="results":
+						dict_home['points'] = -1
+						dict_visitor['points'] = -1
 					save_score_info(dict_home)
 					save_score_info(dict_visitor)
 					
