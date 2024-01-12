@@ -151,27 +151,28 @@ def live_games(driver, list_sports):
 
 			# get match id
 			match_id = 'dsada26263'
-			# match_id = get_match_id(match['league_country'],\
-								 # match['league_name'], current_date, match['name'])
+			match_id = get_match_id(match['league_country'],\
+								 match['league_name'], current_date, match['name'])
 			print(match_info)
 			stop_validate()
 			# update_data base
 			# Get score_id home and score_id visitor
 			#{match_detail_id_visitor: False, match_detail_id_home:True}
-			# dict_match_detail_id = get_math_details_ids(match_id) # UNCOMENT
-			dict_match_detail_id = {'KAFHD3536':True, 'dkdfkd': False}
+			dict_match_detail_id = get_math_details_ids(match_id) # UNCOMENT
+			print("dict_match_detail_id: ", dict_match_detail_id)
+			# dict_match_detail_id = {'KAFHD3536':True, 'dkdfkd': False}
 
 			for match_detail_id, home_flag in dict_match_detail_id.items():
 				if home_flag:
 					# Update home score
 					params = {'match_detail_id': match_detail_id,
 							'points': match_info['home_result'] }
-					# update_score(params)# UNCOMENT
+					update_score(params)# UNCOMENT
 				else:
 					# Update visitor score
 					params = {'match_detail_id': match_detail_id,
 							'points': match_info['visitor_result'] }
-					# update_score(params)# UNCOMENT
+					update_score(params)# UNCOMENT
 
 
 			

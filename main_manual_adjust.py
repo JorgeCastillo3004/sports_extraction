@@ -37,9 +37,9 @@ def main(driver):
 	create_leagues_flag = False 	    # 2
 	teams_creation_flag = False	  	    # 3
 	results_extraction_flag = False		# 4
-	fixture_extraction_flag = True 		# 5
+	fixture_extraction_flag = False		# 5
 	players_flag = False 				# 6	
-	
+	live_games_flag = True	
 	dict_sports = load_json('check_points/sports_url_m2.json')
 	
 	if main_extract_news_enable:
@@ -58,6 +58,9 @@ def main(driver):
 		results_fixtures_extraction(driver, ["HOCKEY"], name_section = 'fixtures')
 
 	if players_flag:
+		live_games(driver, ["HOCKEY"])
+
+	if live_games_flag:
 		players(driver, ["HOCKEY", "BASKETBALL"])
 
 if __name__ == "__main__":  	

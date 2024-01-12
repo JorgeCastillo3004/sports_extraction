@@ -216,6 +216,7 @@ def get_match_id(league_country, league_name, match_date, match_name):
 	WHERE league.league_country = '{}' and 
 	league.league_name = '{}' and 
 	match.match_date = '{}' and match.name = '{}'""".format(league_country, league_name, match_date, match_name)
+	print(query)
 	cur = con.cursor()
 	cur.execute(query)
 	return cur.fetchone()
