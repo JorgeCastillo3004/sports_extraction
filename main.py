@@ -37,7 +37,7 @@ if database_enable:
 if __name__ == "__main__":	
 	with concurrent.futures.ThreadPoolExecutor() as executor:
 		# Submit the functions for execution
-		# future1 = executor.submit(main_others)
+		future1 = executor.submit(main_others)
 		future2 = executor.submit(main_live)
 
 		# Wait for both functions to complete
