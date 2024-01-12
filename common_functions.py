@@ -20,6 +20,14 @@ local_time_naive = datetime.now()
 utc_time_naive = datetime.utcnow()
 time_difference_naive = utc_time_naive - local_time_naive
 
+days = {'monday': 0,
+		'tuesday': 1,
+		'wednesday': 2,
+		'thursday': 3,
+		'friday': 4,
+		'saturday': 5,
+		'sunday': 6}
+
 #####################################################################
 #					CHECK POINTS BLOCK 								#
 #####################################################################
