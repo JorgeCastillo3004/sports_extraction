@@ -38,7 +38,7 @@ def main(driver):
 	create_leagues_flag = False 	    # 2
 	teams_creation_flag = False	  	    # 3
 	results_extraction_flag = False		# 4
-	fixture_extraction_flag = True		# 5
+	fixture_extraction_flag = False		# 5
 	players_flag = False 				# 6	
 	live_games_flag = True	
 	dict_sports = load_json('check_points/sports_url_m2.json')
@@ -62,7 +62,8 @@ def main(driver):
 		players(driver, ["HOCKEY", "BASKETBALL"])
 
 	if live_games_flag:
-		live_games(driver, ["HOCKEY"])
+		live_games(driver, ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY", "GOLF", "AM._FOOTBALL",
+					  "BASEBALL","BOXING", "MOTORSPORT", "VOLLEYBALL"])
 
 if __name__ == "__main__":  	
 	driver = launch_navigator('https://www.flashscore.com', database_enable)
