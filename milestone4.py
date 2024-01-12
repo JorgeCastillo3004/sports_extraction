@@ -639,7 +639,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 							wait_update_page(driver, league_info[name_section], "container__heading")
 							
 							# START NAVIGATION THROUGH ROUNDS
-							print("Navigate navigate_through_rounds")S
+							print("Navigate navigate_through_rounds")
 							navigate_through_rounds(driver, league_name, list_rounds, section_name = name_section)
 
 							if not individual_sport:
