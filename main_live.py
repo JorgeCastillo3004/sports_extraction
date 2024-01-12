@@ -38,12 +38,12 @@ database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
-def main_live(driver):
+def main_live():
 	driver = launch_navigator('https://www.flashscore.com', database_enable)
 	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
 	day_execution_s7 = -1
 	execute_ready_s7 = False
-	
+
 	list_s7 = []
 
 	old_execution_schedule_s7 = '*'

@@ -41,8 +41,7 @@ if database_enable:
 	con = getdb()
 
 if __name__ == "__main__":	
-	main_others(driver)
-	main_live(driver)
+	main_others()
+	main_live()
 	if database_enable:
-		con.close()
-	driver.quit()
+		con.close()	
