@@ -408,9 +408,11 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
 					save_details_math_info(dict_visitor)
-					if section =="results":						
-						save_score_info(dict_home)
-						save_score_info(dict_visitor)					
+					# if section =="results":
+					save_score_info(dict_home)
+					save_score_info(dict_visitor)
+					
+						
 			# print("#"*80, '\n'*2)
 			# list_rounds_ready.append(round_file.split('/')[-1])
 			# dict_leagues_ready[country_league] = list_rounds_ready

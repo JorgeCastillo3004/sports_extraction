@@ -239,6 +239,7 @@ def get_math_details_ids(match_id):
 
 def update_score(params):
 	query = "INSERT score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s"
+	# query = "INSERT INTO score_entity VALUES(%(score_id)s, %(points)s, %(match_detail_id)s)"
 	cur = con.cursor()
 	cur.execute(query, params)
 	con.commit()
