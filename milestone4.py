@@ -562,6 +562,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 		sport_point = global_check_point['M4']['sport']
 		league_point = global_check_point['M4']['league']		
 	else:
+		sport_point = global_check_point['M4'] = {}
 		sport_point = ''
 		league_point = ''		
 
