@@ -63,7 +63,7 @@ def main(driver):
 
 	if live_games_flag:
 		live_games(driver, ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY",
-					  "BASEBALL","BOXING", "MOTORSPORT", "VOLLEYBALL"])
+					  "BASEBALL","BOXING", "VOLLEYBALL"])
 
 if __name__ == "__main__":  	
 	driver = launch_navigator('https://www.flashscore.com', database_enable)
