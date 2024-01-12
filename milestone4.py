@@ -578,6 +578,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 		###################################################################
 		#						TITLE SECTION 						  	  #
 		###################################################################
+		print_section(name_section.upper(), space_ = 50)
 		print_section(sport_name, space_ = 50)
 		#############################################################
 		# 				MAIN LOOP OVER LEAGUES  					#
