@@ -146,24 +146,25 @@ def live_games(driver, list_sports):
 		give_click_on_live(driver)
 
 		###############################################################################
-		count = 0
-		while count < 1000:
-			list_live_match = get_live_match(driver, sport_name=sport_name)		
-			print(len(list_live_match))
-			for match_info in list_live_match:
-				print(match_info)
-				# get match id
-				match_id = 'dsada26263'
-				match_id = get_match_id(match_info['league_country'],\
-									 match_info['league_name'], current_date, match_info['name'])
+		# count = 0 # COMENT
+		# while count < 1000: # COMENT
+		list_live_match = get_live_match(driver, sport_name=sport_name)		
+		print(len(list_live_match))
+		for match_info in list_live_match:
+			print(match_info)
+			# get match id
+			match_id = 'dsada26263'
+			match_id = get_match_id(match_info['league_country'],\
+								 match_info['league_name'], current_date, match_info['name'])
 
-				print("Match id: ", match_id)
+			print("Match id: ", match_id)
 
-				stop_validate()
-				match_id = 'ywse92791'
-				# update_data base
-				# Get score_id home and score_id visitor
-				#{match_detail_id_visitor: False, match_detail_id_home:True}
+			# stop_validate()
+			# match_id = 'ywse92791'
+			# update_data base
+			# Get score_id home and score_id visitor
+			#{match_detail_id_visitor: False, match_detail_id_home:True}
+			if match_id:
 				dict_match_detail_id = get_math_details_ids(match_id) # UNCOMENT
 				print("dict_match_detail_id: ", dict_match_detail_id)
 				# dict_match_detail_id = {'KAFHD3536':True, 'dkdfkd': False}
@@ -179,7 +180,7 @@ def live_games(driver, list_sports):
 						params = {'match_detail_id': match_detail_id,
 								'points': match_info['visitor_result'] }
 						update_score(params)# UNCOMENT
-			print("Updated")
+				# print("Updated") # COMENT
 			count += 1
 			time.sleep(15)
 

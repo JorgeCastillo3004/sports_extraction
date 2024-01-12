@@ -257,5 +257,83 @@ def print_section(section, space_ = 50):
 
 def clean_field(text):
 	return text.replace("'", "\''")
+
+def execute_section(execution_schedule, day_execution, execute_ready):
+	# global day_execution, execute_ready
+	enable_execution = False	
+	if 'montly' in execution_schedule and not execute_ready:		
+		interval, day_exe, time_str = execution_schedule.split("|")
+		if datetime.now().day == day_exe:
+			time_execution = datetime.strptime(time_str, '%H:%M:%S').time()
+			if datetime.now().time() > time_execution:
+				print(time_execution)
+				enable_execution = True
+				execute_ready = True
+
+	if 'weekly' in execution_schedule and not execute_ready:
+		interval, day_exe, time_str = execution_schedule.split("|")
+		time_execution = datetime.strptime(time_str, '%H:%M:%S').time()		
+		if datetime.now().weekday() == days[day_exe] and datetime.now().time() > time_execution:			
+			enable_execution = True
+			execute_ready = True
+			day_execution = datetime.now().day
+
+	if 'daily' in execution_schedule and not execute_ready:		
+		# print("Case daily")
+		_, time_str = execution_schedule.split("|")		
+		time_execution = datetime.strptime(time_str, '%H:%M:%S').time()
+		if datetime.now().time() >= time_execution:
+			enable_execution = True
+			execute_ready = True
+			day_execution = datetime.now().day
 	
+	if datetime.now().day != day_execution:		
+		execute_ready = False
+		day_execution = -1
+
+	#################################################################
+	# 			SECTION SECONDS-MINUTES 							#
+	#################################################################
+	if 'minute' in execution_schedule:
+		# print("Case daily")
+		part1, time_str = execution_schedule.split("|")		
+		time_execution = datetime.strptime(time_str, '%H:%M:%S')
+		if datetime.now().time() >= time_execution.time() and datetime.now().time() < (time_execution + timedelta(minutes=1)).time():
+			enable_execution = True
+			execute_ready = False
+			time_execution = time_execution + timedelta(minutes=1)
+			execution_schedule = part1 +'|'+str(time_execution.time())			
+			# day_execution = datetime.now().day
+	if 'seconds' in execution_schedule:
+		if len(execution_schedule.split("|")) == 2:
+			part1, seconds_str = execution_schedule.split("|")			
+			option = 1
+		if len(execution_schedule.split("|")) == 3:
+			part1, seconds_str, time_str = execution_schedule.split("|")
+			option = 2
+
+		if option == 1:			
+			time_execution = datetime.now()
+			enable_execution = True
+			execute_ready = False				
+			time_execution = time_execution + timedelta(seconds = int(seconds_str))
+			execution_schedule = part1 +'|' + seconds_str +'|'+ time_execution.time().strftime('%H:%M:%S') 
+				
+		if option == 2:
+			time_execution = datetime.strptime(time_str, '%H:%M:%S')			
+			if datetime.now().time() >= time_execution.time() and datetime.now().time() < (time_execution + timedelta(1)).time():
+				enable_execution = True
+				execute_ready = False
+				time_execution = time_execution + timedelta(seconds = int(seconds_str))				
+				execution_schedule = part1 +'|' + seconds_str +'|'+ time_execution.time().strftime('%H:%M:%S') 
+				print(execution_schedule)
+			# day_execution = datetime.now().day
+
+	return enable_execution, day_execution, execute_ready, execution_schedule
+
+def update_data():
+	with open('execution_control.json', 'r') as file:
+		section_schedule = json.load(file)
+	return section_schedule
+
 int_folders()
