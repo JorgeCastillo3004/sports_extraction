@@ -25,6 +25,7 @@ from milestone3 import *
 from milestone4 import *
 from milestone5 import *
 from milestone6 import *
+from milestone7 import *
 
 days = {'monday': 0,
 		'tuesday': 1,
@@ -37,6 +38,7 @@ days = {'monday': 0,
 database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
+
 
 def main_live():
 	driver = launch_navigator('https://www.flashscore.com', database_enable)

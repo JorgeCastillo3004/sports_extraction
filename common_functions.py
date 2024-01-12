@@ -313,6 +313,7 @@ def execute_section(execution_schedule, day_execution, execute_ready):
 			execution_schedule = part1 +'|'+str(time_execution.time())			
 			# day_execution = datetime.now().day
 	if 'seconds' in execution_schedule:
+		print("Sections seconds", execution_schedule)
 		if len(execution_schedule.split("|")) == 2:
 			part1, seconds_str = execution_schedule.split("|")			
 			option = 1

@@ -36,11 +36,11 @@ if database_enable:
 if __name__ == "__main__":	
 	with concurrent.futures.ThreadPoolExecutor() as executor:
 		# Submit the functions for execution
-		future1 = executor.submit(main_others)
+		# future1 = executor.submit(main_others)
 		future2 = executor.submit(main_live)
 
 		# Wait for both functions to complete
-		concurrent.futures.wait([future1, future2])
+		concurrent.futures.wait([future2]) # future1, 
 
 		# Check if any exceptions occurred during execution
 		for future in [future1, future2]:

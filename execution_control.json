@@ -18,7 +18,7 @@
 					"SPORTS": ["HOCKEY"]},
 	"GET_PLAYERS": {"TIME":"weekly|wednesday|18:40:00",
 					"SPORTS": ["HOCKEY"]},
-	"LIVE_SECTION": {"TIME":"seconds|15|14:16:26",
+	"LIVE_SECTION": {"TIME":"seconds|15",
 					"SPORTS": ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY", "GOLF", "AM._FOOTBALL",
 					  "BASEBALL","BOXING", "MOTORSPORT", "VOLLEYBALL"]},
 	"EXAMPLE": {"TIME":"seconds|90|14:15:00",
