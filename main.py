@@ -25,6 +25,8 @@ from milestone3 import *
 from milestone4 import *
 from milestone5 import *
 from milestone6 import *
+from main_live import *
+from main_others import *
 
 days = {'monday': 0,
 		'tuesday': 1,
