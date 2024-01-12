@@ -221,12 +221,12 @@ def get_match_id(league_country, league_name, match_date, match_name):
 	cur.execute(query)
 	return cur.fetchone()
 
-# SELECT match.match_id
-# FROM match
-# JOIN league ON league.league_id = match.league_id
-# WHERE league.league_country = 'CZECH REPUBLIC' and 
-# league.league_name = 'Extraliga' and 
-# match.match_date = '2023-01-12' and match.name = 'Karlovy Vary-Trinec';
+SELECT match.match_id
+FROM match
+JOIN league ON league.league_id = match.league_id
+WHERE league.league_country = 'CZECH REPUBLIC' and 
+league.league_name = 'Extraliga' and 
+match.match_date = '2023-01-12' and match.name = 'Karlovy Vary-Trinec';
 def get_math_details_ids(match_id):
 	query = """
 	SELECT match_detail_id, home FROM match_detail
@@ -238,7 +238,7 @@ def get_math_details_ids(match_id):
 	return dict_results
 
 def update_score(params):
-	query = cursor.execute("UPDATE score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s", params)
+	query = "UPDATE score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s"
 	cur = con.cursor()
 	cur.execute(query, params)
 	con.commit()
