@@ -135,7 +135,7 @@ def main_others():
 			print(list_s6, '\n')
 
 		section_schedule = update_data()
-
+		print("o-", end='')
 		# print(stop)
 		time.sleep(1)	
 

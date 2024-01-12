@@ -62,7 +62,7 @@ def main_live():
 			print(list_s7, '\n')
 
 		section_schedule = update_data()
-
+		print("l-", end='')
 		# print(stop)
 		time.sleep(1)	
 
