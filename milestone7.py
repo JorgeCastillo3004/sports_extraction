@@ -126,7 +126,7 @@ def get_live_match(driver, sport_name='FOOTBALL'):
 def live_games(driver, list_sports):
 	dict_sports_url = load_json('check_points/sports_url_m2.json')
 	current_date = datetime.now().date()#.strftime('%H:%M:%S')
-	print("Current_date: ", current_date)
+	print("Current_date: ", current_date, '\n')
 	# date = dt_object.date()
 	# time = dt_object.time()
 
@@ -150,12 +150,13 @@ def live_games(driver, list_sports):
 		print(len(list_live_match))
 
 		for match_info in list_live_match:
-
+			print(match_info)
 			# get match id
 			match_id = 'dsada26263'
-			match_id = get_match_id(match['league_country'],\
-								 match['league_name'], current_date, match['name'])
-			print(match_info)
+			match_id = get_match_id(match_info['league_country'],\
+								 match_info['league_name'], current_date, match_info['name'])
+
+			print("Match id: ", match_id)
 			stop_validate()
 			# update_data base
 			# Get score_id home and score_id visitor
@@ -174,10 +175,7 @@ def live_games(driver, list_sports):
 					# Update visitor score
 					params = {'match_detail_id': match_detail_id,
 							'points': match_info['visitor_result'] }
-					update_score(params)# UNCOMENT
-
-
-			
+					update_score(params)# UNCOMENT			
 
 		###################### LOOP OVER LIVE MATCHS #######################	
 
