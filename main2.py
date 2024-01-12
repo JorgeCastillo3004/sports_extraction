@@ -51,6 +51,7 @@ def main_live():
 	while True:
 
 		new_execution_schedule_s7 = section_schedule['LIVE_SECTION']['TIME']
+		print("Main live time: ", new_execution_schedule_s7)
 		if new_execution_schedule_s7 != old_execution_schedule_s7:
 			execution_schedule_s7 = new_execution_schedule_s7
 			old_execution_schedule_s7 = execution_schedule_s7

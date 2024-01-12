@@ -100,8 +100,10 @@ def live_games(driver, list_sports):
 		###############################################################################
 		# count = 0 # COMENT
 		# while count < 1000: # COMENT
+
 		list_live_match = get_live_match(driver, sport_name=sport_name)		
 		print(len(list_live_match))
+		print_section("SEARCHING LIVE MATCH", space_ = 50)
 		for match_info in list_live_match:
 			print(match_info)
 			# get match id
@@ -134,7 +136,7 @@ def live_games(driver, list_sports):
 						update_score(params)# UNCOMENT
 				# print("Updated") # COMENT
 			count += 1
-			time.sleep(15)
+			# time.sleep(15)
 
 		###################### LOOP OVER LIVE MATCHS #######################	
 
