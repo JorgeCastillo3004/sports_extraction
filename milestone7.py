@@ -49,7 +49,7 @@ def give_click_on_live(driver):
 		print(nomatchs.text)
 		option = 1
 	except:		
-		current_tab = driver.find_element(By.XPATH, xpath_expression_game)
+		current_tab = driver.find_elements(By.XPATH, xpath_expression_game)
 		option = 2
 
 	# Continue option 2
@@ -91,7 +91,6 @@ def get_live_match(driver, sport_name='FOOTBALL'):
 			except:
 				pass
 	return list_match
-
 
 def live_games(driver, list_sports):
 	dict_sports_url = load_json('check_points/sports_url_m2.json')
