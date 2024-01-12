@@ -1,3 +1,4 @@
+import concurrent.futures
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
@@ -25,23 +26,23 @@ from milestone3 import *
 from milestone4 import *
 from milestone5 import *
 from milestone6 import *
-from main_live import *
-from main_others import *
-
-days = {'monday': 0,
-		'tuesday': 1,
-		'wednesday': 2,
-		'thursday': 3,
-		'friday': 4,
-		'saturday': 5,
-		'sunday': 6}
+from main1 import *
+from main2 import *
 
 database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
 if __name__ == "__main__":	
-	main_others()
-	main_live()
-	if database_enable:
-		con.close()	
+	with concurrent.futures.ThreadPoolExecutor() as executor:
+		# Submit the functions for execution
+		future1 = executor.submit(main_others)
+		future2 = executor.submit(main_live)
+
+		# Wait for both functions to complete
+		concurrent.futures.wait([future1, future2])
+
+		# Check if any exceptions occurred during execution
+		for future in [future1, future2]:
+			if future.exception():
+				print(f"Exception occurred: {future.exception()}")
