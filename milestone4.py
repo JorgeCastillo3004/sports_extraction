@@ -475,8 +475,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 				team_id_visitor = dict_country_league_season[away_participant]
 				############# STADIUM OR PLACE SECTION #########################
 				try:
-					event_info['stadium_id'] = dict_country_league_season[home_participant]['stadium_id']
-					print(" "*30, "STADIUM READY")
+					event_info['stadium_id'] = dict_country_league_season[home_participant]['stadium_id']					
 				except:
 					print(" "*30, "STADIUM CREATED")
 					event_info['stadium_id'] = random_id()					

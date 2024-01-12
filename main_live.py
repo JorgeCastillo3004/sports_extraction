@@ -39,10 +39,10 @@ if database_enable:
 	con = getdb()
 
 def main_live(driver):
-
+	driver = launch_navigator('https://www.flashscore.com', database_enable)
+	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
 	day_execution_s7 = -1
 	execute_ready_s7 = False
-
 	
 	list_s7 = []
 
@@ -66,10 +66,8 @@ def main_live(driver):
 		# print(stop)
 		time.sleep(1)	
 
-if __name__ == "__main__":  	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
-	main_live(driver)
+if __name__ == "__main__":	
+	main_live()
 	if database_enable:
 		con.close()
 	driver.quit()
