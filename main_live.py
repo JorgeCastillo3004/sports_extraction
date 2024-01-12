@@ -66,8 +66,8 @@ def main_live(driver):
 		# print(stop)
 		time.sleep(1)	
 
-if __name__ == "__main__":	
-	main_live()
-	if database_enable:
-		con.close()
-	driver.quit()
+# if __name__ == "__main__":	
+# 	main_live()
+# 	if database_enable:
+# 		con.close()
+# 	driver.quit()
