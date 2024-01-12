@@ -135,8 +135,10 @@ def live_games(driver, list_sports):
 	#############################################################
 	for sport_name in list_sports:
 
+		print_section("LIVE SECTION: " + sport_name, space_ = 50)
+
 		#################################################
-		# LOAD SPORT LINKK		
+		# LOAD SPORT LINK
 		wait_update_page(driver, dict_sports_url[sport_name], "container__heading")		
 
 		###################### LIVE SECTION ############################################

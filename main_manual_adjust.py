@@ -58,10 +58,10 @@ def main(driver):
 		results_fixtures_extraction(driver, ["HOCKEY"], name_section = 'fixtures')
 
 	if players_flag:
-		live_games(driver, ["HOCKEY"])
+		players(driver, ["HOCKEY", "BASKETBALL"])
 
 	if live_games_flag:
-		players(driver, ["HOCKEY", "BASKETBALL"])
+		live_games(driver, ["HOCKEY"])
 
 if __name__ == "__main__":  	
 	driver = launch_navigator('https://www.flashscore.com', database_enable)
