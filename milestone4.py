@@ -87,6 +87,7 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 
 				except:
 					round_name = get_unique_key(row.text, dict_rounds.keys())
+
 				# SECTION TO CHECK ROUND SAVED PREVIOUSLY
 				round_name = '_'.join(round_name.split())
 				print("round_name: ", round_name)				
@@ -105,7 +106,7 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 						os.mkdir(folder_name)
 					save_check_point(file_name, dict_rounds[current_round_name])
 					webdriver.ActionChains(driver).send_keys(Keys.PAGE_DOWN).perform()
-				# RESTAR NEW DICTIONARY AND UPDATE CURRENT NAMES
+				# RESTAR NEW DICTIONARY AND UPDATE CURRENT NAMES				
 				current_round_name = round_name
 				dict_rounds[current_round_name] = {}
 				count_sub_section += 1
