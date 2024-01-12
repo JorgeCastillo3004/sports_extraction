@@ -338,8 +338,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 	
 	for round_file in round_files:
 		# if not round_file.split('/')[-1] in list_rounds_ready:
-			file_path = os.path.join(league_folder, round_file)
-			print(file_path)
+			file_path = os.path.join(league_folder, round_file)			
 			round_info = load_json(file_path)        
 			for event_index, event_info in round_info.items():
 
@@ -347,7 +346,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				print("Even url: ", url_details)
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
-				print("event_info part 1: ", event_info)
+				# print("event_info part 1: ", event_info)
 				
 				event_info['statistic_info'] = get_statistics_game(driver)
 				event_info['league_id'] = league_id
@@ -367,11 +366,10 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				############# STADIUM OR PLACE SECTION #########################
 				try:
 					event_info['stadium_id'] = dict_country_league_season[event_info['home']]['stadium_id']
-					print(" "*30, "STADIUM READY")					
+					print(" STADIUM READY ", end ='')
 				except:
-					print(" "*30, "STADIUM CREATED")
+					print("  STADIUM CREATED  " , end ='')
 					event_info['stadium_id'] = random_id()					
-					print("event_info['stadium_id']: ", event_info['stadium_id'])
 
 					if 'CAPACITY' in list(event_info.keys()):
 						capacity = int(''.join(event_info['CAPACITY'].split()))
@@ -389,10 +387,8 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 					dict_country_league_season[event_info['home']]['stadium_id'] = event_info['stadium_id']
 					json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
 					save_check_point(json_name, dict_country_league_season)					
-					# print(dict_stadium)
-					print("dict_stadium['stadium_id']: ", dict_stadium['stadium_id'])
-					if database_enable:
-						print("############ Save stadium info ###################")
+					# print(dict_stadium)					
+					if database_enable:						
 						save_stadium(dict_stadium)
 				#################################################################
 				match_detail_id = random_id()
@@ -405,17 +401,16 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 							'team_id':team_id_visitor, 'points':event_info['visitor_result'], 'score_id':score_id}
 
 				# print("Event info:")
-				print("event_info before save: ", event_info['stadium_id'])
-				print(event_info)
+				# print("event_info before save: ", event_info['stadium_id'])
+				# print(event_info)
 				if database_enable:					
 					save_math_info(event_info)
 					if section =="results":
 						save_details_math_info(dict_home)
 						save_details_math_info(dict_visitor)					
 						save_score_info(dict_home)
-						save_score_info(dict_visitor)
-					print("s... db ", end='')
-			print("#"*80, '\n'*2)
+						save_score_info(dict_visitor)					
+			# print("#"*80, '\n'*2)
 			# list_rounds_ready.append(round_file.split('/')[-1])
 			# dict_leagues_ready[country_league] = list_rounds_ready
 			# dict_country_league_check_point[sport_id] = dict_leagues_ready
@@ -579,14 +574,17 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 				enable_sport = True
 		else:
 			enable_sport = True
-		
+		###################################################################
+		#						TITLE SECTION 						  	  #
+		###################################################################
+		print_section(sport_name, space_ = 50)
 		#############################################################
 		# 				MAIN LOOP OVER LEAGUES  					#
 		#############################################################
 		if enable_sport:
 			global_check_point['M4']['sport'] = sport_name
 			for league_name, league_info in leagues_info_json[sport_name].items():
-					print("league_name: ", league_name)
+					print_section(league_name, space_ = 50)
 					# for league_name, league_info in league_info.items():				
 					# CHECK LIST OF ROUNDS READY BY LEAGUE NAME
 					# dict_leagues_ready = pending_to_process(dict_country_league_check_point, sport_id, league_name)
@@ -605,6 +603,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 					list_rounds = get_rounds_ready(league_info['league_id'], league_info['season_id'])
 					print("List old round from db ", list_rounds)
 					print("File to be search: ", path_league_info)
+					stop_validate()
 					
 					# check_point_flag = get_check_point(check_point, sport_id, country_league)
 
