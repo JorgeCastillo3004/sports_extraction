@@ -721,8 +721,8 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 					dict_league = load_check_point(path_league_info)
 
 					print("List of teams: ", list(dict_league.keys()))
-
-					if flag_to_continue and enable_league:
+					file_gold_cup = 'check_points/leagues_season/FOOTBALL/NORTH & CENTRAL AMERICA_Gold Cup.json'
+					if flag_to_continue and enable_league and file_gold_cup != path_league_info:
 						stop_validate()
 						global_check_point['M4']['league'] = league_name
 						save_check_point('check_points/global_check_point.json', global_check_point)
