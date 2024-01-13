@@ -5,8 +5,7 @@ import argparse
 from common_functions import load_json
 import os
 
-# if os.path.isfile("check_points/last_saved_news.json"):
-# 	os.remove("check_points/last_saved_news.json")
+
 
 if os.path.isfile("check_points/sports_id.json"):
 	os.remove("check_points/sports_id.json")
@@ -16,6 +15,9 @@ if os.path.isfile("check_points/leagues_info.json"):
 
 if os.path.isfile('check_points/global_check_point.json'):
 	os.remove('check_points/global_check_point.json')
+
+if os.path.isfile('check_points/last_saved_news.json'):
+	os.remove('check_points/last_saved_news.json')
 
 files = os.listdir('check_points/leagues_season/')
 

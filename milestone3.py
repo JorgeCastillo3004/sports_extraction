@@ -239,6 +239,7 @@ def teams_creation(driver, list_sports):
 					if len(dict_teams_availables) != 0:
 						print("File saved: ")
 						save_check_point(json_name, dict_country_league_season)
+					stop_validate()
 					
 
 CONFIG = load_json('check_points/CONFIG.json')
