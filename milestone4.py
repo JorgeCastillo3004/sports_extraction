@@ -120,7 +120,7 @@ def extract_info_results_old(driver, start_index, results_block, section_name, c
 
 def extract_info_results(driver, start_index, results_block, section_name, country_league, list_rounds_ready):	
 
-	print(len(results_block))
+	print("Total rows: ",len(results_block))
 	 # list to save round name, index_start index_end
 	dict_rounds_index = {}
 	all_list_results = []
@@ -713,9 +713,12 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 					else:
 						individual_sport = False
 						flag_to_continue = os.path.isfile(path_league_info) # CONFIRM IF TEAM WAS CREATED
-					print("Confirm file exist: ", flag_to_continue)
+					if not flag_to_continue:
+						print_section("FILE NOT FOUND", space_ = 40)
 					# stop_validate()
 					dict_league = load_check_point(path_league_info)
+
+					print("List of teams: ", list(dict_league.keys()))
 
 					if flag_to_continue and enable_league:
 						global_check_point['M4']['league'] = league_name
