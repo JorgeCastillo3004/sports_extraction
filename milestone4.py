@@ -438,7 +438,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				event_info['statistic_info'] = get_statistics_game(driver)
 				event_info['league_id'] = league_id
 				event_info['season_id'] = season_id
-				print("Event info: ", event_info)
+				print("Match event: ", event_info['name'])
 				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
 				event_info['end_time'] = event_info['start_time']
 				event_info['rounds'] = round_file.replace('.json', '')
@@ -562,8 +562,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 				############# STADIUM OR PLACE SECTION #########################
 				try:
 					event_info['stadium_id'] = dict_country_league_season[home_participant]['stadium_id']					
-				except:
-					print(" "*30, "STADIUM CREATED")
+				except:					
 					event_info['stadium_id'] = random_id()					
 					if 'CAPACITY' in list(event_info.keys()):
 						capacity = int(''.join(event_info['CAPACITY'].split()))
