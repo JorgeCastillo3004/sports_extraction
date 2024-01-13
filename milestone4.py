@@ -423,6 +423,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				print(event_index, end = '')
 
 				url_details = event_info['link_details']				
+				print_section(url_details, space_ = 50)
 				wait_load_details(driver, url_details)
 				event_info = get_match_info(driver, event_info)
 				# print("event_info part 1: ", event_info)
@@ -723,8 +724,8 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 							wait_update_page(driver, league_info[name_section], "container__heading")
 							
 							# START NAVIGATION THROUGH ROUNDS
-							print("Navigate navigate_through_rounds")
-							navigate_through_rounds(driver, league_name, list_rounds, section_name = name_section)
+							# print("Navigate navigate_through_rounds")
+							# navigate_through_rounds(driver, league_name, list_rounds, section_name = name_section)
 
 							if not individual_sport:
 								get_complete_match_info(driver, league_name, sport_name, league_info['league_id'],
