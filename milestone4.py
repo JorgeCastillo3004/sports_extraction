@@ -132,16 +132,20 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 	for processed_index, result in enumerate(results_block[start_index:]):
 		print(result.text.replace('\n',' '))
 		HTML = result.get_attribute('outerHTML')
-		if 'event__round event__round--static' in HTML: # TAKE ROUND NAME
-			if count == 0:
-				list_index = [0, 0]
-				round_name = round_name = get_unique_key(result.text, dict_rounds_index.keys())
-				list_index[0] = processed_index + 1
-				count = 1
-			else:
+		if 'event__round event__round--static' in HTML or 'event__header' in HTML: # TAKE ROUND NAME			
+			if count == 1:
 				list_index[1] = processed_index
 				dict_rounds_index[round_name] = list_index            
+				print("#"*60)
+				print("Round dict index: ", round_name, dict_rounds_index[round_name])
+				print("#"*60)
 				count = 0
+			if count == 0:
+				list_index = [0, 0]
+				round_name = get_unique_key(result.text, dict_rounds_index.keys())
+				list_index[0] = processed_index + 1
+				if not 'event__header' in HTML:
+					count = 1
 		if 'Click for match detail!' in HTML: # EXTRACT MATHC INFO
 			result = get_result(result, section = section_name)
 			all_list_results.append(result)
@@ -163,10 +167,12 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 				event_number = 0
 				dict_round = {}
 				for index in range(index_star_end[0], index_star_end[1]):
+					print("Current index, range: ", index)
 					dict_round[event_number] = all_list_results[index]
 					event_number += 1
 				# SAVE ROUND DICT
 				save_check_point(file_name, dict_round)
+				stop_validate()
 				envent_number = 0
 				round_enable = True
 			else:

@@ -1,0 +1,80 @@
+{
+    "0": {
+        "match_id": "vcch92828",
+        "match_date": "23.11. 21:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "San Carlos-Zeledon",
+        "home": "San Carlos",
+        "visitor": "Zeledon",
+        "home_result": "1",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/t0FgCMWF/#/match-summary/match-summary",
+        "place": ""
+    },
+    "1": {
+        "match_id": "mnhi91258",
+        "match_date": "23.11. 17:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Grecia-Saprissa",
+        "home": "Grecia",
+        "visitor": "Saprissa",
+        "home_result": "1",
+        "visitor_result": "2",
+        "link_details": "https://www.flashscore.com/match/f7eU5K9q/#/match-summary/match-summary",
+        "place": ""
+    },
+    "2": {
+        "match_id": "nemy97671",
+        "match_date": "22.11. 22:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Herediano-AD Santos",
+        "home": "Herediano",
+        "visitor": "AD Santos",
+        "home_result": "3",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/xS82A01S/#/match-summary/match-summary",
+        "place": ""
+    },
+    "3": {
+        "match_id": "sqpi01339",
+        "match_date": "22.11. 21:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Puntarenas FC-Alajuelense",
+        "home": "Puntarenas FC",
+        "visitor": "Alajuelense",
+        "home_result": "1",
+        "visitor_result": "2",
+        "link_details": "https://www.flashscore.com/match/YcfY4vPk/#/match-summary/match-summary",
+        "place": ""
+    },
+    "4": {
+        "match_id": "uvir92138",
+        "match_date": "22.11. 17:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Guanacasteca-Liberia",
+        "home": "Guanacasteca",
+        "visitor": "Liberia",
+        "home_result": "4",
+        "visitor_result": "2",
+        "link_details": "https://www.flashscore.com/match/OO4bBtnM/#/match-summary/match-summary",
+        "place": ""
+    },
+    "5": {
+        "match_id": "imcj93127",
+        "match_date": "21.11. 22:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Sporting San Jose-Cartagines",
+        "home": "Sporting San Jose",
+        "visitor": "Cartagines",
+        "home_result": "1",
+        "visitor_result": "1",
+        "link_details": "https://www.flashscore.com/match/jZlw4bvd/#/match-summary/match-summary",
+        "place": ""
+    }
+}

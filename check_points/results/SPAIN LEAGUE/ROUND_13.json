@@ -1,0 +1,80 @@
+{
+    "0": {
+        "match_id": "ajik05698",
+        "match_date": "01.10. 20:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Saprissa-Guanacasteca",
+        "home": "Saprissa",
+        "visitor": "Guanacasteca",
+        "home_result": "4",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/674kJzq7/#/match-summary/match-summary",
+        "place": ""
+    },
+    "1": {
+        "match_id": "lqog00376",
+        "match_date": "01.10. 17:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Liberia-Alajuelense",
+        "home": "Liberia",
+        "visitor": "Alajuelense",
+        "home_result": "3",
+        "visitor_result": "3",
+        "link_details": "https://www.flashscore.com/match/pb3gIfbD/#/match-summary/match-summary",
+        "place": ""
+    },
+    "2": {
+        "match_id": "aamz05046",
+        "match_date": "01.10. 13:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Cartagines-Grecia",
+        "home": "Cartagines",
+        "visitor": "Grecia",
+        "home_result": "4",
+        "visitor_result": "1",
+        "link_details": "https://www.flashscore.com/match/Cp5oKGT0/#/match-summary/match-summary",
+        "place": ""
+    },
+    "3": {
+        "match_id": "lcxq00694",
+        "match_date": "30.09. 22:10",
+        "start_time": "",
+        "end_time": "",
+        "name": "San Carlos-Sporting San Jose",
+        "home": "San Carlos",
+        "visitor": "Sporting San Jose",
+        "home_result": "2",
+        "visitor_result": "2",
+        "link_details": "https://www.flashscore.com/match/IoCxMxal/#/match-summary/match-summary",
+        "place": ""
+    },
+    "4": {
+        "match_id": "rhvs96064",
+        "match_date": "30.09. 22:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Zeledon-Herediano",
+        "home": "Zeledon",
+        "visitor": "Herediano",
+        "home_result": "1",
+        "visitor_result": "4",
+        "link_details": "https://www.flashscore.com/match/MFnxsvyE/#/match-summary/match-summary",
+        "place": ""
+    },
+    "5": {
+        "match_id": "mali01885",
+        "match_date": "30.09. 20:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "AD Santos-Puntarenas FC",
+        "home": "AD Santos",
+        "visitor": "Puntarenas FC",
+        "home_result": "2",
+        "visitor_result": "1",
+        "link_details": "https://www.flashscore.com/match/0A1sLdEf/#/match-summary/match-summary",
+        "place": ""
+    }
+}

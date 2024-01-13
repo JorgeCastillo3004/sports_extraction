@@ -1,0 +1,80 @@
+{
+    "0": {
+        "match_id": "yofq95021",
+        "match_date": "09.11. 22:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Liberia-Saprissa",
+        "home": "Liberia",
+        "visitor": "Saprissa",
+        "home_result": "1",
+        "visitor_result": "2",
+        "link_details": "https://www.flashscore.com/match/YVJEBkt5/#/match-summary/match-summary",
+        "place": ""
+    },
+    "1": {
+        "match_id": "uxnn99634",
+        "match_date": "08.11. 22:30",
+        "start_time": "",
+        "end_time": "",
+        "name": "Herediano-Cartagines",
+        "home": "Herediano",
+        "visitor": "Cartagines",
+        "home_result": "1",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/tO17DBBh/#/match-summary/match-summary",
+        "place": ""
+    },
+    "2": {
+        "match_id": "vmsp01658",
+        "match_date": "08.11. 22:15",
+        "start_time": "",
+        "end_time": "",
+        "name": "Puntarenas FC-Sporting San Jose",
+        "home": "Puntarenas FC",
+        "visitor": "Sporting San Jose",
+        "home_result": "4",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/UcDN9TAH/#/match-summary/match-summary",
+        "place": ""
+    },
+    "3": {
+        "match_id": "gshs92201",
+        "match_date": "08.11. 20:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "AD Santos-San Carlos",
+        "home": "AD Santos",
+        "visitor": "San Carlos",
+        "home_result": "0",
+        "visitor_result": "2",
+        "link_details": "https://www.flashscore.com/match/baC2Eidn/#/match-summary/match-summary",
+        "place": ""
+    },
+    "4": {
+        "match_id": "wwyi95688",
+        "match_date": "08.11. 20:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Alajuelense-Grecia",
+        "home": "Alajuelense",
+        "visitor": "Grecia",
+        "home_result": "2",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/v9KACVQb/#/match-summary/match-summary",
+        "place": ""
+    },
+    "5": {
+        "match_id": "yomq98836",
+        "match_date": "08.11. 17:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Zeledon-Guanacasteca",
+        "home": "Zeledon",
+        "visitor": "Guanacasteca",
+        "home_result": "0",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/CMIIA9eB/#/match-summary/match-summary",
+        "place": ""
+    }
+}

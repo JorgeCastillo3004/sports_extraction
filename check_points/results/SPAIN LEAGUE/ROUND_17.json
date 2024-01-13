@@ -1,0 +1,80 @@
+{
+    "0": {
+        "match_id": "nqol09125",
+        "match_date": "29.10. 18:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Saprissa-San Carlos",
+        "home": "Saprissa",
+        "visitor": "San Carlos",
+        "home_result": "2",
+        "visitor_result": "1",
+        "link_details": "https://www.flashscore.com/match/AJZ06f4P/#/match-summary/match-summary",
+        "place": ""
+    },
+    "1": {
+        "match_id": "dwfl95500",
+        "match_date": "28.10. 22:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Alajuelense-Herediano",
+        "home": "Alajuelense",
+        "visitor": "Herediano",
+        "home_result": "1",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/nuRS1ECt/#/match-summary/match-summary",
+        "place": ""
+    },
+    "2": {
+        "match_id": "srus96318",
+        "match_date": "28.10. 19:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Zeledon-Grecia",
+        "home": "Zeledon",
+        "visitor": "Grecia",
+        "home_result": "0",
+        "visitor_result": "2",
+        "link_details": "https://www.flashscore.com/match/KhPz0hsg/#/match-summary/match-summary",
+        "place": ""
+    },
+    "3": {
+        "match_id": "oeif00644",
+        "match_date": "28.10. 17:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Puntarenas FC-Guanacasteca",
+        "home": "Puntarenas FC",
+        "visitor": "Guanacasteca",
+        "home_result": "1",
+        "visitor_result": "2",
+        "link_details": "https://www.flashscore.com/match/04tYbCda/#/match-summary/match-summary",
+        "place": ""
+    },
+    "4": {
+        "match_id": "qkry00041",
+        "match_date": "27.10. 22:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "Liberia-Sporting San Jose",
+        "home": "Liberia",
+        "visitor": "Sporting San Jose",
+        "home_result": "2",
+        "visitor_result": "1",
+        "link_details": "https://www.flashscore.com/match/t2QW0YRn/#/match-summary/match-summary",
+        "place": ""
+    },
+    "5": {
+        "match_id": "lcwd07134",
+        "match_date": "27.10. 21:00",
+        "start_time": "",
+        "end_time": "",
+        "name": "AD Santos-Cartagines",
+        "home": "AD Santos",
+        "visitor": "Cartagines",
+        "home_result": "1",
+        "visitor_result": "0",
+        "link_details": "https://www.flashscore.com/match/8EeIsBRO/#/match-summary/match-summary",
+        "place": ""
+    }
+}
