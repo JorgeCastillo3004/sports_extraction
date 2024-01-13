@@ -694,7 +694,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 					list_rounds = get_rounds_ready(league_info['league_id'], league_info['season_id'])
 					print("List old round from db ", list_rounds)
 					print("File to be search: ", path_league_info)
-					stop_validate()
+
 					
 					# check_point_flag = get_check_point(check_point, sport_id, country_league)
 
@@ -723,6 +723,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 					print("List of teams: ", list(dict_league.keys()))
 
 					if flag_to_continue and enable_league:
+						stop_validate()
 						global_check_point['M4']['league'] = league_name
 						save_check_point('check_points/global_check_point.json', global_check_point)
 						print("Start extraction...")
