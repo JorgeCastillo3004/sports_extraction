@@ -423,7 +423,9 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 	for round_file in round_files:
 		# if not round_file.split('/')[-1] in list_rounds_ready:
 			file_path = os.path.join(league_folder, round_file)			
-			round_info = load_json(file_path)        
+			print("Current file: ")
+			print(file_path)
+			round_info = load_json(file_path)
 			for event_index, event_info in round_info.items():
 				print(event_index, end = '')
 
