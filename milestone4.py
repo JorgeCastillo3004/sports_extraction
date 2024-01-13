@@ -451,9 +451,9 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				############# STADIUM OR PLACE SECTION #########################
 				try:
 					event_info['stadium_id'] = dict_country_league_season[event_info['home']]['stadium_id']
-					print(" STADIUM READY ", end ='')
+					print(" STADIUM READY ")
 				except:
-					print("  STADIUM CREATED  " , end ='')
+					print("  STADIUM CREATED  ")
 					event_info['stadium_id'] = random_id()					
 
 					if 'CAPACITY' in list(event_info.keys()):
@@ -728,8 +728,8 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 							wait_update_page(driver, league_info[name_section], "container__heading")
 							
 							# START NAVIGATION THROUGH ROUNDS
-							# print("Navigate navigate_through_rounds")
-							# navigate_through_rounds(driver, league_name, list_rounds, section_name = name_section)
+							print("Navigate navigate_through_rounds")
+							navigate_through_rounds(driver, league_name, list_rounds, section_name = name_section)
 
 							if not individual_sport:
 								get_complete_match_info(driver, league_name, sport_name, league_info['league_id'],
