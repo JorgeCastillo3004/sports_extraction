@@ -12,6 +12,7 @@ from data_base import *
 from milestone6 import *
 
 def get_time_date_format(date, section ='results'):
+	print('Input date format: ', date)
 	if section == 'results':
 		year_ = datetime.now().year -1
 	else:
@@ -263,8 +264,12 @@ def navigate_through_rounds(driver, country_league, list_rounds ,section_name = 
 def get_match_info(driver, event_info):
 	# Extract details about matchs
 	match_country = driver.find_element(By.XPATH, '//span[@class="tournamentHeader__country"]').text.split(":")[0]
-	event_info['match_country'] = match_country
+	event_info['match_country'] = match_country	
 	match_info_elements = driver.find_elements(By.XPATH, '//div[@class="matchInfoData"]/div')
+
+	# GET MATCH DATE COMPLETE.
+	event_info['match_date'] = driver.find_element(By.CLASS_NAME, 'duelParticipant__startTime')
+
 	for element in match_info_elements:        
 		field_name = element.find_element(By.CLASS_NAME, 'matchInfoItem__name').text.replace(':','')
 		field_value = element.find_element(By.CLASS_NAME, 'matchInfoItem__value').text
@@ -431,7 +436,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				event_info['statistic_info'] = get_statistics_game(driver)
 				event_info['league_id'] = league_id
 				event_info['season_id'] = season_id
-
+				print("Event info: ", event_info)
 				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
 				event_info['end_time'] = event_info['start_time']
 				event_info['rounds'] = round_file.replace('.json', '')
