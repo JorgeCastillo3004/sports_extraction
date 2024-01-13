@@ -425,7 +425,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 			file_path = os.path.join(league_folder, round_file)			
 			print("Current file: ")
 			print(file_path)
-			round_info = load_json(file_path)
+			round_info = load_json(file_path)			
 			for event_index, event_info in round_info.items():
 				print(event_index, end = '')
 
@@ -499,9 +499,8 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 						dict_home['points'] = -1
 						dict_visitor['points'] = -1
 					save_score_info(dict_home)
-					save_score_info(dict_visitor)
-					
-						
+					save_score_info(dict_visitor)					
+			os.remove(file_path)			
 			# print("#"*80, '\n'*2)
 			# list_rounds_ready.append(round_file.split('/')[-1])
 			# dict_leagues_ready[country_league] = list_rounds_ready
