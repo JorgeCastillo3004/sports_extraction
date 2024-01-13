@@ -268,7 +268,7 @@ def get_match_info(driver, event_info):
 	match_info_elements = driver.find_elements(By.XPATH, '//div[@class="matchInfoData"]/div')
 
 	# GET MATCH DATE COMPLETE.
-	event_info['match_date'] = driver.find_element(By.CLASS_NAME, 'duelParticipant__startTime')
+	event_info['match_date'] = driver.find_element(By.CLASS_NAME, 'duelParticipant__startTime').text
 
 	for element in match_info_elements:        
 		field_name = element.find_element(By.CLASS_NAME, 'matchInfoItem__name').text.replace(':','')
@@ -692,8 +692,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 					print("League_id, season_id: ", league_info['league_id'], league_info['season_id'])
 					list_rounds = get_rounds_ready(league_info['league_id'], league_info['season_id'])
 					print("List old round from db ", list_rounds)
-					print("File to be search: ", path_league_info)
-					stop_validate()
+					print("File to be search: ", path_league_info)					
 					
 					# check_point_flag = get_check_point(check_point, sport_id, country_league)
 
