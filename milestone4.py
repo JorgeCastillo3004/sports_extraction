@@ -118,8 +118,7 @@ def extract_info_results_old(driver, start_index, results_block, section_name, c
 	print(round_enable)
 	return start_index + processed_index, round_enable
 
-def extract_info_results(driver, start_index, results_block, section_name, country_league, list_rounds_ready):
-	
+def extract_info_results(driver, start_index, results_block, section_name, country_league, list_rounds_ready):	
 
 	print(len(results_block))
 	 # list to save round name, index_start index_end
@@ -135,10 +134,7 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 		if 'event__round event__round--static' in HTML or 'event__header' in HTML: # TAKE ROUND NAME			
 			if count == 1:
 				list_index[1] = processed_index
-				dict_rounds_index[round_name] = list_index            
-				print("#"*60)
-				print("Round dict index: ", round_name, dict_rounds_index[round_name])
-				print("#"*60)
+				dict_rounds_index[round_name] = list_index
 				count = 0
 			if count == 0:
 				list_index = [0, 0]
@@ -166,13 +162,11 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 				# CREATE DICT WITH ALL ENVENTS INFO.
 				event_number = 0
 				dict_round = {}
-				for index in range(index_star_end[0], index_star_end[1]):
-					print("Current index, range: ", index)
+				for index in range(index_star_end[0], index_star_end[1]):					
 					dict_round[event_number] = all_list_results[index]
 					event_number += 1
 				# SAVE ROUND DICT
-				save_check_point(file_name, dict_round)
-				stop_validate()
+				save_check_point(file_name, dict_round)				
 				envent_number = 0
 				round_enable = True
 			else:
