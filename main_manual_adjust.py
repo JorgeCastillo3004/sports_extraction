@@ -35,11 +35,11 @@ if database_enable:
 
 def main(driver):
 	main_extract_news_enable = False  	# 1
-	create_leagues_flag = False 	    # 2
-	teams_creation_flag = False	  	    # 3
-	results_extraction_flag = False		# 4
+	create_leagues_flag = True 	    # 2
+	teams_creation_flag = True	  	    # 3
+	results_extraction_flag = True		# 4
 	fixture_extraction_flag = True		# 5
-	players_flag = False 				# 6	
+	players_flag = True 				# 6	
 	live_games_flag = False	
 	dict_sports = load_json('check_points/sports_url_m2.json')
 	
@@ -53,13 +53,13 @@ def main(driver):
 		teams_creation(driver, ["FOOTBALL"])
 
 	if results_extraction_flag:
-		results_fixtures_extraction(driver, ["HOCKEY"], name_section = 'results')
+		results_fixtures_extraction(driver, ["FOOTBALL"], name_section = 'results')
 
 	if fixture_extraction_flag:
-		results_fixtures_extraction(driver, ["HOCKEY"], name_section = 'fixtures')
+		results_fixtures_extraction(driver, ["FOOTBALL"], name_section = 'fixtures')
 
 	if players_flag:
-		players(driver, ["HOCKEY", "BASKETBALL"])
+		players(driver, ["FOOTBALL"])
 
 	if live_games_flag:
 		live_games(driver, ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY",
