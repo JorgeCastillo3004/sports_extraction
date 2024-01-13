@@ -30,7 +30,7 @@ def get_time_date_format(date, section ='results'):
 	time = dt_object.time()
 	return date, time
 
-def get_result(row):
+def get_result(row, section = 'results'):
 	match_date = row.find_element(By.CLASS_NAME, 'event__time').text	
 	try:
 		home_participant = row.find_element(By.CLASS_NAME, 'event__participant.event__participant--home.fontExtraBold').text
@@ -41,8 +41,12 @@ def get_result(row):
 	except:
 		away_participant = row.find_element(By.CLASS_NAME, 'event__participant.event__participant--away').text
 
-	home_result = row.find_element(By.CLASS_NAME, 'event__score.event__score--home').text
-	away_result = row.find_element(By.CLASS_NAME, 'event__score.event__score--away').text
+	if section == 'results':
+		home_result = row.find_element(By.CLASS_NAME, 'event__score.event__score--home').text
+		away_result = row.find_element(By.CLASS_NAME, 'event__score.event__score--away').text
+	else:
+		home_result = ''
+		away_result = ''
 	html_block = row.get_attribute('outerHTML')
 	link_id = re.findall(r'id="[a-z]_\d_(.+?)\"', html_block)[0]
 	url_details = "https://www.flashscore.com/match/{}/#/match-summary/match-summary".format(link_id)
@@ -64,7 +68,7 @@ def get_unique_key(id_section_new, list_keys):
 			id_section_new = id_section_base +'_' +str(count_sub_rounds)
 	return id_section_new
 
-def extract_info_results(driver, start_index, results_block, section_name, country_league, list_rounds):
+def extract_info_results_old(driver, start_index, results_block, section_name, country_league, list_rounds):
 	global count_sub_section, event_number, current_id_section, dict_rounds, new_section_name
 	dict_rounds = {}
 	round_enable = False
@@ -75,8 +79,8 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 			title_section = re.findall(r'icon--flag.event__title fl_\d+', HTML)[0].replace(' ', '.')
 		except:
 			try:
-				# SECTION TO FIND MATCH INFO, EXTRACT DETAILS
-				result = get_result(row)				
+				# SECTION TO FIND MATCH INFO, EXTRACT DETAILS				
+				result = get_result(row, section_name = section_name)
 				if round_enable:					
 					dict_rounds[current_round_name][event_number] = result
 					event_number += 1
@@ -111,7 +115,82 @@ def extract_info_results(driver, start_index, results_block, section_name, count
 				count_sub_section += 1
 				event_number = 0
 	print(round_enable)
-	return start_index + processed_index, round_enable	
+	return start_index + processed_index, round_enable
+
+def extract_info_results(driver, start_index, results_block, section_name, country_league, list_rounds_ready):
+	
+
+	print(len(results_block))
+	 # list to save round name, index_start index_end
+	dict_rounds_index = {}
+	all_list_results = []
+	count = 0
+	#########################################################
+	#               LOOP OVER ALL MATCH                     #
+	#########################################################
+	for processed_index, result in enumerate(results_block[start_index:]):
+		print(result.text.replace('\n',' '))
+		HTML = result.get_attribute('outerHTML')
+		if 'event__round event__round--static' in HTML: # TAKE ROUND NAME
+			if count == 0:
+				list_index = [0, 0]
+				round_name = round_name = get_unique_key(result.text, dict_rounds_index.keys())
+				list_index[0] = processed_index + 1
+				count = 1
+			else:
+				list_index[1] = processed_index
+				dict_rounds_index[round_name] = list_index            
+				count = 0
+		if 'Click for match detail!' in HTML: # EXTRACT MATHC INFO
+			result = get_result(result, section = section_name)
+			all_list_results.append(result)
+		else:
+			all_list_results.append('')
+
+	#######################################################################
+	#  SAVE FILES BY ROUNDS AND ORGANIZE THEM ACCORDING TO THE MATCH      #
+	#######################################################################
+	if len(dict_rounds_index) != 0:
+		for round_name, index_star_end in dict_rounds_index.items():			
+			if not round_name in list_rounds_ready:
+				# CREATE FOLDER AND FILE NAME.
+				file_name = 'check_points/{}/{}/{}.json'.format(section_name, country_league, round_name)
+				folder_name = 'check_points/{}/{}/'.format(section_name, country_league)		
+				if not os.path.exists(folder_name):
+					os.mkdir(folder_name)
+				# CREATE DICT WITH ALL ENVENTS INFO.
+				event_number = 0
+				dict_round = {}
+				for index in range(index_star_end[0], index_star_end[1]):
+					dict_round[event_number] = all_list_results[index]
+					event_number += 1
+				# SAVE ROUND DICT
+				save_check_point(file_name, dict_round)
+				envent_number = 0
+				round_enable = True
+			else:
+				round_enable = False
+	#######################################################################
+	#  						CASE 2 UNIQUE ROUND       					  #
+	#######################################################################	
+	else:
+		event_number = 0
+		dict_round = {}
+		for index, match_info in enumerate(all_list_results):
+			if match_info != '':
+				dict_round[index] = match_info
+
+		# CREATE FOLDER AND FILE NAME.
+		file_name = 'check_points/{}/{}/{}.json'.format(section_name, country_league, 'UNIQUE')
+		folder_name = 'check_points/{}/{}/'.format(section_name, country_league)		
+		if not os.path.exists(folder_name):
+			os.mkdir(folder_name)
+		
+		# SAVE ROUND DICT
+		round_enable = True
+		save_check_point(file_name, dict_round)
+
+	return start_index + processed_index, round_enable
 
 def click_show_more_rounds(driver, current_results, section_name):
 	wait = WebDriverWait(driver, 10)
