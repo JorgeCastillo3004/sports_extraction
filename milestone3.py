@@ -177,7 +177,7 @@ def teams_creation(driver, list_sports):
 					
 					# LOAD LEAGUE STANDING SECTION AND WAIT UNTIL LOAD
 					wait_update_page(driver, legue_info['standings'], "container__heading")					
-					
+					print("Curren league id: ", legue_info['league_id'])
 					# GET TEAM INFO PART1: team url, statistics, team position, last results
 					dict_teams_availables = get_teams_info_part1(driver)
 					dict_country_league_season = {}
@@ -194,16 +194,13 @@ def teams_creation(driver, list_sports):
 							###################################################################
 							#				LOAD TEAM URL 		 							  #
 							###################################################################
-							wait_update_page(driver, team_info_url['team_url'], 'heading')
-							print("Curren league id: ", legue_info['league_id'])
+							wait_update_page(driver, team_info_url['team_url'], 'heading')							
 							 
 							##########################################################################
 							# GET TEAM INFO PART2: team_name, team_country, complete other fields.   #
 							##########################################################################
 							dict_team = get_teams_info_part2(driver, sport_id, legue_info['league_id'],\
 														 legue_info['season_id'], team_info_url)
-							print("Team id: ", dict_team['team_id'])
-							
 							##########################################################################
 							#      CHECK IF TEAM IS CONTAINED IN DATA BASE USING dict_teams_db   	 #
 							##########################################################################
@@ -221,10 +218,14 @@ def teams_creation(driver, list_sports):
 							else:
 								if database_enable:
 									team_id_db = get_list_id_teams(sport_id, dict_team['team_country'], dict_team['team_name'])
-									if len(team_id_db) == 0:
+									if len(team_id_db) == 0:										
 										save_team_info(dict_team)
-										save_league_team_entity(dict_team)								
-								team_id = dict_team['team_id']
+										save_league_team_entity(dict_team)
+										team_id = dict_team['team_id']
+									else:
+										print("TEAM HAS BEEN SAVED PREVIOUSLY")
+										team_id = team_id_db[0]
+							print("Team id: ", team_name, team_id)
 							#####################################################################################
 							#      SAVE TEAM INFO IN DICT dict_country_league_season (one file by each league)  #
 							#####################################################################################
