@@ -122,14 +122,14 @@ def check_previous_execution(file_path = 'check_points/scraper_control.json'):
 
 def launch_navigator(url, database_enable):
 	options = webdriver.ChromeOptions()
-	options.add_argument("--disable-application-cache")
-	options.add_argument("--disable-extensions")
+	# options.add_argument("--disable-application-cache")
+	# options.add_argument("--disable-extensions")
 	options.add_argument("--disable-gpu")
 	options.add_argument("--disable-infobars")
-	options.add_argument("--disable-popup-blocking")
+	# options.add_argument("--disable-popup-blocking")
 	options.add_argument("--disable-web-security")
-	options.add_argument("--incognito")
-	options.add_argument("--start-maximized")
+	# options.add_argument("--incognito")
+	# options.add_argument("--start-maximized")
 	# options.add_argument("--disable-blink-features=AutomationControlled")     --
 	# options.add_experimental_option("excludeSwitches", ["enable-automation"]) ----
 	options.add_experimental_option("useAutomationExtension", False)
