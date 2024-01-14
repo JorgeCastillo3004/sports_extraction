@@ -233,12 +233,10 @@ def teams_creation(driver, list_sports):
 							dict_country_league_season[team_name] = {'team_id':team_id, 'team_url':team_info_url['team_url']}
 							global_check_point['M3'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
 							save_check_point('check_points/global_check_point.json', global_check_point)
-					# Save file sport_country_league_season.jso
-					print("dict_teams_availables", len(dict_teams_availables))
+					# Save file sport_country_league_season.jso					
 					print("#"*30, " TEAMS FROM LEAGUE {} ADDED". format(country_league), "#"*30)
-					print("Len of dict teams: ", len(dict_country_league_season))
-					if len(dict_teams_availables) != 0:
-						print("File saved: ")
+					print("# TEAMS: ", len(dict_country_league_season))
+					if len(dict_teams_availables) != 0:						
 						save_check_point(json_name, dict_country_league_season)					
 					
 
