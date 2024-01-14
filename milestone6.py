@@ -112,8 +112,9 @@ def get_squad_list(driver, sport_id = 'barketball'):
     return player_links
 
 def navigate_through_players(driver, country_league, team_name, season_id, team_id, list_squad, global_check_point):
-
+	enable_player = False
 	for player_link in list_squad:
+		print("Current link: ", player_link)
 		##########  ENABLE CHECK POINT PLAYER ############################
 		if global_check_point['M6']['player'] != '':
 			if global_check_point['M6']['player'] == player_link:
