@@ -716,14 +716,12 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 						individual_sport = False
 						flag_to_continue = os.path.isfile(path_league_info) # CONFIRM IF TEAM WAS CREATED
 					if not flag_to_continue:
-						print_section("FILE NOT FOUND", space_ = 40)
-					# stop_validate()
+						print_section("FILE NOT FOUND", space_ = 40)					
 					dict_league = load_check_point(path_league_info)
 
 					print("List of teams: ", list(dict_league.keys()))
-					file_gold_cup = 'check_points/leagues_season/FOOTBALL/NORTH & CENTRAL AMERICA_Gold Cup.json'
-					if flag_to_continue and enable_league and file_gold_cup != path_league_info:
-						stop_validate()
+					
+					if flag_to_continue and enable_league:						
 						global_check_point['M4']['league'] = league_name
 						save_check_point('check_points/global_check_point.json', global_check_point)
 						print("Start extraction...")
