@@ -98,25 +98,38 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 
 	return dict_results, results
 con = getdb()
-sport = 'BASKETBALL'
-dict_sport, results = get_dict_league_ready(sport_id = sport)
 
-print(dict_sport)
-print("dict_sport: ", list(dict_sport.keys()))
 
-for country in list(dict_sport.keys()):
-	print(list(dict_sport[country].keys()))
+match_created = get_match_ready('ctov05088')
 
-	print("#"*80, '\n'*3)
+print("match_created 1: ", match_created)
 
-	# print(stop)
 
-print(results)
-# print("#"*50)
+match_created = get_match_ready('ctov0sdsd5088')
 
-dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
+print("match_created 2: ", match_created)
 
-print("dict_leagues: ", dict_leagues)
+if not match_created:
+	print("Insert new register: ")
+# sport = 'BASKETBALL'
+# dict_sport, results = get_dict_league_ready(sport_id = sport)
+
+# print(dict_sport)
+# print("dict_sport: ", list(dict_sport.keys()))
+
+# for country in list(dict_sport.keys()):
+# 	print(list(dict_sport[country].keys()))
+
+# 	print("#"*80, '\n'*3)
+
+# 	# print(stop)
+
+# print(results)
+# # print("#"*50)
+
+# dict_leagues = get_dict_results(table= 'league', column = 'league_name, league_id')
+
+# print("dict_leagues: ", dict_leagues)
 
 # first_key = list(dict_leagues.keys())[0]
 # print("First key: ", first_key)
