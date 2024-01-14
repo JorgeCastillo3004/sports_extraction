@@ -126,18 +126,17 @@ def launch_navigator(url, database_enable):
 	options.add_argument("--disable-extensions")
 	options.add_argument("--disable-gpu")
 	options.add_argument("--disable-infobars")
-	# options.add_argument("--disable-popup-blocking")
-	# options.add_argument("--disable-web-security")
-	# options.add_argument("--incognito")
+	options.add_argument("--disable-popup-blocking")
+	options.add_argument("--disable-web-security")
+	options.add_argument("--incognito")
 	# options.add_argument("--start-maximized")
-	# options.add_argument("--disable-blink-features=AutomationControlled")     --
+	options.add_argument("--disable-blink-features=AutomationControlled")     
 	# options.add_experimental_option("excludeSwitches", ["enable-automation"]) ----
 	options.add_experimental_option("useAutomationExtension", False)
 	if database_enable:
 		options.add_argument('--headless')
 	options.add_argument('--no-sandbox')
-	# options.add_argument('--disable-dev-shm-usage')  ---
-	options.add_argument('--disable-gpu')	
+	# options.add_argument('--disable-dev-shm-usage')  ---	
 	# chrome_path = os.getcwd()+'/chrome_files'
 	# print("chrome_path: ", chrome_path)
 	# options.add_argument(r"user-data-dir={}".format(chrome_path))
