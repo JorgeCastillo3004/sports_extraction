@@ -236,7 +236,7 @@ def get_math_details_ids(match_id):
 	dict_results = {row[0]:row[1] for row in cur.fetchall()}
 	return dict_results
 
-def get_rounds_ready(match_id):
+def get_match_ready(match_id):
 	query = "SELECT MATCH_ID FROM MATCH WHERE MATCH_ID='{}';".format(match_id)	
 	cur = con.cursor()
 	cur.execute(query)	

@@ -491,7 +491,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				# print("event_info before save: ", event_info['stadium_id'])
 				# print(event_info)
 				event_info['tournament_id'] = ''
-				match_created = get_rounds_ready(event_info['match_id'])
+				match_created = get_match_ready(event_info['match_id'])
 				print("match_created: ", match_created)
 				if database_enable and not match_created:
 					save_math_info(event_info)
