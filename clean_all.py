@@ -92,6 +92,12 @@ cur = con.cursor()
 cur.execute(query)
 con.commit()
 
+print("Delete all from player")
+query = "DELETE FROM player;"
+cur = con.cursor()
+cur.execute(query)
+con.commit()
+
 print("Delete all from season ")
 query = "DELETE FROM season;"
 cur = con.cursor()

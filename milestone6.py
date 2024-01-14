@@ -86,7 +86,8 @@ def get_player_data(driver):
 	player_name = profile_block.find_element(By.CLASS_NAME, 'typo-participant-heading').text		
 	
 	image_url = profile_block.find_element(By.XPATH, './/div/div/div/img').get_attribute('src')
-	image_path = random_name(folder = 'images/players/')
+	# image_path = random_name(folder = 'images/players/')
+	image_path = random_name_logos(league_team, folder = 'news_images/players/')
 	save_image(driver, image_url, image_path)
 	player_photo = image_path.replace('images/players/','')
 
