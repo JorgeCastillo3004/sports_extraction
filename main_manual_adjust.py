@@ -37,7 +37,7 @@ def main(driver):
 	main_extract_news_enable = False  	# 1
 	create_leagues_flag = True 	    # 2
 	teams_creation_flag = True	  	    # 3
-	results_extraction_flag = False		# 4
+	results_extraction_flag = True		# 4
 	fixture_extraction_flag = False		# 5
 	players_flag = False 				# 6	
 	live_games_flag = False	
