@@ -426,8 +426,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 			print("Current file: ")
 			print(file_path)
 			round_info = load_json(file_path)			
-			for event_index, event_info in round_info.items():
-				print(event_index, end = '')
+			for event_index, event_info in round_info.items():				
 
 				url_details = event_info['link_details']				
 				print_section(url_details, space_ = 50)
@@ -494,8 +493,8 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				print("event_info['match_id']: ", event_info['match_id'])
 				match_created = get_match_ready(event_info['match_id'])
 				print("match_created: ", match_created)
-				stop_validate()
-				if database_enable and not match_created:
+
+				if database_enable and len(match_created) == 0: #  and not match_created
 					print("Match created: ")
 					save_math_info(event_info)
 					save_details_math_info(dict_home)

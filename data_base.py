@@ -190,7 +190,7 @@ def get_rounds_ready(league_id, season_id):
 	print(query)
 	cur = con.cursor()
 	cur.execute(query)	
-	results = [row[0] for row in cur.fetchall()]	
+	results = [row[0] for row in cur.fetchall()]
 	return results
 
 def check_player_duplicates(player_country, player_name, player_dob):
@@ -239,8 +239,9 @@ def get_math_details_ids(match_id):
 def get_match_ready(match_id):
 	query = "SELECT MATCH_ID FROM MATCH WHERE MATCH_ID='{}';".format(match_id)	
 	cur = con.cursor()
-	cur.execute(query)	
-	return cur.fetchone()
+	cur.execute(query)
+	results = [row[0] for row in cur.fetchall()]
+	return results
 
 
 def update_score(params):
