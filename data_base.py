@@ -236,12 +236,20 @@ def get_math_details_ids(match_id):
 	dict_results = {row[0]:row[1] for row in cur.fetchall()}
 	return dict_results
 
+def get_rounds_ready(match_id):
+	query = "SELECT MATCH_ID FROM MATCH WHERE MATCH_ID='{}';".format(match_id)	
+	cur = con.cursor()
+	cur.execute(query)	
+	return cur.fetchone()
+
+
 def update_score(params):
 	query = "UPDATE score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s"
 	# query = "INSERT INTO score_entity VALUES(%(score_id)s, %(points)s, %(match_detail_id)s)"
 	cur = con.cursor()
 	cur.execute(query, params)
 	con.commit()
+
 
 	
 # Execute the query

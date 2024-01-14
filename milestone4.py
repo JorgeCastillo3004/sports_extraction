@@ -491,7 +491,9 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				# print("event_info before save: ", event_info['stadium_id'])
 				# print(event_info)
 				event_info['tournament_id'] = ''
-				if database_enable:					
+				match_created = get_rounds_ready(event_info['match_id'])
+				print("match_created: ", match_created)
+				if database_enable and not match_created:
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
 					save_details_math_info(dict_visitor)
