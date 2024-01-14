@@ -495,7 +495,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 				print("match_created: ", match_created)
 
 				if database_enable and len(match_created) == 0: #  and not match_created
-					print("Match created: ")
+					print("NEW MATCH ADDED: ")
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
 					save_details_math_info(dict_visitor)
