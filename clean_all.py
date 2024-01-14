@@ -4,7 +4,7 @@ from datetime import datetime
 import argparse
 from common_functions import load_json
 import os
-
+import shutil
 
 
 if os.path.isfile("check_points/sports_id.json"):
@@ -21,22 +21,27 @@ if os.path.isfile('check_points/last_saved_news.json'):
 
 files = os.listdir('check_points/leagues_season/')
 
-print("Files and folder removed: ")
-# Iterate over each file and remove it
-for file_name in files:
-    file_path = os.path.join('check_points/leagues_season/', file_name)
-    if os.path.isfile(file_path):  # Check if it's a file and not a directory
-        os.remove(file_path)
-        print(f"Removed {file_path}")
 
-files = os.listdir('check_points/news/')
+shutil.rmtree('check_points/leagues_season/')
+print('Remove folder: check_points/leagues_season/')
+shutil.rmtree('check_points/news/')
+print('Remove folder: check_points/news/')
+# print("Files and folder removed: ")
+# # Iterate over each file and remove it
+# for file_name in files:
+#     file_path = os.path.join('check_points/leagues_season/', file_name)
+#     if os.path.isfile(file_path):  # Check if it's a file and not a directory
+#         os.remove(file_path)
+#         print(f"Removed {file_path}")
 
-# Iterate over each file and remove it
-for file_name in files:
-    file_path = os.path.join('check_points/news/', file_name)
-    if os.path.isfile(file_path):  # Check if it's a file and not a directory
-        os.remove(file_path)
-        print(f"Removed {file_path}")
+# files = os.listdir('check_points/news/')
+
+# # Iterate over each file and remove it
+# for file_name in files:
+#     file_path = os.path.join('check_points/news/', file_name)
+#     if os.path.isfile(file_path):  # Check if it's a file and not a directory
+#         os.remove(file_path)
+#         print(f"Removed {file_path}")
 
 
 def getdb():
