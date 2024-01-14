@@ -3,7 +3,7 @@ from datetime import date, timedelta
 from datetime import datetime
 from unidecode import unidecode
 # import argparse
-
+from data_base import *
 from common_functions import load_json
 # parser = argparse.ArgumentParser()
 # parser.add_argument('--option', type=int, default=1)
