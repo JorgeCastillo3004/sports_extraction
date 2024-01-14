@@ -99,10 +99,12 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 	return dict_results, results
 con = getdb()
 
-
 match_created = get_match_ready('ctov05088')
 
 print("match_created 1: ", match_created)
+
+if not match_created:
+	print("Insert new register: ")
 
 
 match_created = get_match_ready('ctov0sdsd5088')
