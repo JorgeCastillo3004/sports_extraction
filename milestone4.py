@@ -445,6 +445,7 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 				event_info['league_id'] = league_id
 				event_info['season_id'] = season_id
 				print("Match event: ", event_info['name'])
+				date_copy = event_info['match_date']
 				event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
 				event_info['end_time'] = event_info['start_time']
 				event_info['rounds'] = round_file.replace('.json', '')
@@ -454,7 +455,7 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 					team_id_visitor = dict_country_league_season[event_info['visitor']]['team_id']
 				except:
 					print("###"*80,"TEAM DON'T FOUND IN LIST OF FILES #########")
-					key_issue = sport_name + '_'+ country_league + '_'+event_info['match_date']+' '+event_info['name']
+					key_issue = sport_name + '_'+ country_league + '_' + date_copy + ' ' + event_info['name']
 					match_issues[key_issue] = event_info
 					save_check_point('check_point/isses/issues_match.json', match_issues)
 					break
