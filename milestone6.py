@@ -225,14 +225,16 @@ def players(list_sports):
 				# 	enable_league = True
 				#################################################
 				path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
-				#############################################################
-				# 				DRIVER CREATION AND LOGIN 					#
-				#############################################################
-				driver = launch_navigator('https://www.flashscore.com', database_enable)
-				login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+				
 
 				#     ENEABLE SEARCH IF FILE EXIST AND ENABLE CHECK POIN    #
 				if os.path.isfile(path_leagues_teams_info) and enable_league:
+					#############################################################
+					# 				DRIVER CREATION AND LOGIN 					#
+					#############################################################
+					driver = launch_navigator('https://www.flashscore.com', database_enable)
+					login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+					#############################################################
 					print("Start extraction for league: ", country_league)
 					global_check_point['M6']['league'] = country_league
 					#############################################################
@@ -273,7 +275,7 @@ def players(list_sports):
 							navigate_through_players(driver, country_league, team_name, league_info['season_id'],\
 												 team_info['team_id'], list_squad, global_check_point)
 							# global_check_point['M6'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
-				driver.quit()
+					driver.quit()
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
 if database_enable:
