@@ -411,7 +411,7 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 #             save_check_point('check_points/players_ready.json', dict_players_ready)
 
 def get_complete_match_info(driver, country_league, sport_name, league_id, season_id,
-							 dict_country_league_season, dict_country_league_check_point, \
+							 dict_country_league_season, \
 							 section = 'results'):
 	match_issues = load_check_point('check_points/issues/issues_match.json')
 	league_folder = 'check_points/{}/{}/'.format(section, country_league)
@@ -531,10 +531,11 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 		print("folder_path to delete: ", league_folder)
 		shutil.rmtree(league_folder)
 
-def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, season_id,
-							 dict_country_league_season, dict_country_league_check_point, \
+def get_complete_match_info_tennis(driver, country_league, sport_name, league_id, season_id,
+							 dict_country_league_season, \
 							 section = 'results'):
-	
+	dict_sport_id = get_dict_sport_id()	# GET DICT SPORT FROM DATABASE
+	sport_id = dict_sport_id[sport_name]
 	league_folder = 'check_points/{}/{}/'.format(section, country_league)
 	if os.path.exists(league_folder):
 		round_files = os.listdir(league_folder)
@@ -598,7 +599,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_id, league_id, 
 								 'capacity':capacity,'desc_i18n':'', 'name':name_stadium, 'photo':''}
 								 # ATTENDANCE					
 					dict_country_league_season[home_participant]['stadium_id'] = event_info['stadium_id']					
-					json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
+					json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_name, country_league)
 					save_check_point(json_name, dict_country_league_season)										
 					print(dict_stadium)
 					if database_enable:
@@ -658,7 +659,7 @@ def pending_to_process(dict_country_league_check_point, sport_id, country_league
 # 		return True
 
 def results_fixtures_extraction(list_sports, name_section = 'results'):	
-	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
+	# dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
 	leagues_info_json = load_check_point('check_points/leagues_info.json')
 	check_point = load_check_point('check_points/check_point_m4.json')	
 	
@@ -773,12 +774,10 @@ def results_fixtures_extraction(list_sports, name_section = 'results'):
 
 						if not individual_sport:
 							get_complete_match_info(driver, league_name, sport_name, league_info['league_id'],
-										league_info['season_id'],dict_league,\
-										 dict_country_league_check_point, section=name_section)
+										league_info['season_id'],dict_league, section=name_section)
 						else:
 							get_complete_match_info_tennis(driver, league_name, sport_name, league_info['league_id'],
-									league_info['season_id'],dict_league,\
-									 dict_country_league_check_point, section=name_section)
+									league_info['season_id'],dict_league, section=name_section)
 						# build_check_point(sport_id, league_name)
 						# sport_dict[league_name] = []
 					driver.quit()
