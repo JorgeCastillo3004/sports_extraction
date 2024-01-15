@@ -507,7 +507,7 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 				print("match_created: ", match_created)
 
 				# CHECK IF MATCH WAS CREATED PREVIOUSLY
-				match_duplicate = check_match_duplicate(event_info['league_id'], event_info['date'], event_info['name'])
+				match_duplicate = check_match_duplicate(event_info['league_id'], event_info['match_date'], event_info['name'])
 
 				if database_enable and len(match_created) == 0 and len(match_duplicate) == 0: #  and not match_created
 					print("NEW MATCH ADDED: ")
