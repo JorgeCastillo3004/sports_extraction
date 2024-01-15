@@ -245,7 +245,7 @@ def get_match_ready(match_id):
 
 def check_match_duplicate(league_id, match_date, match_name):
 	query = """SELECT MATCH_ID FROM MATCH WHERE LEAGUE_ID ='{}'
-				 AND MATCH_DATE='{}' AND MATCH_NAME='{}';""".format(league_id, match_date, match_name)	
+				 AND MATCH_DATE='{}' AND NAME='{}';""".format(league_id, match_date, match_name)	
 	print(query)
 	cur = con.cursor()
 	cur.execute(query)
