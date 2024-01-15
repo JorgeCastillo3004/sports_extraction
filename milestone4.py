@@ -207,15 +207,17 @@ def click_show_more_rounds(driver, current_results, section_name):
 	show_more_list = driver.find_elements(By.CLASS_NAME, 'event__more.event__more--static')
 	old_len = len(current_results)
 	xpath_expression = '//div[@class="leagues--static event--leagues {}"]/div/div'.format(section_name)
+	max_try = 0
 	if len(show_more_list) != 0:
 		show_more = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'event__more.event__more--static')))
 		time.sleep(0.3)
 		show_more.click()
 		# Wait until upload page
 		new_len = old_len 
-		while new_len == old_len:
+		while new_len == old_len and max_try < 10:
 			time.sleep(0.3)			
 			new_len = len(driver.find_elements(By.XPATH, xpath_expression))
+			max_try +=1
 		# wait.until(EC.staleness_of(current_results[1]))
 		return True
 	else:
