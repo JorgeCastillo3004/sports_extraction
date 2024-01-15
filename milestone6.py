@@ -196,98 +196,98 @@ def players(list_sports):
 	#############################################################
 	for sport_name in list_sports:		
 		print_section(sport_name, space_ = 50)
-		if 'M6' in global_check_point.keys():			
-			sport_point = global_check_point['M6']['sport']
-			league_point = global_check_point['M6']['league']
-			team_point  = global_check_point['M6']['team_name']		
+		if sport_name in global_check_point.keys():
+			if 'M6' in global_check_point[sport_name].keys():				
+				league_point = global_check_point[sport_name]['M6']['league']
+				team_point  = global_check_point[sport_name]['M6']['team_name']				
+			else:
+				global_check_point[sport_name]['M6'] = {}
+				sport_point = ''
+				league_point = ''
+				team_point  = ''
+				global_check_point[sport_name]['M6']['player'] = ''
 		else:
-			global_check_point['M6'] = {}
-			sport_point = ''
+			global_check_point[sport_name] = {}
+			global_check_point[sport_name]['M6'] = {}
 			league_point = ''
 			team_point  = ''
-			global_check_point['M6']['player'] = ''
-		##########  ENABLE CHECK POINT SPORT #############
-		if sport_point != '':
-			if sport_point == sport_name:
-				enable_sport = True
-		else:
-			enable_sport = True
-		#################################################
-		if enable_sport:
-			print(leagues_info_json.keys())
-			global_check_point['M6']['sport'] = sport_name
-			for country_league, league_info in leagues_info_json[sport_name].items():
-				print_section(country_league, space_ = 30)
-				##########  ENABLE CHECK POINT LEAGUE #############
-				print("country_league: ", country_league)
-				if league_point != '':
-					if league_point == country_league:
-						enable_league = True
-				else:
+			global_check_point[sport_name]['M6']['player'] = ''
+
+		print("LIST OF SPORTS IN JSON INFO")
+		print(leagues_info_json.keys())
+		
+		for country_league, league_info in leagues_info_json[sport_name].items():
+			print_section(country_league, space_ = 30)
+			##########  ENABLE CHECK POINT LEAGUE #############
+			print("country_league: ", country_league)
+			if league_point != '':
+				if league_point == country_league:
 					enable_league = True
-				#################################################				
-				# for team_name, country_league_urls in league_info.items():
-				##########  ENABLE CHECK POINT LEAGUE #############
-				# if league_point != '':
-				# 	if league_point == country_league:
-				# 		enable_league = True
-				# else:
-				# 	enable_league = True
-				#################################################
-				path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
-				
+			else:
+				enable_league = True
+			#################################################				
+			# for team_name, country_league_urls in league_info.items():
+			##########  ENABLE CHECK POINT LEAGUE #############
+			# if league_point != '':
+			# 	if league_point == country_league:
+			# 		enable_league = True
+			# else:
+			# 	enable_league = True
+			#################################################
+			path_leagues_teams_info = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
+			
 
-				#     ENEABLE SEARCH IF FILE EXIST AND ENABLE CHECK POIN    #
-				if os.path.isfile(path_leagues_teams_info) and enable_league:
-					#############################################################
-					# 				DRIVER CREATION AND LOGIN 					#
-					#############################################################
-					driver = launch_navigator('https://www.flashscore.com', database_enable)
-					login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
-					#############################################################
-					print("Start extraction for league: ", country_league)
-					global_check_point['M6']['league'] = country_league
-					#############################################################
-					# 				LOAD TEAMS INFO 		 					#
-					#############################################################
-					dict_country_league_season = load_check_point(path_leagues_teams_info)
+			#     ENEABLE SEARCH IF FILE EXIST AND ENABLE CHECK POIN    #
+			if os.path.isfile(path_leagues_teams_info) and enable_league:
+				#############################################################
+				# 				DRIVER CREATION AND LOGIN 					#
+				#############################################################
+				driver = launch_navigator('https://www.flashscore.com', database_enable)
+				login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+				#############################################################
+				print("Start extraction for league: ", country_league)
+				global_check_point[sport_name]['M6']['league'] = country_league
+				#############################################################
+				# 				LOAD TEAMS INFO 		 					#
+				#############################################################
+				dict_country_league_season = load_check_point(path_leagues_teams_info)
 
-					for team_name, team_info in dict_country_league_season.items():						
-						print_section(team_name, space_ = 20)
-						##########  ENABLE CHECK POINT TEAM #############
-						if team_point != '':
-							if team_point == team_name:
-								enable_team = True
-						else:
+				for team_name, team_info in dict_country_league_season.items():						
+					print_section(team_name, space_ = 20)
+					##########  ENABLE CHECK POINT TEAM #############
+					if team_point != '':
+						if team_point == team_name:
 							enable_team = True
-						#################################################
-						if enable_team:
-							# NAVIGATE THROUGH TEAMS
-							global_check_point['M6']['team_name'] = team_name
-							wait_update_page(driver, team_info['team_url'], "container__heading")
-							print(" START PLAYER EXTRACTION")
-							print(team_info['team_url'])
-							# LOAD SQUAD URL, LOADED FROM TEAM INFO
-							try:
-								squad_button = driver.find_element(By.CLASS_NAME, 'tabs__tab.squad')
-							except:
-								squad_button = driver.find_element(By.XPATH, '//a[@title="Squad"]')
-							squad_url = squad_button.get_attribute('href')
+					else:
+						enable_team = True
+					#################################################
+					if enable_team:
+						# NAVIGATE THROUGH TEAMS
+						global_check_point['M6']['team_name'] = team_name
+						wait_update_page(driver, team_info['team_url'], "container__heading")
+						print(" START PLAYER EXTRACTION")
+						print(team_info['team_url'])
+						# LOAD SQUAD URL, LOADED FROM TEAM INFO
+						try:
+							squad_button = driver.find_element(By.CLASS_NAME, 'tabs__tab.squad')
+						except:
+							squad_button = driver.find_element(By.XPATH, '//a[@title="Squad"]')
+						squad_url = squad_button.get_attribute('href')
 
-							# WAIT UNTIL COMPLETE LOAD
-							wait_update_page(driver, squad_url, 'heading')
-							# sport_name = inverted_dict[sport_id]
+						# WAIT UNTIL COMPLETE LOAD
+						wait_update_page(driver, squad_url, 'heading')
+						# sport_name = inverted_dict[sport_id]
 
-							# GET LIST OF PLAYERS AVAILABLES
-							list_squad = get_squad_list(driver, sport_id = sport_name)
+						# GET LIST OF PLAYERS AVAILABLES
+						list_squad = get_squad_list(driver, sport_id = sport_name)
 
-							# NAVIGATE AND EXTRACT INFO FROM EACH PLAYER LINK
-							navigate_through_players(driver, country_league, team_name, league_info['season_id'],\
-												 team_info['team_id'], list_squad, global_check_point)
-							# global_check_point['M6'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
-					driver.quit()
-		del global_check_point['M6']
-		save_check_point('check_points/global_check_point.json', global_check_point)
+						# NAVIGATE AND EXTRACT INFO FROM EACH PLAYER LINK
+						navigate_through_players(driver, country_league, team_name, league_info['season_id'],\
+											 team_info['team_id'], list_squad, global_check_point)
+						# global_check_point['M6'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
+				driver.quit()
+	del global_check_point[sport_name]['M6']
+	save_check_point('check_points/global_check_point.json', global_check_point)
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
