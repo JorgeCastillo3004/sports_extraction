@@ -725,7 +725,14 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 
 					print("List of teams: ", list(dict_league.keys()))
 					
-					if flag_to_continue and enable_league:						
+					if flag_to_continue and enable_league:
+						################################################################################
+						#			 				DRIVER CREATION AND LOGIN 						   #
+						################################################################################
+						driver = launch_navigator('https://www.flashscore.com', database_enable)
+						login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+						################################################################################
+
 						global_check_point['M4']['league'] = league_name
 						save_check_point('check_points/global_check_point.json', global_check_point)
 						print("Start extraction...")
@@ -749,6 +756,7 @@ def results_fixtures_extraction(driver, list_sports, name_section = 'results'):
 										 dict_country_league_check_point, section=name_section)
 							# build_check_point(sport_id, league_name)
 							# sport_dict[league_name] = []
+						driver.quit()
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']

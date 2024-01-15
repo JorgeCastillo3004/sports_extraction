@@ -47,19 +47,19 @@ def main():
 		main_extract_news(driver, ["FOOTBALL"], MAX_OLDER_DATE_ALLOWED = 30)
 
 	if create_leagues_flag:
-		create_leagues(driver, ["FOOTBALL"])
+		create_leagues(["HOCKEY"]) #, "GOLF", "AM._FOOTBALL", "BASEBALL"
 
 	if teams_creation_flag:
-		teams_creation(driver, ["FOOTBALL"])
+		teams_creation(["HOCKEY"]) # , "GOLF", "AM._FOOTBALL", "BASEBALL"
 
 	if results_extraction_flag:
-		results_fixtures_extraction(driver, ["FOOTBALL"], name_section = 'results')
+		results_fixtures_extraction(["HOCKEY"], name_section = 'results')
 
 	if fixture_extraction_flag:
-		results_fixtures_extraction(driver, ["FOOTBALL"], name_section = 'fixtures')
+		results_fixtures_extraction(["HOCKEY"], name_section = 'fixtures')
 
 	if players_flag:
-		players(["FOOTBALL"])
+		players(["HOCKEY"])
 
 	if live_games_flag:
 		live_games(driver, ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY",

@@ -242,7 +242,7 @@ def players(list_sports):
 					#############################################################
 					dict_country_league_season = load_check_point(path_leagues_teams_info)
 
-					for team_name, team_info in dict_country_league_season.items():
+					for team_name, team_info in dict_country_league_season.items():						
 						print_section(team_name, space_ = 20)
 						##########  ENABLE CHECK POINT TEAM #############
 						if team_point != '':

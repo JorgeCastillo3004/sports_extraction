@@ -268,6 +268,7 @@ def stop_validate():
 
 def print_section(section, space_ = 50):
 	line_sport = "#" + " "*(space_ - int(len(section)/2)) + section + " "*(space_ - int(len(section)/2)) + "#"
+	print('\n')
 	print("#"*len(line_sport))
 	print(line_sport)
 	print("#"*len(line_sport), '\n')

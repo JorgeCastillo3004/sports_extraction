@@ -174,7 +174,12 @@ def teams_creation(driver, list_sports):
 				
 				# CHECK IF THE FILE EXISTS; IF IT DOESN'T, IT MEANS IT HASN'T BEEN PROCESSED.
 				if not os.path.isfile(json_name) and 'standings' in list(legue_info.keys()) and enable_league:					
-					
+					################################################################################
+					#			 				DRIVER CREATION AND LOGIN 						   #
+					################################################################################
+					driver = launch_navigator('https://www.flashscore.com', database_enable)
+					login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+					################################################################################
 					# LOAD LEAGUE STANDING SECTION AND WAIT UNTIL LOAD
 					wait_update_page(driver, legue_info['standings'], "container__heading")					
 					print("Curren league id: ", legue_info['league_id'])
@@ -238,7 +243,7 @@ def teams_creation(driver, list_sports):
 					print("# TEAMS: ", len(dict_country_league_season))
 					if len(dict_teams_availables) != 0:						
 						save_check_point(json_name, dict_country_league_season)					
-					
+					driver.quit()
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
