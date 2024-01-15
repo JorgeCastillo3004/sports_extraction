@@ -32,7 +32,7 @@ def get_time_date_format(date, section ='results'):
 	dt_object = dt_object + time_difference_naive
 	# Extract date and time
 	date = dt_object.date()
-	time = dt_object.time() + time_difference_naive
+	time = dt_object.time()
 	return date, time
 
 def get_result(row, section = 'results'):
