@@ -218,6 +218,7 @@ def click_show_more_rounds(driver, current_results, section_name):
 			time.sleep(0.3)			
 			new_len = len(driver.find_elements(By.XPATH, xpath_expression))
 			max_try +=1
+			print("-*-", end='')
 		# wait.until(EC.staleness_of(current_results[1]))
 		return True
 	else:
