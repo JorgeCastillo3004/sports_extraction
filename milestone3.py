@@ -110,7 +110,7 @@ def navigate_through_teams(driver, sport_id, league_id, tournament_id, season_id
 		# Remove processed file
 		os.remove(file_name)
 
-def teams_creation(driver, list_sports):
+def teams_creation(list_sports):
 	conf_enable_sport = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
 	leagues_info_json = load_check_point('check_points/leagues_info.json')
 	dict_sport_id = get_dict_sport_id()	# GET DICT SPORT FROM DATABASE

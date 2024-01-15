@@ -640,7 +640,7 @@ def pending_to_process(dict_country_league_check_point, sport_id, country_league
 # 	else:
 # 		return True
 
-def results_fixtures_extraction(driver, list_sports, name_section = 'results'):	
+def results_fixtures_extraction(list_sports, name_section = 'results'):	
 	dict_country_league_check_point = load_check_point('check_points/country_leagues_results_ready.json')
 	leagues_info_json = load_check_point('check_points/leagues_info.json')
 	check_point = load_check_point('check_points/check_point_m4.json')	
