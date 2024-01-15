@@ -456,7 +456,7 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 				except:
 					print("###"*80,"TEAM DON'T FOUND IN LIST OF FILES #########")
 					key_issue = sport_name + '_'+ country_league + '_' + date_copy + ' ' + event_info['name']
-					match_issues[key_issue] = event_info
+					match_issues[key_issue] = url_details
 					save_check_point('check_point/isses/issues_match.json', match_issues)
 					break
 
