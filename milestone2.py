@@ -271,7 +271,13 @@ def get_sections_links(driver):
 	return dict_links
 #####################################################################
 
-def create_leagues(driver, list_sports):
+def create_leagues(list_sports):
+	################################################################################
+	#			 				DRIVER CREATION AND LOGIN 						   #
+	################################################################################
+	driver = launch_navigator('https://www.flashscore.com', database_enable)
+	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+	################################################################################
 	dict_sports_url = load_json('check_points/sports_url_m2.json')
 	dict_sport_id = get_dict_sport_id() # GET DICT SPORT FROM DATABASE
 	sport_mode_dict = check_previous_execution(file_path = 'check_points/CONFIG_M2.json')	
@@ -385,7 +391,7 @@ def create_leagues(driver, list_sports):
 			save_check_point('check_points/leagues_info.json', dict_sport_info)
 			
 			# stop_validate()
-
+	driver.quit()
 def initial_settings_m2(driver):
 
 	# GET SPORTS AND SPORTS LINKS
