@@ -33,7 +33,7 @@ database_enable = CONFIG['DATA_BASE']
 if database_enable:
 	con = getdb()
 
-def main(driver):
+def main():
 	main_extract_news_enable = False  	# 1
 	create_leagues_flag = False 	    # 2
 	teams_creation_flag = False	  	    # 3
