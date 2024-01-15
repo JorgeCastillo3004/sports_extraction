@@ -166,7 +166,7 @@ def get_check_point(dict_players_ready, sport_id, country_league, team_name):
 		dict_players_ready[sport_id][country_league][team_name] = []
 	return dict_players_ready
 
-def players(driver, list_sports):
+def players(list_sports):
 	leagues_info_json = load_check_point('check_points/leagues_info.json')	
 	dict_sport_id = get_dict_sport_id()	# GET DICT SPORT FROM DATABASE
 	inverted_dict = {value: key for key, value in dict_sport_id.items()}
@@ -230,6 +230,8 @@ def players(driver, list_sports):
 				#############################################################
 				driver = launch_navigator('https://www.flashscore.com', database_enable)
 				login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+
+				#     ENEABLE SEARCH IF FILE EXIST AND ENABLE CHECK POIN    #
 				if os.path.isfile(path_leagues_teams_info) and enable_league:
 					print("Start extraction for league: ", country_league)
 					global_check_point['M6']['league'] = country_league
