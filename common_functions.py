@@ -43,7 +43,9 @@ def int_folders():
 	if not os.path.exists('check_points/standings/'):
 		os.mkdir("check_points/standings/")
 	if not os.path.exists('check_points/leagues_season/'):
-		os.mkdir("check_points/leagues_season/")	
+		os.mkdir("check_points/leagues_season/")
+	if not os.path.exists('check_points/issues/'):
+		os.mkdir("check_points/issues/")
 	if not os.path.exists('images'):
 		os.mkdir("images")
 	if not os.path.exists('images/logos'):

@@ -413,7 +413,7 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 def get_complete_match_info(driver, country_league, sport_name, league_id, season_id,
 							 dict_country_league_season, dict_country_league_check_point, \
 							 section = 'results'):
-	
+	match_issues = load_check_point('check_point/isses/issues_match.json')
 	league_folder = 'check_points/{}/{}/'.format(section, country_league)
 	if os.path.exists(league_folder):
 		round_files = os.listdir(league_folder)
@@ -454,6 +454,9 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 					team_id_visitor = dict_country_league_season[event_info['visitor']]['team_id']
 				except:
 					print("###"*80,"TEAM DON'T FOUND IN LIST OF FILES #########")
+					key_issue = sport_name + '_'+ country_league + '_'+event_info['match_date']+' '+event_info['name']
+					match_issues[key_issue] = event_info
+					save_check_point('check_point/isses/issues_match.json', match_issues)
 					break
 
 				############# STADIUM OR PLACE SECTION #########################
@@ -498,10 +501,15 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 				# print(event_info)
 				event_info['tournament_id'] = ''
 				print("event_info['match_id']: ", event_info['match_id'])
+
+				# USED FOR FILES NOT COMPLETELY PROCESSED
 				match_created = get_match_ready(event_info['match_id'])
 				print("match_created: ", match_created)
 
-				if database_enable and len(match_created) == 0: #  and not match_created
+				# CHECK IF MATCH WAS CREATED PREVIOUSLY
+				match_duplicate = check_match_duplicate(event_info['league_id'], event_info['date'], event_info['name'])
+
+				if database_enable and len(match_created) == 0 and len(match_duplicate) == 0: #  and not match_created
 					print("NEW MATCH ADDED: ")
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
