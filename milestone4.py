@@ -413,7 +413,7 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 def get_complete_match_info(driver, country_league, sport_name, league_id, season_id,
 							 dict_country_league_season, dict_country_league_check_point, \
 							 section = 'results'):
-	match_issues = load_check_point('check_point/issues/issues_match.json')
+	match_issues = load_check_point('check_points/issues/issues_match.json')
 	league_folder = 'check_points/{}/{}/'.format(section, country_league)
 	if os.path.exists(league_folder):
 		round_files = os.listdir(league_folder)
@@ -457,7 +457,7 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 					print("###"*80,"TEAM DON'T FOUND IN LIST OF FILES #########")
 					key_issue = sport_name + '_'+ country_league + '_' + date_copy + ' ' + event_info['name']
 					match_issues[key_issue] = url_details
-					save_check_point('check_point/issues/issues_match.json', match_issues)
+					save_check_point('check_points/issues/issues_match.json', match_issues)
 					break
 
 				############# STADIUM OR PLACE SECTION #########################
