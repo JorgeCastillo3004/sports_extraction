@@ -73,6 +73,9 @@ def get_all_player_info(driver):
 	return dict_info
 
 def get_player_data(driver):
+	sleep_time = random.uniform(3, 5)
+	# Sleep for the generated time
+	time.sleep(sleep_time)
 	dict_player_full_info = get_all_player_info(driver)
 
 	profile_block = driver.find_element(By.ID, 'player-profile-heading')
