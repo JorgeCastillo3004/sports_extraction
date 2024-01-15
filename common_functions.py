@@ -129,7 +129,7 @@ def launch_navigator(url, database_enable):
 	options.add_argument("--disable-popup-blocking")
 	options.add_argument("--disable-web-security")
 	options.add_argument("--incognito")
-	# options.add_argument("--start-maximized")
+	options.add_argument("--start-maximized")
 	options.add_argument("--disable-blink-features=AutomationControlled")     
 	# options.add_experimental_option("excludeSwitches", ["enable-automation"]) ----
 	options.add_experimental_option("useAutomationExtension", False)
