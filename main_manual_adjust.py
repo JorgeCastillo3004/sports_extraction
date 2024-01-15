@@ -56,7 +56,7 @@ def main():
 		results_fixtures_extraction(["GOLF"], name_section = 'results')
 
 	if fixture_extraction_flag:
-		results_fixtures_extraction(["HOCKEY","BASKETBALL", "AM._FOOTBALL", "BASEBALL"], name_section = 'fixtures')
+		results_fixtures_extraction(["BASKETBALL", "AM._FOOTBALL", "BASEBALL"], name_section = 'fixtures')
 
 	if players_flag:
 		players(["HOCKEY"])
