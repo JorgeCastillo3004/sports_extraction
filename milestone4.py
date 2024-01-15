@@ -11,6 +11,10 @@ from common_functions import *
 from data_base import *
 from milestone6 import *
 
+local_time_naive = datetime.now()
+utc_time_naive = datetime.utcnow()
+time_difference_naive = utc_time_naive - local_time_naive
+
 def get_time_date_format(date, section ='results'):
 	print('Input date format: ', date)
 	if section == 'results':
@@ -25,10 +29,10 @@ def get_time_date_format(date, section ='results'):
 		cleaned_text = re.findall(r'\d+\.\d+\.\s+\d+\:\d+', date)[0]
 		dt_object = datetime.strptime(cleaned_text, '%d.%m. %H:%M')
 		dt_object = dt_object.replace(year=year_)
-	
+	dt_object = dt_object + time_difference_naive
 	# Extract date and time
 	date = dt_object.date()
-	time = dt_object.time()
+	time = dt_object.time() + time_difference_naive
 	return date, time
 
 def get_result(row, section = 'results'):
