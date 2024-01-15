@@ -59,16 +59,16 @@ def main(driver):
 		results_fixtures_extraction(driver, ["FOOTBALL"], name_section = 'fixtures')
 
 	if players_flag:
-		players(driver, ["FOOTBALL"])
+		players(["FOOTBALL"])
 
 	if live_games_flag:
 		live_games(driver, ["FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY",
 					  "BASEBALL","BOXING", "VOLLEYBALL"])
 
 if __name__ == "__main__":  	
-	driver = launch_navigator('https://www.flashscore.com', database_enable)
-	login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")	
+	# driver = launch_navigator('https://www.flashscore.com', database_enable)
+	# login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
 	main(driver)
 	if database_enable:
 		con.close()
-	driver.quit()
+	# driver.quit()
