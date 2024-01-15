@@ -615,6 +615,9 @@ def get_complete_match_info_tennis(driver, country_league, sport_name, league_id
 			score_id = random_id()
 			dict_visitor = {'match_detail_id':match_detail_id, 'home':False, 'visitor':True, 'match_id':event_info['match_id'],\
 						'team_id':team_id_visitor['team_id'], 'points':event_info['visitor_result'], 'score_id':score_id}
+			
+			################# COMPLETE DATE ######################
+			event_info['season_id'] = season_id
 			event_info['tournament_id'] = ''
 			event_info['rounds'] = round_file.replace('.json', '')
 			print("Event info:")
