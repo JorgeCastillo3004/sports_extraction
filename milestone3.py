@@ -253,8 +253,9 @@ def teams_creation(list_sports):
 					if len(dict_teams_availables) != 0:						
 						save_check_point(json_name, dict_country_league_season)					
 					driver.quit()
-		del global_check_point['M3']
-		save_check_point('check_points/global_check_point.json', global_check_point)
+		if 'M3' in global_check_point.keys():
+			del global_check_point['M3']
+			save_check_point('check_points/global_check_point.json', global_check_point)
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
