@@ -403,7 +403,7 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 	return dict_players_ready, team_name
 #             save_check_point('check_points/players_ready.json', dict_players_ready)
 
-def get_complete_match_info(driver, country_league, sport_id, league_id, season_id,
+def get_complete_match_info(driver, country_league, sport_name, league_id, season_id,
 							 dict_country_league_season, dict_country_league_check_point, \
 							 section = 'results'):
 	
@@ -471,7 +471,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 								 'capacity':capacity,'desc_i18n':'', 'name':name_stadium, 'photo':''}
 								 # ATTENDANCE
 					dict_country_league_season[event_info['home']]['stadium_id'] = event_info['stadium_id']
-					json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_id, country_league)
+					json_name = 'check_points/leagues_season/{}/{}.json'.format(sport_name, country_league)
 					save_check_point(json_name, dict_country_league_season)					
 					# print(dict_stadium)					
 					if database_enable:						
@@ -508,7 +508,7 @@ def get_complete_match_info(driver, country_league, sport_id, league_id, season_
 			# print("#"*80, '\n'*2)
 			# list_rounds_ready.append(round_file.split('/')[-1])
 			# dict_leagues_ready[country_league] = list_rounds_ready
-			# dict_country_league_check_point[sport_id] = dict_leagues_ready
+			# dict_country_league_check_point[sport_name] = dict_leagues_ready
 			# save_check_point('check_points/country_leagues_results_ready.json', dict_country_league_check_point)
 	if os.path.exists(league_folder):
 		print("folder_path to delete: ", league_folder)
@@ -646,13 +646,13 @@ def results_fixtures_extraction(list_sports, name_section = 'results'):
 	check_point = load_check_point('check_points/check_point_m4.json')	
 	
 	global_check_point = load_check_point('check_points/global_check_point.json')
-	if 'M4' in global_check_point.keys():			
-		sport_point = global_check_point['M4']['sport']
-		league_point = global_check_point['M4']['league']		
-	else:
-		sport_point = global_check_point['M4'] = {}
-		sport_point = ''
-		league_point = ''		
+	# if 'M4' in global_check_point.keys():			
+	# 	sport_point = global_check_point['M4']['sport']
+	# 	league_point = global_check_point['M4']['league']
+	# else:
+	# 	sport_point = global_check_point['M4'] = {}
+	# 	sport_point = ''
+	# 	league_point = ''
 
 	enable_sport = False
 	enable_league = False	
@@ -661,6 +661,13 @@ def results_fixtures_extraction(list_sports, name_section = 'results'):
 	# 				MAIN LOOP OVER LIST SPORTS 					#
 	#############################################################
 	for sport_name in list_sports:
+		if 'M4' in global_check_point.keys():			
+			sport_point = global_check_point['M4']['sport']
+			league_point = global_check_point['M4']['league']
+		else:
+			sport_point = global_check_point['M4'] = {}
+			sport_point = ''
+			league_point = ''
 		##########  ENABLE CHECK POINT SPORT #############
 		if sport_point != '':
 			if sport_point == sport_name:
@@ -757,6 +764,8 @@ def results_fixtures_extraction(list_sports, name_section = 'results'):
 							# build_check_point(sport_id, league_name)
 							# sport_dict[league_name] = []
 						driver.quit()
+		del global_check_point['M4']
+		save_check_point('check_points/global_check_point.json', global_check_point)
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']

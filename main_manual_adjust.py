@@ -37,8 +37,8 @@ def main():
 	main_extract_news_enable = False  	# 1
 	create_leagues_flag = False 	    # 2
 	teams_creation_flag = True	  	    # 3
-	results_extraction_flag = True		# 4
-	fixture_extraction_flag = True		# 5
+	results_extraction_flag = False		# 4
+	fixture_extraction_flag = False		# 5
 	players_flag = False 				# 6	
 	live_games_flag = False	
 	dict_sports = load_json('check_points/sports_url_m2.json')
@@ -47,16 +47,16 @@ def main():
 		main_extract_news(driver, ["FOOTBALL"], MAX_OLDER_DATE_ALLOWED = 30)
 
 	if create_leagues_flag:
-		create_leagues(["HOCKEY"]) #, "GOLF", "AM._FOOTBALL", "BASEBALL"
+		create_leagues(["HOCKEY","BASKETBALL", "AM._FOOTBALL", "BASEBALL"]) #, "GOLF", "AM._FOOTBALL", "BASEBALL"
 
 	if teams_creation_flag:
-		teams_creation(["HOCKEY"]) # , "GOLF", "AM._FOOTBALL", "BASEBALL"
+		teams_creation(["HOCKEY","BASKETBALL", "AM._FOOTBALL", "BASEBALL"]) # , "GOLF", "AM._FOOTBALL", "BASEBALL"
 
 	if results_extraction_flag:
-		results_fixtures_extraction(["HOCKEY"], name_section = 'results')
+		results_fixtures_extraction(["HOCKEY","BASKETBALL", "AM._FOOTBALL", "BASEBALL"], name_section = 'results')
 
 	if fixture_extraction_flag:
-		results_fixtures_extraction(["HOCKEY"], name_section = 'fixtures')
+		results_fixtures_extraction(["HOCKEY","BASKETBALL", "AM._FOOTBALL", "BASEBALL"], name_section = 'fixtures')
 
 	if players_flag:
 		players(["HOCKEY"])

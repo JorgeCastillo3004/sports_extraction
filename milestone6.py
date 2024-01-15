@@ -176,16 +176,16 @@ def players(list_sports):
 	#############################################################
 
 	global_check_point = load_check_point('check_points/global_check_point.json')
-	if 'M6' in global_check_point.keys():			
-		sport_point = global_check_point['M6']['sport']
-		league_point = global_check_point['M6']['league']
-		team_point  = global_check_point['M6']['team_name']		
-	else:
-		global_check_point['M6'] = {}
-		sport_point = ''
-		league_point = ''
-		team_point  = ''
-		global_check_point['M6']['player'] = ''
+	# if 'M6' in global_check_point.keys():			
+	# 	sport_point = global_check_point['M6']['sport']
+	# 	league_point = global_check_point['M6']['league']
+	# 	team_point  = global_check_point['M6']['team_name']		
+	# else:
+	# 	global_check_point['M6'] = {}
+	# 	sport_point = ''
+	# 	league_point = ''
+	# 	team_point  = ''
+	# 	global_check_point['M6']['player'] = ''
 
 	enable_sport = False
 	enable_league = False
@@ -196,6 +196,16 @@ def players(list_sports):
 	#############################################################
 	for sport_name in list_sports:		
 		print_section(sport_name, space_ = 50)
+		if 'M6' in global_check_point.keys():			
+			sport_point = global_check_point['M6']['sport']
+			league_point = global_check_point['M6']['league']
+			team_point  = global_check_point['M6']['team_name']		
+		else:
+			global_check_point['M6'] = {}
+			sport_point = ''
+			league_point = ''
+			team_point  = ''
+			global_check_point['M6']['player'] = ''
 		##########  ENABLE CHECK POINT SPORT #############
 		if sport_point != '':
 			if sport_point == sport_name:
@@ -276,6 +286,9 @@ def players(list_sports):
 												 team_info['team_id'], list_squad, global_check_point)
 							# global_check_point['M6'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
 					driver.quit()
+		del global_check_point['M6']
+		save_check_point('check_points/global_check_point.json', global_check_point)
+
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
 if database_enable:

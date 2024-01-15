@@ -115,14 +115,15 @@ def teams_creation(list_sports):
 	leagues_info_json = load_check_point('check_points/leagues_info.json')
 	dict_sport_id = get_dict_sport_id()	# GET DICT SPORT FROM DATABASE
 	global_check_point = load_check_point('check_points/global_check_point.json')
-	if 'M3' in global_check_point.keys():			
-		sport_point = global_check_point['M3']['sport']
-		league_point = global_check_point['M3']['league']
-		team_point  = global_check_point['M3']['team_name']
-	else:
-		sport_point = ''
-		league_point = ''
-		team_point  = ''
+	
+	# if 'M3' in global_check_point.keys():
+	# 	sport_point = global_check_point['M3']['sport']
+	# 	league_point = global_check_point['M3']['league']
+	# 	team_point  = global_check_point['M3']['team_name']
+	# else:
+	# 	sport_point = ''
+	# 	league_point = ''
+	# 	team_point  = ''
 
 	enable_sport = False
 	enable_league = False
@@ -131,6 +132,14 @@ def teams_creation(list_sports):
 	# 				MAIN LOOP OVER LIST SPORTS 					#
 	#############################################################
 	for sport_name in list_sports:
+		if 'M3' in global_check_point.keys():
+			sport_point = global_check_point['M3']['sport']
+			league_point = global_check_point['M3']['league']
+			team_point  = global_check_point['M3']['team_name']
+		else:
+			sport_point = ''
+			league_point = ''
+			team_point  = ''	
 
 		##########  ENABLE CHECK POINT SPORT #############
 		if sport_point != '':
@@ -244,6 +253,8 @@ def teams_creation(list_sports):
 					if len(dict_teams_availables) != 0:						
 						save_check_point(json_name, dict_country_league_season)					
 					driver.quit()
+		del global_check_point['M3']
+		save_check_point('check_points/global_check_point.json', global_check_point)
 
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
