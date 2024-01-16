@@ -104,10 +104,10 @@ def del_players(player_ids):
 	con.commit()
 
 player_ids = get_players_id('toce7765')
-print(player_ids2)
+print(player_ids)
 
 print("#"*80)
-player_ids2 = ['dtxi09524', 'dtxi09524']
+# player_ids2 = ['dtxi09524', 'dtxi09524']
 del_players_entity(player_ids)
 del_players(player_ids)
 ##########################################################################3
