@@ -39,6 +39,7 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 		print("news_date: ", news_date, "#", news_timestamp,"#", utc_time_naive - news_timestamp)
 		if utc_time_naive - news_timestamp < timedelta(days=max_older_news):
 			print("NEWS TIME: ", news_timestamp)
+			print("DELTA TIME NEWS: ", utc_time_naive - news_timestamp)
 			# CHECK IF IS A NEW NEWS AND IF IS NOT CONTAINED IN THE LAST NEWS LIST.
 			enable_save_new = check_enable_add_news(title, news_timestamp, max_older_news, last_news_saved_sport)
 			if enable_save_new:
@@ -63,26 +64,26 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 	last_index = last_index + current_index
 	return dict_upate_news, last_index, last_news_saved_sport
 
-def check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport):
+def check_enable_add_news(title, last_news_saved_sport): #date_utc, max_older_news
 	global count_match, count_recent_news, more_recent_news
 	enable_save_new = False
-	if utc_time_naive - date_utc < timedelta(days=max_older_news):
-		if len(last_news_saved_sport)!= 0 and count_match < 3:
-			if title in last_news_saved_sport:
-				print("Title found in list ")
-				enable_save_new = False
-				count_match += 1
-			else:
-				enable_save_new = True
-				if count_recent_news < 5:                
-					more_recent_news.append(title)						
-					count_recent_news += 1						
-		if len(last_news_saved_sport) == 0:
-			print("NOT PREVIOUS LIST: ")
+	# if utc_time_naive - date_utc < timedelta(days=max_older_news):
+	if len(last_news_saved_sport)!= 0 and count_match < 3:
+		if title in last_news_saved_sport:
+			print("Title found in list ")
+			enable_save_new = False
+			count_match += 1
+		else:
 			enable_save_new = True
-			if count_recent_news < 5:
-				more_recent_news.append(title)					
-				count_recent_news += 1
+			if count_recent_news < 5:                
+				more_recent_news.append(title)						
+				count_recent_news += 1						
+	if len(last_news_saved_sport) == 0:
+		print("NOT PREVIOUS LIST: ")
+		enable_save_new = True
+		if count_recent_news < 5:
+			more_recent_news.append(title)					
+			count_recent_news += 1
 	return enable_save_new
 
 def get_list_recent_news_v2(driver, sport, max_older_news):	
