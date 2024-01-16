@@ -512,13 +512,14 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 				# USED FOR FILES NOT COMPLETELY PROCESSED
 				match_created = get_match_ready(event_info['match_id'])
 				print("match_created: ", match_created)
-
+				print(event_info['statistic'])
 				# CHECK IF MATCH WAS CREATED PREVIOUSLY
 				match_duplicate = check_match_duplicate(event_info['league_id'], event_info['match_date'], event_info['name'])
 				if len(match_duplicate)!= 0:
 					print("MATCH SAVED PREVIOUSLY: ", match_duplicate)
 				if database_enable and len(match_created) == 0 and len(match_duplicate) == 0: #  and not match_created
 					print("NEW MATCH ADDED: ")
+					print(event_info.keys())
 					save_math_info(event_info)
 					save_details_math_info(dict_home)
 					save_details_math_info(dict_visitor)
