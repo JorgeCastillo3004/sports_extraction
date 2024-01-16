@@ -369,12 +369,13 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 		if not team_name in list((dict_players_ready.keys() ) ):			
 			dict_players_ready[team_name] = {'team_id':player_dict['team_id']}
 		player_list = check_player_duplicates(player_dict['player_country'], player_dict['player_name'], player_dict['player_dob'])
-		if len(player_list) == 0:
-			if database_enable:
+		
+		if database_enable:
+			if len(player_list) == 0:
 				save_player_info(player_dict) # player
-				save_team_info(player_dict) # team
-				save_team_players_entity(player_dict) # team_players_entity				
-				save_league_team_entity(player_dict) # league_team
+			save_team_info(player_dict) # team
+			save_team_players_entity(player_dict) # team_players_entity				
+			save_league_team_entity(player_dict) # league_team
 		if len(player_list) != 0:
 			print("PLAYER PREVIOUSLY CREATED ")
 				
