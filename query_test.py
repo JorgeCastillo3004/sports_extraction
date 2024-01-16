@@ -93,14 +93,13 @@ def get_players_id(sport_id):
 
 def del_players_entity(player_ids):
 	query = """DELETE FROM team_players_entity
-			WHERE player_id IN ({});""".format(','.join(map(str, player_ids)))
+			player_id IN ('{}');""".format("','".join(map(str, player_ids)) )
 	cur = con.cursor()
 	cur.execute(query)
 	con.commit()
 
 def del_players(player_ids):
-	query = """DELETE FROM player
-			WHERE player_id IN ({});""".format(','.join(map(str, player_ids)))
+	query = """DELETE FROM player WHERE player_id IN ('{}');""".format("','".join(map(str, player_ids)) )
 	cur = con.cursor()
 	cur.execute(query)
 	con.commit()
@@ -109,7 +108,7 @@ playesr_id_list = get_players_id('toce7765')
 print(playesr_id_list)
 
 print("#"*80)
-player_ids2 = ['azrc09261']
+player_ids2 = ['azrc09261', 'pmeh98458']
 del_players_entity(player_ids2)
 del_players(player_ids2)
 ##########################################################################3
