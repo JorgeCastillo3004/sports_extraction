@@ -108,6 +108,6 @@ print(playesr_id_list)
 
 print("#"*80)
 player_ids2 = ['dtxi09524', 'dtxi09524']
-del_players_entity(player_ids2)
-del_players(player_ids2)
+del_players_entity(player_ids)
+del_players(player_ids)
 ##########################################################################3
