@@ -322,7 +322,7 @@ def get_statistics_game(driver):
 					stat_away = value.text
 
 			statistics_info[stat_name] = {'home' : stat_home, 'away' : stat_away}
-	return statistics_info
+	return str(statistics_info)
 
 def get_links_participants(driver):
 	# main_m2(driver)
