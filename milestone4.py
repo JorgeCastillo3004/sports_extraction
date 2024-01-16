@@ -447,7 +447,7 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 				event_info = get_match_info(driver, event_info)
 				# print("event_info part 1: ", event_info)
 				
-				event_info['statistic_info'] = get_statistics_game(driver)
+				event_info['statistic'] = get_statistics_game(driver)
 				event_info['league_id'] = league_id
 				event_info['season_id'] = season_id
 				print("Match event: ", event_info['name'])
@@ -568,7 +568,7 @@ def get_complete_match_info_tennis(driver, country_league, sport_name, league_id
 			event_info = get_match_info(driver, event_info)
 			print("event_info tennis: ", event_info)
 			
-			event_info['statistic_info'] = get_statistics_game(driver)
+			event_info['statistic'] = get_statistics_game(driver)
 			event_info['league_id'] = league_id			
 
 			print("event_info['match_date']", event_info['match_date'])

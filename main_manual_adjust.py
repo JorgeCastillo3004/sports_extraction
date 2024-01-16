@@ -38,7 +38,7 @@ def main():
 	create_leagues_flag = False 	    # 2
 	teams_creation_flag = False	  	    # 3
 	results_extraction_flag = True		# 4
-	fixture_extraction_flag = False		# 5
+	fixture_extraction_flag = True		# 5
 	players_flag = False 				# 6	
 	live_games_flag = False	
 	dict_sports = load_json('check_points/sports_url_m2.json')
@@ -51,10 +51,10 @@ def main():
 		create_leagues(["TENNIS"]) #, "GOLF", "AM._FOOTBALL", "BASEBALL"   READY: ["HOCKEY","BASKETBALL", "AM._FOOTBALL", "BASEBALL"]
 
 	if teams_creation_flag:
-		teams_creation(["TENNIS"]) # , "GOLF", "AM._FOOTBALL", "BASEBALL"
+		teams_creation("FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY","BASEBALL") # , "GOLF", "AM._FOOTBALL", "BASEBALL"
 
 	if results_extraction_flag:
-		results_fixtures_extraction(["TENNIS"], name_section = 'results')
+		results_fixtures_extraction("FOOTBALL", "TENNIS", "BASKETBALL", "HOCKEY", "BASEBALL", name_section = 'results')
 
 	if fixture_extraction_flag:
 		results_fixtures_extraction(["TENNIS"], name_section = 'fixtures')
