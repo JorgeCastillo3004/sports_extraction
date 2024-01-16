@@ -86,7 +86,7 @@ def get_players_id(sport_id):
 			FROM team
 			JOIN team_players_entity ON team.team_id = team_players_entity.team_id
 			JOIN player ON team_players_entity.player_id = player.player_id
-			WHERE team.sport_id = {} """.format(sport_id)
+			WHERE team.sport_id = '{}' """.format(sport_id)
 	cur = con.cursor()
 	cur.execute(query)	
 	return [result[0] for result in cur.fetchall()]
