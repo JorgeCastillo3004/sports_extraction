@@ -92,13 +92,13 @@ def get_players_id(sport_id):
 	return [result[0] for result in cur.fetchall()]
 
 def del_players_entity(player_ids):
-	query = """SELECT FROM team_players_entity WHERE player_id IN ('{}');""".format("','".join(map(str, player_ids)) )
+	query = """DELETE FROM team_players_entity WHERE player_id IN ('{}');""".format("','".join(map(str, player_ids)) )
 	cur = con.cursor()
 	cur.execute(query)
 	con.commit()
 
 def del_players(player_ids):
-	query = """SELECT FROM player WHERE player_id IN ('{}');""".format("','".join(map(str, player_ids)) )
+	query = """DELETE FROM player WHERE player_id IN ('{}');""".format("','".join(map(str, player_ids)) )
 	cur = con.cursor()
 	cur.execute(query)
 	con.commit()
