@@ -158,8 +158,10 @@ def get_dict_league_ready(sport_id = 'TENNIS'):
 
 ######################################## FUNCTIONS RELATED TO MATCHS ########################################
 def save_math_info(dict_match):
+	print("dict_match: ", dict_match['statistic'])
 	query = "INSERT INTO match VALUES(%(match_id)s, %(match_country)s, %(end_time)s,\
-	 %(match_date)s, %(name)s, %(place)s, %(start_time)s, %(league_id)s, %(stadium_id)s, %(tournament_id)s,%(rounds)s ,%(season_id)s)"
+	 %(match_date)s, %(name)s, %(place)s, %(start_time)s, %(league_id)s, %(stadium_id)s,\
+	  %(tournament_id)s,%(rounds)s ,%(season_id)s, %(statistic)s)"
 	cur = con.cursor()
 	cur.execute(query, dict_match)
 	con.commit()
@@ -188,13 +190,6 @@ def get_rounds_ready(league_id, season_id):
 	query = "SELECT DISTINCT rounds FROM match WHERE league_id = '{}' AND season_id = '{}';".format(league_id, season_id)	
 	print("query inside rounds ready: ")
 	print(query)
-	cur = con.cursor()
-	cur.execute(query)	
-	results = [row[0] for row in cur.fetchall()]
-	return results
-
-def check_player_duplicates(player_country, player_name, player_dob):
-	query = "SELECT player_id FROM player WHERE player_country ='{}' AND player_name ='{}' AND player_dob ='{}';".format(player_country, player_name, player_dob)
 	cur = con.cursor()
 	cur.execute(query)	
 	results = [row[0] for row in cur.fetchall()]
@@ -252,7 +247,7 @@ def get_stadium_id(place_name):
 	cur.execute(query)
 	results = [row[0] for row in cur.fetchall()]
 	return results
-	
+
 def update_score(params):
 	query = "UPDATE score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s"
 	# query = "INSERT INTO score_entity VALUES(%(score_id)s, %(points)s, %(match_detail_id)s)"

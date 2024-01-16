@@ -512,7 +512,7 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 				# USED FOR FILES NOT COMPLETELY PROCESSED
 				match_created = get_match_ready(event_info['match_id'])
 				print("match_created: ", match_created)
-				print(event_info['statistic'])
+				print(event_info['statistic'], len(event_info['statistic']), type(event_info['statistic']))
 				# CHECK IF MATCH WAS CREATED PREVIOUSLY
 				match_duplicate = check_match_duplicate(event_info['league_id'], event_info['match_date'], event_info['name'])
 				if len(match_duplicate)!= 0:
