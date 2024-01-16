@@ -78,7 +78,7 @@ def check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport
 					more_recent_news.append(title)						
 					count_recent_news += 1						
 		if len(last_news_saved_sport) == 0:
-			pritn("LIST OF NEWS")
+			print("NOT PREVIOUS LIST: ")
 			enable_save_new = True
 			if count_recent_news < 5:
 				more_recent_news.append(title)					
