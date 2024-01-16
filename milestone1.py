@@ -41,7 +41,7 @@ def get_list_recent_news(driver, max_older_news, last_index, last_news_saved_spo
 			print("NEWS TIME: ", news_timestamp)
 			print("DELTA TIME NEWS: ", utc_time_naive - news_timestamp)
 			# CHECK IF IS A NEW NEWS AND IF IS NOT CONTAINED IN THE LAST NEWS LIST.
-			enable_save_new = check_enable_add_news(title, news_timestamp, max_older_news, last_news_saved_sport)
+			enable_save_new = check_enable_add_news(title, last_news_saved_sport)
 			if enable_save_new:
 				# Verificar base de datos
 				print("--", end = '')
