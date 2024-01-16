@@ -586,25 +586,26 @@ def get_complete_match_info_tennis(driver, country_league, sport_name, league_id
 			print("away_participant", away_participant)
 			team_id_home = dict_country_league_season[home_participant]
 			team_id_visitor = dict_country_league_season[away_participant]
-			############# CHECK IF PLACE WAS SAVED PREVIOUSLY #########################
-			stadium_results = get_stadium_id(name)
 
-			# LOAD PLACE OR STADIUM INFO AND SAVE IN DB.
+			# LOAD PLACE OR STADIUM INFO AND SAVE IN DB.			
+			event_info['stadium_id'] = random_id()
+			if 'CAPACITY' in list(event_info.keys()):
+				capacity = int(''.join(event_info['CAPACITY'].split()))
+			else:
+				capacity = 0
+
+			if 'VENUE' in list(event_info.keys()):
+				name_stadium = event_info['VENUE']
+			else:
+				name_stadium = ''					
+			dict_stadium = {'stadium_id':event_info['stadium_id'],'country':event_info['match_country'],\
+						 'capacity':capacity,'desc_i18n':'', 'name':name_stadium, 'photo':''}
+						 # ATTENDANCE
+
+			############# CHECK IF PLACE WAS SAVED PREVIOUSLY #########################	
+			stadium_results = get_stadium_id(name_stadium)
 			if len(stadium_results) == 0:
-				event_info['stadium_id'] = random_id()
-				if 'CAPACITY' in list(event_info.keys()):
-					capacity = int(''.join(event_info['CAPACITY'].split()))
-				else:
-					capacity = 0
-
-				if 'VENUE' in list(event_info.keys()):
-					name_stadium = event_info['VENUE']
-				else:
-					name_stadium = ''					
-				dict_stadium = {'stadium_id':event_info['stadium_id'],'country':event_info['match_country'],\
-							 'capacity':capacity,'desc_i18n':'', 'name':name_stadium, 'photo':''}
-							 # ATTENDANCE					
-				dict_country_league_season[home_participant]['stadium_id'] = event_info['stadium_id']				
+				# dict_country_league_season[home_participant]['stadium_id'] = event_info['stadium_id']				
 				if database_enable:
 					print("############ Save stadium info ###################")
 					save_stadium(dict_stadium)
