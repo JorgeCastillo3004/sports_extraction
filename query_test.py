@@ -109,7 +109,7 @@ playesr_id_list = get_players_id('toce7765')
 print(playesr_id_list)
 
 print("#"*80)
-player_ids2 = 'azrc09261'
+player_ids2 = ['azrc09261']
 del_players_entity(player_ids2)
 del_players(player_ids2)
 ##########################################################################3
