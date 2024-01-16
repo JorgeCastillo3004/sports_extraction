@@ -69,6 +69,7 @@ def check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport
 	if utc_time_naive - date_utc < timedelta(days=max_older_news):
 		if len(last_news_saved_sport)!= 0 and count_match < 3:
 			if title in last_news_saved_sport:
+				print("Title found in list ")
 				enable_save_new = False
 				count_match += 1
 			else:
@@ -77,6 +78,7 @@ def check_enable_add_news(title, date_utc, max_older_news, last_news_saved_sport
 					more_recent_news.append(title)						
 					count_recent_news += 1						
 		if len(last_news_saved_sport) == 0:
+			pritn("LIST OF NEWS")
 			enable_save_new = True
 			if count_recent_news < 5:
 				more_recent_news.append(title)					
