@@ -4,6 +4,15 @@ from unidecode import unidecode
 CONFIG = load_json('check_points/CONFIG.json')
 database_enable = CONFIG['DATA_BASE']
 
+def getdb():
+	return psycopg2.connect(
+				host="localhost",
+				user="wohhu",
+				password="caracas123",
+		dbname='sports_db',
+		)
+
+
 if database_enable:
 	con = getdb()
 # 	SELECT stadium.stadium_id
