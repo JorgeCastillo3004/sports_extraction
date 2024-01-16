@@ -103,8 +103,8 @@ def del_players(player_ids):
 	cur.execute(query)
 	con.commit()
 
-playesr_id_list = get_players_id('toce7765')
-print(playesr_id_list)
+player_ids = get_players_id('toce7765')
+print(player_ids2)
 
 print("#"*80)
 player_ids2 = ['dtxi09524', 'dtxi09524']
