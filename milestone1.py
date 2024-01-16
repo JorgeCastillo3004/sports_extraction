@@ -218,8 +218,7 @@ def extract_news_info(driver):
 			if database_enable:				
 				# try:
 				print("Insert news in db")
-				save_news_database(dict_news)		
-			
+				save_news_database(dict_news)	
 			
 		os.remove(file_path)
 
@@ -237,67 +236,46 @@ def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 	for sport_name in list_sports:
 		news_url = dict_url_news[sport_name]	
 		# 	TITLE SECTION PRINT
-		line_sport = "#" + " "*(50 - int(len(sport_name)/2)) + sport_name + " "*(50 - int(len(sport_name)/2)) + "#"
-		print("#"*len(line_sport))
-		print(line_sport)
-		print("#"*len(line_sport))
+		print_section("NEWS: {}".format(sport_name), space_ = 50)
+		################################################################################
+		#			 				DRIVER CREATION AND LOGIN 						   #
+		################################################################################
+		driver = launch_navigator('https://www.flashscore.com', database_enable)
+		login(driver, email_= "jignacio@jweglobal.com", password_ = "Caracas5050@\n")
+		################################################################################
+		# WAIT UNTIL LOAD PAGE
+		print(news_url)
+		wait_update_page(driver, news_url, "section__mainTitle")
+		file_point = False
+		if not(file_point):
+			####################### GET LAST NEWS SAVED #######################		
+			if sport_name in list(last_news_saved.keys()):
+				last_news_saved_sport = last_news_saved[sport_name]
+			else:
+				last_news_saved_sport = []
 
-		#############################################################
-		#	SECTION TO LOAD CHECK POINT FROM LAST RUN 				#
-		#############################################################
-		# if not check_point_loaded:
-		# 	if 'M1' in global_check_point.keys():			
-		# 		sport_point = global_check_point['sport']
-		# 		file_point = global_check_point['sport']['files']
-		# 		extrac_point  = global_check_point['sport']['extract']
-		# 	else:
-		# 		global_check_point["M1"] = {'sport': sport_point, 'files':False}
-		# 		sport_point = sport_name
-		# 		file_point = False
-		# 		extrac_point = 0
-		# 	check_point_loaded = True
-		# else:
-		# 	sport_point = sport_name
-		# 	file_point = False
-		#############################################################
-		# 				ENABLE CHECK POINT 		 					#
-		#############################################################
-		# if sport_name == sport_point:
-		enable_start = True
+			last_index = 0 
+			click_more_count = 0
+			################ LIST OF CONTAINERS NEWS #################
+			xpath_expression = '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a'
+			container_news = driver.find_elements(By.XPATH, xpath_expression)
+			while last_index < len(container_news):
+				start_index = last_index
 
-		if enable_start:
-			# WAIT UNTIL LOAD PAGE
-			print(news_url)
-			wait_update_page(driver, news_url, "section__mainTitle")
-			file_point = False
-			if not(file_point):
-				####################### GET LAST NEWS SAVED #######################		
-				if sport_name in list(last_news_saved.keys()):
-					last_news_saved_sport = last_news_saved[sport_name]
-				else:
-					last_news_saved_sport = []
-
-				last_index = 0 
-				click_more_count = 0
-				################ LIST OF CONTAINERS NEWS #################
-				xpath_expression = '//div[@class="fsNewsSection fsNewsSection__mostRecent fsNewsSection__noTopped"]/a'
-				container_news = driver.find_elements(By.XPATH, xpath_expression)
-				while last_index < len(container_news):
-					start_index = last_index
-
-					list_upate_news, last_index, last_news_saved_sport = get_list_recent_news(driver, MAX_OLDER_DATE_ALLOWED,\
-												 							last_index, last_news_saved_sport)
-					print("list_upate_news: ", len(list_upate_news))
-					if len(list_upate_news)!=0:
-						save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)					
-						# container_news = click_show_more_news(driver, MAX_OLDER_DATE_ALLOWED, max_click_more = 5)
-						last_news_saved[sport_name] = last_news_saved_sport
-					last_index += 1
-				# global_check_point["M1"] = {'sport': sport_point, 'files':True}
-				save_check_point('check_points/last_saved_news.json', last_news_saved)
-			# save_check_point('check_points/global_check_point.json', global_check_point)
-			#################### SECTION PROCESS NEWS #########################
-			extract_news_info(driver)
+				list_upate_news, last_index, last_news_saved_sport = get_list_recent_news(driver, MAX_OLDER_DATE_ALLOWED,\
+											 							last_index, last_news_saved_sport)
+				print("list_upate_news: ", len(list_upate_news))
+				if len(list_upate_news)!=0:
+					save_check_point('check_points/news/{}_{}.json'.format(start_index, last_index), list_upate_news)					
+					# container_news = click_show_more_news(driver, MAX_OLDER_DATE_ALLOWED, max_click_more = 5)
+					last_news_saved[sport_name] = last_news_saved_sport
+				last_index += 1
+			# global_check_point["M1"] = {'sport': sport_point, 'files':True}
+			save_check_point('check_points/last_saved_news.json', last_news_saved)
+		# save_check_point('check_points/global_check_point.json', global_check_point)
+		#################### SECTION PROCESS NEWS #########################
+		extract_news_info(driver)
+		driver.quit()
 
 def initial_settings_m1(driver):
 	# GET SPORTS AND SPORTS LINKS
