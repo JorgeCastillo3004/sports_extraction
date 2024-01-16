@@ -34,18 +34,19 @@ if database_enable:
 	con = getdb()
 
 def main():
-	main_extract_news_enable = True  	# 1
+	main_extract_news_enable = False  	# 1
 	create_leagues_flag = False 	    # 2
 	teams_creation_flag = False	  	    # 3
-	results_extraction_flag = False		# 4
+	results_extraction_flag = True		# 4
 	fixture_extraction_flag = False		# 5
 	players_flag = False 				# 6	
 	live_games_flag = False	
 	dict_sports = load_json('check_points/sports_url_m2.json')
 	
 	if main_extract_news_enable:
-		main_extract_news(["GOLF","MOTORSPORT", "HOCKEY", "RUGBY_UNION", "COMBAT_SPORTS"], MAX_OLDER_DATE_ALLOWED = 30)
-		#"FOOTBALL", "TENNIS", "BASKETBALL", "FEATURES", "AMERICAN_SPORTS",
+		main_extract_news(["FOOTBALL", "TENNIS", "BASKETBALL", "FEATURES", "AMERICAN_SPORTS",  "GOLF",
+					"MOTORSPORT", "HOCKEY", "RUGBY_UNION", "COMBAT_SPORTS"], MAX_OLDER_DATE_ALLOWED = 30)
+		
 	if create_leagues_flag:
 		create_leagues(["TENNIS"]) #, "GOLF", "AM._FOOTBALL", "BASEBALL"   READY: ["HOCKEY","BASKETBALL", "AM._FOOTBALL", "BASEBALL"]
 

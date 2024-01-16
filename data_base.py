@@ -220,12 +220,6 @@ def get_match_id(league_country, league_name, match_date, match_name):
 	cur.execute(query)
 	return cur.fetchone()
 
-# SELECT match.match_id
-# FROM match
-# JOIN league ON league.league_id = match.league_id
-# WHERE league.league_country = 'CZECH REPUBLIC' and 
-# league.league_name = 'Extraliga' and 
-# match.match_date = '2023-01-12' and match.name = 'Karlovy Vary-Trinec';
 def get_math_details_ids(match_id):
 	query = """
 	SELECT match_detail_id, home FROM match_detail
@@ -252,7 +246,13 @@ def check_match_duplicate(league_id, match_date, match_name):
 	results = [row[0] for row in cur.fetchall()]
 	return results
 
-
+def get_stadium_id(place_name):
+	query = """SELECT STADIUM_ID FROM STADIUM WHERE NAME ='{}';""".format(place_name)	
+	cur = con.cursor()
+	cur.execute(query)
+	results = [row[0] for row in cur.fetchall()]
+	return results
+	
 def update_score(params):
 	query = "UPDATE score_entity SET points = %(points)s WHERE match_detail_id = %(match_detail_id)s"
 	# query = "INSERT INTO score_entity VALUES(%(score_id)s, %(points)s, %(match_detail_id)s)"

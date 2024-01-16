@@ -366,13 +366,17 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 
 		team_name = player_dict['player_name']
 		print("Save player info:")
-		if not team_name in list((dict_players_ready.keys() ) ):			
-			dict_players_ready[team_name] = {'team_id':player_dict['team_id']}
+		# if not team_name in list((dict_players_ready.keys() ) ):			
+		# 	dict_players_ready[team_name] = {'team_id':player_dict['team_id']}
+		player_list = check_player_duplicates(player_dict['player_country'], player_dict['player_name'], player_dict['player_dob'])
+		if len(player_list) == 0:
 			if database_enable:
 				save_player_info(player_dict) # player
 				save_team_info(player_dict) # team
 				save_team_players_entity(player_dict) # team_players_entity				
 				save_league_team_entity(player_dict) # league_team
+		if len(player_list) != 0:
+			print("PLAYER PREVIOUSLY CREATED ")
 				
 
 	if len(player_links)!=1:
@@ -582,11 +586,12 @@ def get_complete_match_info_tennis(driver, country_league, sport_name, league_id
 			print("away_participant", away_participant)
 			team_id_home = dict_country_league_season[home_participant]
 			team_id_visitor = dict_country_league_season[away_participant]
-			############# STADIUM OR PLACE SECTION #########################
-			try:
-				event_info['stadium_id'] = dict_country_league_season[home_participant]['stadium_id']					
-			except:					
-				event_info['stadium_id'] = random_id()					
+			############# CHECK IF PLACE WAS SAVED PREVIOUSLY #########################
+			stadium_results = get_stadium_id(name)
+
+			# LOAD PLACE OR STADIUM INFO AND SAVE IN DB.
+			if len(stadium_results) == 0:
+				event_info['stadium_id'] = random_id()
 				if 'CAPACITY' in list(event_info.keys()):
 					capacity = int(''.join(event_info['CAPACITY'].split()))
 				else:
@@ -599,13 +604,14 @@ def get_complete_match_info_tennis(driver, country_league, sport_name, league_id
 				dict_stadium = {'stadium_id':event_info['stadium_id'],'country':event_info['match_country'],\
 							 'capacity':capacity,'desc_i18n':'', 'name':name_stadium, 'photo':''}
 							 # ATTENDANCE					
-				dict_country_league_season[home_participant]['stadium_id'] = event_info['stadium_id']					
-				json_name = 'check_points/leagues_season/{}_{}.json'.format(sport_name, country_league)
-				save_check_point(json_name, dict_country_league_season)										
-				print(dict_stadium)
+				dict_country_league_season[home_participant]['stadium_id'] = event_info['stadium_id']				
 				if database_enable:
 					print("############ Save stadium info ###################")
 					save_stadium(dict_stadium)
+
+			# CASE PLACE OR STADIUM SAVED PREVIOUSLY
+			if len(stadium_results) != 0:
+				event_info['stadium_id'] = stadium_results[0]
 			#################################################################
 			print("#"*80, '\n'*2)
 			match_detail_id = random_id()
