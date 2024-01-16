@@ -222,7 +222,7 @@ def extract_news_info(driver):
 			
 		os.remove(file_path)
 
-def main_extract_news(driver, list_sports, MAX_OLDER_DATE_ALLOWED = 31):
+def main_extract_news(list_sports, MAX_OLDER_DATE_ALLOWED = 31):
 	# dict_check_point = {} #check_previous_execution(file_path = 'check_points/check_point_m1_news.json')
 	global_check_point = load_check_point('check_points/global_check_point.json')
 	# conf_enable_news = check_previous_execution(file_path = 'check_points/CONFIG_M1.json')
