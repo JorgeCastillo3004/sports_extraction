@@ -696,7 +696,8 @@ def results_fixtures_extraction(list_sports, name_section = 'results'):
 		if sport_name in global_check_point.keys():
 			if 'M4' in global_check_point[sport_name].keys():				
 				league_point = global_check_point[sport_name]['M4']['league']
-			else:				
+			else:
+				global_check_point[sport_name]['M4'] = {}
 				league_point = ''
 		else:
 			global_check_point[sport_name] = {}
