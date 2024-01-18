@@ -55,21 +55,29 @@ def get_all_player_info_tennis(driver):
 
 def get_all_player_info(driver):
 	player_block = driver.find_element(By.CLASS_NAME, 'playerHeader__wrapper')
-	lines = player_block.find_elements(By.XPATH, './/span')
+	lines = player_block.find_elements(By.XPATH, './/div[@class="playerInfoItem"]')
+
 	dict_info = {}
 	value = ''
 	count = 0
 	for line in lines:
-		HTML = line.get_attribute('outerHTML')
-		if 'info-bold' in HTML:
-			if count != 0:
-				dict_info[tag] = value
-				value = ''
-			tag = line.text.replace(' ','_').replace(':','').lower()
-			count += 1
-		else:        
-			value = value + ' ' + line.text
-	dict_info[tag] = value        
+		value_text = ''
+		key = line.find_element(By.XPATH, './/strong').text
+		values = line.find_elements(By.XPATH, './/span')
+		for index, value in enumerate(values):
+			if index == 0:
+				value_text = value.text
+			else:
+				value_text = value_text + value.text
+		dict_info[key] = value_text
+		# 	if count != 0:
+		# 		dict_info[tag] = value
+		# 		value = ''
+		# 	tag = line.text.replace(' ','_').replace(':','').lower()
+		# 	count += 1
+		# else:        
+		# 	value = value + ' ' + line.text
+	
 	return dict_info
 
 def get_player_data(driver):
