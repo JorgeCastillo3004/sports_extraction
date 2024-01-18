@@ -104,7 +104,7 @@ def get_player_data(driver):
 	# player_position = profile_block.find_element(By.CLASS_NAME, 'typo-participant-info-bold').text	
 	player_id = random_id()
 	player_dict = {'player_id':player_id, 'player_country':player_country, 'player_dob':player_dob, 'player_name':player_name,\
-	 'player_photo':player_photo, 'player_position':player_position, 'player_meta': dict_player_part1}
+	 'player_photo':player_photo, 'player_position':player_position, 'player_meta': str(dict_player_part1)}
 	return player_dict
 
 def get_squad_list(driver, sport_id = 'barketball'):
