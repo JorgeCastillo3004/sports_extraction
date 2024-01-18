@@ -62,22 +62,14 @@ def get_all_player_info(driver):
 	count = 0
 	for line in lines:
 		value_text = ''
-		key = line.find_element(By.XPATH, './/strong').text
+		key = line.find_element(By.XPATH, './/strong').text.lower()
 		values = line.find_elements(By.XPATH, './/span')
 		for index, value in enumerate(values):
 			if index == 0:
 				value_text = value.text
 			else:
 				value_text = value_text + value.text
-		dict_info[key] = value_text
-		# 	if count != 0:
-		# 		dict_info[tag] = value
-		# 		value = ''
-		# 	tag = line.text.replace(' ','_').replace(':','').lower()
-		# 	count += 1
-		# else:        
-		# 	value = value + ' ' + line.text
-	
+		dict_info[key] = value_text	
 	return dict_info
 
 def get_player_data(driver):
