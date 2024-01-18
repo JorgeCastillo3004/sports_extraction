@@ -99,8 +99,12 @@ def get_player_data(driver):
 	image_path = random_name_logos(player_name, folder = 'images/players/')
 	save_image(driver, image_url, image_path)
 	player_photo = image_path.replace('images/players/','')
-	
-	player_position = profile_block.find_element(By.XPATH, './/div[@class="playerTeam"]/strong').text
+	print("New changes: ")
+	try:
+		player_position = profile_block.find_element(By.XPATH, './/div/strong').text
+	except:
+		player_position = profile_block.find_element(By.XPATH, './/div[@class="playerTeam"]/strong').text
+		
 	# player_position = profile_block.find_element(By.CLASS_NAME, 'typo-participant-info-bold').text	
 	player_id = random_id()
 	player_dict = {'player_id':player_id, 'player_country':player_country, 'player_dob':player_dob, 'player_name':player_name,\
