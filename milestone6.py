@@ -161,9 +161,9 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 				key = 0
 			else:
 				key = list(issues_dict.keys())[-1] + 1
-			issues_dict = {'sport':sport_name,'league':country_league,'team':team_name, 'player': player_dict['player_name']}
+			issues_dict[key] = {'sport':sport_name,'league':country_league,'team':team_name, 'player': player_dict['player_name']}
 			save_check_point('check_points/issues_player.json', issues_dict)
-			
+
 	global_check_point[sport_name]['M6']['player'] = ''
 	save_check_point('check_points/issues_player.json', global_check_point)
 		
@@ -291,7 +291,10 @@ def players(list_sports):
 						try:
 							squad_button = driver.find_element(By.CLASS_NAME, 'tabs__tab.squad')
 						except:
-							squad_button = driver.find_element(By.XPATH, '//a[@title="Squad"]')
+							try:
+								squad_button = driver.find_element(By.XPATH, '//a[@title="Squad"]')
+							except:
+								break
 						squad_url = squad_button.get_attribute('href')
 
 						# WAIT UNTIL COMPLETE LOAD
