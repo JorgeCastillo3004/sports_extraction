@@ -115,13 +115,13 @@ def get_squad_list(driver, sport_id = 'barketball'):
     player_links = [link.get_attribute('href') for link in player_links]
     return player_links
 
-def navigate_through_players(driver, country_league, team_name, season_id, team_id, list_squad, global_check_point):
+def navigate_through_players(driver, country_league, team_name, season_id, team_id, list_squad, global_check_point, sport_name):
 	enable_player = False
 	for player_link in list_squad:
 		print("Current link: ", player_link)
 		##########  ENABLE CHECK POINT PLAYER ############################
-		if global_check_point['M6']['player'] != '':
-			if global_check_point['M6']['player'] == player_link:
+		if global_check_point[sport_name]['M6']['player'] != '':
+			if global_check_point[sport_name]['M6']['player'] == player_link:
 				enable_player = True
 		else:
 			enable_player = True
@@ -263,7 +263,7 @@ def players(list_sports):
 					#################################################
 					if enable_team:
 						# NAVIGATE THROUGH TEAMS
-						global_check_point['M6']['team_name'] = team_name
+						global_check_point[sport_name]['M6']['team_name'] = team_name
 						wait_update_page(driver, team_info['team_url'], "container__heading")
 						print(" START PLAYER EXTRACTION")
 						print(team_info['team_url'])
@@ -283,7 +283,7 @@ def players(list_sports):
 
 						# NAVIGATE AND EXTRACT INFO FROM EACH PLAYER LINK
 						navigate_through_players(driver, country_league, team_name, league_info['season_id'],\
-											 team_info['team_id'], list_squad, global_check_point)
+											 team_info['team_id'], list_squad, global_check_point, sport_name)
 						# global_check_point['M6'] = {'sport':sport_name, 'league':country_league, 'team_name':team_name}
 				driver.quit()
 	del global_check_point[sport_name]['M6']
