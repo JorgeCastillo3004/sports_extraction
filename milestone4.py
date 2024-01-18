@@ -578,9 +578,23 @@ def get_complete_match_info_tennis(driver, country_league, sport_name, league_id
 			event_info['match_date'], event_info['start_time'] = get_time_date_format(event_info['match_date'], section ='results')	
 			event_info['end_time'] = event_info['start_time']
 			# print("event_info: ", event_info)
-			home_links, away_links = get_links_participants(driver)				
-			dict_country_league_season, home_participant = save_participants_info(driver, home_links, sport_id, league_id, season_id, dict_country_league_season)
-			dict_country_league_season, away_participant = save_participants_info(driver, away_links, sport_id, league_id, season_id, dict_country_league_season)
+			home_links, away_links = get_links_participants(driver)
+
+			# dict_season ; sport_id, league_id, season_id
+
+
+			# CASE SINGLES			
+			if len(home_links) == 1:  
+				save_team_player_single(home_links, dict_season)
+				save_team_player_single(away_links, dict_season)
+			else:
+			# CASE DOUBLES 
+				save_team_player_doubles(home_links, dict_season)
+				save_team_player_doubles(away_links, dict_season)
+
+
+			# dict_country_league_season, home_participant = save_participants_info(driver, home_links, sport_id, league_id, season_id, dict_country_league_season)
+			# dict_country_league_season, away_participant = save_participants_info(driver, away_links, sport_id, league_id, season_id, dict_country_league_season)
 
 			print("Salida del dict: ")
 			print(dict_country_league_season)

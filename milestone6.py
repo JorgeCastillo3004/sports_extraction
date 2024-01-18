@@ -130,32 +130,42 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 	enable_player = False
 	for player_link in list_squad:
 		print("Current link: ", player_link)
-		##########  ENABLE CHECK POINT PLAYER ############################
-		if global_check_point[sport_name]['M6']['player'] != '':
-			if global_check_point[sport_name]['M6']['player'] == player_link:
+		if player_link != 'https://www.flashscore.com/football/':
+			##########  ENABLE CHECK POINT PLAYER ############################
+			if global_check_point[sport_name]['M6']['player'] != '':
+				if global_check_point[sport_name]['M6']['player'] == player_link:
+					enable_player = True
+			else:
 				enable_player = True
-		else:
-			enable_player = True
-		#################################################################		
+			#################################################################		
 
-		if enable_player:			
-			wait_update_page(driver, player_link, 'container__heading')
-			player_dict = get_player_data(driver)			
-			player_dict['season_id'] = season_id
-			player_dict['team_id'] = team_id			
-			# name_ = player_dict['player_country'] + '_' + player_dict['player_name']		
-			player_dict['player_name'] = player_dict['player_name'].replace("'", " ")		
-			players_ready = check_player_duplicates(player_dict['player_country'], player_dict['player_name'], player_dict['player_dob'])
-			print('-e-', end = '')
-			if len(players_ready) == 0:
-				# players_ready.append(name_)
-				if database_enable:
-					save_player_info(player_dict) # player
-					save_team_players_entity(player_dict) # team_players_entity
-			global_check_point[sport_name]['M6']['player'] = player_link
-			save_check_point('check_points/global_check_point.json', global_check_point)
+			if enable_player:			
+				wait_update_page(driver, player_link, 'container__heading')
+				player_dict = get_player_data(driver)			
+				player_dict['season_id'] = season_id
+				player_dict['team_id'] = team_id			
+				# name_ = player_dict['player_country'] + '_' + player_dict['player_name']		
+				player_dict['player_name'] = player_dict['player_name'].replace("'", " ")		
+				players_ready = check_player_duplicates(player_dict['player_country'], player_dict['player_name'], player_dict['player_dob'])
+				print('-e-', end = '')
+				if len(players_ready) == 0:
+					# players_ready.append(name_)
+					if database_enable:
+						save_player_info(player_dict) # player
+						save_team_players_entity(player_dict) # team_players_entity
+				global_check_point[sport_name]['M6']['player'] = player_link
+				save_check_point('check_points/global_check_point.json', global_check_point)
+		else:
+			issues_dict = load_check_point('check_points/issues_player.json')
+			if len(issues_dict) == 0:
+				key = 0
+			else:
+				key = list(issues_dict.keys())[-1] + 1
+			issues_dict = {'sport':sport_name,'league':country_league,'team':team_name, 'player': player_dict['player_name']}
+			save_check_point('check_points/issues_player.json', issues_dict)
+			
 	global_check_point[sport_name]['M6']['player'] = ''
-	save_check_point('check_points/global_check_point.json', global_check_point)
+	save_check_point('check_points/issues_player.json', global_check_point)
 		
 	# 	break
 	# break
