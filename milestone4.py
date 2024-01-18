@@ -385,7 +385,7 @@ def save_participants_info(driver, player_links, sport_id, league_id, season_id,
 		for player_link in player_links:
 
 			wait_update_page(driver, player_link, 'container__heading')
-			player_dict = get_player_data_tennis(driver)	    
+			player_dict = get_player_data_tennis(driver)
 			player_dict['season_id'] = season_id			
 			player_dict['team_country'] = player_dict['player_country']
 			player_dict['team_desc'] = ''
@@ -537,6 +537,24 @@ def get_complete_match_info(driver, country_league, sport_name, league_id, seaso
 	if os.path.exists(league_folder):
 		print("folder_path to delete: ", league_folder)
 		shutil.rmtree(league_folder)
+
+def save_team_player_single(home_links, dict_season):
+	# LOAD PLAYER URL
+	wait_update_page(driver, home_links, 'container__heading')
+	player_dict = get_player_data_tennis(driver)
+
+	# 
+	player_dict['season_id'] = season_id			
+	player_dict['team_country'] = player_dict['player_country']
+	player_dict['team_desc'] = ''
+	player_dict['team_logo'] = player_dict['player_photo']			
+	player_dict['sport_id'] = sport_id
+	player_dict['instance_id'] = random_id()
+	player_dict['player_meta'] = ''
+	player_dict['team_meta'] = ''
+	player_dict['team_position'] = 0
+	player_dict['league_id'] = league_id
+	print("Save player info in database")
 
 def get_complete_match_info_tennis(driver, country_league, sport_name, league_id, season_id,
 							 dict_country_league_season, \

@@ -156,16 +156,16 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 				global_check_point[sport_name]['M6']['player'] = player_link
 				save_check_point('check_points/global_check_point.json', global_check_point)
 		else:
-			issues_dict = load_check_point('check_points/issues_player.json')
+			issues_dict = load_check_point('check_points/issues/issues_player.json')
 			if len(issues_dict) == 0:
 				key = 0
 			else:
 				key = list(issues_dict.keys())[-1] + 1
 			issues_dict[key] = {'sport':sport_name,'league':country_league,'team':team_name, 'player': player_dict['player_name']}
-			save_check_point('check_points/issues_player.json', issues_dict)
+			save_check_point('check_points/issues/issues_player.json', issues_dict)
 
 	global_check_point[sport_name]['M6']['player'] = ''
-	save_check_point('check_points/issues_player.json', global_check_point)
+	save_check_point('check_points/global_check_point.json', global_check_point)
 		
 	# 	break
 	# break
