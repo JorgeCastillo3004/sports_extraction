@@ -63,6 +63,7 @@ def get_all_player_info(driver):
 	for line in lines:
 		value_text = ''
 		key = line.find_element(By.XPATH, './/strong').text.lower()
+		key = re.sub(r':\s+', '', key)
 		values = line.find_elements(By.XPATH, './/span')
 		for index, value in enumerate(values):
 			if index == 0:
@@ -73,28 +74,34 @@ def get_all_player_info(driver):
 	return dict_info
 
 def get_player_data(driver):
-	sleep_time = random.uniform(2, 3.5)
+	# sleep_time = random.uniform(2, 3.5)
 	# Sleep for the generated time
-	time.sleep(sleep_time)
+	# time.sleep(sleep_time)
 	dict_player_full_info = get_all_player_info(driver)
 
 	profile_block = driver.find_element(By.ID, 'player-profile-heading')
 	player_country = profile_block.find_element(By.XPATH, './/div/h2/span[2]').text
+
+	print("Player keys info: ")
+	print(dict_player_full_info)
 	if 'age' in dict_player_full_info.keys():
 		date_str = dict_player_full_info['age'].split()[1].replace('(','').replace(')','')
+		print(date_str)
 		player_dob = datetime.strptime(date_str, "%d.%m.%Y")
 	else:
 		player_dob = datetime.strptime('01.01.1900', "%d.%m.%Y") 
 
-	player_name = profile_block.find_element(By.CLASS_NAME, 'typo-participant-heading').text		
+	
+	player_name = profile_block.find_element(By.CLASS_NAME, 'playerHeader__nameWrapper').text
 	
 	image_url = profile_block.find_element(By.XPATH, './/div/div/div/img').get_attribute('src')
 	# image_path = random_name(folder = 'images/players/')
 	image_path = random_name_logos(player_name, folder = 'images/players/')
 	save_image(driver, image_url, image_path)
 	player_photo = image_path.replace('images/players/','')
-
-	player_position = profile_block.find_element(By.CLASS_NAME, 'typo-participant-info-bold').text
+	
+	player_position = profile_block.find_element(By.XPATH, './/div[@class="playerTeam"]/strong').text
+	# player_position = profile_block.find_element(By.CLASS_NAME, 'typo-participant-info-bold').text	
 	player_id = random_id()
 	player_dict = {'player_id':player_id, 'player_country':player_country, 'player_dob':player_dob, 'player_name':player_name,\
 	 'player_photo':player_photo, 'player_position':player_position}
