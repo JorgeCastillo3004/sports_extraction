@@ -128,7 +128,7 @@ def get_squad_list(driver, sport_id = 'barketball'):
 
 def navigate_through_players(driver, country_league, team_name, season_id, team_id, list_squad, global_check_point, sport_name):
 	enable_player = False
-	for player_link in list_squad:
+	for index, player_link in enumerate(list_squad):
 		print("Current link: ", player_link)
 		if player_link != 'https://www.flashscore.com/football/':
 			##########  ENABLE CHECK POINT PLAYER ############################
@@ -161,7 +161,7 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 				key = 0
 			else:
 				key = list(issues_dict.keys())[-1] + 1
-			issues_dict[key] = {'sport':sport_name,'league':country_league,'team':team_name, 'player': player_dict['player_name']}
+			issues_dict[key] = {'sport':sport_name,'league':country_league,'team':team_name, 'index':index}
 			save_check_point('check_points/issues/issues_player.json', issues_dict)
 
 	global_check_point[sport_name]['M6']['player'] = ''
