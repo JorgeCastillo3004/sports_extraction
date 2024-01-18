@@ -77,21 +77,21 @@ def get_player_data(driver):
 	# sleep_time = random.uniform(2, 3.5)
 	# Sleep for the generated time
 	# time.sleep(sleep_time)
-	dict_player_full_info = get_all_player_info(driver)
+	dict_player_part1 = get_all_player_info(driver)
 
 	profile_block = driver.find_element(By.ID, 'player-profile-heading')
 	player_country = profile_block.find_element(By.XPATH, './/div/h2/span[2]').text
 
 	print("Player keys info: ")
-	print(dict_player_full_info)
-	if 'age' in dict_player_full_info.keys():
-		date_str = dict_player_full_info['age'].split()[1].replace('(','').replace(')','')
+	print(dict_player_part1)
+	if 'age' in dict_player_part1.keys():
+		date_str = dict_player_part1['age'].split()[1].replace('(','').replace(')','')
 		print(date_str)
 		player_dob = datetime.strptime(date_str, "%d.%m.%Y")
+		del dict_player_part1['age']
 	else:
-		player_dob = datetime.strptime('01.01.1900', "%d.%m.%Y") 
+		player_dob = datetime.strptime('01.01.1900', "%d.%m.%Y")		
 
-	
 	player_name = profile_block.find_element(By.CLASS_NAME, 'playerHeader__nameWrapper').text
 	
 	image_url = profile_block.find_element(By.XPATH, './/div/div/div/img').get_attribute('src')
@@ -104,7 +104,7 @@ def get_player_data(driver):
 	# player_position = profile_block.find_element(By.CLASS_NAME, 'typo-participant-info-bold').text	
 	player_id = random_id()
 	player_dict = {'player_id':player_id, 'player_country':player_country, 'player_dob':player_dob, 'player_name':player_name,\
-	 'player_photo':player_photo, 'player_position':player_position}
+	 'player_photo':player_photo, 'player_position':player_position, 'player_meta': dict_player_part1}
 	return player_dict
 
 def get_squad_list(driver, sport_id = 'barketball'):
@@ -138,8 +138,7 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 			wait_update_page(driver, player_link, 'container__heading')
 			player_dict = get_player_data(driver)			
 			player_dict['season_id'] = season_id
-			player_dict['team_id'] = team_id
-			player_dict['player_meta'] = ''		
+			player_dict['team_id'] = team_id			
 			# name_ = player_dict['player_country'] + '_' + player_dict['player_name']		
 			player_dict['player_name'] = player_dict['player_name'].replace("'", " ")		
 			players_ready = check_player_duplicates(player_dict['player_country'], player_dict['player_name'], player_dict['player_dob'])
