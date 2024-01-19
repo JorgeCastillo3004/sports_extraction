@@ -202,6 +202,14 @@ def check_player_duplicates(player_country, player_name, player_dob):
 	results = [row[0] for row in cur.fetchall()]
 	return results
 
+def check_team_player_entitiy(season_id, team_id, player_id):
+	query = """SELECT player_id FROM team_players_entity WHERE
+				 season_id ='{}' AND team_id ='{}' AND player_id ='{}';""".format(season_id, team_id, player_id)
+	cur = con.cursor()
+	cur.execute(query)	
+	results = [row[0] for row in cur.fetchall()]
+	return results	
+
 def get_match_id(league_country, league_name, match_date, match_name):
 	
 	query = """
