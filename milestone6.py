@@ -86,7 +86,8 @@ def get_player_data(driver):
 	print(dict_player_part1)
 	if 'age' in dict_player_part1.keys():
 		date_str = dict_player_part1['age'].split()[1].replace('(','').replace(')','')
-		print(date_str)
+		if '-' in date_str:
+			date_str = date_str.split('-')[0]
 		player_dob = datetime.strptime(date_str, "%d.%m.%Y")
 		del dict_player_part1['age']
 	else:
