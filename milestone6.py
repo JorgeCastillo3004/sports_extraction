@@ -155,7 +155,15 @@ def navigate_through_players(driver, country_league, team_name, season_id, team_
 					if database_enable:
 						print("New player created ")
 						save_player_info(player_dict) # player
-						save_team_players_entity(player_dict) # team_players_entity
+				else:
+					# Load previous player id
+					player_dict['player_id'] = players_ready[0]
+
+				# SECTION CHECK TEAM PLAYER ENTITY
+				team_player_entitiy = check_team_player_entitiy(player_dict['season_id'], player_dict['team_id'], player_dict['player_id'])
+				print("Check team player entity: ", len(team_player_entitiy))
+				if len(team_player_entitiy)== 0:
+					save_team_players_entity(player_dict) # team_players_entity
 				global_check_point[sport_name]['M6']['player'] = player_link
 				save_check_point('check_points/global_check_point.json', global_check_point)
 		else:
